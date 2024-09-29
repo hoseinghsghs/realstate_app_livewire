@@ -4742,3 +4742,54 @@ unomaduro\\collision\\src\\Handler.php(39): NunoMaduro\\Collision\\Writer->write
 [stacktrace]
 #0 {main}
 "} 
+[2024-09-29 21:29:33] local.ERROR: The command "mysqldump  --user="${:LARAVEL_LOAD_USER}" --password="${:LARAVEL_LOAD_PASSWORD}" --host="${:LARAVEL_LOAD_HOST}" --port="${:LARAVEL_LOAD_PORT}" --no-tablespaces --skip-add-locks --skip-comments --skip-set-charset --tz-utc "${:LARAVEL_LOAD_DATABASE}" --routines --result-file="${:LARAVEL_LOAD_PATH}" --no-data" failed.
+
+Exit Code: 1(General error)
+
+Working directory: D:\realstate_app_livewire
+
+Output:
+================
+
+
+Error Output:
+================
+'mysqldump' is not recognized as an internal or external command,
+operable program or batch file.
+ {"exception":"[object] (Symfony\\Component\\Process\\Exception\\ProcessFailedException(code: 0): The command \"mysqldump  --user=\"${:LARAVEL_LOAD_USER}\" --password=\"${:LARAVEL_LOAD_PASSWORD}\" --host=\"${:LARAVEL_LOAD_HOST}\" --port=\"${:LARAVEL_LOAD_PORT}\" --no-tablespaces --skip-add-locks --skip-comments --skip-set-charset --tz-utc \"${:LARAVEL_LOAD_DATABASE}\" --routines --result-file=\"${:LARAVEL_LOAD_PATH}\" --no-data\" failed.
+
+Exit Code: 1(General error)
+
+Working directory: D:\\realstate_app_livewire
+
+Output:
+================
+
+
+Error Output:
+================
+'mysqldump' is not recognized as an internal or external command,
+
+operable program or batch file.
+
+ at D:\\realstate_app_livewire\\vendor\\symfony\\process\\Process.php:270)
+[stacktrace]
+#0 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlSchemaState.php(153): Symfony\\Component\\Process\\Process->mustRun(Object(Closure), Array)
+#1 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlSchemaState.php(156): Illuminate\\Database\\Schema\\MySqlSchemaState->executeDumpProcess(Object(Symfony\\Component\\Process\\Process), Object(Closure), Array)
+#2 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlSchemaState.php(21): Illuminate\\Database\\Schema\\MySqlSchemaState->executeDumpProcess(Object(Symfony\\Component\\Process\\Process), Object(Closure), Array)
+#3 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\DumpCommand.php(45): Illuminate\\Database\\Schema\\MySqlSchemaState->dump(Object(Illuminate\\Database\\MySqlConnection), 'D:\\\\realstate_ap...')
+#4 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\DumpCommand->handle(Object(Illuminate\\Database\\DatabaseManager), Object(Illuminate\\Events\\Dispatcher))
+#5 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#7 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#8 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#9 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(211): Illuminate\\Container\\Container->call(Array)
+#10 D:\\realstate_app_livewire\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#11 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#12 D:\\realstate_app_livewire\\vendor\\symfony\\console\\Application.php(1096): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 D:\\realstate_app_livewire\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\DumpCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 D:\\realstate_app_livewire\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 D:\\realstate_app_livewire\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 D:\\realstate_app_livewire\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 {main}
+"} 
