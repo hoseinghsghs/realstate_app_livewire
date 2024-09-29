@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "css-loader": "^6.5.1",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "persian-date": "^1.1.0",
+        "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "bootstrap-fileinput": "^5.2.7",
+        "c3": "^0.7.20",
+        "chart.js": "^3.7.0",
+        "codemirror": "^5.65.0",
+        "d3": "^7.2.1",
+        "dropify": "^0.2.2",
+        "jquery": "^3.3.1",
+        "moment": "2.18.1",
+        "node-waves": "^0.7.6",
+        "persian-datepicker": "^1.2.0",
+        "popper.js": "^1.16.1"
+    }
+}
