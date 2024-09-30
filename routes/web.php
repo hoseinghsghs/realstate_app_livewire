@@ -109,7 +109,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-    Route::group(['middleware' => ['auth', 'admin']], function () {
+                 Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'show'])->name('home');
         Route::get('/properties/search', [PropertyController::class,'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
