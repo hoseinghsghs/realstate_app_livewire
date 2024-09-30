@@ -1,178 +1,186 @@
 @php
-use App\Models\Setting;
-$setting=Setting::firstOrNew();
+    use App\Models\Setting;
+    $setting = Setting::firstOrNew();
 @endphp
 @can('is_admin')
-<aside id="leftsidebar" class="sidebar">
-    <div class="navbar-brand">
-        <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="{{route('home')}}"><img src="{{$setting->icon ? asset('storage/'.$setting->icon):'/images/logo.png'}}"
-                width="45" style="margin-right:20px"><span class="m-l-10"></span></a>
+    <aside id="leftsidebar" class="sidebar">
+        <div class="navbar-brand">
+            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+            <a href="{{ route('home') }}"><img
+                    src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo.png' }}" width="45"
+                    style="margin-right:20px"><span class="m-l-10"></span></a>
 
-    </div>
-    <div class="menu">
-        <ul class="list">
-            <li>
-                <div class="user-info">
-                    <a class="image" href="{{route('home')}}"><img default="" src={{Auth::user()->image===null ? asset('storage/profile/admin.png')
-                            :asset('storage/profile/'.Auth::user()->image) }}></a>
+        </div>
+        <div class="menu">
+            <ul class="list">
+                <li>
+                    <div class="user-info">
+                        <a class="image" href="{{ route('home') }}"><img default=""
+                                src={{ Auth::user()->image === null
+                                    ? asset('storage/profile/admin.png')
+                                    : asset('storage/profile/' . Auth::user()->image) }}></a>
 
-                    <div class="detail">
-                        <h6><strong>{{Auth::user()->name}}</strong></h6>
-                        <small>مدیر سایت</small>
+                        <div class="detail">
+                            <h6><strong>{{ Auth::user()->name }}</strong></h6>
+                            <small>مدیر سایت</small>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li class="active open"><a href="{{route('admin.home')}}"><i
-                        class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
-                        املاک</span></a>
+                </li>
+                <li class="active open"><a href="{{ route('admin.home') }}"><i
+                            class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
+                            املاک</span></a>
+                    <ul class="ml-menu">
+                        <li><a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a></li>
+                        <li><a href={{ route('admin.properties.index') }}>لیست املاک</a></li>
+                        <li><a href={{ route('admin.properties.create') }}>اضافه کردن ملک</a></li>
+                    </ul>
+                </li>
                 <ul class="ml-menu">
-                    <li><a href={{ route('admin.properties.index') }}>لیست املاک</a></li>
-                    <li><a href={{ route('admin.properties.create') }}>اضافه کردن ملک</a></li>
+                    <li><a href="mail-inbox.html">ایمیل</a></li>
+                    <li><a href="chat.html">برنامه چت</a></li>
+                    <li><a href="events.html">تقویم</a></li>
+                    <li><a href="contact.html">مخاطب</a></li>
                 </ul>
-            </li>
-            <ul class="ml-menu">
-                <li><a href="mail-inbox.html">ایمیل</a></li>
-                <li><a href="chat.html">برنامه چت</a></li>
-                <li><a href="events.html">تقویم</a></li>
-                <li><a href="contact.html">مخاطب</a></li>
+                </li>
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i><span>قولنامه
+                        </span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.agreements.index') }}>لیست قولنامه ها</a></li>
+                        <li><a href={{ route('admin.agreements.create') }}>ایجاد قولنامه</a></li>
+                    </ul>
+                </li>
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i
+                            class="zmdi zmdi-assignment"></i><span>سرویس</span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.services.index') }}>لیست سرویس ها</a></li>
+                        <li><a href={{ route('admin.services.create') }}>ایجاد سرویس</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="{{ route('admin.properties.index', ['type_property' => 'advertise']) }}"><i
+                            class="zmdi zmdi-assignment-o"></i><span>
+                            آگهی ها </span></a></li>
+
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>مقالات
+                        </span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.articles.index') }}>لیست مقالات</a></li>
+                        <li><a href={{ route('admin.articles.create') }}>ایجاد مقاله </a></li>
+
+                    </ul>
+                </li>
+
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i
+                            class="zmdi zmdi-assignment-check"></i><span>امکانات
+                        </span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.features.create') }}>ساخت امکانات</a></li>
+                        <li><a href={{ route('admin.features.index') }}>مشاهده امکانات</a></li>
+
+                    </ul>
+                </li>
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>خبر
+                        </span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.posts.index') }}>لیست خبر ها</a></li>
+                        <li><a href={{ route('admin.posts.create') }}>ایجاد خبر </a></li>
+
+                    </ul>
+                </li>
+
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i
+                            class="zmdi zmdi-hc-fw"></i><span>اسلایدر</span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.sliders.index') }}>لیست اسلایدر ها</a></li>
+                        <li><a href={{ route('admin.sliders.create') }}>ایجاد اسلایدر</a></li>
+                    </ul>
+                </li>
+                <li><a target="_blank" href="https://app.raychat.io/login"><i class="zmdi zmdi-hc-fw"></i><span>چت
+                            آنلاین</span></a>
+                <li> <a href={{ route('admin.comments.index') }}>
+                        <i class="zmdi zmdi-hc-fw"></i><span>نظرات</span></a>
+                </li>
+                <li> <a href={{ route('admin.properties.search') }}>
+                        <i class="zmdi zmdi-hc-fw"></i><span>جستجو ملک</span></a>
+                </li>
+                <li><a href="{{ route('admin.settings.show') }}"><i class="zmdi zmdi-hc-fw"></i><span>
+                            درباره ما </span></a></li>
+                <!-- تنظیمات -->
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i
+                            class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('admin.users.index') }}>لیست کاربران</a></li>
+                        <li><a href={{ route('admin.users.create') }}>اضافه کردن مشاور </a></li>
+                        <li><a href="{{ route('admin.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
+                        <li><a href={{ route('admin.chenge') }}>تغییر کلمه عبور </a></li>
+                    </ul>
+                </li>
+                <!-- خروج -->
+                <li><a href=" {{ route('logout') }}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i>
+                        خروج
+                    </a>
+                </li>
+                <!-- خروج -->
             </ul>
-            </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i><span>قولنامه
-                    </span></a>
-                <ul class="ml-menu">
-                    <li><a href={{ route('admin.agreements.index') }}>لیست قولنامه ها</a></li>
-                    <li><a href={{ route('admin.agreements.create') }}>ایجاد قولنامه</a></li>
-                </ul>
-            </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i
-                        class="zmdi zmdi-assignment"></i><span>سرویس</span></a>
-                <ul class="ml-menu">
-                    <li><a href={{ route('admin.services.index') }}>لیست سرویس ها</a></li>
-                    <li><a href={{ route('admin.services.create') }}>ایجاد سرویس</a></li>
-                </ul>
-            </li>
-
-            <li><a href="{{route('admin.properties.index',['type_property'=>'advertise'])}}"><i
-                        class="zmdi zmdi-assignment-o"></i><span>
-                        آگهی ها </span></a></li>
-
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>مقالات
-                    </span></a>
-                <ul class="ml-menu">
-                    <li><a href={{route('admin.articles.index')}}>لیست مقالات</a></li>
-                    <li><a href={{route('admin.articles.create')}}>ایجاد مقاله </a></li>
-
-                </ul>
-            </li>
-
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i
-                        class="zmdi zmdi-assignment-check"></i><span>امکانات
-                    </span></a>
-                <ul class="ml-menu">
-                    <li><a href={{route('admin.features.create')}}>ساخت امکانات</a></li>
-                    <li><a href={{route('admin.features.index')}}>مشاهده امکانات</a></li>
-
-                </ul>
-            </li>
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>خبر
-                    </span></a>
-                <ul class="ml-menu">
-                    <li><a href={{route('admin.posts.index')}}>لیست خبر ها</a></li>
-                    <li><a href={{route('admin.posts.create')}}>ایجاد خبر </a></li>
-
-                </ul>
-            </li>
-
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i
-                        class="zmdi zmdi-hc-fw"></i><span>اسلایدر</span></a>
-                <ul class="ml-menu">
-                    <li><a href={{ route('admin.sliders.index') }}>لیست اسلایدر ها</a></li>
-                    <li><a href={{ route('admin.sliders.create') }}>ایجاد اسلایدر</a></li>
-                </ul>
-            </li>
-            <li><a target="_blank" href="https://app.raychat.io/login"><i class="zmdi zmdi-hc-fw"></i><span>چت
-                        آنلاین</span></a>
-            <li> <a href={{route('admin.comments.index')}}>
-                    <i class="zmdi zmdi-hc-fw"></i><span>نظرات</span></a>
-            </li>
-             <li> <a href={{route('admin.properties.search')}}>
-                    <i class="zmdi zmdi-hc-fw"></i><span>جستجو ملک</span></a>
-            </li>
-            <li><a href="{{route('admin.settings.show')}}"><i class="zmdi zmdi-hc-fw"></i><span>
-                        درباره ما </span></a></li>
-            <!-- تنظیمات -->
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i
-                        class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
-                <ul class="ml-menu">
-                    <li><a href={{ route('admin.users.index') }}>لیست کاربران</a></li>
-                    <li><a href={{ route('admin.users.create') }}>اضافه کردن مشاور </a></li>
-                    <li><a href="{{route('admin.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
-                    <li><a href={{ route('admin.chenge') }}>تغییر کلمه عبور </a></li>
-                </ul>
-            </li>
-            <!-- خروج -->
-            <li><a href=" {{route('logout')}}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i> خروج
-                </a>
-            </li>
-            <!-- خروج -->
-        </ul>
-    </div>
-</aside>
+        </div>
+    </aside>
 @endcan
 
 @can('is_agent')
-<aside id="leftsidebar" class="sidebar">
-    <div class="navbar-brand">
-        <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="{{route('home')}}"><img src=" {{asset('assets/images/logo.png')}}" width="45" alt="Aero"><span
-                class="m-l-10">پنل مدیریت</span></a>
-    </div>
-    <div class="menu">
-        <ul class="list">
-            <li>
-                <div class="user-info">
-                    <a class="image" href="{{route('home')}}"><img default="" src={{Auth::user()->image===null ? asset('storage/profile/admin.png')
-                            :asset('storage/profile/'.Auth::user()->image) }}></a>
+    <aside id="leftsidebar" class="sidebar">
+        <div class="navbar-brand">
+            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+            <a href="{{ route('home') }}"><img src=" {{ asset('assets/images/logo.png') }}" width="45"
+                    alt="Aero"><span class="m-l-10">پنل مدیریت</span></a>
+        </div>
+        <div class="menu">
+            <ul class="list">
+                <li>
+                    <div class="user-info">
+                        <a class="image" href="{{ route('home') }}"><img default=""
+                                src={{ Auth::user()->image === null
+                                    ? asset('storage/profile/admin.png')
+                                    : asset('storage/profile/' . Auth::user()->image) }}></a>
 
-                    <div class="detail">
-                        <h6><strong>{{Auth::user()->name}}</strong></h6>
-                        <small>مدیر سایت</small>
+                        <div class="detail">
+                            <h6><strong>{{ Auth::user()->name }}</strong></h6>
+                            <small>مدیر سایت</small>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li class="active open"><a href="{{route('agent.home')}}"><i
-                        class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
-                        املاک</span></a>
+                </li>
+                <li class="active open"><a href="{{ route('agent.home') }}"><i
+                            class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
+                            املاک</span></a>
+                    <ul class="ml-menu">
+                        <li><a href={{ route('agent.properties.index') }}>لیست املاک</a></li>
+                        <li><a href={{ route('agent.properties.create') }}>اضافه کردن ملک</a></li>
+                    </ul>
+                </li>
                 <ul class="ml-menu">
-                    <li><a href={{ route('agent.properties.index') }}>لیست املاک</a></li>
-                    <li><a href={{ route('agent.properties.create') }}>اضافه کردن ملک</a></li>
+                    <li><a href="mail-inbox.html">ایمیل</a></li>
+                    <li><a href="chat.html">برنامه چت</a></li>
+                    <li><a href="events.html">تقویم</a></li>
+                    <li><a href="contact.html">مخاطب</a></li>
                 </ul>
-            </li>
-            <ul class="ml-menu">
-                <li><a href="mail-inbox.html">ایمیل</a></li>
-                <li><a href="chat.html">برنامه چت</a></li>
-                <li><a href="events.html">تقویم</a></li>
-                <li><a href="contact.html">مخاطب</a></li>
-            </ul>
-            </li>
+                </li>
 
-            <!-- تنظیمات -->
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i
-                        class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
-                <ul class="ml-menu">
-                    <li><a href="{{route('agent.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
-                    <li><a href={{ route('agent.chenge') }}>تغییر کلمه عبور </a></li>
-                </ul>
-            </li>
-            <!-- خروج -->
-            <li><a href=" {{route('logout')}}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i> خروج
-                </a>
-            </li>
-            <!-- خروج -->
-        </ul>
-    </div>
-</aside>
+                <!-- تنظیمات -->
+                <li> <a href="javascript:void(0);" class="menu-toggle"><i
+                            class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
+                    <ul class="ml-menu">
+                        <li><a href="{{ route('agent.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
+                        <li><a href={{ route('agent.chenge') }}>تغییر کلمه عبور </a></li>
+                    </ul>
+                </li>
+                <!-- خروج -->
+                <li><a href=" {{ route('logout') }}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i>
+                        خروج
+                    </a>
+                </li>
+                <!-- خروج -->
+            </ul>
+        </div>
+    </aside>
 @endcan

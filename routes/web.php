@@ -28,6 +28,7 @@ use App\Models\Setting;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
+use App\Livewire\Admin\Property\CreateProperty;
 use App\Models\Article;
 use App\Models\WishList;
 
@@ -67,16 +68,16 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
     Route::get('/wish_list',  [WishListController::class, 'show'])->name('show');
 
-    Route::resource('/properties', PropertyController::class)->except(['show','update','edit']);
+    Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
     Route::get('/submit-propert', function () {
-        $wishlist = Wishlist::where('user_id' , auth()->id())->get();
-        return view('home.pages.UserProfile.submit-property' , compact('wishlist'));
+        $wishlist = Wishlist::where('user_id', auth()->id())->get();
+        return view('home.pages.UserProfile.submit-property', compact('wishlist'));
     })->name('submit-propert');
 
-    Route::post('/upload/store', [UploadController::class ,'store'])->name('upload');
-    Route::post('/delete', [UploadController::class , 'delete'])->name('del');
-    
+    Route::post('/upload/store', [UploadController::class, 'store'])->name('upload');
+    Route::post('/delete', [UploadController::class, 'delete'])->name('del');
+
     Route::get('/dashboard', function () {
         return view('home.pages.UserProfile.index');
     })->name('home');
@@ -109,10 +110,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-                 Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'show'])->name('home');
-        Route::get('/properties/search', [PropertyController::class,'search'])->name('properties.search');
+        Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
+
+        Route::get('properties/create', CreateProperty::class)->name('properties.create');
+
         Route::resource('/advertise', PropertyController::class);
         Route::resource('/agreements', AgreementController::class);
         Route::resource('/services', ServiceController::class)->except(['show']);
@@ -132,7 +136,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Storage::delete($image->url);
             $flasher->addSuccess('عکس با موفقیت حذف شد');
             return back();
-            
         })->name('deleteImage')->middleware('cors');
 
         Route::resource('/posts', PostController::class);
@@ -159,44 +162,41 @@ Route::delete('/test/{imageid}', function ($imageid) {
 })->name('del')->middleware('cors');
 
 Route::get('/test1', function () {
-      ini_set("soap.wsdl_cache_enabled", "0");
-  try {
-	$user = "9131254642";
-	$pass = "1270236581";
-  
-	
-	$client = new SoapClient("http://panelis.ir/post/send.php?wsdl");
-	
-	
-	
-	$encoding = "UTF-8";//CP1256, CP1252
-	$textMessage = iconv($encoding, 'UTF-8//TRANSLIT',"ugiuguig");
-	
-	$sendsms_parameters = array(
-		'username' => $user,
-		'password' => $pass,
-		'from' => "5000125475",
-		'to' => array("9162418808"),
-		'text' => "textMessage",
-		'isflash' => false,
-		'udh' => "",
-		'recId' => array(0),
-		'status' => 0
-	);
-	
-	$status = $client->SendSms($sendsms_parameters)->SendSmsResult;
-	echo "Status: ".$status."<br />";
-	
-	$getnewmessage_parameters = array(
-		"username"=>$user,
-		"password"=>$pass,
-		"from"=>"5000125475"
-	);
-	
-	
-	
- } catch (SoapFault $ex) {
-    echo $ex->faultstring;
-}
+    ini_set("soap.wsdl_cache_enabled", "0");
+    try {
+        $user = "9131254642";
+        $pass = "1270236581";
+
+
+        $client = new SoapClient("http://panelis.ir/post/send.php?wsdl");
+
+
+
+        $encoding = "UTF-8"; //CP1256, CP1252
+        $textMessage = iconv($encoding, 'UTF-8//TRANSLIT', "ugiuguig");
+
+        $sendsms_parameters = array(
+            'username' => $user,
+            'password' => $pass,
+            'from' => "5000125475",
+            'to' => array("9162418808"),
+            'text' => "textMessage",
+            'isflash' => false,
+            'udh' => "",
+            'recId' => array(0),
+            'status' => 0
+        );
+
+        $status = $client->SendSms($sendsms_parameters)->SendSmsResult;
+        echo "Status: " . $status . "<br />";
+
+        $getnewmessage_parameters = array(
+            "username" => $user,
+            "password" => $pass,
+            "from" => "5000125475"
+        );
+    } catch (SoapFault $ex) {
+        echo $ex->faultstring;
+    }
 });
-Route::get('/sms',[AuthController::class,'sms']);
+Route::get('/sms', [AuthController::class, 'sms']);
