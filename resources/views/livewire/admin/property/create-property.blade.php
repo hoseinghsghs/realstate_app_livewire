@@ -1,5 +1,4 @@
 <div>
-
     <section class="content">
         <div class="body_scroll">
             <div class="block-header">
@@ -56,19 +55,12 @@
                     @endforeach
                 </div>
                 @can('is_admin')
-                    <form action="{{ route('admin.properties.store') }}" class="needs-validation" method="POST"
-                        id="form_advanced_validation" enctype="multipart/form-data" novalidate>
+                    <form wire:submit="save" enctype="multipart/form-data">
                     @endcan
-
-
                     @can('is_agent')
-                        <form action="{{ route('agent.properties.store') }}" class="needs-validation" method="POST"
-                            id="form_advanced_validation" enctype="multipart/form-data" novalidate>
+                        <form wire:submit="saveForAgent">
                         @endcan
-
-                        <form action="{{ route('admin.properties.store') }}" class="needs-validation" method="POST"
-                            id="form_advanced_validation" enctype="multipart/form-data" novalidate>
-                            @csrf
+                        <form wire:submit="save">
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane in active" id="home_with_icon_title"> <b>مشخصات
                                         ملک</b>

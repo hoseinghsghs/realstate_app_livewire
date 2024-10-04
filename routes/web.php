@@ -28,6 +28,7 @@ use App\Models\Setting;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
+use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Property\CreateProperty;
 use App\Models\Article;
 use App\Models\WishList;
@@ -115,12 +116,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
 
+        //livewire routes
         Route::get('properties/create', CreateProperty::class)->name('properties.create');
 
         Route::resource('/advertise', PropertyController::class);
         Route::resource('/agreements', AgreementController::class);
         Route::resource('/services', ServiceController::class)->except(['show']);
         Route::resource('/features', FeatureController::class)->except(['show']);
+        //livewire routes
+        Route::get('/features/create', CreateFeature::class)->name('features.create');
+
         Route::resource('/sliders', SliderController::class)->except(['show']);
         Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
         Route::resource('/posts', PostController::class)->except('show');
