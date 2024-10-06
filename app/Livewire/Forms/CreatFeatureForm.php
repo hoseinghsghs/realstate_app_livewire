@@ -8,25 +8,21 @@ use Livewire\Form;
 class CreatFeatureForm extends Form
 {
     public $name;
+    public $slug;
+
 
     public function rules()
     {
         return
             [
-                'name' => 'required|unique:features|max:255'
+                'name' => 'required|unique:features|max:3'
 
             ];
     }
     public function store()
     {
-        // $this->validate();
-
+        $this->validate();
         Feature::create($this->all());
-        $tag = new Feature();
-        // $tag->name = $request->name;
-        // $tag->slug = $request->name;
-        $tag->save();
-
         $flasher->addSuccess('امکانات جدید ثبت گردید');
         return redirect()->route('admin.features.index');
     }

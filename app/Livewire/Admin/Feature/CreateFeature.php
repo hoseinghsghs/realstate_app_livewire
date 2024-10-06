@@ -12,9 +12,7 @@ class CreateFeature extends Component
 
     public function save()
     {
-        $this->form->name = "حسین";
-        dd($this->form->all());
-
+        $this->form->slug = $this->form->name;
         $this->form->store();
     }
 

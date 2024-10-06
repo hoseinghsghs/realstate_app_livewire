@@ -24,6 +24,64 @@
 
             <div class="body">
                 <!-- test -->
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2><strong>مثال پایه</strong> - طرح بندی افقی</h2>
+                                <ul class="header-dropdown">
+                                    <li class="remove">
+                                        <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="body">
+                                <div id="wizard_horizontal">
+                                    <h2>مرحله اول</h2>
+                                    <section>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                            طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده
+                                            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد کرد. </p>
+                                    </section>
+                                    <h2>مرحله دوم</h2>
+                                    <section>
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                            طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده
+                                            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد کرد. </p>
+                                    </section>
+                                    <h2>مرحله سوم</h2>
+                                    <section>
+                                        <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                            طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده
+                                            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد کرد. </p>
+                                    </section>
+                                    <h2>مرحله چهارم</h2>
+                                    <section>
+                                        <p> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+                                            طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                                            لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده
+                                            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را
+                                            برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی
+                                            ایجاد کرد. </p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- endtest -->
                 <!-- Nav tabs -->
@@ -55,7 +113,7 @@
                     @endforeach
                 </div>
                 @can('is_admin')
-                    <form wire:submit="save" enctype="multipart/form-data">
+                    <form wire:submit="save">
                     @endcan
                     @can('is_agent')
                         <form wire:submit="saveForAgent">
@@ -68,179 +126,196 @@
                                         <br>
                                         <div class="body">
                                             <div class="row clearfix">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <label for="title">عنوان *</label>
-                                                    <div class="form-group">
-                                                        <input type="text" name="title" value="{{ old('title') }}"
-                                                            id="title" class="form-control" required />
+                                                <div
+                                                    class="col-lg-4 col-md-4 form-group @error('form.title') is-invalid @enderror">
+                                                    <label for="title">عنوان <abbr title="ضروری"
+                                                            style="color:red;">*</abbr></label>
+                                                    <input type="text" class="form-control"
+                                                        wire:model='form.title' />
+                                                    @error('form.title')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
 
-                                                    </div>
+                                                <div
+                                                    class="col-lg-4 col-md-4 form-group @error('form.code') is-invalid @enderror">
+                                                    <label for="title">کد ملک <abbr title="ضروری"
+                                                            style="color:red;">*</abbr></label>
+                                                    <input type="text" wire:model='form.code' class="form-control" />
+                                                    @error('form.code')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-3 col-md-12">
-                                                    <label for="title">کد ملک *</label>
-                                                    <div class="form-group">
-                                                        <input type="text" name="code" value="{{ old('code') }}"
-                                                            id="code" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6">
+                                                <div class="col-lg-4 col-md-4 form-group @error('form.lable') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="lable">لیبل</label>
-                                                    <div class="form-group">
-                                                        <select name="lable" id="lable"
-                                                            class="form-control show-tick ms select2">
-                                                            <option disabled selected hidden></option>
-                                                            <option></option>
-                                                            <option {{ old('lable') == 'ویژه ها' ? 'selected' : '' }}>
-                                                                ویژه ها</option>
-                                                            <option {{ old('lable') == 'فروخته شد' ? 'selected' : '' }}>
-                                                                فروخته شد</option>
-                                                            <option
-                                                                {{ old('lable') == 'اجاره داده شد' ? 'selected' : '' }}>
-                                                                اجاره داده شد</option>
-                                                        </select>
-                                                    </div>
+                                                    <select wire:model='form.lable' id="lable"
+                                                        class="form-control show-tick ms select2">
+                                                        <option disabled selected hidden></option>
+                                                        <option></option>
+                                                        <option>
+                                                            ویژه ها</option>
+                                                        <option>
+                                                            فروخته شد</option>
+                                                        <option>
+                                                            اجاره داده شد</option>
+                                                    </select>
+                                                    @error('form.lable')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-lg-4 col-md-6">
+                                                <div class="col-lg-4 col-md-6 form-group @error('form.tr_type') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="tr_type"> نوع معامله *</label>
-                                                    <div class="form-group">
-                                                        <select name="tr_type" onchange="settype()" id="tr_type"
-                                                            required class="form-control show-tick ms select2">
-                                                            <option disabled selected hidden>
-                                                            </option>
-                                                            <option
-                                                                {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
-                                                                رهن و
-                                                                اجاره
-                                                            </option>
-                                                            <option {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
-                                                                فروش
-                                                            </option>
-                                                            <option
-                                                                {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
-                                                                پیش
-                                                                فروش
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                                    <select wire:model='form.tr_type' onchange="settype()"
+                                                        id="tr_type" class="form-control show-tick ms select2">
+                                                        <option disabled selected hidden>
+                                                        </option>
+                                                        <option {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
+                                                            رهن و
+                                                            اجاره
+                                                        </option>
+                                                        <option {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
+                                                            فروش
+                                                        </option>
+                                                        <option {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
+                                                            پیش
+                                                            فروش
+                                                        </option>
+                                                    </select>
+                                                    @error('form.tr_type')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-4 col-md-6">
+                                                <div class="col-lg-4 col-md-6 form-group @error('form.usertype') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="usertype"> نوع کاربری *</label>
-                                                    <div class="form-group">
-                                                        <select name="usertype" id="usertype"
-                                                            class="form-control show-tick ms select2">
-                                                            <option disabled selected hidden></option>
-                                                            <option
-                                                                {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
-                                                                مسکونی
-                                                            </option>
-                                                            <option {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
-                                                                تجاری
-                                                            </option>
-                                                            <option
-                                                                {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
-                                                                آموزشی
-                                                            </option>
-                                                            <option {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
-                                                                اداری
-                                                            </option>
-                                                            <option
-                                                                {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
-                                                                باغ ویلا
-                                                            </option>
-                                                            <option {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
-                                                                دیگر
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                                    <select wire:model='form.usertype' id="usertype"
+                                                        class="form-control show-tick ms select2">
+                                                        <option disabled selected hidden></option>
+                                                        <option {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
+                                                            مسکونی
+                                                        </option>
+                                                        <option {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
+                                                            تجاری
+                                                        </option>
+                                                        <option {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
+                                                            آموزشی
+                                                        </option>
+                                                        <option {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
+                                                            اداری
+                                                        </option>
+                                                        <option {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
+                                                            باغ ویلا
+                                                        </option>
+                                                        <option {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
+                                                            دیگر
+                                                        </option>
+                                                    </select>
+                                                    @error('form.usertype')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-4 col-md-6">
+                                                <div class="col-lg-4 col-md-6 form-group @error('form.type') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="type">نوع ملک *</label>
-                                                    <div class="form-group">
-                                                        <select name="type" id="type" required
-                                                            class="form-control show-tick ms select2">
-                                                            <option disabled selected hidden></option>
-                                                            <option {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
-                                                                آپارتمان
-                                                            </option>
-                                                            <option
-                                                                {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
-                                                                خانه
-                                                                ویلایی
-                                                            </option>
-                                                            <option
-                                                                {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
-                                                                زمین
-                                                                و
-                                                                کلنگی
-                                                            </option>
-                                                            <option {{ old('type') == 'مغازه' ? 'selected' : '' }}>
-                                                                مغازه
-                                                            </option>
-                                                            <option {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
-                                                                دفتر کار
-                                                            </option>
-                                                            <option {{ old('type') == 'باغ' ? 'selected' : '' }}>باغ
-                                                            </option>
-                                                            <option {{ old('type') == 'انبار' ? 'selected' : '' }}>
-                                                                انبار
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                                    <select wire:model='form.type' id="type"
+                                                        class="form-control show-tick ms select2">
+                                                        <option disabled selected hidden></option>
+                                                        <option {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
+                                                            آپارتمان
+                                                        </option>
+                                                        <option {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
+                                                            خانه
+                                                            ویلایی
+                                                        </option>
+                                                        <option {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
+                                                            زمین
+                                                            و
+                                                            کلنگی
+                                                        </option>
+                                                        <option {{ old('type') == 'مغازه' ? 'selected' : '' }}>
+                                                            مغازه
+                                                        </option>
+                                                        <option {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
+                                                            دفتر کار
+                                                        </option>
+                                                        <option {{ old('type') == 'باغ' ? 'selected' : '' }}>باغ
+                                                        </option>
+                                                        <option {{ old('type') == 'انبار' ? 'selected' : '' }}>
+                                                            انبار
+                                                        </option>
+                                                    </select>
+                                                    @error('form.type')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-lg-4">
+                                                <div
+                                                    class="col-lg-4 form-group @error('form.bedroom') is-invalid @enderror">
                                                     <label for="bedroom">تعداد خواب *</label>
-                                                    <div class="form-group">
-                                                        <input type="number" id="bedroom" name="bedroom"
-                                                            step="1" aria-disabled class="form-control"
-                                                            value="{{ old('bedroom') }}" required />
-                                                    </div>
+                                                    <input type="number" id="bedroom" wire:model='form.bedroom'
+                                                        step="1" aria-disabled class="form-control"
+                                                        value="{{ old('bedroom') }}" />
+                                                    @error('form.bedroom')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
 
-                                                <div class="col-lg-4">
+                                                <div
+                                                    class="col-lg-4 form-group @error('form.floorsell') is-invalid @enderror">
                                                     <label for="floorsell"> طبقه مورد معامله *</label>
-                                                    <div class="form-group">
-                                                        <input type="text" name="floorsell" id="floorsell"
-                                                            aria-disabled class="form-control" required
-                                                            value="{{ old('floorsell') }}" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.floorsell' id="floorsell"
+                                                        aria-disabled class="form-control"
+                                                        value="{{ old('floorsell') }}" />
+                                                    @error('form.floorsell')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div
+                                                    class="col-lg-4 form-group @error('form.floor') is-invalid @enderror">
                                                     <label for="floor">تعداد طبقات</label>
-                                                    <div class="form-group">
-                                                        <input type="number" name="floor" id="floor"
-                                                            step="1" aria-disabled class="form-control"
-                                                            value="{{ old('floor') }}" />
-                                                    </div>
+                                                    <input type="number" wire:model='form.floor' id="floor"
+                                                        step="1" aria-disabled class="form-control"
+                                                        value="{{ old('floor') }}" />
+                                                    @error('form.floor')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.year') is-invalid @enderror">
                                                     <label for="year">قدمت ساخت</label>
-                                                    <div class="form-group">
-                                                        <input type="number" id="year" name="year"
-                                                            class="form-control" placeholder="سال"
-                                                            value="{{ old('year') }}" />
-                                                    </div>
+                                                    <input type="number" id="year" wire:model='form.year'
+                                                        class="form-control" placeholder="سال"
+                                                        value="{{ old('year') }}" />
+                                                    @error('form.year')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.area') is-invalid @enderror">
                                                     <label for="area">مساحت زمین (برحسب متر مربع)</label>
-                                                    <div class="form-group">
-                                                        <input type="number" id="area" name="area"
-                                                            value="{{ old('area') }}" class="form-control"
-                                                            placeholder="متر مربع" />
-                                                    </div>
+                                                    <input type="number" id="area" wire:model='form.area'
+                                                        value="{{ old('area') }}" class="form-control"
+                                                        placeholder="متر مربع" />
+                                                    @error('form.area')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.meter') is-invalid @enderror">
                                                     <label for="meter">متراژ زیر بنا *</label>
-                                                    <div class="form-group">
-                                                        <input type="number" id="meter" name="meter"
-                                                            value="{{ old('meter') }}" max="10000"
-                                                            class="form-control" required />
-                                                    </div>
+                                                    <input type="number" id="meter" wire:model='form.meter'
+                                                        value="{{ old('meter') }}" max="10000"
+                                                        class="form-control" />
+                                                    @error('form.meter')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -249,67 +324,72 @@
                                             <h5 style="color:#04BE5B">موقعیت مکانی</h5>
                                             <hr>
                                             <div class="row clearfix ir-select">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4 form-group @error('form.province') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="province">استان *</label>
-                                                    <div class="form-group">
-                                                        <select value="{{ old('province') }}"
-                                                            class="ir-province  form-control show-tick ms select2"
-                                                            id="province" name="province" required>
-                                                            <option></option>
-                                                        </select>
-
-                                                    </div>
+                                                    <select class="ir-province  form-control show-tick ms select2"
+                                                        id="province" wire:model='form.province'>
+                                                        <option></option>
+                                                    </select>
+                                                    @error('form.province')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4 form-group @error('form.city') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="city">شهر *</label>
-                                                    <div class="form-group">
-                                                        <select value="{{ old('city') }}"
-                                                            class="ir-city  form-control show-tick ms select2"
-                                                            name="city" id="city"
-                                                            value="{{ old('city') }}" required>
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
+                                                    <select class="ir-city  form-control show-tick ms select2"
+                                                        wire:model='form.city' id="city"
+                                                        value="{{ old('city') }}">
+                                                        <option></option>
+                                                    </select>
+                                                    @error('form.city')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.district') is-invalid @enderror">
                                                     <label for="district">محله *</label>
-                                                    <div class="form-group">
-                                                        <input type="text" step="any" name="district"
-                                                            id="district" class="form-control"
-                                                            value="{{ old('district') }}" required />
-                                                    </div>
+                                                    <input type="text" step="any" wire:model='form.district'
+                                                        id="district" class="form-control" />
+                                                    @error('form.district')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <small class="col-12"> برای پیدا کردن موقعیت روی لینک مقابل کلیک کنید
+                                                <small class="col-12 "> برای پیدا کردن موقعیت روی لینک مقابل کلیک کنید
                                                     <a href="https://neshan.org/maps" target="_blank">نقشه
                                                         نشان</a></small>
-                                                <div class="col-sm-6">
+                                                <div
+                                                    class="col-sm-6 form-group @error('form.lon') is-invalid @enderror">
                                                     <label for="lon">طول جغرافیایی</label>
-
-                                                    <div class="form-group">
-                                                        <input type="number" value="{{ old('lon') }}"
-                                                            step="any" id="lon" name="lon"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <input type="number" step="any" id="lon"
+                                                        wire:model='form.lon' class="form-control" />
+                                                    @error('form.lon')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div
+                                                    class="col-sm-6 form-group @error('form.lon') is-invalid @enderror">
                                                     <label for="lat">عرض جغرافیایی</label>
-                                                    <div class="form-group">
-                                                        <input type="number" value="{{ old('lon') }}"
-                                                            step="any" name="lat" id="lat"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <input type="number" step="any" wire:model='form.lat'
+                                                        id="lat" class="form-control" />
+                                                    @error('form.lon')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-12">
+                                                <div
+                                                    class="col-sm-12 form-group @error('form.address') is-invalid @enderror">
                                                     <label for="">آدرس *</label>
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <textarea rows="3" class="form-control no-resize" id="address" name="address"
-                                                                placeholder="آدرس را وارد کنید" required>{{ old('address') }}</textarea>
-                                                        </div>
+                                                    <div class="form-line">
+                                                        <textarea rows="3" class="form-control no-resize" id="address" wire:model='form.address'
+                                                            placeholder="آدرس را وارد کنید"></textarea>
+                                                        @error('form.address')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,18 +401,20 @@
 
                                             <div class="container-fluid">
                                                 <div class="row clearfix">
-                                                    <div class="col-lg-12 col-md-12">
+                                                    <div
+                                                        class="col-lg-12 col-md-12 form-group @error('form.img') is-invalid @enderror">
                                                         <div class="card">
                                                             <div class="header">
                                                                 <h2><strong>تصویر اصلی *</strong></h2>
                                                             </div>
                                                             <div class="body">
                                                                 <p>عکس را فقط با فرمت jpg و png آپلود نمایید. </p>
-                                                                <div class="form-group">
-                                                                    <input type="file" class="dropify"
-                                                                        value="{{ old('img') }}" name="img"
-                                                                        data-allowed-file-extensions="jpg png">
-                                                                </div>
+                                                                <input type="file" class="dropify"
+                                                                    wire:model='form.img'
+                                                                    data-allowed-file-extensions="jpg png">
+                                                                @error('form.img')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -346,8 +428,11 @@
                                                     <div class="form-group">
                                                         <div class="file-loading">
                                                             <input id="input-21" data-overwrite-initial="true"
-                                                                name="otherimg[]" multiple type="file"
+                                                                wire:model='form.file' multiple type="file"
                                                                 data-theme="fas">
+                                                            @error('form.file')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -359,12 +444,14 @@
                                                 <h2><strong>ویدیو</strong></h2>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-12">
+                                                <div
+                                                    class="col-sm-12 form-group @error('form.ambed') is-invalid @enderror">
                                                     <label for="loan">کد امبد ویدیو</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('ambed') }}"
-                                                            id="ambed" name="ambed" class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="ambed" wire:model='form.ambed'
+                                                        class="form-control" />
+                                                    @error('form.ambed')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <br>
@@ -373,81 +460,89 @@
                                             <hr>
 
                                             <div class="row clearfix">
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.loan') is-invalid @enderror">
                                                     <label for="loan">وام بانکی</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('loan') }}"
-                                                            id="loan" name="loan" class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="loan" wire:model='form.ccccccloan'
+                                                        class="form-control" />
+                                                    @error('form.loan')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.loanamount') is-invalid @enderror">
                                                     <label for="loanamount">مبلغ وام</label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('loanamount') }}"
-                                                                class="form-control" id="loanamount"
-                                                                name="loanamount"
-                                                                onkeyup="
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="loanamount"
+                                                            wire:model='form.loanamount'
+                                                            onkeyup="
                                                                      (this.value,this);"
-                                                                aria-label="Amount (to the nearest dollar)">
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                            aria-label="Amount (to the nearest dollar)">
+                                                        @error('form.loanamount')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.meter_price') is-invalid @enderror">
                                                     <label for="meter_price">قیمت متری (برحسب متر مربع)</label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('meter_price') }}"
-                                                                class="form-control" id="meter_price"
-                                                                onkeyup="separateNum(this.value,this);"
-                                                                name="meter_price"
-                                                                aria-label="Amount (to the nearest dollar)">
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="meter_price"
+                                                            onkeyup="separateNum(this.value,this);"
+                                                            wire:model='form.meter_price'
+                                                            aria-label="Amount (to the nearest dollar)">
+                                                        @error('form.meter_price')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-lg-6">
+                                                <div
+                                                    class="col-lg-6 form-group @error('form.bidprice') is-invalid @enderror">
                                                     <label for="bidprice">قیمت پیشنهادی *</label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('bidprice') }}"
-                                                                class="form-control" id="bidprice" name="bidprice"
-                                                                onkeyup="changePrice(this.value,this);"
-                                                                aria-label="Amount (to the nearest dollar) "
-                                                                minlength="10" maxlength="15" required>
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="bidprice"
+                                                            wire:model='form.bidprice'
+                                                            onkeyup="changePrice(this.value,this);"
+                                                            aria-label="Amount (to the nearest dollar) "
+                                                            minlength="10" maxlength="15">
+                                                        @error('form.bidprice')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div
+                                                    class="col-lg-6 form-group @error('form.ugprice') is-invalid @enderror">
                                                     <label for="ugprice">قیمت کارشناسی *</label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('ugprice') }}"
-                                                                class="form-control" id="ugprice" name="ugprice"
-                                                                aria-label="Amount (to the nearest dollar)"
-                                                                onkeyup="separateNum(this.value,this);" minlength="10"
-                                                                maxlength="15" required>
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="ugprice"
+                                                            wire:model='form.ugprice'
+                                                            aria-label="Amount (to the nearest dollar)"
+                                                            onkeyup="separateNum(this.value,this);" minlength="10"
+                                                            maxlength="15">
+                                                        @error('form.ugprice')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -458,54 +553,59 @@
                                             <h5 style="color:#04BE5B">اطلاعات مربوط به رهن و اجاره </h5>
                                             <hr>
                                             <div class="row clearfix">
-                                                <div class="col-lg-3 col-md-6">
+                                                <div
+                                                    class="col-lg-3 col-md-6 form-group @error('form.people_number') is-invalid @enderror">
                                                     <label for="people_number">حداکثر تعداد نفرات</label>
-                                                    <div class="form-group">
-                                                        <input type="number" id="people_number" name="people_number"
-                                                            value="{{ old('people_number') }}"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <input type="number" id="people_number"
+                                                        wire:model='form.people_number' class="form-control" />
+                                                    @error('form.people_number')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-3 col-md-6">
+                                                <div
+                                                    class="col-lg-3 col-md-6 form-group @error('form.rent') is-invalid @enderror">
                                                     <label for="rent">مبلغ اجاره *</label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('rent') }}"
-                                                                class="form-control" id="rent" name="rent"
-                                                                aria-label="Amount (to the nearest dollar)"
-                                                                onkeyup="separateNum(this.value,this);" maxlength="10"
-                                                                required>
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" wire:model='form.rent'
+                                                            class="form-control" id="rent"
+                                                            aria-label="Amount (to the nearest dollar)"
+                                                            onkeyup="separateNum(this.value,this);" maxlength="10">
+                                                        @error('form.rent')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6">
+                                                <div
+                                                    class="col-lg-3 col-md-6 form-group @error('form.rahn') is-invalid @enderror">
                                                     <label for="rahn">مبلغ رهن * </label>
-                                                    <div class="form-group">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">تومان</span>
-                                                            </div>
-                                                            <input type="text" value="{{ old('rahn') }}"
-                                                                class="form-control" id="rahn" name="rahn"
-                                                                aria-label="Amount (to the nearest dollar)"
-                                                                onkeyup="separateNum(this.value,this);" maxlength="11"
-                                                                required>
-                                                            <div class="input-group-append">
-                                                            </div>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">تومان</span>
+                                                        </div>
+                                                        <input type="text" wire:model='form.rahn'
+                                                            class="form-control" id="rahn"
+                                                            aria-label="Amount (to the nearest dollar)"
+                                                            onkeyup="separateNum(this.value,this);" maxlength="11">
+                                                        @error('form.rahn')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                        <div class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6">
+                                                <div class="col-lg-3 col-md-6 ">
                                                     <br><br>
                                                     <div class="checkbox">
-                                                        <input id="cheng"
-                                                            {{ old('ischenge') === 'on' ? 'checked' : '' }}
-                                                            type="checkbox" name="ischenge">
+                                                        <input id="cheng" wire:model='form.cheng'
+                                                            type="checkbox">
+                                                        @error('form.cheng')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                         <label for="cheng">قابل تغیر اجاره و رهن</label>
                                                     </div>
                                                 </div>
@@ -518,9 +618,11 @@
                                             <div class="row clearfix">
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="checkbox">
-                                                        <input id="chec"
-                                                            {{ old('isactive') === 'on' ? 'checked' : '' }}
-                                                            type="checkbox" name="isactive" checked>
+                                                        <input id="chec" type="checkbox" wire:model='form.chec'
+                                                            checked>
+                                                        @error('form.chec')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                         <label for="chec">انتشار ملک</label>
                                                     </div>
                                                 </div>
@@ -534,37 +636,43 @@
                                     <div class="card">
                                         <div class="body">
                                             <div class="row clearfix">
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.name_family') is-invalid @enderror">
                                                     <label for="name_family">نام نام خانوادگی * </label>
-                                                    <div class="form-group">
-                                                        <input type="text" id="name_family" name="name_family"
-                                                            required class="form-control" />
-                                                        <div class="valid-feedback">
-                                                            حله
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            این فیلد مورد نیاز است
-                                                        </div>
+                                                    <input type="text" id="name_family"
+                                                        wire:model='form.name_family' class="form-control" />
+                                                    @error('form.name_family')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                    <div class="valid-feedback">
+                                                        حله
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        این فیلد مورد نیاز است
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.telephone') is-invalid @enderror">
                                                     <label for="telephone">شماره تلفن</label>
-                                                    <div class="form-group">
-                                                        <input type="text" id="telephone" name="telephone"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="telephone" wire:model='form.telephone'
+                                                        class="form-control" />
+                                                    @error('form.telephone')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.phone') is-invalid @enderror">
                                                     <label for="phone">شماره موبایل * </label>
-                                                    <div class="form-group">
-                                                        <input type="text" maxlength="11" id="phone"
-                                                            name="phone" class="form-control" required />
-                                                        <div class="valid-feedback">
-                                                            حله
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            این فیلد مورد نیاز است
-                                                        </div>
+                                                    <input type="text" maxlength="11" id="phone"
+                                                        wire:model='form.phone' class="form-control" />
+                                                    @error('form.phone')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                    <div class="valid-feedback">
+                                                        حله
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        این فیلد مورد نیاز است
                                                     </div>
                                                 </div>
                                             </div>
@@ -578,122 +686,146 @@
                                     <div class="card">
                                         <div class="body">
                                             <div class="row clearfix">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-3 form-group @error('form.doc') is-invalid @enderror"
+                                                    wire:ignore>
                                                     <label for="doc">نوع سند</label>
-                                                    <div class="form-group">
-                                                        <select name="doc" id="doc"
-                                                            class="form-control show-tick ms select2">
-                                                            <option disabled selected hidden></option>
-                                                            <option {{ old('doc') == 'سند دار' ? 'selected' : '' }}>سند
-                                                                دار
-                                                            </option>
-                                                            <option {{ old('doc') == 'قولنامه ای' ? 'selected' : '' }}>
-                                                                قولنامه ای
-                                                            </option>
-                                                            <option
-                                                                {{ old('doc') == 'در دست اقدام' ? 'selected' : '' }}>در
-                                                                دست اقدام
-                                                            </option>
-                                                            <option {{ old('doc') == 'مشاع' ? 'selected' : '' }}>مشاع
-                                                            </option>
-                                                            <option {{ old('doc') == 'دیگر' ? 'selected' : '' }}>دیگر
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                                    <select wire:model='form.doc' id="doc"
+                                                        class="form-control show-tick ms select2">
+                                                        <option disabled selected hidden></option>
+                                                        <option>سند
+                                                            دار
+                                                        </option>
+                                                        <option>
+                                                            قولنامه ای
+                                                        </option>
+                                                        <option>در
+                                                            دست اقدام
+                                                        </option>
+                                                        <option>مشاع
+                                                        </option>
+                                                        <option>دیگر
+                                                        </option>
+                                                    </select>
+                                                    @error('form.doc')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div
+                                                    class="col-lg-3 form-group @error('form.dimension') is-invalid @enderror">
                                                     <label for="dimension">ابعاد</label>
-                                                    <div class="form-group">
-                                                        <input type="text" id="dimension"
-                                                            value="{{ old('dimension') }}" name="dimension"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="dimension" wire:model='form.dimension'
+                                                        class="form-control" />
+                                                    @error('form.dimension')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div
+                                                    class="col-lg-3 form-group @error('form.view') is-invalid @enderror">
                                                     <label for="view">نما</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('view') }}"
-                                                            id="view" name="view" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.view' id="view"
+                                                        class="form-control" />
+                                                    @error('form.view')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div
+                                                    class="col-lg-3 form-group @error('form.door') is-invalid @enderror">
                                                     <label for="door">درب ورودی</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('door') }}"
-                                                            id="door" name="door" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.door' id="door"
+                                                        class="form-control" />
+                                                    @error('form.door')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.screen') is-invalid @enderror">
                                                     <label for="screen">پرده</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('screen') }}"
-                                                            id="screen" name="screen" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.screen' id="screen"
+                                                        class="form-control" />
+                                                    @error('form.screen')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.cover') is-invalid @enderror">
                                                     <label for="cover">کفپوش</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('cover') }}"
-                                                            id="cover" name="cover" class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="cover" wire:model='form.cover'
+                                                        class="form-control" />
+                                                    @error('form.cover')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.phone_line') is-invalid @enderror">
                                                     <label for="phone line">خط تلفن</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('phone_line') }}"
-                                                            id="phone_line" name="phone_line" class="form-control" />
-                                                    </div>
+                                                    <input type="text" id="phone_line"
+                                                        wire:model='form.phone_line' class="form-control" />
+                                                    @error('form.phone_line')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.cool') is-invalid @enderror">
                                                     <label for="cool">سیستم برودتی</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('cool') }}"
-                                                            id="cool" name="cool" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.cool' id="cool"
+                                                        class="form-control" />
+                                                    @error('form.cool')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.heat') is-invalid @enderror">
                                                     <label for="heat">سیستم حرارتی</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('heat') }}"
-                                                            id="heat" name="heat" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.heat' id="heat"
+                                                        class="form-control" />
+                                                    @error('form.heat')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div
+                                                    class="col-sm-4 form-group @error('form.cabinet') is-invalid @enderror">
                                                     <label for="cabinet">کابینت</label>
-                                                    <div class="form-group">
-                                                        <input type="text" value="{{ old('cabinet') }}"
-                                                            id="cabinet" name="cabinet" class="form-control" />
-                                                    </div>
+                                                    <input type="text" wire:model='form.cabinet' id="cabinet"
+                                                        class="form-control" />
+                                                    @error('form.cabinet')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div
+                                                    class="col-lg-4 form-group @error('form.collection') is-invalid @enderror">
                                                     <label for="collection">تعداد واحد های مجموعه</label>
-                                                    <div class="form-group">
-                                                        <input type="number" value="{{ old('collection') }}"
-                                                            id="collection" name="collection" class="form-control" />
-                                                    </div>
+                                                    <input type="number" id="collection"
+                                                        wire:model='form.collection' class="form-control" />
+                                                    @error('form.collection')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
-                                                <div class="col-sm-12">
+                                                <div
+                                                    class="col-sm-12 form-group @error('form.description') is-invalid @enderror">
                                                     <label for="">توضیحات</label>
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <textarea rows="5" class="form-control no-resize" id="description" name="description"
-                                                                placeholder="توضیحات را وارد کنید ....">{{ old('description') }}</textarea>
-                                                        </div>
+                                                    <div class="form-line">
+                                                        <textarea rows="5" class="form-control no-resize" id="description" wire:model='form.description'
+                                                            placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                        @error('form.description')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12">
+                                                <div
+                                                    class="col-sm-12 form-group @error('form.agent_description') is-invalid @enderror">
                                                     <label for="">توضیحات مشاور</label>
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <textarea rows="5" class="form-control no-resize" id="agent_description" name="agent_description"
-                                                                placeholder="توضیحات را وارد کنید ....">{{ old('agent_description') }}</textarea>
-                                                        </div>
+                                                    <div class="form-line">
+                                                        <textarea rows="5" class="form-control no-resize" id="agent_description" wire:model='form.agent_description'
+                                                            placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                        @error('form.agent_description')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -705,9 +837,13 @@
                                                     <div class="col-lg-3 col-md-6">
                                                         <div class="checkbox">
                                                             <input type="checkbox" id="features-{{ $feature->id }}"
-                                                                name="features[]" class="filled-in chk-col-indigo"
+                                                                wire:model='form.features'
+                                                                class="filled-in chk-col-indigo"
                                                                 value="{{ $feature->id }}"
                                                                 {{ (is_array(old('features')) and in_array($feature->id, old('features'))) ? ' checked' : '' }} />
+                                                            @error('form.features')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
                                                             <label
                                                                 for="features-{{ $feature->id }}">{{ $feature->name }}</label>
                                                         </div>
@@ -721,8 +857,8 @@
                                             <div class="col-lg-5 ">
                                             </div>
                                             <div class="col-lg-4 ">
-                                                <button style="padding: 12px 40px 12px 40px" type="submit"
-                                                    class="btn btn-raised btn-primary waves-effect" onclick="">
+                                                <button type="submit" style="padding: 12px 40px 12px 40px"
+                                                    class="btn btn-raised btn-primary waves-effect">
                                                     ثبت اطلاعات
                                                 </button>
                                             </div>
@@ -748,6 +884,70 @@
 
         <script>
             $(document).ready(function() {
+
+                $('#province').on('change', function(e) {
+                    let data = $('#province').select2("val");
+                    if (data === '') {
+                        @this.set('form.province', null);
+                    } else {
+                        @this.set('form.province', data);
+                    }
+                });
+
+                $('#lable').on('change', function(e) {
+                    let data = $('#lable').select2("val");
+                    if (data === '') {
+                        @this.set('form.lable', null);
+                    } else {
+                        @this.set('form.lable', data);
+                    }
+                });
+
+
+                $('#city').on('change', function(e) {
+                    let data = $('#city').select2("val");
+                    if (data === '') {
+                        @this.set('form.city', null);
+                    } else {
+                        @this.set('form.city', data);
+                    }
+                });
+
+                $('#doc').on('change', function(e) {
+                    let data = $('#doc').select2("val");
+                    if (data === '') {
+                        @this.set('form.doc', null);
+                    } else {
+                        @this.set('form.doc', data);
+                    }
+                });
+
+                $('#usertype').on('change', function(e) {
+                    let data = $('#usertype').select2("val");
+                    if (data === '') {
+                        @this.set('form.usertype', null);
+                    } else {
+                        @this.set('form.usertype', data);
+                    }
+                });
+
+                $('#tr_type').on('change', function(e) {
+                    let data = $('#tr_type').select2("val");
+                    if (data === '') {
+                        @this.set('form.tr_type', null);
+                    } else {
+                        @this.set('form.tr_type', data);
+                    }
+                });
+                $('#type').on('change', function(e) {
+                    let data = $('#type').select2("val");
+                    if (data === '') {
+                        @this.set('form.type', null);
+                    } else {
+                        @this.set('form.type', data);
+                    }
+                });
+
                 $("#input-21").fileinput({
                     previewFileType: "image",
                     browseClass: "btn btn-success",
@@ -860,24 +1060,69 @@
             }
         }
     </script>
+
     <script>
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                //         // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        $("#wizard_horizontal").steps("add", {
+            title: "Step Title",
+            contentMode: "async",
+            contentUrl: "data.xml"
+        });
+
+        $("#wizard_horizontal").steps({
+                headerTag: "h1",
+                bodyTag: "div",
+                contentContainerTag: "div",
+                actionContainerTag: "div",
+                stepsContainerTag: "div",
+                cssClass: "wizard",
+                stepsOrientation: $.fn.steps.stepsOrientation.horizontal,
+
+                /* Templates */
+                titleTemplate: '<span class="number">#index#.</span> #title#',
+                loadingTemplate: '<span class="spinner"></span> #text#',
+
+                /* Behaviour */
+                autoFocus: false,
+                enableAllSteps: false,
+                enableKeyNavigation: true,
+                enablePagination: true,
+                suppressPaginationOnFocus: true,
+                enableContentCache: true,
+                enableCancelButton: true,
+                enableFinishButton: true,
+                preloadContent: false,
+                showFinishButtonAlways: false,
+                forceMoveForward: false,
+                saveState: false,
+                startIndex: 0,
+
+                /* Transition Effects */
+                transitionEffect: $.fn.steps.transitionEffect.none,
+                transitionEffectSpeed: 200,
+
+                /* Events */
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    return true;
+                },
+                onStepChanged: function(event, currentIndex, priorIndex) {}
+            },
+            onCanceled: function(event) {},
+            onFinishing: function(event, currentIndex) {
+                return true;
+            },
+            onFinished: function(event, currentIndex) {},
+
+            /* Labels */
+            labels: {
+                cancel: "Cancel",
+                current: "current step:",
+                pagination: "Pagination",
+                finish: "Finish",
+                next: "Next",
+                previous: "Previous",
+                loading: "Loading ..."
+            }
+        );
     </script>
 
 </div>

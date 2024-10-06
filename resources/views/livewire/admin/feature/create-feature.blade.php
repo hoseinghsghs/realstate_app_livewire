@@ -34,9 +34,12 @@
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <label class="form-label">امکانات</label>
-                                            <input type="text" wire:model="form.name" class="form-control">
+                                            <input type="text" wire:model.blur="form.name" class="form-control">
                                         </div>
                                     </div>
+                                    @error('form.name')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
 
                                     <button type="submit" class="btn btn-raised btn-primary waves-effect">
                                         ذخیره

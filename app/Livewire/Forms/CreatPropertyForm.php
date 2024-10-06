@@ -54,7 +54,9 @@ class CreatPropertyForm extends Form
     public $collection;
     public $ambed;
     public $img;
-    public $otherimg;
+    public $otherimg = [];
+    public $features = [];
+
 
     public function rules(): array
     {

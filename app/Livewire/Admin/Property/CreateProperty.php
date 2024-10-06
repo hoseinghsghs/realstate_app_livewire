@@ -10,14 +10,22 @@ use App\Models\PropertyImage;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Livewire\Forms\CreatPropertyForm;
+use Livewire\WithFileUploads;
+
+
 
 class CreateProperty extends Component
 {
+    use WithFileUploads;
+
+    public CreatPropertyForm $form;
 
 
-    public function CreateProperty()
+    public function save()
     {
 
+        dd($this->form->all());
 
         if (Gate::allows('is_admin')) {
             $flasher->addSuccess('ملک با موفقیت ثبت شد');
