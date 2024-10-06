@@ -18,6 +18,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "autoprefixer": "10.4.5",
         "bootstrap-fileinput": "^5.2.7",
         "c3": "^0.4.24",
         "chart.js": "^3.7.0",
