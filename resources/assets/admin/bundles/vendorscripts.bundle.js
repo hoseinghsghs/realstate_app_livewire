@@ -6,7 +6,7 @@
         : "object" == typeof module && module.exports
         ? (module.exports = b(require("jquery")))
         : b(a.jQuery);
-})(this, function (a) {
+})/*(this, function (a) {
     !(function (a) {
         "use strict";
 
@@ -329,11 +329,9 @@
             };
         (l.VERSION = "1.12.4"),
             (l.DEFAULTS = {
-                noneSelectedText: "Nothing selected",
-                noneResultsText: "No results matched {0}",
-                countSelectedText: function (a, b) {
-                    return 1 == a ? "{0} item selected" : "{0} items selected";
-                },
+                noneSelectedText: "چیزی انتخاب نشده است",
+                noneResultsText: "هیج مشابهی برای {0} پیدا نشد",
+                countSelectedText:'{0} مورد انتخاب شده',
                 maxOptionsText: function (a, b) {
                     return [
                         1 == a
@@ -368,7 +366,7 @@
                 liveSearchStyle: "contains",
                 actionsBox: !1,
                 iconBase: "glyphicon",
-                tickIcon: "glyphicon-ok",
+                tickIcon: "ti-check",
                 showTick: !1,
                 template: {
                     caret: '<span class="caret"></span>',
@@ -1826,7 +1824,7 @@
                             i.options.container
                                 ? i.$button.trigger("click")
                                 : (i.setSize(),
-                                  i.$menu.parent().addClass("open"),
+                                  i.$menu.parent().addClass("open1"),
                                   (f = !0)),
                             void i.$searchbox.focus()
                         );
@@ -1991,7 +1989,7 @@
                 });
             });
     })(a);
-}),
+})*/,
     (function (a) {
         a.fn.extend({
             slimScroll: function (b) {
