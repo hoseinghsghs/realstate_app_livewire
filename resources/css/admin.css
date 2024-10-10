@@ -18,49 +18,49 @@
 
 /* select2 */
 .select2-container .select2-search--inline .select2-search__field {
-    font: inherit;
+  font: inherit;
 }
 
 .select2-container--default .select2-selection--single {
-    display: flex;
-    align-items: center;
-    height: calc(2.25rem + 2px);
+  display: flex;
+  align-items: center;
+  height: calc(2.25rem + 2px);
 }
 
 .select2-container--default .select2-selection--multiple {
-    min-height: calc(2.25rem + 2px);
+  min-height: calc(2.25rem + 2px);
 }
 
 .select2-container--default[dir="rtl"]
-    .select2-selection--single
-    .select2-selection__arrow {
-    top: 5px;
+  .select2-selection--single
+  .select2-selection__arrow {
+  top: 5px;
 }
 
 .select2-results__option {
-    text-align: right;
+  text-align: right;
 }
 
 .is-invalid .select2-selection,
 .needs-validation ~ span > .select2-dropdown {
-    border-color: #dc3545 !important;
+  border-color: #dc3545 !important;
 }
 
 .is-invalid .note-editor {
-    border-color: #dc3545 !important;
+  border-color: #dc3545 !important;
 }
 
 .is-invalid .dropify-wrapper {
-    border-color: #dc3545 !important;
+  border-color: #dc3545 !important;
 }
 
 .is-invalid .form-control {
-    border-color: #dc3545;
-    padding-right: 2.25rem;
-    background-repeat: no-repeat;
-    background-position: center right calc(2.25rem / 4);
-    background-size: calc(2.25rem / 2) calc(2.25rem / 2);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+  border-color: #dc3545;
+  padding-right: 2.25rem;
+  background-repeat: no-repeat;
+  background-position: center right calc(2.25rem / 4);
+  background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23d9534f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
 }
 
 .is-invalid .form-control:focus,
@@ -68,132 +68,132 @@
 .is-invalid .select2-selection,
 .needs-validation ~ span > .select2-dropdown:focus,
 .is-invalid .note-editor:focus {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 /* bootstrap select */
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .bootstrap-select.btn-group.show-tick
-    .dropdown-menu
-    li.selected
-    a
-    span.check-mark {
-    position: absolute;
-    display: inline-block;
-    left: 15px;
-    right: unset;
-    margin-top: 5px;
+  .dropdown-menu
+  li.selected
+  a
+  span.check-mark {
+  position: absolute;
+  display: inline-block;
+  left: 15px;
+  right: unset;
+  margin-top: 5px;
 }
 
 /* toggle input css */
 .switchToggle input[type="checkbox"] {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-    position: absolute;
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
 }
 
 .switchToggle label {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 90px;
-    max-width: 90px;
-    height: 30px;
-    background: #00b89e;
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 90px;
+  max-width: 90px;
+  height: 30px;
+  background: #00b89e;
 
-    display: block;
-    border-radius: 100px;
-    position: relative;
+  display: block;
+  border-radius: 100px;
+  position: relative;
 }
 
 .switchToggle label:after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 26px;
-    height: 26px;
-    background: #fff;
-    border-radius: 90px;
-    transition: 0.3s;
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
 }
 
 .switchToggle input:checked + label,
 .switchToggle input:checked + input + label {
-    background: #d1d1d1;
+  background: #d1d1d1;
 }
 
 .switchToggle input + label:before,
 .switchToggle input + input + label:before {
-    content: "فعال";
-    position: absolute;
-    top: 5px;
-    left: 45px;
-    width: fit-content;
-    height: 26px;
-    border-radius: 90px;
-    transition: 0.3s;
-    text-indent: 0;
-    color: #fff;
+  content: "فعال";
+  position: absolute;
+  top: 5px;
+  left: 45px;
+  width: fit-content;
+  height: 26px;
+  border-radius: 90px;
+  transition: 0.3s;
+  text-indent: 0;
+  color: #fff;
 }
 
 .switchToggle input:checked + label:before,
 .switchToggle input:checked + input + label:before {
-    content: "غیرفعال";
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    width: fit-content;
-    height: 26px;
-    border-radius: 90px;
-    transition: 0.3s;
-    text-indent: 0;
-    color: #7f7777;
+  content: "غیرفعال";
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: fit-content;
+  height: 26px;
+  border-radius: 90px;
+  transition: 0.3s;
+  text-indent: 0;
+  color: #7f7777;
 }
 
 .switchToggle input:checked + label:after,
 .switchToggle input:checked + input + label:after {
-    left: calc(100% - 2px);
-    transform: translateX(-100%);
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
 }
 
 .switchToggle label:active:after {
-    width: 60px;
+  width: 60px;
 }
 
 .toggle-switchArea {
-    margin: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
 .mds-bootstrap-persian-datetime-picker-popover {
-    max-width: fit-content !important;
+  max-width: fit-content !important;
 }
 
 /* input type number without marker */
 input.without-spin::-webkit-inner-spin-button,
 input.without-spin::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
 
 /* collapse spin */
 a[aria-expanded="true"] span {
-    transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    /*  for IE  */
-    /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
-    -webkit-transform: rotate(270deg);
-    display: inline-block;
+  transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  /*  for IE  */
+  /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
+  -webkit-transform: rotate(270deg);
+  display: inline-block;
 }
 
 .bg-ghostwhite {
-    background-color: #f9f9fd;
+  background-color: #f9f9fd;
 }
 
 /*
@@ -201,179 +201,183 @@ a[aria-expanded="true"] span {
 * enable absolute positioning
  */
 .inner-addon {
-    position: relative;
+  position: relative;
 }
 
 /* style icon */
 .inner-addon .input-icon {
-    position: absolute;
-    /* padding: 10px; */
-    pointer-events: none;
+  position: absolute;
+  /* padding: 10px; */
+  pointer-events: none;
 }
 
 /* align icon */
 .left-addon .input-icon {
-    left: 10px;
-    top: 10px;
+  left: 10px;
+  top: 10px;
 }
 
 .right-addon .input-icon {
-    right: 0px;
+  right: 0px;
 }
 
 /* add padding  */
 .left-addon input {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 
 .right-addon input {
-    padding-right: 30px;
+  padding-right: 30px;
 }
 
 /* widget_2 bring text to front */
 .widget_2 {
-    background: #fff;
+  background: #fff;
 }
 
 .widget_2 .body {
-    background: none;
-    position: relative;
+  background: none;
+  position: relative;
 }
 
 .btn-light {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
 .btn-light:hover {
-    box-shadow: 0 3px 8px 0 rgba(41, 42, 51, 0.17);
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad;
+  box-shadow: 0 3px 8px 0 rgba(41, 42, 51, 0.17);
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
 }
 
 .text-overflow {
-    width: 30vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 30vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .is-warning {
-    border-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 .is-warning:focus {
-    border-color: #f0ad4e;
-    box-shadow: 0 0 0 0.25rem rgb(220 204 53 / 25%);
+  border-color: #f0ad4e;
+  box-shadow: 0 0 0 0.25rem rgb(220 204 53 / 25%);
 }
 /*
 * tree graph
 */
 .tree-graph ul {
-    padding-top: 20px;
-    position: relative;
+  padding-top: 20px;
+  position: relative;
 
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
 }
 
 .tree-graph li {
-    float: left;
-    text-align: center;
-    list-style-type: none;
-    position: relative;
-    padding: 20px 5px 0 5px;
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
 
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
 }
 
 /*We will use ::before and ::after to draw the connectors*/
 
-.tree-graph li::before, .tree-graph li::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 50%;
-    border-top: 1px solid #ccc;
-    width: 50%;
-    height: 20px;
+.tree-graph li::before,
+.tree-graph li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 1px solid #ccc;
+  width: 50%;
+  height: 20px;
 }
 
 .tree-graph li::after {
-    right: auto;
-    left: 50%;
-    border-left: 1px solid #ccc;
+  right: auto;
+  left: 50%;
+  border-left: 1px solid #ccc;
 }
 
 /*We need to remove left-right connectors from elements without
 any siblings*/
-.tree-graph li:only-child::after, .tree-graph li:only-child::before {
-    display: none;
+.tree-graph li:only-child::after,
+.tree-graph li:only-child::before {
+  display: none;
 }
 
 /*Remove space from the top of single children*/
 .tree-graph li:only-child {
-    padding-top: 0;
+  padding-top: 0;
 }
 
 /*Remove left connector from first child and
 right connector from last child*/
-.tree-graph li:first-child::before, .tree-graph li:last-child::after {
-    border: 0 none;
+.tree-graph li:first-child::before,
+.tree-graph li:last-child::after {
+  border: 0 none;
 }
 
 /*Adding back the vertical connector to the last nodes*/
 .tree-graph li:last-child::before {
-    border-right: 1px solid #ccc;
-    border-radius: 0 5px 0 0;
-    -webkit-border-radius: 0 5px 0 0;
-    -moz-border-radius: 0 5px 0 0;
+  border-right: 1px solid #ccc;
+  border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
 }
 
 .tree-graph li:first-child::after {
-    border-radius: 5px 0 0 0;
-    -webkit-border-radius: 5px 0 0 0;
-    -moz-border-radius: 5px 0 0 0;
+  border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
 }
 
 /*Time to add downward connectors from parents*/
 .tree-graph ul ul::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    border-left: 1px solid #ccc;
-    width: 0;
-    height: 20px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 1px solid #ccc;
+  width: 0;
+  height: 20px;
 }
 
 .tree-graph li a {
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: #666;
-    font-family: inherit;
-    font-size: 13px;
-    display: inline-block;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #666;
+  font-family: inherit;
+  font-size: 13px;
+  display: inline-block;
 
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
 
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
 }
 
 /*Time for some hover effects*/
 /*We will apply the hover effect the the lineage of the element also*/
-.tree-graph li a:hover, .tree-graph li a:hover + ul li a {
-    background: #c8e4f8;
-    color: #000;
-    border: 1px solid #94a0b4;
+.tree-graph li a:hover,
+.tree-graph li a:hover + ul li a {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
 }
 
 /*Connector styles on hover*/
@@ -381,5 +385,5 @@ right connector from last child*/
 .tree-graph li a:hover + ul li::before,
 .tree-graph li a:hover + ul::before,
 .tree-graph li a:hover + ul ul::before {
-    border-color: #94a0b4;
+  border-color: #94a0b4;
 }
