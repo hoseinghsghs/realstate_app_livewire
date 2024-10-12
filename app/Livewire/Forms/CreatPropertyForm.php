@@ -54,30 +54,52 @@ class CreatPropertyForm extends Form
     public $collection;
     public $ambed;
     public $img;
+    public $bcolor_step_1 = '#e9ecef';
+    public $bcolor_step_2 = '#e9ecef';
+    public $bcolor_step_3 = '#e9ecef';
+    public $color_step_1 = '#000000';
+    public $color_step_2 = '#000000';
+    public $color_step_3 = '#000000';
     public $otherimg = [];
     public $features = [];
+    public $totalSteps = 3;
+    public $currentStep = 1;
 
-
-    public function rules(): array
+    public function validateData()
     {
-        return [
-            'province' => 'required',
-            'city' => 'required',
-            'district' => 'required',
-            'title' => 'required',
-            'tr_type' => 'required',
-            'type' => 'required',
-            'code' => 'unique:properties,code',
-            'bedroom' => 'required',
-            'floorsell' => 'required',
-            // "phone" =>  "required|numeric",
-            'rent' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
-            'rahn' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
-            'bidprice' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
-            'ugprice' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
-            'img' => 'image|mimes:jpeg,jpg,png|max:2044',
-        ];
+
+        if ($this->currentStep == 1) {
+
+            $this->validate([
+                // 'province' => 'required',
+                // 'city' => 'required',
+                // 'district' => 'required',
+                'title' => 'required',
+                // // 'tr_type' => 'required',
+                // 'type' => 'required',
+                // 'code' => 'unique:properties,code',
+                // // 'bedroom' => 'required',
+                // 'floorsell' => 'required',
+                // // "phone" =>  "required|numeric",
+                // 'rent' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                // 'rahn' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                // 'bidprice' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                // 'ugprice' => ["regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                // 'img' => 'image|mimes:jpeg,jpg,png|max:2044',
+            ]);
+        } elseif ($this->currentStep == 2) {
+            $this->color_step_1 = '#009b32';
+            $this->color_step_1 = '#ffffff';
+            // $this->validate([]);
+        } elseif ($this->currentStep == 3) {
+            $this->color_step_1 = '#009b32';
+            $this->color_step_2 = '#009b32';
+            $this->color_step_1 = '#ffffff';
+            $this->color_step_2 = '#ffffff';
+            // $this->validate([]);
+        }
     }
+
     public function store()
     {
         $this->validate();

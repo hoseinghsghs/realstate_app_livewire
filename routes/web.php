@@ -119,10 +119,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //livewire routes
         Route::get('properties/create', CreateProperty::class)->name('properties.create');
 
-        Route::resource('/advertise', PropertyController::class);
+        // Route::resource('/advertise', PropertyController::class);
         Route::resource('/agreements', AgreementController::class);
         Route::resource('/services', ServiceController::class)->except(['show']);
         Route::resource('/features', FeatureController::class)->except(['show']);
+
         //livewire routes
         Route::get('/features/create', CreateFeature::class)->name('features.create');
 

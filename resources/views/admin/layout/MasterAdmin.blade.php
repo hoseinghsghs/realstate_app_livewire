@@ -8,7 +8,7 @@
     @livewireStyles
 </head>
 
-<body class="theme-blush" onload="settype()">
+<body class="theme-blush">
 
     <!-- Page Loader -->
     @include('admin.partial.PageLoader')
@@ -32,15 +32,15 @@
 
     <!-- Jquery Core Js -->
 
-    <script src="{{asset('js/admin.js')}}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     @flasher_render
     @stack('scripts')
     <script>
-    function loadbtn(event) {
-        $(event.target).html(
-            `درحال بارگذاری <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
-        );
-    };
+        function loadbtn(event) {
+            $(event.target).html(
+                `درحال بارگذاری <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
+            );
+        };
     </script>
     @livewireScripts
 </body>
