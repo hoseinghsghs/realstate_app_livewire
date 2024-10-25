@@ -162,10 +162,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
-       
+
         Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
@@ -178,6 +179,8 @@ return [
         Hekmatinasser\Verta\Laravel\VertaServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
 
     ],
 
@@ -235,6 +238,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
 
     ],
 

@@ -19,13 +19,14 @@ class CreatePropertiesTable extends Migration
             $table->string('code')->nullable();
             $table->string('title')->nullable();
             $table->string('description')->nullable();
+            $table->string('agent_description')->nullable();
             $table->string('lable')->nullable();
             $table->string('tr_type')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();
             $table->longText('district')->nullable();
             $table->boolean('isactive')->nullable();
-            $table->boolean('ischenge')->nullable();
+            $table->boolean('ischange')->nullable();
             //new
             $table->string('type')->nullable();
             $table->string('usertype')->nullable();

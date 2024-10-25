@@ -16,7 +16,7 @@ if (!function_exists('generateImageName')) {
     }
 }
 if (!function_exists('PertiongenerateImageName')) {
-    function PertiongenerateImageName($name)
+    function PertiongenerateImageName($extension)
     {
         $v = verta();
         $v->timezone = 'Asia/Tehran';
@@ -27,7 +27,7 @@ if (!function_exists('PertiongenerateImageName')) {
         $minute = $v->minute; // 18
         $second = $v->second;
         $micro = $v->micro;
-        return $year . '_' . $month . '_' . $day . '_' . $hour . '_' . $minute . '_' . $second . '_' . $micro . '_' . $name;
+        return $year . $month . $day . $hour . $minute . $second . $micro . '.' . $extension;
     }
 }
 

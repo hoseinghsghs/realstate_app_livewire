@@ -18,8 +18,9 @@ class PropertyImageController extends Controller
             //مسیر ذخیره سازی درایور پیش فرض
             $pach = config('filesystems.disks.' . $filesystem)['root'];
             //پسوند تصویر
-            // $extension = $imageUpload->extension();
-            $image = PertiongenerateImageName($imageUpload->getClientOriginalName());
+            $extension = $imageUpload->extension();
+
+            $image = PertiongenerateImageName($extension);
 
 
             if (!Storage::exists('preview')) {

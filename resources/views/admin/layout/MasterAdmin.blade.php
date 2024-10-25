@@ -10,6 +10,8 @@
 
 <body class="theme-blush">
 
+    @include('sweetalert::alert')
+
     <!-- Page Loader -->
     @include('admin.partial.PageLoader')
     <!-- Overlay For Sidebars -->
@@ -33,7 +35,7 @@
     <!-- Jquery Core Js -->
 
     <script src="{{ asset('js/admin.js') }}"></script>
-    @flasher_render
+    {{-- @flasher_render --}}
     @stack('scripts')
     <script>
         function loadbtn(event) {

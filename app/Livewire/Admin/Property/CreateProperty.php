@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Livewire\Forms\CreatPropertyForm;
 use Livewire\WithFileUploads;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -23,57 +24,25 @@ class CreateProperty extends Component
 
     public function mount()
     {
-        $this->form->currentStep = 1;
+        $this->form->currentStep = 4;
     }
 
-    public function increaseStep()
+    public function decStep()
     {
-        $this->form->resetErrorBag();
-        $this->form->validateData();
-        $this->form->currentStep++;
-        if ($this->form->currentStep > $this->form->totalSteps) {
-            $this->form->currentStep = $this->form->totalSteps;
-        }
-        if ($this->form->currentStep == 2) {
-            $this->form->color_step_1 = '#009b32';
-        } elseif ($this->form->currentStep == 3) {
-            $this->form->color_step_1 = '#009b32';
-            $this->form->color_step_2 = '#009b32';
-        } elseif ($this->form->currentStep == 4) {
-            $this->form->color_step_1 = '#009b32';
-            $this->form->color_step_2 = '#009b32';
-            $this->form->color_step_3 = '#009b32';
-        }
+        $this->form->decreaseStep();
     }
-
-    public function decreaseStep()
+    public function incStep()
     {
-        $this->form->resetErrorBag();
-        $this->form->currentStep--;
-        if ($this->form->currentStep < 1) {
-            $this->form->currentStep = 1;
-        }
-        if ($this->form->currentStep == 2) {
-            $this->form->color_step_1 = '#009b32';
-        } elseif ($this->form->currentStep == 3) {
-            $this->form->color_step_1 = '#009b32';
-            $this->form->color_step_2 = '#009b32';
-        } elseif ($this->form->currentStep == 4) {
-            $this->form->color_step_1 = '#009b32';
-            $this->form->color_step_2 = '#009b32';
-            $this->form->color_step_3 = '#009b32';
-        }
+        $this->form->increaseStep();
     }
-
 
     public function save()
     {
-
-
         if (Gate::allows('is_admin')) {
             $this->form->store();
-            // $flasher->addSuccess('ملک با موفقیت ثبت شد');
-            return $this->redirect('/posts', navigate: true);
+            alert()->success('', 'ملک با موفقیت ثبت شد');
+            // $flasher->addSuccess();
+            return $this->redirect('/admin/properties', navigate: true);
 
             return redirect()->route('admin.properties.index');
         } elseif (Gate::allows('is_agent')) {
