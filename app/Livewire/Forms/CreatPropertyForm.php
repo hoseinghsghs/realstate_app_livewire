@@ -8,6 +8,10 @@ use App\Models\PropertyImage;
 use Illuminate\Container\Attributes\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Illuminate\Support\Str;
+use Verta;
+use Image;
+
 
 class CreatPropertyForm extends Form
 {
@@ -53,17 +57,22 @@ class CreatPropertyForm extends Form
     public $cabinet;
     public $collection;
     public $ambed;
-    public $img;
-    public $bcolor_step_1 = '#e9ecef';
-    public $bcolor_step_2 = '#e9ecef';
-    public $bcolor_step_3 = '#e9ecef';
-    public $color_step_1 = '#000000';
-    public $color_step_2 = '#000000';
-    public $color_step_3 = '#000000';
+    public $user_id;
+    public $ischenge;
+    public $featured;
+    public $isactive;
+
+    public $bcolor_step_1, $bcolor_step_2, $bcolor_step_3, $bcolor_step_4 = '#e9ecef';
+
+    public $color_step_1, $color_step_2, $color_step_3, $color_step_4   = '#000000';
+
+
     public $otherimg = [];
     public $features = [];
-    public $totalSteps = 3;
-    public $currentStep = 1;
+    public $totalSteps = 4;
+    public $currentStep = 4;
+
+    public $img;
 
     public function validateData()
     {
@@ -97,93 +106,54 @@ class CreatPropertyForm extends Form
             $this->color_step_1 = '#ffffff';
             $this->color_step_2 = '#ffffff';
             // $this->validate([]);
+        } elseif ($this->currentStep == 4) {
+            $this->color_step_1 = '#009b32';
+            $this->color_step_2 = '#009b32';
+            $this->color_step_3 = '#009b32';
+            $this->color_step_1 = '#ffffff';
+            $this->color_step_2 = '#ffffff';
+            $this->color_step_3 = '#ffffff';
         }
     }
 
     public function store()
     {
-        $this->validate();
+        // $this->validate();
+        $this->bidprice = Str::replace(',', '', $this->bidprice);
+        $this->ugprice = Str::replace(',', '', $this->ugprice);
+        $this->loanamount = Str::replace(',', '', $this->loanamount);
+        $this->meter_price = Str::replace(',', '', $this->meter_price);
+        $this->rent = Str::replace(',', '', $this->rent);
+        $this->rahn = Str::replace(',', '', $this->rahn);
+        $this->user_id = auth()->user()->id;
 
         $PropertyImageController = new PropertyImageController();
         $imageName = $PropertyImageController->upload($this->img);
         $imageOtherName = $PropertyImageController->uploadOtherImage($this->otherimg);
+        $this->img = $imageName;
 
-        Property::create($this->all());
-        $property = new Property();
-
-        //new
-        $property->description = $this->description;
-        $property->province = $this->province;
-        $property->city = $this->city;
-        $property->district = $this->district;
-        $property->title = $this->title;
-        $property->lable = $this->lable;
-        $property->tr_type = $this->tr_type;
-        //new
-        $property->type = $this->type;
-        $property->code = $this->code;
-        $property->usertype = $this->usertype;
-        $property->bedroom = $this->bedroom;
-        $property->floorsell = $this->floorsell;
-        $property->floor = $this->floor;
-        $property->year = $this->year;
-        $property->area = $this->area;
-        $property->meter = $this->meter;
-        $property->bidprice = Str::replace(',', '', $this->bidprice);
-        $property->ugprice = Str::replace(',', '', $this->ugprice);
-        $property->lon = $this->lon;
-        $property->lat = $this->lat;
-        $property->address = $this->address;
-        $property->loan = $this->loan;
-
-        $property->loanamount = Str::replace(',', '', $this->loanamount);
-        $property->meter_price = Str::replace(',', '', $this->meter_price);
-        $property->people_number = $this->people_number;
-        $property->door = $this->door;
-        $property->rent = Str::replace(',', '', $this->rent);
-        $property->rahn = Str::replace(',', '', $this->rahn);
-        $property->name_family = $this->name_family;
-        $property->telephone = $this->telephone;
-        $property->phone = $this->phone;
-        $property->doc = $this->doc;
-        $property->dimension = $this->dimension;
-        $property->view = $this->view;
-        $property->phone_line = $this->phone_line;
-        $property->screen = $this->screen;
-        $property->cover = $this->cover;
-        $property->cool = $this->cool;
-        $property->heat = $this->heat;
-        $property->cabinet = $this->cabinet;
-        $property->collection = $this->collection;
-
-        //ویدیو
-        $property->ambed = $this->ambed;
-        $property->img = $imageName;
-        $property->user_id = Auth::user()->id;
-
-        //
         if (isset($this->ischenge)) {
-            $property->ischenge = true;
+            $this->ischenge = true;
         } else {
-            $property->ischenge = false;
+            $this->ischenge = false;
         }
         //
 
         if (isset($this->featured)) {
-            $property->featured = true;
-        }
-        //
-
-        if (isset($this->isactive)) {
-            $property->isactive = true;
+            $this->featured = true;
         } else {
-            $property->isactive = false;
+            $this->featured = false;
         }
 
         //
+        if (isset($this->isactive)) {
+            $this->isactive = true;
+        } else {
+            $this->isactive = false;
+        }
 
-        $property->save();
-
+        $property = Property::create($this->except(['features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
+        $property->features()->sync($this->features);
         if (isset($imageOtherName)) {
             foreach ($imageOtherName as $name) {
                 PropertyImage::create([
@@ -192,7 +162,5 @@ class CreatPropertyForm extends Form
                 ]);
             }
         }
-
-        $property->features()->sync($this->features);
     }
 }

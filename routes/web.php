@@ -30,6 +30,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
 use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Property\CreateProperty;
+use App\Livewire\Admin\Property\DeviceComponent;
+use App\Livewire\Admin\Property\EditProperty;
+use App\Livewire\Admin\Property\PropertyComponent;
+use App\Livewire\Admin\Property\ShowProperty;
 use App\Models\Article;
 use App\Models\WishList;
 
@@ -42,9 +46,9 @@ Route::get('/router', [RouteController::class, 'index'])->name('setroute');
 
 // Route::view('/contact-us','home.pages.contact-us');
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/properties/list', [HomeController::class, 'properties_list'])->name('properties.list');
+// Route::get('/properties/list', [HomeController::class, 'properties_list'])->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
-Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
+// Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
 // Route::any('/admin', [AuthController::class,'login']);
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -69,7 +73,7 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
     Route::get('/wish_list',  [WishListController::class, 'show'])->name('show');
 
-    Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
+    // Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
     Route::get('/submit-propert', function () {
         $wishlist = Wishlist::where('user_id', auth()->id())->get();
@@ -117,7 +121,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/properties', PropertyController::class);
 
         //livewire routes
-        Route::get('properties/create', CreateProperty::class)->name('properties.create');
+        Route::get('/properties', PropertyComponent::class)->name('properties.index');
+        Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
+        Route::get('/properties/create', CreateProperty::class)->name('properties.create');
+        Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
 
         // Route::resource('/advertise', PropertyController::class);
         Route::resource('/agreements', AgreementController::class);

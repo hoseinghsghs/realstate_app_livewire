@@ -26,7 +26,7 @@ class CreatePropertiesTable extends Migration
             $table->longText('district')->nullable();
             $table->boolean('isactive')->nullable();
             $table->boolean('ischenge')->nullable();
-             //new
+            //new
             $table->string('type')->nullable();
             $table->string('usertype')->nullable();
             $table->string('lon')->nullable();
@@ -58,6 +58,8 @@ class CreatePropertiesTable extends Migration
             $table->string('cover')->nullable();
             $table->string('cool')->nullable();
             $table->string('heat')->nullable();
+            $table->string('cabinet')->nullable();
+            $table->string('ambed')->nullable();
             $table->string('collection')->nullable();
             $table->string('img')->nullable();
             $table->string('otherimg')->nullable();
@@ -66,7 +68,7 @@ class CreatePropertiesTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->tinyInteger('rating')->default(5);
             $table->timestamps();
-           });
+        });
     }
 
     /**

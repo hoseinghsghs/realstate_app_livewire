@@ -34,19 +34,23 @@
                                 <div class="wizard-nav">
 
                                     <div class="step" data-step="1">
-                                        <i class="fas fa-user"
-                                            style="background-color: {{ $this->form->bcolor_step_1 }}; color:{{ $this->form->color_step_1 }}"></i><br />مرحله
-                                        1
+                                        <i class="fas fa-home"
+                                            style="background-color: {{ $this->form->bcolor_step_1 }}; color:{{ $this->form->color_step_1 }}"></i><br />مشخصات
+                                        ملک
                                     </div>
                                     <div class="step" data-step="2">
-                                        <i class="fas fa-envelope"
-                                            style="background-color: {{ $this->form->bcolor_step_2 }}; color:{{ $this->form->color_step_2 }}"></i><br />مرحله
-                                        2
+                                        <i class="fas fa-user"
+                                            style="background-color: {{ $this->form->bcolor_step_2 }}; color:{{ $this->form->color_step_2 }}"></i><br />مشخصات
+                                        مالک
                                     </div>
                                     <div class="step" data-step="3">
-                                        <i class="fas fa-check"
-                                            style="background-color: {{ $this->form->bcolor_step_3 }}; color:{{ $this->form->color_step_3 }}"></i><br />مرحله
-                                        3
+                                        <i class="fas fa-file"
+                                            style="background-color: {{ $this->form->bcolor_step_3 }}; color:{{ $this->form->color_step_3 }}"></i><br />سایر
+                                        مشخصات
+                                    </div>
+                                    <div class="step" data-step="4">
+                                        <i class="fas fa-image"
+                                            style="background-color: {{ $this->form->bcolor_step_4 }}; color:{{ $this->form->color_step_4 }}"></i><br />تصاویر
                                     </div>
                                 </div>
                                 <div class="progress">
@@ -428,56 +432,6 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <!-- مدیا -->
-                                                                <br>
-                                                                <h5 style="color:#04BE5B">مدیا</h5>
-                                                                <hr>
-
-                                                                <div class="container-fluid">
-                                                                    <div class="row clearfix">
-                                                                        <div
-                                                                            class="col-lg-12 col-md-12 form-group @error('form.img') is-invalid @enderror">
-                                                                            <div class="card">
-                                                                                <div class="header">
-                                                                                    <h2><strong>تصویر اصلی
-                                                                                            *</strong></h2>
-                                                                                </div>
-                                                                                <div class="body">
-                                                                                    <p>عکس را فقط با فرمت
-                                                                                        jpg و png آپلود
-                                                                                        نمایید. </p>
-                                                                                    <input type="file"
-                                                                                        class="dropify"
-                                                                                        wire:model='form.img'
-                                                                                        data-allowed-file-extensions="jpg png">
-                                                                                    @error('form.img')
-                                                                                        <small
-                                                                                            class="text-danger">{{ $message }}</small>
-                                                                                    @enderror
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="header">
-                                                                    <h2><strong>سایر تصاویر</strong></h2>
-                                                                </div>
-                                                                <div class="container my-4">
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <div class="file-loading">
-                                                                                <input id="input-21"
-                                                                                    data-overwrite-initial="true"
-                                                                                    wire:model='form.file' multiple
-                                                                                    type="file" data-theme="fas">
-                                                                                @error('form.file')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
 
                                                                 <!-- اطلاعات مربوط به خرید -->
                                                                 <br>
@@ -1004,19 +958,6 @@
                                                                                 </div>
                                                                             @endforeach
                                                                         </div>
-
-                                                                    </div>
-                                                                    <br><br>
-                                                                    <div class="row clearfix">
-                                                                        <div class="col-lg-5 ">
-                                                                        </div>
-                                                                        <div class="col-lg-4 ">
-                                                                            <button type="submit"
-                                                                                style="padding: 12px 40px 12px 40px"
-                                                                                class="btn btn-raised btn-primary waves-effect">
-                                                                                ثبت اطلاعات
-                                                                            </button>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 </p>
@@ -1024,39 +965,97 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                                @if ($form->currentStep == 4)
+                                                    <div class="step-three">
+                                                        <div class="card">
+                                                            <section>
+                                                                <div class="card">
+                                                                    <div class="body">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-4">
+                                                                                <label class="form-label"
+                                                                                    for="exampleFormControlFile1">آپلود
+                                                                                    تصویر اصلی<span wire:loading
+                                                                                        wire:target="form.img"
+                                                                                        class="spinner-border spinner-border-sm"
+                                                                                        role="status"
+                                                                                        aria-hidden="true"></span></label>
+                                                                                <div
+                                                                                    class="custom-file d-flex flex-row-reverse">
+                                                                                    <input wire:model.live="form.img"
+                                                                                        type="file"
+                                                                                        class="custom-file-input"
+                                                                                        id="customFile" lang="ar"
+                                                                                        dir="rtl">
+                                                                                    <label
+                                                                                        class="custom-file-label text-right"
+                                                                                        for="customFile">
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if ($form->img)
+                                                                            <img src="{{ $form->img->temporaryUrl() }}"
+                                                                                height="300rem">
+                                                                        @endif
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-4">
+                                                                                <label class="form-label"
+                                                                                    for="exampleFormControlFile1">آپلود
+                                                                                    سایر تصاویر<span wire:loading
+                                                                                        wire:target="form.otherimg"
+                                                                                        class="spinner-border spinner-border-sm"
+                                                                                        role="status"
+                                                                                        aria-hidden="true"></span></label>
+                                                                                <div
+                                                                                    class="custom-file d-flex flex-row-reverse">
+                                                                                    <input
+                                                                                        wire:model.live="form.otherimg"
+                                                                                        type="file"
+                                                                                        class="custom-file-input"
+                                                                                        id="customFile" lang="ar"
+                                                                                        dir="rtl" multiple>
+                                                                                    <label
+                                                                                        class="custom-file-label text-right"
+                                                                                        for="customFile">
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-
-
-
+                                                                    @if ($form->otherimg)
+                                                                        @foreach ($form->otherimg as $imge)
+                                                                            <img src="{{ $imge->temporaryUrl() }}"
+                                                                                height="300rem">
+                                                                        @endforeach
+                                                                    @endif
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div
                                                     class="action-buttons d-flex justify-content-between bg-white pt-2 pb-2">
-
                                                     @if ($form->currentStep == 1)
                                                         <div></div>
                                                     @endif
-
                                                     @if ($form->currentStep == 2 || $form->currentStep == 3 || $form->currentStep == 4)
                                                         <button type="button" class="btn btn-md btn-secondary"
                                                             wire:click="decreaseStep()">
                                                             قبلی
                                                         </button>
                                                     @endif
-
                                                     @if ($form->currentStep == 1 || $form->currentStep == 2 || $form->currentStep == 3)
                                                         <button type="button" class="btn btn-md btn-success"
                                                             wire:click="increaseStep()">
                                                             بعدی
                                                         </button>
                                                     @endif
-
                                                     @if ($form->currentStep == 4)
-                                                        <button type="submit"
-                                                            class="btn btn-md btn-primary">ارسال</button>
+                                                        <button type="submit" class="btn btn-md btn-primary">ثبت
+                                                            اطلاعات</button>
                                                     @endif
-
-
                                                 </div>
-
                                             </form>
                                         </form>
                                     </form>
@@ -1235,71 +1234,6 @@
                     }
                 });
 
-                $("#input-21").fileinput({
-                    previewFileType: "image",
-                    browseClass: "btn btn-success",
-                    browseLabel: "انتخاب تصویر",
-                    browseIcon: "<i class=\"bi-file-image\"></i> ",
-                    removeClass: "btn btn-danger",
-                    removeLabel: "حذف",
-                    removeIcon: "<i class=\"bi-trash\"></i> ",
-                    uploadClass: "btn btn-info",
-                    uploadLabel: "آپلود",
-                    uploadIcon: "<i class=\"bi-upload\"></i> ",
-                    allowedFileExtensions: ['jpg', 'png'],
-                    maxFileSize: 10240,
-                    removeIcon: "<i class=\"bi-trash\"></i> ",
-                    initialPreviewAsData: true,
-                    overwriteInitial: true,
-                    // uploadUrl: "{{ url('admin/delete-image/1') }}",
-                    // deleteUrl: "{{ route('admin.home') }}",
-                    // maxFilePreviewSize: 10240,
-                    layoutTemplates: {
-                        main1: "{preview}\n" +
-                            "<div class=\'input-group {class}\'>\n" +
-                            "   {browse}\n" +
-
-                            "   {remove}\n" +
-
-                            "</div>"
-                    },
-                });
-
-                $("#wizard-horizontal").steps({
-
-
-                    headerTag: 'h2',
-                    bodyTag: 'section',
-                    transitionEffect: 'slideLeft',
-                    onInit: function(event, currentIndex) {
-
-                    },
-                    onStepChanged: function(event, currentIndex, priorIndex) {
-
-                    },
-
-                    /* Events */
-                    onStepChanging: function(event, currentIndex, newIndex) {
-                        return true;
-                    },
-
-                    onCanceled: function(event) {},
-                    onFinishing: function(event, currentIndex) {
-                        return true;
-                    },
-                    onFinished: function(event, currentIndex) {},
-
-                    /* Labels */
-                    labels: {
-                        cancel: "Cancel",
-                        current: "current step:",
-                        pagination: "Pagination",
-                        finish: "Finish",
-                        next: "Next",
-                        previous: "Previous",
-                        loading: "Loading ..."
-                    }
-                });
 
                 window.onscroll = function() {
                     const nav2 = document.getElementById("nav2");

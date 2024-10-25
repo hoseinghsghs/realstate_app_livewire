@@ -31,11 +31,8 @@
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
                             املاک</span></a>
                     <ul class="ml-menu">
-
                         <li><a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a></li>
-
-                        <li><a href={{ route('admin.properties.index') }}>لیست املاک</a></li>
-                        <li><a href={{ route('admin.properties.create') }}>اضافه کردن ملک</a></li>
+                        <li><a href="/admin/properties" wire:navigate>لیست املاک</a></li>
                     </ul>
                 </li>
                 <ul class="ml-menu">
