@@ -73,18 +73,14 @@
                         <div class="card">
                             <div class="body">
                                 @can('is_admin')
-                                    <form wire:submit="save">
+                                    <form wire:submit="update">
                                     @endcan
                                     @can('is_agent')
-                                        <form wire:submit="saveForAgent">
+                                        <form wire:submit="update">
                                         @endcan
-                                        <form wire:submit="save">
-                                            <form wire:submit.prevent="register">
-
-
-
+                                        <form wire:submit="update">
+                                            <form wire:submit.prevent="update">
                                                 {{-- STEP 1 --}}
-
                                                 @if ($form->currentStep == 1)
                                                     {{-- <div class="step-one"> --}}
                                                     <section>
@@ -96,7 +92,7 @@
                                                                         <label for="title">عنوان <abbr title="ضروری"
                                                                                 style="color:red;">*</abbr></label>
                                                                         <input type="text" class="form-control"
-                                                                            wire:model='form.title' />
+                                                                            wire:model.defer='form.title' />
                                                                         @error('form.title')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
@@ -108,143 +104,155 @@
                                                                         <label for="title">کد ملک <abbr
                                                                                 title="ضروری"
                                                                                 style="color:red;">*</abbr></label>
-                                                                        <input type="text" wire:model='form.code'
+                                                                        <input type="text"
+                                                                            wire:model.defer='form.code'
                                                                             class="form-control" />
                                                                         @error('form.code')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
-                                                                    <div class="col-lg-4 col-md-4 form-group @error('form.lable') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="lable">لیبل</label>
-                                                                        <select wire:model='form.lable' id="lable"
-                                                                            class="form-control show-tick ms select2">
-                                                                            <option disabled selected hidden>
-                                                                            </option>
-                                                                            <option></option>
-                                                                            <option>
-                                                                                ویژه ها</option>
-                                                                            <option>
-                                                                                فروخته شد</option>
-                                                                            <option>
-                                                                                اجاره داده شد</option>
-                                                                        </select>
+                                                                    <div
+                                                                        class="col-lg-4 col-md-4 mb-4 @error('form.lable') is-invalid @enderror">
+                                                                        <div class="form-group mbb" wire:ignore>
+                                                                            <label for="lable">لیبل</label>
+                                                                            <select wire:model.defer='form.lable'
+                                                                                id="lable" class="form-control">
+                                                                                <option>
+                                                                                </option>
+                                                                                <option>
+                                                                                    ویژه ها</option>
+                                                                                <option>
+                                                                                    فروخته شد</option>
+                                                                                <option>
+                                                                                    اجاره داده شد</option>
+                                                                            </select>
+                                                                        </div>
                                                                         @error('form.lable')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
+
                                                                 </div>
                                                                 <div class="row clearfix">
-                                                                    <div class="col-lg-4 col-md-6 form-group @error('form.tr_type') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="tr_type"> نوع معامله
-                                                                            *</label>
-                                                                        <select wire:model='form.tr_type'
-                                                                            onchange="settype()" id="tr_type"
-                                                                            class="form-control show-tick ms select2">
-                                                                            <option disabled selected hidden>
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
-                                                                                رهن و
-                                                                                اجاره
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
-                                                                                فروش
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
-                                                                                پیش
-                                                                                فروش
-                                                                            </option>
-                                                                        </select>
+                                                                    <div
+                                                                        class="col-lg-4 col-md-6 mb-4 @error('form.tr_type') is-invalid @enderror">
+                                                                        <div class="form-group mbb">
+                                                                            <label for="tr_type"> نوع معامله
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <select wire:model.defer.live='form.tr_type'
+                                                                                id="tr_type" class="form-control">
+                                                                                <option>
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
+                                                                                    رهن و
+                                                                                    اجاره
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
+                                                                                    فروش
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
+                                                                                    پیش
+                                                                                    فروش
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
                                                                         @error('form.tr_type')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
-                                                                    <div class="col-lg-4 col-md-6 form-group @error('form.usertype') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="usertype"> نوع کاربری
-                                                                            *</label>
-                                                                        <select wire:model='form.usertype'
-                                                                            id="usertype"
-                                                                            class="form-control show-tick ms select2">
-                                                                            <option disabled selected hidden>
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
-                                                                                مسکونی
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
-                                                                                تجاری
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
-                                                                                آموزشی
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
-                                                                                اداری
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
-                                                                                باغ ویلا
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
-                                                                                دیگر
-                                                                            </option>
-                                                                        </select>
+
+                                                                    <div
+                                                                        class="col-lg-4 col-md-6 mb-4 p @error('form.usertype') is-invalid @enderror">
+                                                                        <div class="form-group mbb">
+                                                                            <label for="usertype"> نوع کاربری
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <select wire:model.defer='form.usertype'
+                                                                                id="usertype" class="form-control">
+                                                                                <option>
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
+                                                                                    مسکونی
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
+                                                                                    تجاری
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
+                                                                                    آموزشی
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
+                                                                                    اداری
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
+                                                                                    باغ ویلا
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
+                                                                                    دیگر
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+
                                                                         @error('form.usertype')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
-                                                                    <div class="col-lg-4 col-md-6 form-group @error('form.type') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="type">نوع ملک
-                                                                            *</label>
-                                                                        <select wire:model='form.type' id="type"
-                                                                            class="form-control show-tick ms select2">
-                                                                            <option disabled selected hidden>
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
-                                                                                آپارتمان
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
-                                                                                خانه
-                                                                                ویلایی
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
-                                                                                زمین
-                                                                                و
-                                                                                کلنگی
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'مغازه' ? 'selected' : '' }}>
-                                                                                مغازه
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
-                                                                                دفتر کار
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'باغ' ? 'selected' : '' }}>
-                                                                                باغ
-                                                                            </option>
-                                                                            <option
-                                                                                {{ old('type') == 'انبار' ? 'selected' : '' }}>
-                                                                                انبار
-                                                                            </option>
-                                                                        </select>
+                                                                    <div
+                                                                        class="col-lg-4 col-md-6 mb-4  @error('form.type') is-invalid @enderror">
+                                                                        <div class="form-group mbb">
+                                                                            <label for="type">نوع ملک
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <select wire:model.defer='form.type'
+                                                                                id="type" class="form-control">
+                                                                                <option>
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
+                                                                                    آپارتمان
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
+                                                                                    خانه
+                                                                                    ویلایی
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
+                                                                                    زمین
+                                                                                    و
+                                                                                    کلنگی
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'مغازه' ? 'selected' : '' }}>
+                                                                                    مغازه
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
+                                                                                    دفتر کار
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'باغ' ? 'selected' : '' }}>
+                                                                                    باغ
+                                                                                </option>
+                                                                                <option
+                                                                                    {{ old('type') == 'انبار' ? 'selected' : '' }}>
+                                                                                    انبار
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
                                                                         @error('form.type')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
@@ -253,12 +261,14 @@
                                                                 </div>
                                                                 <div class="row clearfix">
                                                                     <div
-                                                                        class="col-lg-4 form-group @error('form.bedroom') is-invalid @enderror">
+                                                                        class="col-lg-4 col-md-6  form-group @error('form.bedroom') is-invalid @enderror">
                                                                         <label for="bedroom">تعداد خواب
-                                                                            *</label>
+                                                                            <abbr title="ضروری"
+                                                                                style="color:red;">*</abbr></label>
                                                                         <input type="number" id="bedroom"
-                                                                            wire:model='form.bedroom' step="1"
-                                                                            aria-disabled class="form-control"
+                                                                            wire:model.defer='form.bedroom'
+                                                                            step="1" aria-disabled
+                                                                            class="form-control"
                                                                             value="{{ old('bedroom') }}" />
                                                                         @error('form.bedroom')
                                                                             <small
@@ -267,12 +277,14 @@
                                                                     </div>
 
                                                                     <div
-                                                                        class="col-lg-4 form-group @error('form.floorsell') is-invalid @enderror">
+                                                                        class="col-lg-4 col-md-6  form-group @error('form.floorsell') is-invalid @enderror">
                                                                         <label for="floorsell"> طبقه مورد
-                                                                            معامله *</label>
+                                                                            معامله <abbr title="ضروری"
+                                                                                style="color:red;">*</abbr></label>
                                                                         <input type="text"
-                                                                            wire:model='form.floorsell' id="floorsell"
-                                                                            aria-disabled class="form-control"
+                                                                            wire:model.defer='form.floorsell'
+                                                                            id="floorsell" aria-disabled
+                                                                            class="form-control"
                                                                             value="{{ old('floorsell') }}" />
                                                                         @error('form.floorsell')
                                                                             <small
@@ -280,10 +292,11 @@
                                                                         @enderror
                                                                     </div>
                                                                     <div
-                                                                        class="col-lg-4 form-group @error('form.floor') is-invalid @enderror">
+                                                                        class="col-lg-4 col-md-6  form-group @error('form.floor') is-invalid @enderror">
                                                                         <label for="floor">تعداد
                                                                             طبقات</label>
-                                                                        <input type="number" wire:model='form.floor'
+                                                                        <input type="number"
+                                                                            wire:model.defer='form.floor'
                                                                             id="floor" step="1"
                                                                             aria-disabled class="form-control"
                                                                             value="{{ old('floor') }}" />
@@ -299,7 +312,7 @@
                                                                         <label for="year">قدمت
                                                                             ساخت</label>
                                                                         <input type="number" id="year"
-                                                                            wire:model='form.year'
+                                                                            wire:model.defer='form.year'
                                                                             class="form-control" placeholder="سال"
                                                                             value="{{ old('year') }}" />
                                                                         @error('form.year')
@@ -313,7 +326,7 @@
                                                                             (برحسب متر
                                                                             مربع)</label>
                                                                         <input type="number" id="area"
-                                                                            wire:model='form.area'
+                                                                            wire:model.defer='form.area'
                                                                             value="{{ old('area') }}"
                                                                             class="form-control"
                                                                             placeholder="متر مربع" />
@@ -325,9 +338,10 @@
                                                                     <div
                                                                         class="col-sm-4 form-group @error('form.meter') is-invalid @enderror">
                                                                         <label for="meter">متراژ زیر بنا
-                                                                            *</label>
+                                                                            <abbr title="ضروری"
+                                                                                style="color:red;">*</abbr></label>
                                                                         <input type="number" id="meter"
-                                                                            wire:model='form.meter'
+                                                                            wire:model.defer='form.meter'
                                                                             value="{{ old('meter') }}"
                                                                             max="10000" class="form-control" />
                                                                         @error('form.meter')
@@ -342,41 +356,58 @@
                                                                 <h5 style="color:#04BE5B">موقعیت مکانی</h5>
                                                                 <hr>
                                                                 <div class="row clearfix ir-select">
-                                                                    <div class="col-sm-4 form-group @error('form.province') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="province">استان
-                                                                            *</label>
-                                                                        <select
-                                                                            class="ir-province  form-control show-tick ms select2"
-                                                                            id="province" wire:model='form.province'>
-                                                                            <option></option>
-                                                                        </select>
+                                                                    <div
+                                                                        class="col-sm-4 mb-4 @error('form.province') is-invalid @enderror">
+                                                                        <div class="form-group mbb">
+                                                                            <label for="province">استان
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <select class="ir-province  form-control"
+                                                                                wire:model.defer.live='form.province'>
+                                                                                <option value="">انتخاب استان
+                                                                                </option>
+                                                                                @foreach ($form->states as $stateName => $cities)
+                                                                                    <option
+                                                                                        value="{{ $stateName }}">
+                                                                                        {{ $stateName }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                         @error('form.province')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
-                                                                    <div class="col-sm-4 form-group @error('form.city') is-invalid @enderror"
-                                                                        wire:ignore>
-                                                                        <label for="city">شهر *</label>
-                                                                        <select
-                                                                            class="ir-city  form-control show-tick ms select2"
-                                                                            wire:model='form.city' id="city"
-                                                                            value="{{ old('city') }}">
-                                                                            <option></option>
-                                                                        </select>
+
+                                                                    <div
+                                                                        class="col-sm-4 mb-4 @error('form.city') is-invalid @enderror">
+                                                                        <div class="form-group mbb">
+                                                                            <label for="city">شهر <abbr
+                                                                                    title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <select class="ir-city  form-control"
+                                                                                wire:model.defer='form.city'>
+                                                                                @foreach ($form->states[$form->province] ?? [] as $city)
+                                                                                    <option
+                                                                                        value="{{ $city }}">
+                                                                                        {{ $city }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
                                                                         @error('form.city')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
+
                                                                     <div
                                                                         class="col-sm-4 form-group @error('form.district') is-invalid @enderror">
                                                                         <label for="district">محله
-                                                                            *</label>
+                                                                            <abbr title="ضروری"
+                                                                                style="color:red;">*</abbr></label>
                                                                         <input type="text" step="any"
-                                                                            wire:model='form.district' id="district"
-                                                                            class="form-control" />
+                                                                            wire:model.defer='form.district'
+                                                                            id="district" class="form-control" />
                                                                         @error('form.district')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
@@ -396,7 +427,7 @@
                                                                         <label for="lon">طول
                                                                             جغرافیایی</label>
                                                                         <input type="number" step="any"
-                                                                            id="lon" wire:model='form.lon'
+                                                                            id="lon" wire:model.defer='form.lon'
                                                                             class="form-control" />
                                                                         @error('form.lon')
                                                                             <small
@@ -404,13 +435,13 @@
                                                                         @enderror
                                                                     </div>
                                                                     <div
-                                                                        class="col-sm-6 form-group @error('form.lon') is-invalid @enderror">
+                                                                        class="col-sm-6 form-group @error('form.lat') is-invalid @enderror">
                                                                         <label for="lat">عرض
                                                                             جغرافیایی</label>
                                                                         <input type="number" step="any"
-                                                                            wire:model='form.lat' id="lat"
+                                                                            wire:model.defer='form.lat' id="lat"
                                                                             class="form-control" />
-                                                                        @error('form.lon')
+                                                                        @error('form.lat')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
@@ -420,9 +451,10 @@
                                                                     <div
                                                                         class="col-sm-12 form-group @error('form.address') is-invalid @enderror">
                                                                         <label for="">آدرس
-                                                                            *</label>
+                                                                            <abbr title="ضروری"
+                                                                                style="color:red;">*</abbr></label>
                                                                         <div class="form-line">
-                                                                            <textarea rows="3" class="form-control no-resize" id="address" wire:model='form.address'
+                                                                            <textarea rows="3" class="form-control no-resize" id="address" wire:model.defer='form.address'
                                                                                 placeholder="آدرس را وارد کنید"></textarea>
                                                                             @error('form.address')
                                                                                 <small
@@ -431,8 +463,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
                                                                 <!-- اطلاعات مربوط به خرید -->
                                                                 <br>
                                                                 <div class="header">
@@ -441,10 +471,10 @@
                                                                 <div class="row clearfix">
                                                                     <div
                                                                         class="col-sm-12 form-group @error('form.ambed') is-invalid @enderror">
-                                                                        <label for="loan">کد امبد
+                                                                        <label for="ambed">کد امبد
                                                                             ویدیو</label>
                                                                         <input type="text" id="ambed"
-                                                                            wire:model='form.ambed'
+                                                                            wire:model.defer='form.ambed'
                                                                             class="form-control" />
                                                                         @error('form.ambed')
                                                                             <small
@@ -453,203 +483,201 @@
                                                                     </div>
                                                                 </div>
                                                                 <br>
+                                                                @if ($this->form->tr_type == 'فروش' || $this->form->tr_type == 'پیش فروش')
+                                                                    <h5 style="color:#04BE5B">اطلاعات مربوط به
+                                                                        فروش ملک </h5>
+                                                                    <hr>
 
-                                                                <h5 style="color:#04BE5B">اطلاعات مربوط به
-                                                                    فروش ملک </h5>
-                                                                <hr>
-
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.loan') is-invalid @enderror">
-                                                                        <label for="loan">وام
-                                                                            بانکی</label>
-                                                                        <input type="text" id="loan"
-                                                                            wire:model='form.ccccccloan'
-                                                                            class="form-control" />
-                                                                        @error('form.loan')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.loanamount') is-invalid @enderror">
-                                                                        <label for="loanamount">مبلغ
-                                                                            وام</label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                    <div class="row clearfix">
+                                                                        <div
+                                                                            class="col-sm-4 form-group @error('form.loan') is-invalid @enderror">
+                                                                            <label for="loan">وام
+                                                                                بانکی</label>
+                                                                            <input type="text" id="loan"
+                                                                                wire:model.defer='form.loan'
+                                                                                class="form-control" />
+                                                                            @error('form.loan')
+                                                                                <small
+                                                                                    class="text-danger">{{ $message }}</small>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-sm-4 form-group @error('form.loanamount') is-invalid @enderror">
+                                                                            <label for="loanamount">مبلغ
+                                                                                وام</label>
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    class="form-control"
+                                                                                    id="loanamount"
+                                                                                    wire:model.defer='form.loanamount'
+                                                                                    onkeyup="separateNum(this.value,this);"
+                                                                                    aria-label="Amount (to the nearest dollar)">
                                                                             </div>
-                                                                            <input type="text" class="form-control"
-                                                                                id="loanamount"
-                                                                                wire:model='form.loanamount'
-                                                                                onkeyup="
-                                                                             (this.value,this);"
-                                                                                aria-label="Amount (to the nearest dollar)">
                                                                             @error('form.loanamount')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.meter_price') is-invalid @enderror">
-                                                                        <label for="meter_price">قیمت متری
-                                                                            (برحسب متر
-                                                                            مربع)</label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                        <div
+                                                                            class="col-sm-4 form-group @error('form.meter_price') is-invalid @enderror">
+                                                                            <label for="meter_price">قیمت متری
+                                                                                (برحسب متر
+                                                                                مربع)</label>
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    class="form-control"
+                                                                                    id="meter_price"
+                                                                                    onkeyup="separateNum(this.value,this);"
+                                                                                    wire:model.defer='form.meter_price'
+                                                                                    aria-label="Amount (to the nearest dollar)">
                                                                             </div>
-                                                                            <input type="text" class="form-control"
-                                                                                id="meter_price"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                wire:model='form.meter_price'
-                                                                                aria-label="Amount (to the nearest dollar)">
+
                                                                             @error('form.meter_price')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
-                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-lg-6 form-group @error('form.bidprice') is-invalid @enderror">
-                                                                        <label for="bidprice">قیمت پیشنهادی
-                                                                            *</label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                    <div class="row clearfix">
+                                                                        <div
+                                                                            class="col-lg-6 form-group @error('form.bidprice') is-invalid @enderror mb-4">
+                                                                            <label for="bidprice">قیمت پیشنهادی
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <div class="input-group mbb">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    class="form-control"
+                                                                                    id="bidprice"
+                                                                                    wire:model.defer='form.bidprice'
+                                                                                    onkeyup="changePrice(this.value,this);"
+                                                                                    aria-label="Amount (to the nearest dollar) "
+                                                                                    minlength="10" maxlength="15">
                                                                             </div>
-                                                                            <input type="text" class="form-control"
-                                                                                id="bidprice"
-                                                                                wire:model='form.bidprice'
-                                                                                onkeyup="changePrice(this.value,this);"
-                                                                                aria-label="Amount (to the nearest dollar) "
-                                                                                minlength="10" maxlength="15">
                                                                             @error('form.bidprice')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-6 form-group @error('form.ugprice') is-invalid @enderror">
-                                                                        <label for="ugprice">قیمت کارشناسی
-                                                                            *</label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                        <div
+                                                                            class="col-lg-6 form-group @error('form.ugprice') is-invalid @enderror">
+                                                                            <label for="ugprice">قیمت کارشناسی
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <div class="input-group mbb">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    class="form-control"
+                                                                                    id="ugprice"
+                                                                                    wire:model.defer='form.ugprice'
+                                                                                    aria-label="Amount (to the nearest dollar)"
+                                                                                    onkeyup="separateNum(this.value,this);"
+                                                                                    minlength="10" maxlength="15">
                                                                             </div>
-                                                                            <input type="text" class="form-control"
-                                                                                id="ugprice"
-                                                                                wire:model='form.ugprice'
-                                                                                aria-label="Amount (to the nearest dollar)"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                minlength="10" maxlength="15">
                                                                             @error('form.ugprice')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
-                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-
+                                                                @endif
                                                                 <!-- اطلاعات مربوط به خرید اجاره -->
-                                                                <br>
-                                                                <h5 style="color:#04BE5B">اطلاعات مربوط به
-                                                                    رهن و اجاره
-                                                                </h5>
-                                                                <hr>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-lg-3 col-md-6 form-group @error('form.people_number') is-invalid @enderror">
-                                                                        <label for="people_number">حداکثر
-                                                                            تعداد
-                                                                            نفرات</label>
-                                                                        <input type="number" id="people_number"
-                                                                            wire:model='form.people_number'
-                                                                            class="form-control" />
-                                                                        @error('form.people_number')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-3 col-md-6 form-group @error('form.rent') is-invalid @enderror">
-                                                                        <label for="rent">مبلغ اجاره
-                                                                            *</label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                @if ($this->form->tr_type == 'رهن و اجاره')
+                                                                    <h5 style="color:#04BE5B">اطلاعات مربوط به
+                                                                        رهن و اجاره
+                                                                    </h5>
+                                                                    <div class="row clearfix">
+                                                                        <div
+                                                                            class="col-lg-3 col-md-6 form-group @error('form.people_number') is-invalid @enderror">
+                                                                            <label for="people_number">حداکثر
+                                                                                تعداد
+                                                                                نفرات</label>
+                                                                            <input type="number" id="people_number"
+                                                                                wire:model.defer='form.people_number'
+                                                                                class="form-control" />
+                                                                            @error('form.people_number')
+                                                                                <small
+                                                                                    class="text-danger">{{ $message }}</small>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-lg-3  form-group @error('form.rent') is-invalid @enderror">
+                                                                            <label for="rent">مبلغ اجاره
+                                                                                <abbr title="ضروری"
+                                                                                    style="color:red;">*</abbr></label>
+                                                                            <div class="input-group mbb">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    wire:model.defer='form.rent'
+                                                                                    class="form-control"
+                                                                                    id="rent"
+                                                                                    aria-label="Amount (to the nearest dollar)"
+                                                                                    onkeyup="separateNum(this.value,this);"
+                                                                                    maxlength="10">
                                                                             </div>
-                                                                            <input type="text"
-                                                                                wire:model='form.rent'
-                                                                                class="form-control" id="rent"
-                                                                                aria-label="Amount (to the nearest dollar)"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                maxlength="10">
                                                                             @error('form.rent')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-3 col-md-6 form-group @error('form.rahn') is-invalid @enderror">
-                                                                        <label for="rahn">مبلغ رهن *
-                                                                        </label>
-                                                                        <div class="input-group mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <span
-                                                                                    class="input-group-text">تومان</span>
+                                                                        <div
+                                                                            class="col-lg-3 form-group @error('form.rahn') is-invalid @enderror">
+                                                                            <label for="rahn">مبلغ رهن <abbr
+                                                                                    title="ضروری"
+                                                                                    style="color:red;">*</abbr>
+                                                                            </label>
+                                                                            <div class="input-group mbb">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class="input-group-text">تومان</span>
+                                                                                </div>
+                                                                                <input type="text"
+                                                                                    wire:model.defer='form.rahn'
+                                                                                    class="form-control"
+                                                                                    id="rahn"
+                                                                                    aria-label="Amount (to the nearest dollar)"
+                                                                                    onkeyup="separateNum(this.value,this);"
+                                                                                    maxlength="11">
                                                                             </div>
-                                                                            <input type="text"
-                                                                                wire:model='form.rahn'
-                                                                                class="form-control" id="rahn"
-                                                                                aria-label="Amount (to the nearest dollar)"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                maxlength="11">
                                                                             @error('form.rahn')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <div class="input-group-append">
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-md-6 ">
+                                                                            <br><br>
+                                                                            <div class="checkbox">
+                                                                                <input id="ischange"
+                                                                                    wire:model.defer='form.ischange'
+                                                                                    type="checkbox">
+                                                                                @error('form.ischange')
+                                                                                    <small
+                                                                                        class="text-danger">{{ $message }}</small>
+                                                                                @enderror
+                                                                                <label for="ischange">قابل تغیر
+                                                                                    اجاره و
+                                                                                    رهن</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-3 col-md-6 ">
-                                                                        <br><br>
-                                                                        <div class="checkbox">
-                                                                            <input id="cheng"
-                                                                                wire:model='form.cheng'
-                                                                                type="checkbox">
-                                                                            @error('form.cheng')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                            <label for="cheng">قابل تغیر
-                                                                                اجاره و
-                                                                                رهن</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
+                                                                @endif
                                                                 <!-- امکانات -->
                                                                 <br>
                                                                 <h5 style="color:#04BE5B">وضعیت </h5>
@@ -657,13 +685,13 @@
                                                                 <div class="row clearfix">
                                                                     <div class="col-lg-3 col-md-6">
                                                                         <div class="checkbox">
-                                                                            <input id="chec" type="checkbox"
-                                                                                wire:model='form.chec' checked>
-                                                                            @error('form.chec')
+                                                                            <input id="isactive" type="checkbox"
+                                                                                wire:model.defer='form.isactive'>
+                                                                            @error('form.isactive')
                                                                                 <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
-                                                                            <label for="chec">انتشار
+                                                                            <label for="isactive">انتشار
                                                                                 ملک</label>
                                                                         </div>
                                                                     </div>
@@ -687,10 +715,11 @@
                                                                             <div
                                                                                 class="col-sm-4 form-group @error('form.name_family') is-invalid @enderror">
                                                                                 <label for="name_family">نام نام
-                                                                                    خانوادگی *
+                                                                                    خانوادگی <abbr title="ضروری"
+                                                                                        style="color:red;">*</abbr>
                                                                                 </label>
                                                                                 <input type="text" id="name_family"
-                                                                                    wire:model='form.name_family'
+                                                                                    wire:model.defer='form.name_family'
                                                                                     class="form-control" />
                                                                                 @error('form.name_family')
                                                                                     <small
@@ -708,7 +737,7 @@
                                                                                 <label for="telephone">شماره
                                                                                     تلفن</label>
                                                                                 <input type="text" id="telephone"
-                                                                                    wire:model='form.telephone'
+                                                                                    wire:model.defer='form.telephone'
                                                                                     class="form-control" />
                                                                                 @error('form.telephone')
                                                                                     <small
@@ -718,10 +747,12 @@
                                                                             <div
                                                                                 class="col-sm-4 form-group @error('form.phone') is-invalid @enderror">
                                                                                 <label for="phone">شماره موبایل
-                                                                                    * </label>
+                                                                                    <abbr title="ضروری"
+                                                                                        style="color:red;">*</abbr>
+                                                                                </label>
                                                                                 <input type="text" maxlength="11"
                                                                                     id="phone"
-                                                                                    wire:model='form.phone'
+                                                                                    wire:model.defer='form.phone'
                                                                                     class="form-control" />
                                                                                 @error('form.phone')
                                                                                     <small
@@ -753,14 +784,14 @@
                                                                 <div class="card">
                                                                     <div class="body">
                                                                         <div class="row clearfix">
-                                                                            <div class="col-lg-3 form-group @error('form.doc') is-invalid @enderror"
-                                                                                wire:ignore>
+                                                                            <div
+                                                                                class="col-lg-3 form-group @error('form.doc') is-invalid @enderror">
                                                                                 <label for="doc">نوع
                                                                                     سند</label>
-                                                                                <select wire:model='form.doc'
+                                                                                <select wire:model.defer='form.doc'
                                                                                     id="doc"
                                                                                     class="form-control show-tick ms select2">
-                                                                                    <option disabled selected hidden>
+                                                                                    <option>
                                                                                     </option>
                                                                                     <option>سند
                                                                                         دار
@@ -785,7 +816,7 @@
                                                                                 class="col-lg-3 form-group @error('form.dimension') is-invalid @enderror">
                                                                                 <label for="dimension">ابعاد</label>
                                                                                 <input type="text" id="dimension"
-                                                                                    wire:model='form.dimension'
+                                                                                    wire:model.defer='form.dimension'
                                                                                     class="form-control" />
                                                                                 @error('form.dimension')
                                                                                     <small
@@ -796,7 +827,7 @@
                                                                                 class="col-lg-3 form-group @error('form.view') is-invalid @enderror">
                                                                                 <label for="view">نما</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.view'
+                                                                                    wire:model.defer='form.view'
                                                                                     id="view"
                                                                                     class="form-control" />
                                                                                 @error('form.view')
@@ -809,7 +840,7 @@
                                                                                 <label for="door">درب
                                                                                     ورودی</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.door'
+                                                                                    wire:model.defer='form.door'
                                                                                     id="door"
                                                                                     class="form-control" />
                                                                                 @error('form.door')
@@ -823,7 +854,7 @@
                                                                                 class="col-sm-4 form-group @error('form.screen') is-invalid @enderror">
                                                                                 <label for="screen">پرده</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.screen'
+                                                                                    wire:model.defer='form.screen'
                                                                                     id="screen"
                                                                                     class="form-control" />
                                                                                 @error('form.screen')
@@ -835,7 +866,7 @@
                                                                                 class="col-sm-4 form-group @error('form.cover') is-invalid @enderror">
                                                                                 <label for="cover">کفپوش</label>
                                                                                 <input type="text" id="cover"
-                                                                                    wire:model='form.cover'
+                                                                                    wire:model.defer='form.cover'
                                                                                     class="form-control" />
                                                                                 @error('form.cover')
                                                                                     <small
@@ -847,7 +878,7 @@
                                                                                 <label for="phone line">خط
                                                                                     تلفن</label>
                                                                                 <input type="text" id="phone_line"
-                                                                                    wire:model='form.phone_line'
+                                                                                    wire:model.defer='form.phone_line'
                                                                                     class="form-control" />
                                                                                 @error('form.phone_line')
                                                                                     <small
@@ -861,7 +892,7 @@
                                                                                 <label for="cool">سیستم
                                                                                     برودتی</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.cool'
+                                                                                    wire:model.defer='form.cool'
                                                                                     id="cool"
                                                                                     class="form-control" />
                                                                                 @error('form.cool')
@@ -874,7 +905,7 @@
                                                                                 <label for="heat">سیستم
                                                                                     حرارتی</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.heat'
+                                                                                    wire:model.defer='form.heat'
                                                                                     id="heat"
                                                                                     class="form-control" />
                                                                                 @error('form.heat')
@@ -886,7 +917,7 @@
                                                                                 class="col-sm-4 form-group @error('form.cabinet') is-invalid @enderror">
                                                                                 <label for="cabinet">کابینت</label>
                                                                                 <input type="text"
-                                                                                    wire:model='form.cabinet'
+                                                                                    wire:model.defer='form.cabinet'
                                                                                     id="cabinet"
                                                                                     class="form-control" />
                                                                                 @error('form.cabinet')
@@ -900,7 +931,7 @@
                                                                                     های
                                                                                     مجموعه</label>
                                                                                 <input type="number" id="collection"
-                                                                                    wire:model='form.collection'
+                                                                                    wire:model.defer='form.collection'
                                                                                     class="form-control" />
                                                                                 @error('form.collection')
                                                                                     <small
@@ -913,7 +944,7 @@
                                                                                 class="col-sm-12 form-group @error('form.description') is-invalid @enderror">
                                                                                 <label for="">توضیحات</label>
                                                                                 <div class="form-line">
-                                                                                    <textarea rows="5" class="form-control no-resize" id="description" wire:model='form.description'
+                                                                                    <textarea rows="5" class="form-control no-resize" id="description" wire:model.defer='form.description'
                                                                                         placeholder="توضیحات را وارد کنید ...."></textarea>
                                                                                     @error('form.description')
                                                                                         <small
@@ -926,8 +957,8 @@
                                                                                 <label for="">توضیحات
                                                                                     مشاور</label>
                                                                                 <div class="form-line">
-                                                                                    <textarea rows="5" class="form-control no-resize" id="agent_description" wire:model='form.agent_description'
-                                                                                        placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                                                    <textarea rows="5" class="form-control no-resize" id="agent_description"
+                                                                                        wire:model.defer='form.agent_description' placeholder="توضیحات را وارد کنید ...."></textarea>
                                                                                     @error('form.agent_description')
                                                                                         <small
                                                                                             class="text-danger">{{ $message }}</small>
@@ -938,20 +969,20 @@
                                                                         <br>
                                                                         <h5 style="color:#04BE5B">امکانات </h5>
                                                                         <hr>
-                                                                        <div class="row clearfix">
+                                                                        <div class="row clearfix" wire:ignore.self>
                                                                             @foreach ($features as $key => $feature)
-                                                                                <div class="col-lg-3 col-md-6">
+                                                                                <div class="col-lg-3 col-md-6"
+                                                                                    wire:key="fe-{{ $feature->id }}">
                                                                                     <div class="checkbox">
                                                                                         <input type="checkbox"
+                                                                                            @foreach ($this->form->property->features as $propertyfeature)
+                                                                                        @checked($feature->id == $propertyfeature->id) @endforeach
                                                                                             id="features-{{ $feature->id }}"
-                                                                                            wire:model='form.features'
+                                                                                            wire:click="userSubscribed($event.target.checked , {{ $feature->id }})"
+                                                                                            {{-- wire:model='form.features' --}}
                                                                                             class="filled-in chk-col-indigo"
-                                                                                            value="{{ $feature->id }}"
-                                                                                            {{ (is_array(old('features')) and in_array($feature->id, old('features'))) ? ' checked' : '' }} />
-                                                                                        @error('form.features')
-                                                                                            <small
-                                                                                                class="text-danger">{{ $message }}</small>
-                                                                                        @enderror
+                                                                                            value="{{ $feature->id }}" />
+
                                                                                         <label
                                                                                             for="features-{{ $feature->id }}">{{ $feature->name }}</label>
                                                                                     </div>
@@ -982,7 +1013,9 @@
                                                                                         aria-hidden="true"></span></label>
                                                                                 <div
                                                                                     class="custom-file d-flex flex-row-reverse">
-                                                                                    <input wire:model.live="form.img"
+                                                                                    <input
+                                                                                        onchange="validateImage(this)"
+                                                                                        wire:model.defer.live="form.img"
                                                                                         type="file"
                                                                                         class="custom-file-input"
                                                                                         id="customFile" lang="ar"
@@ -994,11 +1027,52 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
                                                                         @if ($form->img)
-                                                                            <img src="{{ $form->img->temporaryUrl() }}"
-                                                                                height="300rem">
+                                                                            @if ($form->is_edit)
+                                                                                <img src="{{ $form->img->temporaryUrl() }}"
+                                                                                    style="border: #00ff40 2px solid ; border-radius: 0.5rem"
+                                                                                    height="300rem">
+                                                                            @endif
+                                                                        @else
+                                                                            </hr>
+                                                                            <div class="container-fluid">
+                                                                                <div class="row clearfix">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="card">
+                                                                                            <div class="tab-content">
+                                                                                                <div class="tab-pane active"
+                                                                                                    id="a2018">
+                                                                                                    <div
+                                                                                                        class="row clearfix">
+                                                                                                        <div
+                                                                                                            class="col-lg-3 col-md-4 col-sm-12">
+                                                                                                            <div
+                                                                                                                class="card">
+                                                                                                                <div
+                                                                                                                    class="hover">
+                                                                                                                </div>
+                                                                                                                <a href="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                                    class="file"
+                                                                                                                    target="_blank">
+                                                                                                                    <div
+                                                                                                                        class="image">
+                                                                                                                        <img src="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                                            alt="img"
+                                                                                                                            class="img-fluid">
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         @endif
-                                                                        <div class="row">
+                                                                        <div class="row mt-4">
                                                                             <div class="form-group col-md-4">
                                                                                 <label class="form-label"
                                                                                     for="exampleFormControlFile1">آپلود
@@ -1010,16 +1084,32 @@
                                                                                 <div
                                                                                     class="custom-file d-flex flex-row-reverse">
                                                                                     <input
-                                                                                        wire:model.live="form.otherimg"
+                                                                                        wire:model.defer.live="form.otherimg"
                                                                                         type="file"
+                                                                                        id="imageUpload"
                                                                                         class="custom-file-input"
-                                                                                        id="customFile" lang="ar"
-                                                                                        dir="rtl" multiple>
+                                                                                        lang="ar" dir="rtl"
+                                                                                        multiple>
                                                                                     <label
                                                                                         class="custom-file-label text-right"
                                                                                         for="customFile">
                                                                                     </label>
                                                                                 </div>
+                                                                                <small class="text-danger"
+                                                                                    id="validation-errors"></small>
+                                                                            </div>
+                                                                            <div class="form-group col-md-4"
+                                                                                style="    margin-top: 1.66rem !important;">
+                                                                                <button wire:loading.attr="disabled"
+                                                                                    wire:click.prevent="add_image"
+                                                                                    class="btn btn-raised btn-info waves-effect">
+                                                                                    افزودن
+                                                                                    <span
+                                                                                        class="spinner-border spinner-border-sm text-light"
+                                                                                        wire:loading
+                                                                                        wire:target="add_image"></span>
+
+                                                                                </button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1027,9 +1117,64 @@
                                                                     @if ($form->otherimg)
                                                                         @foreach ($form->otherimg as $imge)
                                                                             <img src="{{ $imge->temporaryUrl() }}"
+                                                                                style="border: #00ff40 2px solid ; border-radius: 0.5rem"
                                                                                 height="300rem">
                                                                         @endforeach
                                                                     @endif
+                                                                    <div class="container-fluid">
+                                                                        <div class="row clearfix">
+                                                                            <div class="col-lg-12">
+                                                                                <div class="card">
+                                                                                    <div class="tab-content">
+                                                                                        <div class="tab-pane active"
+                                                                                            id="a2018">
+                                                                                            <div class="row clearfix">
+                                                                                                @foreach ($property->images as $images)
+                                                                                                    <div wire:key="{{ $images->id }}"
+                                                                                                        class="col-lg-3 col-md-4 col-sm-12">
+                                                                                                        <div
+                                                                                                            class="card">
+                                                                                                            <div
+                                                                                                                class="hover">
+
+                                                                                                                <button
+                                                                                                                    wire:loading.attr="disabled"
+                                                                                                                    wire:click.prevent="delete({{ $images }})"
+                                                                                                                    class="btn btn-icon btn-icon-mini btn-round btn-danger">
+                                                                                                                    <i
+                                                                                                                        class="zmdi zmdi-delete"></i>
+                                                                                                                </button>
+
+                                                                                                                <span
+                                                                                                                    class="file-name">
+                                                                                                                    <small
+                                                                                                                        class="mr-2">
+                                                                                                                        تاریخ
+                                                                                                                        آپلود
+                                                                                                                        <span
+                                                                                                                            class="date">{{ Hekmatinasser\Verta\Verta::instance($images->created_at)->format('Y/n/j') }}</span></small>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                            <a href="{{ asset('storage/otherpreview/' . $images->name) }}"
+                                                                                                                class="file"
+                                                                                                                target="_blank">
+                                                                                                                <div
+                                                                                                                    class="image">
+                                                                                                                    <img src="{{ asset('storage/otherpreview/' . $images->name) }}"
+                                                                                                                        alt="img"
+                                                                                                                        class="img-fluid">
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                             </section>
                                                         </div>
                                                     </div>
@@ -1041,19 +1186,23 @@
                                                     @endif
                                                     @if ($form->currentStep == 2 || $form->currentStep == 3 || $form->currentStep == 4)
                                                         <button type="button" class="btn btn-md btn-secondary"
-                                                            wire:click="decreaseStep()">
+                                                            wire:click.prevent="decStep()">
                                                             قبلی
                                                         </button>
                                                     @endif
                                                     @if ($form->currentStep == 1 || $form->currentStep == 2 || $form->currentStep == 3)
                                                         <button type="button" class="btn btn-md btn-success"
-                                                            wire:click="increaseStep()">
+                                                            wire:click.prevent="incStep()">
                                                             بعدی
                                                         </button>
                                                     @endif
                                                     @if ($form->currentStep == 4)
-                                                        <button type="submit" class="btn btn-md btn-primary">ثبت
-                                                            اطلاعات</button>
+                                                        <button type="submit" class="btn btn-md btn-primary"
+                                                            wire:loading.attr="disabled">ثبت
+                                                            اطلاعات
+                                                            <span class="spinner-border spinner-border-sm text-light"
+                                                                wire:loading wire:target="add_image"></span>
+                                                        </button>
                                                     @endif
                                                 </div>
                                             </form>
@@ -1066,187 +1215,189 @@
             </div>
         </div>
     </section>
-    @push('styles')
-        <style>
-            .fixed {
-                position: fixed;
-                background: #fff;
-                z-index: 10000;
-                top: 0px;
-                left: auto;
-                right: auto;
-                max-width: -webkit-fill-available;
+</div>
+@push('styles')
+    <style>
+        .mbb {
+            margin-bottom: 0.1rem;
+        }
 
-            }
+        .fixed {
+            position: fixed;
+            background: #fff;
+            z-index: 10000;
+            top: 0px;
+            left: auto;
+            right: auto;
+            max-width: -webkit-fill-available;
 
-            body {
-                background-color: #f8f9fa;
-            }
+        }
 
-            .wizard {
-                background-color: #f8f9fa;
-            }
+        body {
+            background-color: #f8f9fa;
+        }
 
-            .wizard-step {
-                display: none;
-            }
+        .wizard {
+            background-color: #f8f9fa;
+        }
 
-            .wizard-step.active {
-                display: block;
-            }
+        .wizard-step {
+            display: none;
+        }
 
-            .progress {
-                height: 5px;
-            }
+        .wizard-step.active {
+            display: block;
+        }
 
-            .progress-bar {
-                background-color: #28a745;
-                /* سبز */
-            }
+        .progress {
+            height: 5px;
+        }
 
-            .wizard-nav {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-            }
+        .progress-bar {
+            background-color: #28a745;
+            /* سبز */
+        }
 
-            .step {
-                flex: 1;
-                text-align: center;
-                position: relative;
-            }
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-            .step.completed {
-                color: #28a745;
-            }
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
 
-            .step i {
-                font-size: 18px;
-                margin-bottom: 5px;
-                border-radius: 50%;
-                background-color: #e9ecef;
-                /* پس‌زمینه آیکن‌ها */
-                padding: 15px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                transition: background-color 0.3s;
-            }
+        .step.completed {
+            color: #28a745;
+        }
 
-            .step.active i {
-                background-color: #007bff;
-                color: white;
-            }
+        .step i {
+            font-size: 18px;
+            margin-bottom: 5px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            /* پس‌زمینه آیکن‌ها */
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
 
-            .step.completed i {
-                background-color: #28a745;
-                /* پس‌زمینه سبز */
-                color: white;
-                /* رنگ آیکن سفید */
-            }
+        .step.active i {
+            background-color: #007bff;
+            color: white;
+        }
 
-            .step::after {
-                content: "";
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                width: 100%;
-                height: 2px;
-                background: #dee2e6;
-                z-index: -1;
-                transform: translateX(-50%);
-            }
+        .step.completed i {
+            background-color: #28a745;
+            /* پس‌زمینه سبز */
+            color: white;
+            /* رنگ آیکن سفید */
+        }
 
-            .step.active::after {
-                background: #007bff;
-            }
+        .step::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #dee2e6;
+            z-index: -1;
+            transform: translateX(-50%);
+        }
 
-            .step.completed::after {
-                background: #28a745;
-            }
-        </style>
-    @endpush
+        .step.active::after {
+            background: #007bff;
+        }
 
-    @push('scripts')
-        <script src="{{ asset('assets/js/ir-city-select.min.js') }}"></script>
-        <script>
-            $(document).ready(function() {
-                $('.class').select2();
+        .step.completed::after {
+            background: #28a745;
+        }
+    </style>
+@endpush
 
-                $('#province').on('change', function(e) {
-                    let data = $('#province').select2("val");
-                    if (data === '') {
-                        @this.set('form.province', null);
-                    } else {
-                        @this.set('form.province', data);
-                    }
-                });
-
-                $('#lable').on('change', function(e) {
-                    let data = $('#lable').select2("val");
-                    if (data === '') {
-                        @this.set('form.lable', null);
-                    } else {
-                        @this.set('form.lable', data);
-                    }
-                });
-
-
-                $('#city').on('change', function(e) {
-                    let data = $('#city').select2("val");
-                    if (data === '') {
-                        @this.set('form.city', null);
-                    } else {
-                        @this.set('form.city', data);
-                    }
-                });
-
-                $('#doc').on('change', function(e) {
-                    let data = $('#doc').select2("val");
-                    if (data === '') {
-                        @this.set('form.doc', null);
-                    } else {
-                        @this.set('form.doc', data);
-                    }
-                });
-
-                $('#usertype').on('change', function(e) {
-                    let data = $('#usertype').select2("val");
-                    if (data === '') {
-                        @this.set('form.usertype', null);
-                    } else {
-                        @this.set('form.usertype', data);
-                    }
-                });
-
-                $('#tr_type').on('change', function(e) {
-                    let data = $('#tr_type').select2("val");
-                    if (data === '') {
-                        @this.set('form.tr_type', null);
-                    } else {
-                        @this.set('form.tr_type', data);
-                    }
-                });
-                $('#type').on('change', function(e) {
-                    let data = $('#type').select2("val");
-                    if (data === '') {
-                        @this.set('form.type', null);
-                    } else {
-                        @this.set('form.type', data);
-                    }
-                });
-
-
-                window.onscroll = function() {
-                    const nav2 = document.getElementById("nav2");
-                    if (window.pageYOffset > 0) {
-                        nav2.classList.add("fixed");
-                    } else {
-                        nav2.classList.remove("fixed");
-                    }
-                };
-            });
-        </script>
-    @endpush
+@push('scripts')
     <script>
+        $(document).ready(function() {
+            // $('.class').select2();
+
+            // $('#province').on('change', function(e) {
+            //     let data = $('#province').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.province', null);
+            //     } else {
+            //         @this.set('form.province', data);
+            //     }
+            // });
+
+            // $('#lable').on('change', function(e) {
+            //     let data = $('#lable').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.lable', null);
+            //     } else {
+            //         @this.set('form.lable', data);
+            //     }
+            // });
+
+
+            // $('#city').on('change', function(e) {
+            //     let data = $('#city').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.city', null);
+            //     } else {
+            //         @this.set('form.city', data);
+            //     }
+            // });
+
+            // $('#doc').on('change', function(e) {
+            //     let data = $('#doc').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.doc', null);
+            //     } else {
+            //         @this.set('form.doc', data);
+            //     }
+            // });
+
+            // $('#usertype').on('change', function(e) {
+            //     let data = $('#usertype').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.usertype', null);
+            //     } else {
+            //         @this.set('form.usertype', data);
+            //     }
+            // });
+
+            // $('#tr_type').on('change', function(e) {
+            //     let data = $('#tr_type').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.tr_type', null);
+            //     } else {
+            //         @this.set('form.tr_type', data);
+            //     }
+            // });
+            // $('#type').on('change', function(e) {
+            //     let data = $('#type').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.type', null);
+            //     } else {
+            //         @this.set('form.type', data);
+            //     }
+            // });
+
+
+            window.onscroll = function() {
+                const nav2 = document.getElementById("nav2");
+                if (window.pageYOffset > 0) {
+                    nav2.classList.add("fixed");
+                } else {
+                    nav2.classList.remove("fixed");
+                }
+            };
+        });
+
         function changePrice(value, input) {
             var meter = $("#area").val();
             if (meter) {
@@ -1255,50 +1406,6 @@
                 $("#meter_price").val(meterprice);
             }
             separateNum(value, input);
-        }
-
-        function settype() {
-            if (document.getElementById("tr_type").value === "رهن و اجاره") {
-                document.getElementById("loanamount").disabled = true;
-                document.getElementById("loan").disabled = true;
-                document.getElementById("bidprice").disabled = true;
-                document.getElementById("ugprice").disabled = true;
-                document.getElementById("meter_price").disabled = true;
-                document.getElementById("cheng").disabled = false;
-                document.getElementById("rent").disabled = false;
-                document.getElementById("rahn").disabled = false;
-                document.getElementById("people_number").disabled = false;
-            } else if (document.getElementById("tr_type").value === "فروش") {
-                document.getElementById("cheng").disabled = true;
-                document.getElementById("rent").disabled = true;
-                document.getElementById("rahn").disabled = true;
-                document.getElementById("people_number").disabled = true;
-                document.getElementById("loanamount").disabled = false;
-                document.getElementById("loan").disabled = false;
-                document.getElementById("meter_price").disabled = false;
-                document.getElementById("bidprice").disabled = false;
-                document.getElementById("ugprice").disabled = false;
-            } else if (document.getElementById("tr_type").value === "پیش فروش") {
-                document.getElementById("cheng").disabled = true;
-                document.getElementById("rent").disabled = true;
-                document.getElementById("rahn").disabled = true;
-                document.getElementById("people_number").disabled = true;
-                document.getElementById("loanamount").disabled = false;
-                document.getElementById("loan").disabled = false;
-                document.getElementById("meter_price").disabled = false;
-                document.getElementById("bidprice").disabled = false;
-                document.getElementById("ugprice").disabled = false;
-            } else {
-                document.getElementById("cheng").disabled = false;
-                document.getElementById("rent").disabled = false;
-                document.getElementById("rahn").disabled = false;
-                document.getElementById("people_number").disabled = false;
-                document.getElementById("loanamount").disabled = false;
-                document.getElementById("loan").disabled = false;
-                document.getElementById("meter_price").disabled = false;
-                document.getElementById("bidprice").disabled = false;
-                document.getElementById("ugprice").disabled = false;
-            }
         }
 
         function baractive() {
@@ -1326,5 +1433,59 @@
             }
         }
     </script>
+    @if ($form->currentStep == 4)
+        <script>
+            function validateImage(input) {
+                const file = input.files[0];
+                if (!file) {
+                    alert('لطفا یک فایل انتخاب کنید.');
+                    input.value = ''
+                    return false;
+                }
 
-</div>
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('فرمت فایل مجاز نیست. لطفا فایل با فرمت jpg، png یا gif انتخاب کنید.');
+                    input.value = '';
+                    return false;
+                }
+
+                const maxSize = 2097152; // 2MB
+                if (file.size > maxSize) {
+                    alert('حجم فایل نباید از 2 مگابایت بیشتر باشد.');
+                    input.value = '';
+                    return false;
+                }
+
+                // اگر همه بررسی‌ها موفقیت‌آمیز بود، می‌توانید فایل را آپلود کنید
+                return true;
+            }
+
+            const imageUpload = document.getElementById('imageUpload');
+            const validationErrors = document.getElementById('validation-errors');
+
+            imageUpload.addEventListener('change', () => {
+                const files = imageUpload.files;
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                let errors = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    if (!allowedTypes.includes(file.type)) {
+                        errors.push(`فرمت فایل ${file.name} مجاز نیست.`);
+                    } else if (file.size > 2097152) { // محدودیت اندازه 2MB
+                        errors.push(`حجم فایل ${file.name} بیش از حد مجاز است.`);
+                    } else {
+                        // سایر بررسی‌ها مانند ابعاد، نسبت تصویر و ...
+                    }
+                }
+
+                if (errors.length > 0) {
+                    validationErrors.textContent = errors.join('\n');
+                    imageUpload.value = '';
+                }
+            });
+        </script>
+    @endif
+@endpush

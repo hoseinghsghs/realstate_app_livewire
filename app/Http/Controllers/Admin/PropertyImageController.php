@@ -70,11 +70,15 @@ class PropertyImageController extends Controller
     {
         if (isset($imageUpload)) {
 
+            $extension = $imageUpload->extension();
 
-            $image = PertiongenerateImageName($imageUpload->getClientOriginalName());
+            $image = PertiongenerateImageName($extension);
+
             $filesystem = config('filesystems.default');
 
             $pach = config('filesystems.disks.' . $filesystem)['root'];
+
+
 
 
             if (!Storage::exists('preview')) {

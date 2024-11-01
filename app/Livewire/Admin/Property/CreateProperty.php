@@ -24,7 +24,7 @@ class CreateProperty extends Component
 
     public function mount()
     {
-        $this->form->currentStep = 4;
+        $this->form->currentStep = 1;
     }
 
     public function decStep()
@@ -35,6 +35,8 @@ class CreateProperty extends Component
     {
         $this->form->increaseStep();
     }
+
+
 
     public function save()
     {

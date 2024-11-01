@@ -30,10 +30,162 @@
                         <div class="card">
                             <form wire:submit.prevent="$refresh">
                                 <div class="header">
-                                    <h2>
-                                        جست و جو
-                                    </h2>
+                                    <div class="body">
+                                        <div class="row clearfix mx-0">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">نوع معامله</label>
+                                                    <select id="ptype" wire:model.live="tr_type"
+                                                        class="form-control " placeholder="نوع معامله">
+                                                        <option></option>
+                                                        <option>رهن و اجاره</option>
+                                                        <option>فروش</option>
+                                                        <option>پیش فروش</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">نوع ملک</label>
+                                                    <select wire:model.live="type" id="type" class="form-control "
+                                                        placeholder="نوع ملک">
+                                                        <option></option>
+                                                        <option>آپارتمان</option>
+                                                        <option>خانه ویلایی</option>
+                                                        <option>زمین و کلنگی</option>
+                                                        <option>مغازه</option>
+                                                        <option>دفتر کار </option>
+                                                        <option>باغ</option>
+                                                        <option>انبار</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">محله</label>
+
+                                                    <select wire:model.live="district" id="district"
+                                                        class="form-control " placeholder="محله">
+                                                        <option></option>
+                                                        @isset($districts)
+                                                            @foreach ($districts as $district)
+                                                                <option>{{ $district }}</option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">نوع سند</label>
+                                                    <select id="docType" wire:model.live="doc" class="form-control "
+                                                        placeholder="نوع سند">
+                                                        <option></option>
+                                                        <option>سند دار</option>
+                                                        <option>قولنامه ای</option>
+                                                        <option>در دست اقدام</option>
+                                                        <option>مشاع</option>
+                                                        <option>دیگر</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">طبقه</label>
+                                                    <select wire:model.live="floorsell" id="floor"
+                                                        class="form-control " placeholder="طبقه">
+                                                        <option></option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">تعداد اتاق خواب</label>
+                                                    <select wire:model.live="bedroom" id="bedrooms"
+                                                        class="form-control " placeholder="اتاق خواب">
+                                                        <option></option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">عنوان ملک،آدرس</label>
+
+                                                    <input type="text" wire:model.live.debounce.500ms="search"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="heat">شناسه ملک</label>
+                                                    <input type="text" wire:model.live.debounce.500ms="code"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <p>متراژ(مترمربع)</p>
+                                                    <div id="meter-range"></div>
+                                                    <div class="m-t-20 font-14"><span
+                                                            class="js-nouislider-value"></span></div>
+                                                </div>
+                                            </div>
+                                            <div id="price" class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <p>قیمت(تومان)</p>
+                                                    <div id="price-range"></div>
+                                                    <div class="m-t-20 font-14"><span
+                                                            class="js-nouislider-value"></span></div>
+                                                </div>
+                                            </div>
+                                            <div id="rahn" class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <p>رهن(تومان)</p>
+                                                    <div id="rahn-range"></div>
+                                                    <div class="m-t-20 font-14"><span
+                                                            class="js-nouislider-value"></span></div>
+                                                </div>
+                                            </div>
+                                            <div id="rent" class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <p>اجاره(تومان)</p>
+                                                    <div id="rent-range"></div>
+                                                    <div class="m-t-20 font-14"><span
+                                                            class="js-nouislider-value"></span></div>
+                                                </div>
+                                            </div>
+                                            @if ($featuresco->count() > 0)
+                                                <div class="col-12">
+                                                    <p class="text-green">ویژگی های پیشرفته</p>
+                                                    <hr>
+                                                    <div class="row clearfix">
+                                                        @foreach ($featuresco as $feature)
+                                                            <div class="checkbox col-auto"
+                                                                wire:key="{{ $feature->id }}">
+                                                                <input id="check-{{ $feature->id }}" type="checkbox"
+                                                                    wire:model.live="features"
+                                                                    value="{{ $feature->id }}">
+                                                                <label for="check-{{ $feature->id }}">
+                                                                    {{ $feature->name }}
+                                                                </label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
+
                                 {{-- <div class="body">
                                     <div class="row clearfix">
                                         <div class="col-lg-3 col-md-4 col-sm-6">
@@ -56,7 +208,7 @@
                                         <div class="col-lg-3 col-md-4 col-sm-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <select data-placeholder="وضعیت" wire:model.live="is_active"
+                                                    <select placeholder="وضعیت" wire:model.live="is_active"
                                                         class="form-control ms">
                                                         <option value="">وضعیت</option>
                                                         <option value="1">فعال</option>
@@ -71,7 +223,7 @@
                                                 class="form-group col-md-3 col-sm-3 @error('laboratory_id') is-invalid @enderror">
                                                 <div wire:ignore>
                                                     <select id="laboratorySelect" wire:model.live="laboratory_id_search"
-                                                        data-placeholder="انتخاب آزمایشگاه"
+                                                        placeholder="انتخاب آزمایشگاه"
                                                         class="form-control ms search-select">
                                                         <option></option>
                                                         @foreach ($laboratories as $laboratory)
@@ -87,7 +239,7 @@
                                                 class="form-group col-md-3 col-sm-3 @error('dossier_id') is-invalid @enderror">
                                                 <div wire:ignore>
                                                     <select id="dossierSelect" wire:model.live="dossier_id_search"
-                                                        data-placeholder="انتخاب پرونده"
+                                                        placeholder="انتخاب پرونده"
                                                         class="form-control ms search-select">
                                                         <option></option>
                                                         @foreach ($dossiers as $dossier)
@@ -102,7 +254,7 @@
                                         <div class="col-lg-3 col-md-4 col-sm-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <select data-placeholder="موجودی" wire:model.live="status"
+                                                    <select placeholder="موجودی" wire:model.live="status"
                                                         class="form-control ms">
                                                         <option value="">وضعیت بررسی (همه)</option>
                                                         <option value="0">پذیرش شواهد دیجیتال</option>
@@ -248,10 +400,124 @@
             </div>
         </div>
     </section>
-
-
-
     @push('scripts')
+        <script>
+            $(document).ready(function() {
+                var meter, sell_price, rent_price, rahn_price;
+                // meter range
+                var rangeSlider = document.getElementById('meter-range');
+                noUiSlider.create(rangeSlider, {
+                    start: [50, 1000],
+                    connect: true,
+                    format: wNumb({
+                        decimals: 0,
+                        thousand: ',',
+                        suffix: ' مترمربع'
+                    }),
+                    range: {
+                        'min': 1,
+                        'max': 5000
+                    }
+                });
+                getNoUISliderValue(rangeSlider, 'meter');
+                // sell price range
+                var rangeSlider = document.getElementById('price-range');
+                noUiSlider.create(rangeSlider, {
+                    start: [100000000, 9000000000],
+                    connect: true,
+                    step: 10000000,
+                    format: wNumb({
+                        decimals: 0,
+                        thousand: ',',
+                        suffix: ' تومان'
+                    }),
+                    range: {
+                        'min': 100000000,
+                        'max': 99000000000
+                    }
+                });
+                getNoUISliderValue(rangeSlider, 'sell_price');
+                // rahn range price
+                var rangeSlider = document.getElementById('rahn-range');
+                noUiSlider.create(rangeSlider, {
+                    start: [10000000, 500000000],
+                    connect: true,
+                    step: 1000000,
+                    format: wNumb({
+                        decimals: 0,
+                        thousand: ',',
+                        suffix: ' تومان'
+                    }),
+                    range: {
+                        'min': 10000000,
+                        'max': 1000000000
+                    }
+                });
+                getNoUISliderValue(rangeSlider, 'rahn_price');
+                // rent range price
+                var rangeSlider = document.getElementById('rent-range');
+                noUiSlider.create(rangeSlider, {
+                    start: [0, 100000000],
+                    connect: true,
+                    step: 1000000,
+                    format: wNumb({
+                        decimals: 0,
+                        thousand: ',',
+                        suffix: ' تومان'
+                    }),
+                    range: {
+                        'min': 0,
+                        'max': 500000000
+                    }
+                });
+                getNoUISliderValue(rangeSlider, 'rent_price');
+
+
+                function getNoUISliderValue(slider, type) {
+                    slider.noUiSlider.on('update', function(values, handle) {
+                        var f1 = values[0]
+                        switch (type) {
+                            case 'meter':
+                                meter = removeExtraCharactor(values.join(';'));
+                                break;
+                            case 'sell_price':
+                                sell_price = removeExtraCharactor(values.join(';'));
+                                break;
+                            case 'rahn_price':
+                                rahn_price = removeExtraCharactor(values.join(';'));
+                                break;
+                            case 'rent_price':
+                                rent_price = removeExtraCharactor(values.join(';'));
+                                break;
+                            default:
+                                break;
+                        }
+                        $(slider).parent().find('span.js-nouislider-value').text(
+                            `از ${values[0]} تا ${values[1]}`);
+                    });
+                }
+
+                function removeExtraCharactor(text) {
+                    return text.replace(/,|تومان|مترمربع|\s/g, '')
+                }
+
+                // show and hide rent and sell price base on estate type
+                $("#price,#rahn,#rent").hide();
+                $(document).on('change', '#ptype', function(e) {
+                    if (this.value === 'فروش') {
+                        $('#price').show();
+                        $('#rahn,#rent').hide();
+                    } else if (this.value === 'رهن و اجاره') {
+                        $('#price').hide();
+                        $('#rahn,#rent').show();
+                    } else {
+                        $("#price,#rahn,#rent").hide();
+                    }
+                })
+
+            });
+        </script>
+
         <script>
             $(document).ready(function() {
                 $("#searchInput").on("keyup", function() {

@@ -116,8 +116,7 @@
                                                                         <div class="form-group mbb" wire:ignore>
                                                                             <label for="lable">لیبل</label>
                                                                             <select wire:model='form.lable'
-                                                                                id="lable"
-                                                                                class="form-control show-tick ms select2">
+                                                                                id="lable" class="form-control">
                                                                                 <option>
                                                                                 </option>
                                                                                 <option>
@@ -138,13 +137,12 @@
                                                                 <div class="row clearfix">
                                                                     <div
                                                                         class="col-lg-4 col-md-6 mb-4 @error('form.tr_type') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
+                                                                        <div class="form-group mbb">
                                                                             <label for="tr_type"> نوع معامله
                                                                                 <abbr title="ضروری"
                                                                                     style="color:red;">*</abbr></label>
-                                                                            <select wire:model='form.tr_type'
-                                                                                id="tr_type"
-                                                                                class="form-control show-tick ms select2">
+                                                                            <select wire:model.live='form.tr_type'
+                                                                                id="tr_type" class="form-control">
                                                                                 <option>
                                                                                 </option>
                                                                                 <option
@@ -171,13 +169,12 @@
 
                                                                     <div
                                                                         class="col-lg-4 col-md-6 mb-4 p @error('form.usertype') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
+                                                                        <div class="form-group mbb">
                                                                             <label for="usertype"> نوع کاربری
                                                                                 <abbr title="ضروری"
                                                                                     style="color:red;">*</abbr></label>
                                                                             <select wire:model='form.usertype'
-                                                                                id="usertype"
-                                                                                class="form-control show-tick ms select2">
+                                                                                id="usertype" class="form-control">
                                                                                 <option disabled selected hidden>
                                                                                 </option>
                                                                                 <option
@@ -214,13 +211,12 @@
                                                                     </div>
                                                                     <div
                                                                         class="col-lg-4 col-md-6 mb-4  @error('form.type') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
+                                                                        <div class="form-group mbb">
                                                                             <label for="type">نوع ملک
                                                                                 <abbr title="ضروری"
                                                                                     style="color:red;">*</abbr></label>
                                                                             <select wire:model='form.type'
-                                                                                id="type"
-                                                                                class="form-control show-tick ms select2">
+                                                                                id="type" class="form-control">
                                                                                 <option disabled selected hidden>
                                                                                 </option>
                                                                                 <option
@@ -358,15 +354,19 @@
                                                                 <div class="row clearfix ir-select">
                                                                     <div
                                                                         class="col-sm-4 mb-4 @error('form.province') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
+                                                                        <div class="form-group mbb">
                                                                             <label for="province">استان
                                                                                 <abbr title="ضروری"
                                                                                     style="color:red;">*</abbr></label>
-                                                                            <select
-                                                                                class="ir-province  form-control show-tick ms select2"
-                                                                                id="province"
-                                                                                wire:model='form.province'>
-                                                                                <option></option>
+                                                                            <select class="ir-province  form-control"
+                                                                                wire:model.live='form.province'>
+                                                                                <option value="">انتخاب استان
+                                                                                </option>
+                                                                                @foreach ($form->states as $stateName => $cities)
+                                                                                    <option
+                                                                                        value="{{ $stateName }}">
+                                                                                        {{ $stateName }}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </div>
                                                                         @error('form.province')
@@ -377,14 +377,17 @@
 
                                                                     <div
                                                                         class="col-sm-4 mb-4 @error('form.city') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
+                                                                        <div class="form-group mbb">
                                                                             <label for="city">شهر <abbr
                                                                                     title="ضروری"
                                                                                     style="color:red;">*</abbr></label>
-                                                                            <select
-                                                                                class="ir-city  form-control show-tick ms select2"
-                                                                                wire:model='form.city' id="city">
-                                                                                <option></option>
+                                                                            <select class="ir-city  form-control"
+                                                                                wire:model='form.city'>
+                                                                                @foreach ($form->states[$form->province] ?? [] as $city)
+                                                                                    <option
+                                                                                        value="{{ $city }}">
+                                                                                        {{ $city }}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </div>
                                                                         @error('form.city')
@@ -392,6 +395,7 @@
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
+
                                                                     <div
                                                                         class="col-sm-4 form-group @error('form.district') is-invalid @enderror">
                                                                         <label for="district">محله
@@ -463,7 +467,7 @@
                                                                 <div class="row clearfix">
                                                                     <div
                                                                         class="col-sm-12 form-group @error('form.ambed') is-invalid @enderror">
-                                                                        <label for="loan">کد امبد
+                                                                        <label for="ambed">کد امبد
                                                                             ویدیو</label>
                                                                         <input type="text" id="ambed"
                                                                             wire:model='form.ambed'
@@ -486,7 +490,7 @@
                                                                             <label for="loan">وام
                                                                                 بانکی</label>
                                                                             <input type="text" id="loan"
-                                                                                wire:model='form.ccccccloan'
+                                                                                wire:model='form.loan'
                                                                                 class="form-control" />
                                                                             @error('form.loan')
                                                                                 <small
@@ -776,8 +780,8 @@
                                                                 <div class="card">
                                                                     <div class="body">
                                                                         <div class="row clearfix">
-                                                                            <div class="col-lg-3 form-group @error('form.doc') is-invalid @enderror"
-                                                                                wire:ignore>
+                                                                            <div
+                                                                                class="col-lg-3 form-group @error('form.doc') is-invalid @enderror">
                                                                                 <label for="doc">نوع
                                                                                     سند</label>
                                                                                 <select wire:model='form.doc'
@@ -1095,189 +1099,227 @@
             </div>
         </div>
     </section>
-    @push('styles')
-        <style>
-            .mbb {
-                margin-bottom: 0.1rem;
+</div>
+@push('styles')
+    <style>
+        .mbb {
+            margin-bottom: 0.1rem;
+        }
+
+        .fixed {
+            position: fixed;
+            background: #fff;
+            z-index: 10000;
+            top: 0px;
+            left: auto;
+            right: auto;
+            max-width: -webkit-fill-available;
+
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .wizard {
+            background-color: #f8f9fa;
+        }
+
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .progress {
+            height: 5px;
+        }
+
+        .progress-bar {
+            background-color: #28a745;
+            /* سبز */
+        }
+
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step.completed {
+            color: #28a745;
+        }
+
+        .step i {
+            font-size: 18px;
+            margin-bottom: 5px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            /* پس‌زمینه آیکن‌ها */
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .step.active i {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .step.completed i {
+            background-color: #28a745;
+            /* پس‌زمینه سبز */
+            color: white;
+            /* رنگ آیکن سفید */
+        }
+
+        .step::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #dee2e6;
+            z-index: -1;
+            transform: translateX(-50%);
+        }
+
+        .step.active::after {
+            background: #007bff;
+        }
+
+        .step.completed::after {
+            background: #28a745;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('assets/js/ir-city-select.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // $('.class').select2();
+
+            // $('#province').on('change', function(e) {
+            //     let data = $('#province').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.province', null);
+            //     } else {
+            //         @this.set('form.province', data);
+            //     }
+            // });
+
+            // $('#lable').on('change', function(e) {
+            //     let data = $('#lable').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.lable', null);
+            //     } else {
+            //         @this.set('form.lable', data);
+            //     }
+            // });
+
+
+            // $('#city').on('change', function(e) {
+            //     let data = $('#city').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.city', null);
+            //     } else {
+            //         @this.set('form.city', data);
+            //     }
+            // });
+
+            // $('#doc').on('change', function(e) {
+            //     let data = $('#doc').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.doc', null);
+            //     } else {
+            //         @this.set('form.doc', data);
+            //     }
+            // });
+
+            // $('#usertype').on('change', function(e) {
+            //     let data = $('#usertype').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.usertype', null);
+            //     } else {
+            //         @this.set('form.usertype', data);
+            //     }
+            // });
+
+            // $('#tr_type').on('change', function(e) {
+            //     let data = $('#tr_type').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.tr_type', null);
+            //     } else {
+            //         @this.set('form.tr_type', data);
+            //     }
+            // });
+            // $('#type').on('change', function(e) {
+            //     let data = $('#type').select2("val");
+            //     if (data === '') {
+            //         @this.set('form.type', null);
+            //     } else {
+            //         @this.set('form.type', data);
+            //     }
+            // });
+
+
+            window.onscroll = function() {
+                const nav2 = document.getElementById("nav2");
+                if (window.pageYOffset > 0) {
+                    nav2.classList.add("fixed");
+                } else {
+                    nav2.classList.remove("fixed");
+                }
+            };
+        });
+
+        function changePrice(value, input) {
+            var meter = $("#area").val();
+            if (meter) {
+                value = value.replace(/,/g, '');
+                var meterprice = value / meter;
+                $("#meter_price").val(meterprice);
             }
+            separateNum(value, input);
+        }
 
-            .fixed {
-                position: fixed;
-                background: #fff;
-                z-index: 10000;
-                top: 0px;
-                left: auto;
-                right: auto;
-                max-width: -webkit-fill-available;
+        function baractive() {
+            document.getElementById("step2_t").className = "nav-link active show";
+            document.getElementById("step3_t").className = "nav-link";
+        }
 
+
+        function separateNum(value, input) {
+            /* seprate number input 3 number */
+            var nStr = value + '';
+            nStr = nStr.replace(/\,/g, "");
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
             }
+            if (input !== undefined) {
 
-            body {
-                background-color: #f8f9fa;
+                input.value = x1 + x2;
+            } else {
+                return x1 + x2;
             }
-
-            .wizard {
-                background-color: #f8f9fa;
-            }
-
-            .wizard-step {
-                display: none;
-            }
-
-            .wizard-step.active {
-                display: block;
-            }
-
-            .progress {
-                height: 5px;
-            }
-
-            .progress-bar {
-                background-color: #28a745;
-                /* سبز */
-            }
-
-            .wizard-nav {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-            }
-
-            .step {
-                flex: 1;
-                text-align: center;
-                position: relative;
-            }
-
-            .step.completed {
-                color: #28a745;
-            }
-
-            .step i {
-                font-size: 18px;
-                margin-bottom: 5px;
-                border-radius: 50%;
-                background-color: #e9ecef;
-                /* پس‌زمینه آیکن‌ها */
-                padding: 15px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                transition: background-color 0.3s;
-            }
-
-            .step.active i {
-                background-color: #007bff;
-                color: white;
-            }
-
-            .step.completed i {
-                background-color: #28a745;
-                /* پس‌زمینه سبز */
-                color: white;
-                /* رنگ آیکن سفید */
-            }
-
-            .step::after {
-                content: "";
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                width: 100%;
-                height: 2px;
-                background: #dee2e6;
-                z-index: -1;
-                transform: translateX(-50%);
-            }
-
-            .step.active::after {
-                background: #007bff;
-            }
-
-            .step.completed::after {
-                background: #28a745;
-            }
-        </style>
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('assets/js/ir-city-select.min.js') }}"></script>
+        }
+    </script>
+    @if ($form->currentStep == 4)
         <script>
-            $(document).ready(function() {
-                $('.class').select2();
-
-                $('#province').on('change', function(e) {
-                    let data = $('#province').select2("val");
-                    if (data === '') {
-                        @this.set('form.province', null);
-                    } else {
-                        @this.set('form.province', data);
-                    }
-                });
-
-                $('#lable').on('change', function(e) {
-                    let data = $('#lable').select2("val");
-                    if (data === '') {
-                        @this.set('form.lable', null);
-                    } else {
-                        @this.set('form.lable', data);
-                    }
-                });
-
-
-                $('#city').on('change', function(e) {
-                    let data = $('#city').select2("val");
-                    if (data === '') {
-                        @this.set('form.city', null);
-                    } else {
-                        @this.set('form.city', data);
-                    }
-                });
-
-                $('#doc').on('change', function(e) {
-                    let data = $('#doc').select2("val");
-                    if (data === '') {
-                        @this.set('form.doc', null);
-                    } else {
-                        @this.set('form.doc', data);
-                    }
-                });
-
-                $('#usertype').on('change', function(e) {
-                    let data = $('#usertype').select2("val");
-                    if (data === '') {
-                        @this.set('form.usertype', null);
-                    } else {
-                        @this.set('form.usertype', data);
-                    }
-                });
-
-                $('#tr_type').on('change', function(e) {
-                    let data = $('#tr_type').select2("val");
-                    if (data === '') {
-                        @this.set('form.tr_type', null);
-                    } else {
-                        @this.set('form.tr_type', data);
-                    }
-                });
-                $('#type').on('change', function(e) {
-                    let data = $('#type').select2("val");
-                    if (data === '') {
-                        @this.set('form.type', null);
-                    } else {
-                        @this.set('form.type', data);
-                    }
-                });
-
-
-                window.onscroll = function() {
-                    const nav2 = document.getElementById("nav2");
-                    if (window.pageYOffset > 0) {
-                        nav2.classList.add("fixed");
-                    } else {
-                        nav2.classList.remove("fixed");
-                    }
-                };
-            });
-
             function validateImage(input) {
                 const file = input.files[0];
                 if (!file) {
@@ -1330,42 +1372,5 @@
                 }
             });
         </script>
-    @endpush
-    <script>
-        function changePrice(value, input) {
-            var meter = $("#area").val();
-            if (meter) {
-                value = value.replace(/,/g, '');
-                var meterprice = value / meter;
-                $("#meter_price").val(meterprice);
-            }
-            separateNum(value, input);
-        }
-
-        function baractive() {
-            document.getElementById("step2_t").className = "nav-link active show";
-            document.getElementById("step3_t").className = "nav-link";
-        }
-
-
-        function separateNum(value, input) {
-            /* seprate number input 3 number */
-            var nStr = value + '';
-            nStr = nStr.replace(/\,/g, "");
-            x = nStr.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1)) {
-                x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            }
-            if (input !== undefined) {
-
-                input.value = x1 + x2;
-            } else {
-                return x1 + x2;
-            }
-        }
-    </script>
-
-</div>
+    @endif
+@endpush
