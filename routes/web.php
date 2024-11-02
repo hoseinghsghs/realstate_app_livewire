@@ -34,6 +34,7 @@ use App\Livewire\Admin\Property\DeviceComponent;
 use App\Livewire\Admin\Property\EditProperty;
 use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
+use App\Livewire\Admin\Services\ServiceComponent;
 use App\Models\Article;
 use App\Models\WishList;
 
@@ -125,10 +126,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
+        Route::get('/services', ServiceComponent::class)->name('services');
+
 
         // Route::resource('/advertise', PropertyController::class);
         Route::resource('/agreements', AgreementController::class);
-        Route::resource('/services', ServiceController::class)->except(['show']);
+        // Route::resource('/services', ServiceController::class)->except(['show']);
         Route::resource('/features', FeatureController::class)->except(['show']);
 
         //livewire routes

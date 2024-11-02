@@ -52,8 +52,7 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i
                             class="zmdi zmdi-assignment"></i><span>سرویس</span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('admin.services.index') }}>لیست سرویس ها</a></li>
-                        <li><a href={{ route('admin.services.create') }}>ایجاد سرویس</a></li>
+                        <li><a href="/admin/services" wire:navigate> سرویس ها</a></li>
                     </ul>
                 </li>
 
