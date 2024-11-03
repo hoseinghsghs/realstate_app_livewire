@@ -73,9 +73,7 @@
                             class="zmdi zmdi-assignment-check"></i><span>امکانات
                         </span></a>
                     <ul class="ml-menu">
-                        <li><a href="/admin/features/create" wire:navigate>ساخت امکانات</a></li>
-                        <li><a href={{ route('admin.features.index') }}>مشاهده امکانات</a></li>
-
+                        <li><a href="/admin/features" wire:navigate>امکانات</a></li>
                     </ul>
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>خبر
