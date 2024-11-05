@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-    
-    protected $fillable = ['user_id','title','slug','body','status'];
+
+    protected $fillable = ['user_id', 'title', 'slug', 'body', 'status', 'description'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }  
+    }
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');

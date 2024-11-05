@@ -63,9 +63,7 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>مقالات
                         </span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('admin.articles.index') }}>لیست مقالات</a></li>
-                        <li><a href={{ route('admin.articles.create') }}>ایجاد مقاله </a></li>
-
+                        <li><a href="/admin/articles" wire:navigate>مقالات</a></li>
                     </ul>
                 </li>
 

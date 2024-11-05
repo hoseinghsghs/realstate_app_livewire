@@ -28,6 +28,7 @@ use App\Models\Setting;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
+use App\Livewire\Admin\Article\ArticleComponent;
 use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Feature\FeatureComponent;
 use App\Livewire\Admin\Property\CreateProperty;
@@ -129,6 +130,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
         Route::get('/services', ServiceComponent::class)->name('services');
         Route::get('/features', FeatureComponent::class)->name('features');
+        Route::get('/articles', ArticleComponent::class)->name('articles');
 
 
         // Route::resource('/advertise', PropertyController::class);
@@ -142,7 +144,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/sliders', SliderController::class)->except(['show']);
         Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
         Route::resource('/posts', PostController::class)->except('show');
-        Route::resource('/articles', ArticleController::class)->except('show');
+        // Route::resource('/articles', ArticleController::class)->except('show');
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
         Route::get('/settings', [SettingController::class, 'show'])->name('settings.show');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
