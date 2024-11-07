@@ -238,7 +238,8 @@ return array(
         'name_family' => 'نام و نام خانوادگی',
         'telephone' => 'تلفن',
         'phone' => 'موبایل',
-
+        'body' => 'توضیحات',
+        'image' => 'تصویر',
 
     ),
 );

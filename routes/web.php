@@ -31,12 +31,14 @@ use App\Http\Controllers\RouteController;
 use App\Livewire\Admin\Article\ArticleComponent;
 use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Feature\FeatureComponent;
+use App\Livewire\Admin\Post\PostComponent;
 use App\Livewire\Admin\Property\CreateProperty;
 use App\Livewire\Admin\Property\DeviceComponent;
 use App\Livewire\Admin\Property\EditProperty;
 use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
+use App\Livewire\Admin\Slider\SliderComponent;
 use App\Models\Article;
 use App\Models\WishList;
 
@@ -131,6 +133,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/services', ServiceComponent::class)->name('services');
         Route::get('/features', FeatureComponent::class)->name('features');
         Route::get('/articles', ArticleComponent::class)->name('articles');
+        Route::get('/posts', PostComponent::class)->name('posts');
+        Route::get('/sliders', SliderComponent::class)->name('sliders');
 
 
         // Route::resource('/advertise', PropertyController::class);
@@ -141,9 +145,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //livewire routes
         // Route::get('/features/create', CreateFeature::class)->name('features.create');
 
-        Route::resource('/sliders', SliderController::class)->except(['show']);
+        // Route::resource('/sliders', SliderController::class)->except(['show']);
         Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
-        Route::resource('/posts', PostController::class)->except('show');
+        // Route::resource('/posts', PostController::class)->except('show');
         // Route::resource('/articles', ArticleController::class)->except('show');
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
         Route::get('/settings', [SettingController::class, 'show'])->name('settings.show');
@@ -158,7 +162,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return back();
         })->name('deleteImage')->middleware('cors');
 
-        Route::resource('/posts', PostController::class);
+        // Route::resource('/posts', PostController::class);
     });
 });
 

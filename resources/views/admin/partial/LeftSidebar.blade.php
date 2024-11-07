@@ -77,17 +77,14 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>خبر
                         </span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('admin.posts.index') }}>لیست خبر ها</a></li>
-                        <li><a href={{ route('admin.posts.create') }}>ایجاد خبر </a></li>
-
+                        <li><a href="/admin/posts" wire:navigate>مدیریت خبر ها</a></li>
                     </ul>
                 </li>
 
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i
                             class="zmdi zmdi-hc-fw"></i><span>اسلایدر</span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('admin.sliders.index') }}>لیست اسلایدر ها</a></li>
-                        <li><a href={{ route('admin.sliders.create') }}>ایجاد اسلایدر</a></li>
+                        <li><a href="/admin/sliders" wire:navigate>اسلایدر</a></li>
                     </ul>
                 </li>
                 <li><a target="_blank" href="https://app.raychat.io/login"><i class="zmdi zmdi-hc-fw"></i><span>چت

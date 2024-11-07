@@ -1,16 +1,16 @@
 <div>
-    @section('title', 'لیست مقالات')
+    @section('title', 'لیست پست ها')
     <section class="content">
         <div class="body_scroll">
             <div class="block-header">
                 <div class="row">
                     <div class="col-lg-7 col-md-6 col-sm-12">
-                        <h2>مدیریت مقالات</h2>
+                        <h2>مدیریت پست ها</h2>
                         </br>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href={{ route('admin.home') }}><i class="zmdi zmdi-home"></i>
                                     خانه</a></li>
-                            <li class="breadcrumb-item active">مدیریت مقالات</li>
+                            <li class="breadcrumb-item active">مدیریت پست ها</li>
                         </ul>
                         <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
                                 class="zmdi zmdi-sort-amount-desc"></i></button>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <!-- add article -->
+                <!-- add post -->
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
@@ -51,10 +51,8 @@
                                     <div class="form-group col-12 @error('body') is-invalid @enderror">
                                         <label for="summernote">متن<abbr class="required" title="ضروری"
                                                 style="color:red;">*</abbr></label>
-
                                         <div wire:ignore>
-
-                                            <textarea class="form-control summer summernote-editor" id="summernote" rows="9" wire:model.defer="body">{!! $this->body !!}</textarea>
+                                            <textarea class="form-control summernote-editor" id="summernote" rows="9" wire:model.defer="body">{!! $this->body !!}</textarea>
                                         </div>
                                         @error('body')
                                             <small class="text-danger">{{ $message }}</small>
@@ -62,7 +60,7 @@
                                     </div>
 
 
-                                    <div class="form-group col-12 @error('title') is-invalid @enderror">
+                                    <div class="form-group col-12 @error('image') is-invalid @enderror">
                                         <label class="form-label" for="exampleFormControlFile1">آپلود
                                             تصویر <span wire:loading wire:target="image"
                                                 class="spinner-border spinner-border-sm" role="status"
@@ -83,13 +81,13 @@
                                         <img src="{{ $this->image->temporaryUrl() }}"
                                             style="border: #00ff40 2px solid ; border-radius: 0.5rem" height="300rem">
                                     @else
-                                        @isset($article->image)
+                                        @isset($post->image)
                                             </hr>
                                             <div class="col-lg-12">
-                                                <a href="{{ asset('storage/' . $article->image->url) }}" class="file"
+                                                <a href="{{ asset('storage/' . $post->image->url) }}" class="file"
                                                     target="_blank">
                                                     <div class="image">
-                                                        <img src="{{ asset('storage/' . $article->image->url) }}"
+                                                        <img src="{{ asset('storage/' . $post->image->url) }}"
                                                             alt="img" class="img-fluid">
                                                     </div>
                                                 </a>
@@ -115,18 +113,18 @@
 
                                 <div class=" col-12">
                                     @if ($is_edit)
-                                        <button wire:click="add_article" wire:loading.attr="disabled"
+                                        <button wire:click="add_post" wire:loading.attr="disabled"
                                             class="btn btn-raised btn-warning waves-effect">
                                             ویرایش
                                             <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="add_article"></span>
+                                                wire:target="add_post"></span>
                                         </button>
                                     @elseif(!$is_edit)
-                                        <button wire:click="add_article" wire:loading.attr="disabled"
+                                        <button wire:click="add_post" wire:loading.attr="disabled"
                                             class="btn btn-raised btn-primary waves-effect">
                                             افزودن
                                             <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="add_article"></span>
+                                                wire:target="add_post"></span>
                                         </button>
                                     @endif
 
@@ -150,12 +148,12 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="header">
-                            <h2 style="display: inline;"><strong>لیست مقالات </strong>
-                                ({{ $articles->total() }})
+                            <h2 style="display: inline;"><strong>لیست پست ها </strong>
+                                ({{ $posts->total() }})
                             </h2>
                         </div>
                         <div class="body">
-                            @if (count($articles) === 0)
+                            @if (count($posts) === 0)
                                 <p>هیچ رکوردی وجود ندارد</p>
                             @else
                                 <div class="table-responsive">
@@ -174,42 +172,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($articles as $article)
-                                                <tr wire:key="{{ $article->id }}" wire:loading.attr="disabled">
+                                            @foreach ($posts as $post)
+                                                <tr wire:key="{{ $post->id }}" wire:loading.attr="disabled">
                                                     <td scope="row">{{ $loop->index + 1 }}</td>
                                                     <td>
-                                                        @if ($article->image)
-                                                            <a href="{{ asset('storage/' . $article->image->url) }}"
-                                                                data-lightbox="article-{{ $article->id }}"
-                                                                data-title={{ $article->title }}><img
+                                                        @if ($post->image)
+                                                            <a href="{{ asset('storage/' . $post->image->url) }}"
+                                                                data-lightbox="post-{{ $post->id }}"
+                                                                data-title={{ $post->title }}><img
                                                                     class="rounded avatar"
-                                                                    src="{{ asset('storage/' . $article->image->url) }}"
-                                                                    width="55" alt={{ $article->title }}></a>
+                                                                    src="{{ asset('storage/' . $post->image->url) }}"
+                                                                    width="55" alt={{ $post->title }}></a>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $article->title }}</td>
-                                                    <td>{{ $article->description }}</td>
+                                                    <td>{{ $post->title }}</td>
+                                                    <td>{{ $post->description }}</td>
                                                     <td>
-                                                        @if ($article->status)
+                                                        @if ($post->status)
                                                             <span class='badge badge-success'> فعال </span>
                                                         @else
                                                             <span class='badge badge-danger'>غیر فعال </span>
                                                         @endif
                                                     </td>
                                                     </td>
-                                                    <td>{{ $article->user->name }}</td>
-                                                    <td>{{ verta($article->created_at)->format('Y-n-j H:i') }}
+                                                    <td>{{ $post->user->name }}</td>
+                                                    <td>{{ verta($post->created_at)->format('Y-n-j H:i') }}
                                                     </td>
-                                                    <td>{{ verta($article->updated_at)->format('Y-n-j H:i') }}
+                                                    <td>{{ verta($post->updated_at)->format('Y-n-j H:i') }}
                                                     </td>
                                                     <td class="text-center js-sweetalert">
-                                                        <button wire:click="edit_article({{ $article->id }})"
+                                                        <button wire:click="edit_post({{ $post->id }})"
                                                             wire:loading.attr="disabled" {{ $display }}
                                                             class="btn btn-raised btn-info waves-effect scroll">
                                                             <i class="zmdi zmdi-edit"></i>
                                                             <span class="spinner-border spinner-border-sm text-light"
                                                                 wire:loading
-                                                                wire:target="edit_article({{ $article->id }}) "></span>
+                                                                wire:target="edit_post({{ $post->id }}) "></span>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -227,23 +225,15 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
 
-                        {{ $articles->onEachSide(1)->links() }}
+                        {{ $posts->onEachSide(1)->links() }}
                     </div>
                 </div>
             </div>
         </div>
 
-
 </div>
 </section>
-
 @push('scripts')
-    @if ($this->is_edit)
-        <script>
-            $('.summer').val("{{ $article->body }}");
-        </script>
-    @endif
-
     <script>
         $('.scroll').click(function() {
             $("html, body").animate({

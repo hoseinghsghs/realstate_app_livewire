@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Livewire\Admin\Article;
+namespace App\Livewire\Admin\Post;
 
-use App\Models\Article;
-use Image;
+use App\Models\Post;
 use Carbon\Carbon;
+use Image;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class ArticleComponent extends Component
+class PostComponent extends Component
 {
-
     use WithPagination;
     use WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
-    public Article $article;
+    public Post $post;
     public $title;
     public $user_id;
     public $status = false;
@@ -26,8 +25,6 @@ class ArticleComponent extends Component
     public $description;
     public $is_edit = false;
     public $display;
-    public $initialized = false;
-
 
     public function ref()
     {
@@ -39,12 +36,12 @@ class ArticleComponent extends Component
         $this->reset("image");
         $this->reset("description");
         $this->reset("display");
-        $this->reset("article");
+        $this->reset("post");
         $this->dispatch('resetfile');
         $this->resetValidation();
     }
 
-    public function add_article()
+    public function add_post()
     {
         if ($this->is_edit) {
             // dd('sdf');
@@ -58,7 +55,7 @@ class ArticleComponent extends Component
             ]);
             $slug  = str_slug($this->title);
 
-            $this->article->update(
+            $this->post->update(
                 [
                     "title" => $this->title,
                     "user_id" => auth()->user()->id,
@@ -77,19 +74,19 @@ class ArticleComponent extends Component
 
                 $pach = config('filesystems.disks.' . $filesystem)['root'];
 
-                if (!Storage::exists('article')) {
-                    Storage::makeDirectory('article');
+                if (!Storage::exists('post')) {
+                    Storage::makeDirectory('post');
                 }
                 //delete image
-                if (Storage::exists($this->article->image->url)) {
-                    Storage::delete($this->article->image->url);
+                if (Storage::exists($this->post->image->url)) {
+                    Storage::delete($this->post->image->url);
                 }
                 //resize & upload image
                 $img = Image::make($this->image)->resize(1000, 667);
 
-                $img->save($pach . '/' . 'article/' . $imagename);
+                $img->save($pach . '/' . 'post/' . $imagename);
                 //save image path in db
-                $this->article->image()->update(['url' => "article/$imagename"]);
+                $this->post->image()->update(['url' => "post/$imagename"]);
             }
 
             $this->ref();
@@ -97,14 +94,14 @@ class ArticleComponent extends Component
         } else {
 
             $this->validate([
-                'title'     => 'required|string|max:100|unique:articles',
+                'title'     => 'required|string|max:100|unique:posts',
                 'image'     => 'required|image|mimes:jpeg,jpg,png',
                 'body'      => 'required|string',
                 'description'      => 'string',
                 'status' => 'boolean'
             ]);
             $slug  = str_slug($this->title);
-            $this->article = Article::create([
+            $this->post = Post::create([
                 "title" => $this->title,
                 "user_id" => auth()->user()->id,
                 "status" => $this->status,
@@ -120,14 +117,14 @@ class ArticleComponent extends Component
                 $currentDate = Carbon::now()->toDateString();
                 $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $this->image->extension();
                 //make directory
-                if (!Storage::exists('article')) {
-                    Storage::makeDirectory('article');
+                if (!Storage::exists('post')) {
+                    Storage::makeDirectory('post');
                 }
                 //resize & upload image
                 $img = Image::make($this->image)->resize(1000, 667);
-                $img->save($pach . '/' . 'article/' . $imagename);
+                $img->save($pach . '/' . 'post/' . $imagename);
                 //save image path on db
-                $this->article->image()->create(['url' => "article/$imagename"]);
+                $this->post->image()->create(['url' => "post/$imagename"]);
             }
 
             $this->ref();
@@ -135,17 +132,17 @@ class ArticleComponent extends Component
         }
     }
 
-    public function edit_article(Article $article)
+    public function edit_post(Post $post)
     {
-        $this->article = $article;
-        // $this->status = $article->status;
+        $this->post = $post;
+        // $this->status = $post->status;
         $this->is_edit = true;
-        $this->title = $article->title;
-        $this->body = $article->body;
-        $this->description = $article->description;
-        // $this->image = $article->image;
+        $this->title = $post->title;
+        $this->body = $post->body;
+        $this->description = $post->description;
+        // $this->image = $post->image;
         $this->display = "disabled";
-        if ($this->article->status) {
+        if ($this->post->status) {
             $this->status = true;
         } else {
             $this->status = false;
@@ -154,7 +151,8 @@ class ArticleComponent extends Component
 
     public function render()
     {
-        $articles = Article::latest()->paginate(10);
-        return view('livewire.admin.article.article-component', compact('articles'))->extends('admin.layout.MasterAdmin')->section('Content');
+        $posts = Post::latest()->paginate(10);
+
+        return view('livewire.admin.post.post-component', compact('posts'))->extends('admin.layout.MasterAdmin')->section('Content');
     }
 }
