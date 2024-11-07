@@ -29,6 +29,7 @@ use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
 use App\Livewire\Admin\Article\ArticleComponent;
+use App\Livewire\Admin\DashboardComponent;
 use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Feature\FeatureComponent;
 use App\Livewire\Admin\Post\PostComponent;
@@ -39,6 +40,7 @@ use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
+use App\Livewire\Home\Pages\HomeComponent;
 use App\Models\Article;
 use App\Models\WishList;
 
@@ -50,10 +52,13 @@ Route::get('/router', [RouteController::class, 'index'])->name('setroute');
 //-------------------------------------------------------------------------------------------------------------------
 
 // Route::view('/contact-us','home.pages.contact-us');
-Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('/properties/list', [HomeController::class, 'properties_list'])->name('properties.list');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+// livewire home route
+Route::get('/', HomeComponent::class)->name('home');
+
+Route::get('/properties/list', [HomeController::class, 'properties_list'])->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
-// Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
+Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
 // Route::any('/admin', [AuthController::class,'login']);
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -97,7 +102,7 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
 
 //agent route
 Route::prefix('agent')->name('agent.')->middleware(['auth', 'agent'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'show'])->name('home');
+    Route::get('/dashboard', DashboardComponent::class)->name('home');
     Route::resource('/properties', PropertyController::class);
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/chenge', function () {
@@ -121,11 +126,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
     Route::group(['middleware' => ['auth', 'admin']], function () {
-        Route::get('/dashboard', [DashboardController::class, 'show'])->name('home');
         Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
 
         //livewire routes
+        Route::get('/dashboard', DashboardComponent::class)->name('home');
         Route::get('/properties', PropertyComponent::class)->name('properties.index');
         Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');

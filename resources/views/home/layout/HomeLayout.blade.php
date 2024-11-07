@@ -85,8 +85,8 @@
 
 
 
-
     @stack('styles')
+    @livewireStyles
 
     <!-- BEGIN RAYCHAT CODE -->
     <script type="text/javascript">
@@ -347,9 +347,7 @@
         });
     </script>
     @stack('scripts')
-
-
-
+    @livewireScripts
 </body>
 
 </html>

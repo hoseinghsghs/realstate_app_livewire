@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="active open"><a href="{{ route('admin.home') }}"><i
+                <li class="active open"><a href="/admin/dashboard" wire:navigate><i
                             class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
                             املاک</span></a>

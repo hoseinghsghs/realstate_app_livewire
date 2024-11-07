@@ -1,6 +1,5 @@
-@extends('home.layout.HomeLayout')
-@section('title', 'خانه')
-@section('content')
+<div>
+    @section('title', 'خانه')
     <!-- ============================ Hero Banner  Start================================== -->
     <div class="image-cover hero_banner"
         style="background:url(storage/slider/{{ $slider->first()->image ?? 'slider-default.png' }}) no-repeat;"
@@ -102,9 +101,7 @@
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        href=""
-
-                        <a href="/admin/properties/show/آپارتمان" wire:navigate>
+                        <a href="/properties/list?type=آپارتمان" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
                                     <img src="assets/home/img/f-1.png" class="img-fluid hover" alt="" />
@@ -122,7 +119,7 @@
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="{{ route('properties.list', ['type' => 'خانه ویلایی']) }}">
+                        <a href="/properties/list?type=خانه ویلایی" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
                                     <img src="assets/home/img/f-2.png" class="img-fluid hover" alt="" />
@@ -142,7 +139,7 @@
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="{{ route('properties.list', ['type' => 'مغازه']) }}">
+                        <a href="/properties/list?type=مغازه" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
                                     <img src="assets/home/img/f-5.png" class="img-fluid hover" alt="" />
@@ -161,7 +158,7 @@
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="{{ route('properties.list', ['type' => 'زمین و کلنگی']) }}">
+                        <a href="/properties/list?type=زمین و کلنگی" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
                                     <img src="assets/home/img/f-4.png" class="img-fluid hover" alt="" />
@@ -214,9 +211,9 @@
                                                     class="img-fluid mx-auto" alt="" /></a></div>
                                         <!-- اسلاید -->
                                         <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
-                                                class="img-fluid mx-auto" alt="" /></a></div>
-                                    <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
-                                                class="img-fluid mx-auto" alt="" /></a></div> -->
+                                                        class="img-fluid mx-auto" alt="" /></a></div>
+                                            <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
+                                                        class="img-fluid mx-auto" alt="" /></a></div> -->
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +222,8 @@
                                 <div class="listing-short-detail-wrap">
                                     <div class="_card_list_flex mb-2">
                                         <div class="_card_flex_01">
-                                            <span class="_list_blickes _netork">برای {{ $property_rents->tr_type }}</span>
+                                            <span class="_list_blickes _netork">برای
+                                                {{ $property_rents->tr_type }}</span>
                                             <span class="_list_blickes types">{{ $property_rents->type }}</span>
                                         </div>
                                         @can('is_user')
@@ -302,8 +300,8 @@
                                         </div>{{ $property_rents->usertype }}
                                     </div>
                                     <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg" width="13"
-                                                alt="" />
+                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
+                                                width="13" alt="" />
                                         </div>{{ $property_rents->meter }} متر مربع
                                     </div>
                                 </div>
@@ -318,7 +316,8 @@
                                     </div>
                                 </div>
                                 <div class="footer-flex">
-                                    <a href={{ route('properties.show', [$property_rents->id]) }} class="prt-view">مشاهده
+                                    <a href={{ route('properties.show', [$property_rents->id]) }}
+                                        class="prt-view">مشاهده
                                         جزئیات</a>
                                 </div>
 
@@ -367,9 +366,9 @@
                                                     class="img-fluid mx-auto" alt="" /></a></div>
                                         <!-- اسلاید -->
                                         <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
-                                              class="img-fluid mx-auto" alt="" /></a></div>
-                                  <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
-                                              class="img-fluid mx-auto" alt="" /></a></div> -->
+                                                      class="img-fluid mx-auto" alt="" /></a></div>
+                                          <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
+                                                      class="img-fluid mx-auto" alt="" /></a></div> -->
                                     </div>
                                 </div>
                             </div>
@@ -378,15 +377,16 @@
                                 <div class="listing-short-detail-wrap">
                                     <div class="_card_list_flex mb-2">
                                         <div class="_card_flex_01">
-                                            <span class="_list_blickes _netork">برای {{ $property_sell->tr_type }}</span>
+                                            <span class="_list_blickes _netork">برای
+                                                {{ $property_sell->tr_type }}</span>
                                             <span class="_list_blickes types">{{ $property_sell->type }}</span>
                                         </div>
                                         <!-- <div class="_card_flex_last">
-                                        <div class="prt_saveed_12lk">
-                                            <label class="toggler toggler-danger"><input type="checkbox"><i
-                                                    class="ti-heart"></i></label>
-                                        </div>
-                                    </div> -->
+                                                <div class="prt_saveed_12lk">
+                                                    <label class="toggler toggler-danger"><input type="checkbox"><i
+                                                            class="ti-heart"></i></label>
+                                                </div>
+                                            </div> -->
                                         <!-- /////////// -->
                                         @can('is_user')
                                             @auth
@@ -453,8 +453,8 @@
                                         </div>{{ $property_sell->usertype }}
                                     </div>
                                     <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg" width="13"
-                                                alt="" />
+                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
+                                                width="13" alt="" />
                                         </div>{{ $property_sell->meter }} متر مربع
                                     </div>
                                 </div>
@@ -469,7 +469,8 @@
                                     </div>
                                 </div>
                                 <div class="footer-flex">
-                                    <a href={{ route('properties.show', [$property_sell->id]) }} class="prt-view">مشاهده
+                                    <a href={{ route('properties.show', [$property_sell->id]) }}
+                                        class="prt-view">مشاهده
                                         جزئیات</a>
                                 </div>
 
@@ -509,7 +510,8 @@
                             <!-- Single Item -->
                             <div class="single_items">
                                 <div class="grid_agents">
-                                    <div class="elio_mx_list theme-bg-2">{{ $user_agent->properties->count() }} ملک</div>
+                                    <div class="elio_mx_list theme-bg-2">{{ $user_agent->properties->count() }} ملک
+                                    </div>
                                     <div class="grid_agents-wrap">
 
                                         <div class="fr-grid-thumb">
@@ -527,15 +529,16 @@
                                                     href="{{ route('properties.list', ['user_id' => $user_agent->id]) }}">{{ $user_agent->name }}</a>
                                             </h5>
                                             <!-- <ul class="inline_social">
-                                            <li><a href="#" class="fb"><i class="ti-facebook"></i></a></li>
-                                            <li><a href="#" class="ln"><i class="ti-linkedin"></i></a></li>
-                                            <li><a href="#" class="ins"><i class="ti-instagram"></i></a></li>
-                                            <li><a href="#" class="tw"><i class="ti-twitter"></i></a></li>
-                                        </ul> -->
+                                                    <li><a href="#" class="fb"><i class="ti-facebook"></i></a></li>
+                                                    <li><a href="#" class="ln"><i class="ti-linkedin"></i></a></li>
+                                                    <li><a href="#" class="ins"><i class="ti-instagram"></i></a></li>
+                                                    <li><a href="#" class="tw"><i class="ti-twitter"></i></a></li>
+                                                </ul> -->
                                         </div>
 
                                         <div class="fr-infos-deatil">
-                                            <a href="tel:{{ $user_agent->phone }}" class="btn agent-btn theme-black"><i
+                                            <a href="tel:{{ $user_agent->phone }}"
+                                                class="btn agent-btn theme-black"><i
                                                     class="fa fa-phone ml-2"></i>گرفتن
                                                 تماس</a>
                                             <!-- <a href="#" class="btn agent-btn theme-black"><i class="fa fa-phone"></i></a> -->
@@ -558,88 +561,88 @@
 
     <!-- ============================ Property By Location ================================== -->
     <!-- <section class="min">
-        <div class="container">
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-8">
-                    <div class="sec-heading center">
-                        <h2>برترین مکان های ملکی</h2>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان.</p>
+                <div class="container">
+        
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 col-md-8">
+                            <div class="sec-heading center">
+                                <h2>برترین مکان های ملکی</h2>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                                    چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="grid-layout-with-sidebar.html" class="img-wrap">
-                        <div class="location_wrap_content visible">
-                            <div class="location_wrap_content_first">
-                                <h4>رشت</h4>
-                                <span>48 ملک</span>
-                            </div>
-                            <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+        
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <a href="grid-layout-with-sidebar.html" class="img-wrap">
+                                <div class="location_wrap_content visible">
+                                    <div class="location_wrap_content_first">
+                                        <h4>رشت</h4>
+                                        <span>48 ملک</span>
+                                    </div>
+                                    <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+                                </div>
+                                <div class="img-wrap-background" style="background-image: url(assets/home/img/city-6.png);"></div>
+                            </a>
                         </div>
-                        <div class="img-wrap-background" style="background-image: url(assets/home/img/city-6.png);"></div>
-                    </a>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="grid-layout-with-sidebar.html" class="img-wrap">
-                        <div class="location_wrap_content visible">
-                            <div class="location_wrap_content_first">
-                                <h4>ایران , تهران</h4>
-                                <span>73 ملک</span>
-                            </div>
-                            <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+        
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <a href="grid-layout-with-sidebar.html" class="img-wrap">
+                                <div class="location_wrap_content visible">
+                                    <div class="location_wrap_content_first">
+                                        <h4>ایران , تهران</h4>
+                                        <span>73 ملک</span>
+                                    </div>
+                                    <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+                                </div>
+                                <div class="img-wrap-background" style="background-image: url(assets/home/img/city-7.png);"></div>
+                            </a>
                         </div>
-                        <div class="img-wrap-background" style="background-image: url(assets/home/img/city-7.png);"></div>
-                    </a>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="grid-layout-with-sidebar.html" class="img-wrap">
-                        <div class="location_wrap_content visible">
-                            <div class="location_wrap_content_first">
-                                <h4>ایران , کرج</h4>
-                                <span>40 ملک</span>
-                            </div>
-                            <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+        
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <a href="grid-layout-with-sidebar.html" class="img-wrap">
+                                <div class="location_wrap_content visible">
+                                    <div class="location_wrap_content_first">
+                                        <h4>ایران , کرج</h4>
+                                        <span>40 ملک</span>
+                                    </div>
+                                    <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+                                </div>
+                                <div class="img-wrap-background" style="background-image: url(assets/home/img/city-3.png);"></div>
+                            </a>
                         </div>
-                        <div class="img-wrap-background" style="background-image: url(assets/home/img/city-3.png);"></div>
-                    </a>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <a href="grid-layout-with-sidebar.html" class="img-wrap">
-                        <div class="location_wrap_content visible">
-                            <div class="location_wrap_content_first">
-                                <h4>تبریز</h4>
-                                <span>35 ملک</span>
-                            </div>
-                            <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+        
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <a href="grid-layout-with-sidebar.html" class="img-wrap">
+                                <div class="location_wrap_content visible">
+                                    <div class="location_wrap_content_first">
+                                        <h4>تبریز</h4>
+                                        <span>35 ملک</span>
+                                    </div>
+                                    <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+                                </div>
+                                <div class="img-wrap-background" style="background-image: url(assets/home/img/city-4.png);"></div>
+                            </a>
                         </div>
-                        <div class="img-wrap-background" style="background-image: url(assets/home/img/city-4.png);"></div>
-                    </a>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <a href="grid-layout-with-sidebar.html" class="img-wrap">
-                        <div class="location_wrap_content visible">
-                            <div class="location_wrap_content_first">
-                                <h4>تهران, کرج</h4>
-                                <span>10 ملک</span>
-                            </div>
-                            <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+        
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <a href="grid-layout-with-sidebar.html" class="img-wrap">
+                                <div class="location_wrap_content visible">
+                                    <div class="location_wrap_content_first">
+                                        <h4>تهران, کرج</h4>
+                                        <span>10 ملک</span>
+                                    </div>
+                                    <div class="location_btn"><i class="fa fa-arrow-left"></i></div>
+                                </div>
+                                <div class="img-wrap-background" style="background-image: url(assets/home/img/city-5.png);"></div>
+                            </a>
                         </div>
-                        <div class="img-wrap-background" style="background-image: url(assets/home/img/city-5.png);"></div>
-                    </a>
+        
+                    </div>
+        
                 </div>
-
-            </div>
-
-        </div>
-    </section> -->
+            </section> -->
     <!-- ============================ Property By Location End ================================== -->
 
     <!-- ============================ Smart Testimonials ================================== -->
@@ -737,7 +740,8 @@
                                 </div>
                                 <span class="article-pulish-date">
                                     <div class="footer-flex">
-                                        <a href="{{ route('article.show', $article->id) }}" class="prt-view">مشاهده</a>
+                                        <a href="{{ route('article.show', $article->id) }}"
+                                            class="prt-view">مشاهده</a>
                                     </div>
                                 </span>
                             </div>
@@ -768,7 +772,8 @@
                             <h3>آیا سوالی دارید؟</h3>
                             <span>ما به شما کمک میکنیم تا بهترین خانه را انتخاب کنید</span>
                         </div>
-                        <a href="{{ route('contactus') }}" class="btn btn-call_action_wrap">امروز با ما تماس بگیرید</a>
+                        <a href="{{ route('contactus') }}" class="btn btn-call_action_wrap">امروز با ما تماس
+                            بگیرید</a>
                     </div>
 
                 </div>
@@ -777,39 +782,39 @@
     </section>
     <!-- ============================ Call To Action End ================================== -->
     @include('home.partials.send-message')
-@endsection
-@push('scripts')
-    <script>
-        $body = $("body");
-        $(document).on({
-            ajaxStart: function() {
-                $body.addClass("loading");
-            },
-            ajaxStop: function() {
-                $body.removeClass("loading");
-            }
-        });
-        $(document).ready(function() {
-            $("#price,#rahn,#rent").hide();
-            $(document).on('change', '#tr_type', function(e) {
-                if (this.value === 'فروش') {
-                    $('#price').show();
-                    $('#rahn,#rent').hide();
-                } else if (this.value === 'رهن و اجاره') {
-                    $('#price').hide();
-                    $('#rahn,#rent').show();
-                } else {
-                    $("#price,#rahn,#rent").hide();
+    @push('scripts')
+        <script>
+            $body = $("body");
+            $(document).on({
+                ajaxStart: function() {
+                    $body.addClass("loading");
+                },
+                ajaxStop: function() {
+                    $body.removeClass("loading");
                 }
-            })
-        });
-    </script>
-    <script>
-        $.fn.digits = function() {
-            return this.each(function() {
-                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-            })
-        }
-        $("h6.numbers").digits();
-    </script>
-@endpush
+            });
+            $(document).ready(function() {
+                $("#price,#rahn,#rent").hide();
+                $(document).on('change', '#tr_type', function(e) {
+                    if (this.value === 'فروش') {
+                        $('#price').show();
+                        $('#rahn,#rent').hide();
+                    } else if (this.value === 'رهن و اجاره') {
+                        $('#price').hide();
+                        $('#rahn,#rent').show();
+                    } else {
+                        $("#price,#rahn,#rent").hide();
+                    }
+                })
+            });
+        </script>
+        <script>
+            $.fn.digits = function() {
+                return this.each(function() {
+                    $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                })
+            }
+            $("h6.numbers").digits();
+        </script>
+    @endpush
+</div>
