@@ -187,7 +187,6 @@
                 <div class="col-lg-7 col-md-8">
                     <div class="sec-heading center">
                         <h2>آخرین املاک برای رهن و اجاره</h2>
-
                     </div>
                 </div>
             </div>

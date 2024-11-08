@@ -63,7 +63,7 @@ Route::post('/properties/{property}/comments', [HomeController::class, 'register
 // Route::any('/admin', [AuthController::class,'login']);
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/article/', [ArticleHomeController::class, 'index'])->name('article.index');
+Route::get('/article', [ArticleHomeController::class, 'index'])->name('article.index');
 Route::get('/article/{article}', [ArticleHomeController::class, 'show'])->name('article.show');
 Route::get('/contact-us', function () {
     $setting = Setting::firstOrNew();
