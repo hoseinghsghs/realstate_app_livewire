@@ -41,9 +41,11 @@ use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
 use App\Livewire\Home\Pages\HomeComponent;
+use App\Livewire\Home\Pages\UserProfile\CreateProperty as UserProfileCreateProperty;
+use App\Livewire\Home\Pages\UserProfile\Index;
 use App\Models\Article;
 use App\Models\WishList;
-
+use Livewire\Livewire;
 
 //define route
 Route::get('/router', [RouteController::class, 'index'])->name('setroute');
@@ -79,23 +81,31 @@ Route::get('/forget_password', function () {
 //------------------------------------------------------------------------------------
 //user route
 Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(function () {
+
+    // Livewire route
+    Route::get('/properties/createproperty', UserProfileCreateProperty::class)->name('properties.create');
+    Route::get('/dashboard', Index::class)->name('home');
+
+
+
+
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
     Route::get('/wish_list',  [WishListController::class, 'show'])->name('show');
 
-    // Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
+    Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
-    Route::get('/submit-propert', function () {
-        $wishlist = Wishlist::where('user_id', auth()->id())->get();
-        return view('home.pages.UserProfile.submit-property', compact('wishlist'));
-    })->name('submit-propert');
+    // Route::get('/submit-propert', function () {
+    //     $wishlist = Wishlist::where('user_id', auth()->id())->get();
+    //     return view('home.pages.UserProfile.submit-property', compact('wishlist'));
+    // })->name('submit-propert');
 
     Route::post('/upload/store', [UploadController::class, 'store'])->name('upload');
     Route::post('/delete', [UploadController::class, 'delete'])->name('del');
 
-    Route::get('/dashboard', function () {
-        return view('home.pages.UserProfile.index');
-    })->name('home');
+    // Route::get('/dashboard', function () {
+    //     return view('home.pages.UserProfile.index');
+    // })->name('home');
 });
 
 //------------------------------------------------------------------------------------

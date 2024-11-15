@@ -1044,26 +1044,20 @@
                                                                                                 <div class="tab-pane active"
                                                                                                     id="a2018">
                                                                                                     <div
-                                                                                                        class="row clearfix">
+                                                                                                        class="col-lg-3 col-md-4 col-sm-12">
                                                                                                         <div
-                                                                                                            class="col-lg-3 col-md-4 col-sm-12">
-                                                                                                            <div
-                                                                                                                class="card">
-                                                                                                                <div
-                                                                                                                    class="hover">
-                                                                                                                </div>
-                                                                                                                <a href="{{ asset('storage/preview/' . $property->img) }}"
-                                                                                                                    class="file"
-                                                                                                                    target="_blank">
-                                                                                                                    <div
-                                                                                                                        class="image">
-                                                                                                                        <img src="{{ asset('storage/preview/' . $property->img) }}"
-                                                                                                                            alt="img"
-                                                                                                                            class="img-fluid">
-                                                                                                                    </div>
-                                                                                                                </a>
-                                                                                                            </div>
+                                                                                                            class="hover">
                                                                                                         </div>
+                                                                                                        <a href="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                            class="file"
+                                                                                                            target="_blank">
+                                                                                                            <div
+                                                                                                                class="image">
+                                                                                                                <img src="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                                    alt="img"
+                                                                                                                    class="img-fluid">
+                                                                                                            </div>
+                                                                                                        </a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

@@ -71,6 +71,6 @@ class HomeComponent extends Component
             'posts',
             'articles',
             'specials'
-        ))->extends('home.layout.HomeLayout')->section('content');;
+        ))->extends('home.layout.HomeLayout')->section('content');
     }
 }

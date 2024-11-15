@@ -188,9 +188,13 @@ class CreatPropertyForm extends Form
         $this->user_id = auth()->user()->id;
 
         $PropertyImageController = new PropertyImageController();
-        $imageName = $PropertyImageController->upload($this->img);
+        if (isset($this->img)) {
+            $imageName = $PropertyImageController->upload($this->img);
+            $this->img = $imageName;
+        }
+
+
         $imageOtherName = $PropertyImageController->uploadOtherImage($this->otherimg);
-        $this->img = $imageName;
 
 
         if (isset($this->ischange)) {
@@ -366,6 +370,91 @@ class CreatPropertyForm extends Form
             $this->ischange = false;
         }
     }
+
+    public function userStore()
+    {
+        $validate = [
+            'name_family' => 'required|string',
+            'telephone' => "required|numeric",
+            'title' => 'required|string',
+            'tr_type' => 'required|string',
+            'usertype' => 'required|string',
+            'type' => 'required|string',
+            'bedroom' => 'required|numeric',
+            'floorsell' => 'required|string',
+            'floor' => 'nullable|numeric',
+            'year' => 'nullable|numeric',
+            'area' => 'nullable|numeric',
+            'meter' => 'required|numeric',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'address' => 'required|string',
+            'rent' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+            'rahn' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+            'bidprice' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+            'district' => 'required',
+            "otherimg.*" =>  "image|max:2044",
+        ];
+        if ($this->tr_type == 'رهن و اجاره') {
+            unset($validate['loanamount'], $validate['loan'], $validate['bidprice'], $validate['ugprice']);
+        } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
+            unset($validate['rahn'], $validate['rent'], $validate['people_number']);
+        }
+        $this->validate($validate);
+
+
+        $this->bidprice = Str::replace(',', '', $this->bidprice);
+        $this->ugprice = Str::replace(',', '', $this->ugprice);
+        $this->loanamount = Str::replace(',', '', $this->loanamount);
+        $this->meter_price = Str::replace(',', '', $this->meter_price);
+        $this->rent = Str::replace(',', '', $this->rent);
+        $this->rahn = Str::replace(',', '', $this->rahn);
+        $this->user_id = auth()->user()->id;
+
+        $PropertyImageController = new PropertyImageController();
+        if (isset($this->img)) {
+            $imageName = $PropertyImageController->upload($this->img);
+            $this->img = $imageName;
+        }
+
+        $imageOtherName = $PropertyImageController->uploadOtherImage($this->otherimg);
+
+        if (isset($this->ischange)) {
+            $this->ischange = true;
+        } else {
+            $this->ischange = false;
+        }
+        //
+
+        if (isset($this->featured)) {
+            $this->featured = true;
+        } else {
+            $this->featured = false;
+        }
+
+        //
+        if (isset($this->isactive)) {
+            $this->isactive = true;
+        } else {
+            $this->isactive = false;
+        }
+        if ($this->tr_type == 'رهن و اجاره') {
+            $this->loanamount = $this->loan = $this->bidprice = $this->ugprice = $this->meter_price = $this->loan = null;
+        } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
+            $this->rahn = $this->rent = $this->people_number = null;
+        }
+        $property = Property::create($this->except(['is_edit', 'property', 'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
+        // $property->features()->sync($this->features);
+        if (isset($imageOtherName)) {
+            foreach ($imageOtherName as $name) {
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'name' => $name,
+                ]);
+            }
+        }
+    }
+
 
     public $states = [
         'اصفهان' => [

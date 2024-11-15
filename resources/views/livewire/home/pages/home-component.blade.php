@@ -205,7 +205,7 @@
                                 @endisset
                                 <div class="list-img-slide">
                                     <div class="click">
-                                        <div><a href={{ route('properties.show', [$property_rents->id]) }}><img
+                                        <div><a href="/properties/{{ $property_rents->id }}" wire:navigate><img
                                                     src="{{ asset('storage/preview/' . $property_rents->img) }}"
                                                     class="img-fluid mx-auto" alt="" /></a></div>
                                         <!-- اسلاید -->
@@ -253,14 +253,14 @@
                                     <div class="_card_list_flex">
                                         <div class="_card_flex_01">
                                             <h4 class="listing-name verified"><a
-                                                    href="{{ route('properties.show', [$property_rents->id]) }}"
+                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
                                                     class="prt-link-detail">
                                                     <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
                                                         {{ $property_rents->title }}
                                                     </h6>
                                                 </a></h4>
                                             <h4 class="listing-name verified"><a
-                                                    href="{{ route('properties.show', [$property_rents->id]) }}"
+                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
                                                     class="prt-link-detail">
                                                     <h6 class="listing-card-info-price mb-2 mt-2 numbers"
                                                         style="font-size: 15px;">مبلغ
@@ -271,7 +271,7 @@
                                                     </h6>
                                                 </a></h4>
                                             <h4 class="listing-name verified"><a
-                                                    href="{{ route('properties.show', [$property_rents->id]) }}"
+                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
                                                     class="prt-link-detail">
                                                     <h6 class="listing-card-info-price mb-2 numbers"
                                                         style="font-size: 15px;">
@@ -315,7 +315,7 @@
                                     </div>
                                 </div>
                                 <div class="footer-flex">
-                                    <a href={{ route('properties.show', [$property_rents->id]) }}
+                                    <a href="/properties/{{ $property_rents->id }}" wire:navigate
                                         class="prt-view">مشاهده
                                         جزئیات</a>
                                 </div>
@@ -360,7 +360,7 @@
                                 @endisset
                                 <div class="list-img-slide">
                                     <div class="click">
-                                        <div><a href={{ route('properties.show', [$property_sell->id]) }}><img
+                                        <div><a href="/properties/{{ $property_sell->id }}" wire:navigate><img
                                                     src="{{ asset('storage/preview/' . $property_sell->img) }}"
                                                     class="img-fluid mx-auto" alt="" /></a></div>
                                         <!-- اسلاید -->
@@ -416,14 +416,14 @@
                                     <div class="_card_list_flex">
                                         <div class="_card_flex_01">
                                             <h4 class="listing-name verified"><a
-                                                    href="{{ route('properties.show', [$property_sell->id]) }}"
+                                                    href="/properties/{{ $property_sell->id }}" wire:navigate
                                                     class="prt-link-detail">
                                                     <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
                                                         {{ $property_sell->title }}
                                                     </h6>
                                                 </a></h4>
                                             <h4 class="listing-name verified"><a
-                                                    href="{{ route('properties.show', [$property_sell->id]) }}"
+                                                    href="/properties/{{ $property_sell->id }}" wire:navigate
                                                     class="prt-link-detail">
                                                     <h6 class="listing-card-info-price mb-2 mt-2 numbers"
                                                         style="font-size: 15px;">
@@ -468,7 +468,7 @@
                                     </div>
                                 </div>
                                 <div class="footer-flex">
-                                    <a href={{ route('properties.show', [$property_sell->id]) }}
+                                    <a href="/properties/{{ $property_sell->id }}" wire:navigate
                                         class="prt-view">مشاهده
                                         جزئیات</a>
                                 </div>
@@ -514,7 +514,7 @@
                                     <div class="grid_agents-wrap">
 
                                         <div class="fr-grid-thumb">
-                                            <a href="{{ route('properties.list', ['user_id' => $user_agent->id]) }}">
+                                            <a>
                                                 <span class="verified"><img src="assets/home/img/verified.svg"
                                                         class="verify mx-auto" alt=""></span>
                                                 <img src="{{ asset('storage/profile/' . $user_agent->image) }}"
@@ -669,7 +669,7 @@
                         <div class="grid_blog_box">
 
                             <div class="gtid_blog_thumb">
-                                <a href="{{ route('blog.show', $post->id) }}"><img
+                                <a href="/blog/{{ $post->id }}" wire:navigate><img
                                         src="{{ asset('storage/' . $post->image->url) }}" class="img-fluid"
                                         alt="{{ $post->slug }}" /></a>
                                 <div class="gtid_blog_info">
@@ -678,9 +678,9 @@
                             </div>
 
                             <div class="blog-body">
-                                <h4 class="bl-title"><a
-                                        href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a><span
-                                        class="latest_new_post">خبر</span></h4>
+                                <h4 class="bl-title"><a href="/blog/{{ $post->id }}"
+                                        wire:navigate>{{ $post->title }}</a><span class="latest_new_post">خبر</span>
+                                </h4>
                                 <div class="text-overflow">
                                     <p>{{ $post->body }}</p>
                                 </div>
@@ -696,7 +696,7 @@
                                 </div>
                                 <span class="article-pulish-date">
                                     <div class="footer-flex">
-                                        <a href="{{ route('blog.show', $post->id) }}" class="prt-view">مشاهده</a>
+                                        <a href="/blog/{{ $post->id }}" wire:navigate class="prt-view">مشاهده</a>
                                     </div>
                                 </span>
                             </div>
@@ -709,9 +709,8 @@
                     <!-- Single blog Grid -->
                     <div class="col-lg-4 col-md-6">
                         <div class="grid_blog_box">
-
                             <div class="gtid_blog_thumb">
-                                <a href="{{ route('article.show', $article->id) }}"><img
+                                <a href="/article/{{ $article->id }}" wire:navigate><img
                                         src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
                                         alt="{{ $article->slug }}" /></a>
                                 <div class="gtid_blog_info">
@@ -721,8 +720,8 @@
                             </div>
 
                             <div class="blog-body">
-                                <h4 class="bl-title"><a
-                                        href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a><span
+                                <h4 class="bl-title"><a href="/article/{{ $article->id }}"
+                                        wire:navigate>{{ $article->title }}</a><span
                                         class="latest_new_post">مقاله</span></h4>
                                 <div class="text-overflow">
                                     <p>{{ $article->body }}</p>
@@ -739,22 +738,15 @@
                                 </div>
                                 <span class="article-pulish-date">
                                     <div class="footer-flex">
-                                        <a href="{{ route('article.show', $article->id) }}"
+                                        <a href="/article/{{ $article->id }}" wire:navigate
                                             class="prt-view">مشاهده</a>
                                     </div>
                                 </span>
                             </div>
-
                         </div>
                     </div>
                 @endforeach
-
-
-
-
-
             </div>
-
         </div>
     </section>
     <div class="clearfix"></div>
@@ -771,7 +763,7 @@
                             <h3>آیا سوالی دارید؟</h3>
                             <span>ما به شما کمک میکنیم تا بهترین خانه را انتخاب کنید</span>
                         </div>
-                        <a href="{{ route('contactus') }}" class="btn btn-call_action_wrap">امروز با ما تماس
+                        <a href='/contact-us' wire:navigate class="btn btn-call_action_wrap">امروز با ما تماس
                             بگیرید</a>
                     </div>
 

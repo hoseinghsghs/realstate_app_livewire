@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Property;
 use App\Models\WishList;
 use Image;
+
 class ProfileController extends Controller
 {
     /**
@@ -22,10 +23,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -66,12 +64,12 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit()
-     {
-         $user=auth::user();
-         $property = Property::latest()->where('isactive', 1)->get();
-         $wishlist = Wishlist::where('user_id' , auth()->id())->get();  
-         return view('admin.page.profile.edit' ,compact('user','property','wishlist'));
-     }
+    {
+        $user = auth::user();
+        $property = Property::latest()->where('isactive', 1)->get();
+        $wishlist = Wishlist::where('user_id', auth()->id())->get();
+        return view('admin.page.profile.edit', compact('user', 'property', 'wishlist'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -80,17 +78,17 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request , ToastrFactory $flasher)
-    { 
-        
-        $user=auth::user();
+    public function update(Request $request)
+    {
+
+        $user = auth::user();
         $request->validate([
             'about' => 'nullable',
             'name' => 'required|max:255',
             'email' => 'required',
             'image' => 'image|mimes:jpeg,jpg,png|max:1024'
         ]);
-        
+
 
         $image = $request->file('image');
         $slug  = Str::slug($request->title);
@@ -100,14 +98,14 @@ class ProfileController extends Controller
             if (!Storage::exists('profile')) {
                 Storage::makeDirectory('profile');
             }
-            if (Storage::exists('profile/' . $user->image) && $user->image!=='default.png') {
+            if (Storage::exists('profile/' . $user->image) && $user->image !== 'default.png') {
                 Storage::delete('profile/' . $user->image);
             }
             Image::make($image)->resize(800, 800)->save(Storage::getAdapter()->getPathPrefix() . 'profile/' . $imagename);
         } else {
             $imagename = $user->image;
         }
-        
+
         if (isset($request->about)) {
             $user->about = $request->about;
         }
@@ -118,19 +116,17 @@ class ProfileController extends Controller
         $user->about = $request->about;
         $user->phone = $request->phone;
         $user->image = $imagename;
-        $user->save();       
-       
-         $flasher->addSuccess('پروفایل با موفقیت بروزرسانی شد');
+        $user->save();
+
+        // $flasher->addSuccess('پروفایل با موفقیت بروزرسانی شد');
         if (Gate::allows('is_user')) {
             return redirect()->route('user.home');
         }
         if (Gate::allows('is_admin')) {
             return redirect()->route('admin.home');
-        } 
-        else if(Gate::allows('is_agent')) {
+        } else if (Gate::allows('is_agent')) {
             return redirect()->route('agent.home');
         }
-     
     }
 
     /**
