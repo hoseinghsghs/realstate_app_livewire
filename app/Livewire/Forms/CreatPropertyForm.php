@@ -235,6 +235,62 @@ class CreatPropertyForm extends Form
 
     public function update()
     {
+        if ($this->currentStep == 1) {
+            $validate = [
+                'title' => 'required|string',
+                'code' => ['required', isset($this->property) ? Rule::unique('properties', 'code')->ignore($this->property) : Rule::unique('properties', 'code')],
+                'lable' => 'nullable|string',
+                'tr_type' => 'required|string',
+                'usertype' => 'required|string',
+                'type' => 'required|string',
+                'bedroom' => 'required|numeric',
+                'floorsell' => 'required|string',
+                'floor' => 'nullable|numeric',
+                'year' => 'nullable|numeric',
+                'area' => 'nullable|numeric',
+                'meter' => 'required|numeric',
+                'province' => 'required|string',
+                'city' => 'required|string',
+                'lon' => 'nullable|numeric',
+                'lat' => 'nullable|numeric',
+                'address' => 'required|string',
+                'rent' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                'rahn' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                'people_number' =>  'nullable|numeric',
+                'bidprice' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                'ugprice' => ['required', "regex:/^\ ?[+-]?[0-9]{1,3}(?:,?[0-9])*(?:\.[0-9]{1,2})?$/"],
+                'loan' => 'nullable|string',
+                'loanamount' => 'nullable',
+                'meter_price' => 'nullable',
+                'district' => 'required',
+            ];
+            if ($this->tr_type == 'رهن و اجاره') {
+                unset($validate['loanamount'], $validate['loan'], $validate['bidprice'], $validate['ugprice']);
+            } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
+                unset($validate['rahn'], $validate['rent'], $validate['people_number']);
+            }
+            $this->validate($validate);
+        } elseif ($this->currentStep == 2) {
+            $validate = [
+                "phone" =>  "required|numeric",
+                'name_family' => 'required|string',
+                'telephone' => "required|numeric",
+            ];
+            $this->validate($validate);
+        } elseif ($this->currentStep == 3) {
+            $validate = [
+                'screen' => 'nullable|string',
+            ];
+            $this->validate($validate);
+        } elseif ($this->currentStep == 4) {
+            $validate = [
+                "otherimg" =>  "image|mimes:jpeg,jpg,png|max:2044",
+                "img" => "image|mimes:jpeg,jpg,png|max:2044",
+            ];
+        }
+
+
+
         if ($this->img) {
             $this->is_edit = true;
             $PropertyImageController = new PropertyImageController();

@@ -365,18 +365,18 @@
                                                         <td class="text-center js-sweetalert">
 
 
-                                                            <a onclick="loadbtn(event)"
-                                                                href="/admin/properties/{{ $property->id }}/edit"
-                                                                class="btn btn-raised btn-info waves-effect">
+                                                            <a href="/admin/properties/{{ $property->id }}/edit"
+                                                                class="btn btn-raised btn-info waves-effect"
+                                                                wire:navigate>
+
                                                                 ویرایش
                                                             </a>
-                                                            <a onclick="loadbtn(event)"
-                                                                href="/admin/properties/show/{{ $property->id }}"
+                                                            <a href="/admin/properties/show/{{ $property->id }}"
                                                                 wire:navigate
                                                                 class="btn btn-raised btn-info waves-effect">
                                                                 نمایش
                                                             </a>
-                                                            <button class="btn btn-raised btn-danger waves-effect"
+                                                            {{-- <button class="btn btn-raised btn-danger waves-effect"
                                                                 data-type="confirm"
                                                                 data-form-id="del-property-{{ $property->id }}">حذف</button>
                                                             <form
@@ -384,7 +384,7 @@
                                                                 id="del-property-{{ $property->id }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                            </form>
+                                                            </form> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach

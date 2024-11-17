@@ -258,6 +258,7 @@
                                         <div class="col-6"><strong>مبلغ رهن:</strong></div>
                                         <div class="col-6">
                                             {{ $property->rahn == null ? '' : number_format($property->rahn) }}
+
                                             تومان
                                         </div>
                                     </div>

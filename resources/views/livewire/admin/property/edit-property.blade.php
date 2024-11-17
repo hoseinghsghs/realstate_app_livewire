@@ -1184,20 +1184,21 @@
                                                             قبلی
                                                         </button>
                                                     @endif
+
+                                                    <button type="submit" class="btn btn-md btn-primary"
+                                                        wire:loading.attr="disabled">ویرایش
+                                                        اطلاعات
+                                                        <span class="spinner-border spinner-border-sm text-light"
+                                                            wire:loading wire:target="add_image"></span>
+                                                    </button>
                                                     @if ($form->currentStep == 1 || $form->currentStep == 2 || $form->currentStep == 3)
                                                         <button type="button" class="btn btn-md btn-success"
                                                             wire:click.prevent="incStep()">
                                                             بعدی
                                                         </button>
                                                     @endif
-                                                    @if ($form->currentStep == 4)
-                                                        <button type="submit" class="btn btn-md btn-primary"
-                                                            wire:loading.attr="disabled">ثبت
-                                                            اطلاعات
-                                                            <span class="spinner-border spinner-border-sm text-light"
-                                                                wire:loading wire:target="add_image"></span>
-                                                        </button>
-                                                    @endif
+
+
                                                 </div>
                                             </form>
                                         </form>
@@ -1315,82 +1316,33 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            // $('.class').select2();
+        document.addEventListener('DOMContentLoaded', function() {
+            const nav2 = document.getElementById("nav2");
+            const placeholder = document.createElement('div'); // Placeholder to maintain height
+            placeholder.style.height = `${nav2.offsetHeight}px`; // Set height equal to header
+            placeholder.style.display = 'none'; // Initially hidden
 
-            // $('#province').on('change', function(e) {
-            //     let data = $('#province').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.province', null);
-            //     } else {
-            //         @this.set('form.province', data);
-            //     }
-            // });
+            nav2.parentNode.insertBefore(placeholder, nav2); // Add placeholder above header
 
-            // $('#lable').on('change', function(e) {
-            //     let data = $('#lable').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.lable', null);
-            //     } else {
-            //         @this.set('form.lable', data);
-            //     }
-            // });
+            let prevScrollPos = window.pageYOffset;
 
+            window.addEventListener('scroll', () => {
+                let currentScrollPos = window.pageYOffset;
 
-            // $('#city').on('change', function(e) {
-            //     let data = $('#city').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.city', null);
-            //     } else {
-            //         @this.set('form.city', data);
-            //     }
-            // });
-
-            // $('#doc').on('change', function(e) {
-            //     let data = $('#doc').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.doc', null);
-            //     } else {
-            //         @this.set('form.doc', data);
-            //     }
-            // });
-
-            // $('#usertype').on('change', function(e) {
-            //     let data = $('#usertype').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.usertype', null);
-            //     } else {
-            //         @this.set('form.usertype', data);
-            //     }
-            // });
-
-            // $('#tr_type').on('change', function(e) {
-            //     let data = $('#tr_type').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.tr_type', null);
-            //     } else {
-            //         @this.set('form.tr_type', data);
-            //     }
-            // });
-            // $('#type').on('change', function(e) {
-            //     let data = $('#type').select2("val");
-            //     if (data === '') {
-            //         @this.set('form.type', null);
-            //     } else {
-            //         @this.set('form.type', data);
-            //     }
-            // });
-
-
-            window.onscroll = function() {
-                const nav2 = document.getElementById("nav2");
-                if (window.pageYOffset > 0) {
-                    nav2.classList.add("fixed");
-                } else {
-                    nav2.classList.remove("fixed");
+                if (prevScrollPos > currentScrollPos) {
+                    // Scrolling up
+                    nav2.classList.remove('fixed');
+                    placeholder.style.display = 'none';
+                } else if (currentScrollPos > nav2.offsetHeight) {
+                    // Scrolling down and past the header
+                    nav2.classList.add('fixed');
+                    placeholder.style.display = 'block'; // Show placeholder
                 }
-            };
+
+                prevScrollPos = currentScrollPos;
+            });
         });
+
 
         function changePrice(value, input) {
             var meter = $("#area").val();

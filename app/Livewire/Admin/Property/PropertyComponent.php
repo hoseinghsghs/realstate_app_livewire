@@ -34,6 +34,7 @@ class PropertyComponent extends Component
 
     public function render()
     {
+
         $properties = Property::with('user')->when($this->user_id, function ($query, $user_id) {
             return $query->where('user_id', $this->user_id);
         })->when($this->tr_type, function ($query, $tr_type) {
