@@ -40,6 +40,8 @@ use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
+use App\Livewire\Home\Pages\ArticleComponent as PagesArticleComponent;
+use App\Livewire\Home\Pages\BlogComponent;
 use App\Livewire\Home\Pages\HomeComponent;
 use App\Livewire\Home\Pages\UserProfile\CreateProperty as UserProfileCreateProperty;
 use App\Livewire\Home\Pages\UserProfile\Index;
@@ -57,15 +59,17 @@ Route::get('/router', [RouteController::class, 'index'])->name('setroute');
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // livewire home route
 Route::get('/', HomeComponent::class)->name('home');
+Route::get('/blog', BlogComponent::class)->name('blog.index');
+Route::get('/articled', PagesArticleComponent::class)->name('articled.index');
 
 Route::get('/properties/list', [HomeController::class, 'properties_list'])->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
 Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
 // Route::any('/admin', [AuthController::class,'login']);
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+// Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/article', [ArticleHomeController::class, 'index'])->name('article.index');
+// Route::get('/articled', [ArticleHomeController::class, 'index'])->name('articled.index');
 Route::get('/article/{article}', [ArticleHomeController::class, 'show'])->name('article.show');
 Route::get('/contact-us', function () {
     $setting = Setting::firstOrNew();

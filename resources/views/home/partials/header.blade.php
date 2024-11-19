@@ -78,7 +78,7 @@
                             </li>
                             <li @class(['active' => url()->current() == route('blog.index')])><a href="/blog" wire:navigate>اخبار</a></li>
 
-                            <li @class(['active' => url()->current() == route('article.index')])><a href="/article" wire:navigate>مقالات</a></li>
+                            <li @class(['active' => url()->current() == route('articled.index')])><a href="/articled" wire:navigate>مقالات</a></li>
 
                             <li @class(['active' => url()->current() == route('contactus')])><a href='/contact-us' wire:navigate>تماس با
                                     ما</a></li>
@@ -119,8 +119,8 @@
                                             مندی
                                             ها</a>
                                         <!-- <li> <a href="" class="color-bg db_log-out"><i class="far fa-power-off"></i>
-                                                                                                                                                                                                                                                                                                                                                                                                        </a>
-                                                                                                                                                                                                                                                                                                                                                                                                    </li> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                                                                                                                                                            </li> -->
                                     <li class="add-listing">
                                         <a href="/user/properties/createproperty" wire:navigate class="theme-cl">
                                             <i class="fas fa-plus-circle ml-1"></i>ثبت آگهی

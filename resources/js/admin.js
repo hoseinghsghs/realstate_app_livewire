@@ -23,6 +23,9 @@ require("../assets/admin/bundles/sparkline.bundle");
 require("../assets/admin/plugins/sweetalert/sweetalert.min.js");
 require("../assets/admin/plugins/jquery-validation/jquery.validate.js");
 require("../assets/admin/plugins/jquery-steps/jquery.steps");
+window.noUiSlider = require("../assets/admin/plugins/nouislider/nouislider.js");
+// window.noUiSlider = require("nouislider");
+
 require("../assets/admin/plugins/select2/select2.min.js");
 require("../assets/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput");
 // require("../assets/admin/js/jquery.mjs.nestedSortable.js");

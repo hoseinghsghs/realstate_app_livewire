@@ -1,6 +1,5 @@
-@extends('home.layout.HomeLayout')
-@section('title', 'مقالات')
-@section('content')
+<div>
+    @section('title', 'مقالات')
     <!-- content -->
     <div class="page-title" style="background:#f4f4f4 url(assets/home/img/slider-3.jpg);" data-overlay="5">
         <div class="container">
@@ -44,9 +43,13 @@
 
 
                                 <div class="gtid_blog_thumb">
-                                    <a href="/article/{{ $article->id }}" wire:navigate><img
-                                            src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
-                                            alt="{{ $article->slug }}" /></a>
+                                    @isset($article->image->url)
+                                        <a href="/article/{{ $article->id }}" wire:navigate><img
+                                                src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
+                                                alt="{{ $article->slug }}" /></a>
+                                    @endisset
+
+
                                     <div class="gtid_blog_info">
                                         <span>تاریخ</span>{{ Hekmatinasser\Verta\Verta::instance($article->created_at)->format('Y/n/j') }}
                                     </div>
@@ -81,20 +84,16 @@
                             </div>
                         </div>
                     @endforeach
-                    <!-- pagination-->
-                    {{ $articles->links('home.partials.pagination') }}
-                    <!-- pagination end-->
                 @else
                     <h4 class="loader-text">هیچ مقاله ای یافت نشد</h4>
                 @endif
-
             </div>
-            <!-- /row -->
-
-            <!-- Pagination -->
-
-
+            <div class="row">
+                <div class="col-12">
+                    {{ $articles->onEachSide(1)->links('home.partials.pagination') }}
+                </div>
+            </div>
         </div>
 
     </section>
-@endsection
+</div>

@@ -48,19 +48,19 @@ class PropertyComponent extends Component
         })->when($this->search, function ($query, $search) {
             return $query->where('title', 'LIKE', '%' . $this->search . '%')->orWhere('address', 'like', '%' . $this->search . '%');
         })->when($this->tr_type === 'فروش' && $this->price_range, function ($query) {
-            $this->price_range = array_map('intval', explode(';', $this->price_range));
-            return $query->whereBetween('bidprice', $this->price_range);
+            $price_range = array_map('intval', explode(';', $this->price_range));
+            return $query->whereBetween('bidprice', $price_range);
         })->when($this->tr_type === 'رهن و اجاره' && $this->rahn_range, function ($query) {
             $rahn_range = array_map('intval', explode(';', $this->rahn_range));
-            return $query->whereBetween('rahn', $this->rahn_range);
+            return $query->whereBetween('rahn',  $rahn_range);
         })->when($this->tr_type === 'رهن و اجاره' && $this->rent_range, function ($query) {
             $rent_range = array_map('intval', explode(';', $this->rent_range));
-            return $query->whereBetween('rent', $this->rent_range);
+            return $query->whereBetween('rent', $rent_range);
         })->when($this->meter_range, function ($query, $meter_range) {
-            $this->meter_range = array_map(function ($value) {
+            $meter_range = array_map(function ($value) {
                 return (int) $value;
             }, explode(';', $this->meter_range));
-            return $query->whereBetween('meter', $this->meter_range);
+            return $query->whereBetween('meter', $meter_range);
         })->when($this->bedroom, function ($query, $bedroom) {
             return $query->where('bedroom', $bedroom);
         })->when($this->floorsell, function ($query, $floorsell) {
