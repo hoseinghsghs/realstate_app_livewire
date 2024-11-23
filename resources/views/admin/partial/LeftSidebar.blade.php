@@ -89,13 +89,13 @@
                 </li>
                 <li><a target="_blank" href="https://app.raychat.io/login"><i class="zmdi zmdi-hc-fw"></i><span>چت
                             آنلاین</span></a>
-                <li> <a href={{ route('admin.comments.index') }}>
+                    {{-- <li> <a href={{ route('admin.comments.index') }}>
                         <i class="zmdi zmdi-hc-fw"></i><span>نظرات</span></a>
-                </li>
-                <li> <a href={{ route('admin.properties.search') }}>
+                </li> --}}
+                    {{-- <li> <a href={{ route('admin.properties.search') }}>
                         <i class="zmdi zmdi-hc-fw"></i><span>جستجو ملک</span></a>
-                </li>
-                <li><a href="{{ route('admin.settings.show') }}"><i class="zmdi zmdi-hc-fw"></i><span>
+                </li> --}}
+                <li><a href="/admin/settings" wire:navigate><i class="zmdi zmdi-hc-fw"></i><span>
                             درباره ما </span></a></li>
                 <!-- تنظیمات -->
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i

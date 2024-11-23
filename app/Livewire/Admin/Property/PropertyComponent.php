@@ -23,7 +23,7 @@ class PropertyComponent extends Component
     public $bedroom;
     public $search;
     public $code;
-    public $features;
+    public $features = [];
     public $price_range;
     public $rahn_range;
     public $meter_range;
@@ -69,10 +69,13 @@ class PropertyComponent extends Component
             return $query->where('code', $this->code);
         })->when($this->doc, function ($query, $doc) {
             return $query->where('doc', $this->doc);
-        })->when($this->features, function ($query, $features) {
-            return $query->whereHas('features', function ($query) use ($features) {
-                $query->whereIn('features.id', $this->featuresco->pluck('id'));
-            });
+        })->when($this->features, function ($query) {
+            foreach ($this->features as $featureId) {
+                $query->whereHas('features', function ($query) use ($featureId) {
+                    $query->where('features.id', $featureId);
+                });
+            }
+            return $query;
         })->withCount('images')->latest()->paginate(10)->withQueryString();
 
         $this->featuresco = $featuresco = Feature::latest()->get();

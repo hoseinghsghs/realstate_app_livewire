@@ -39,6 +39,7 @@ use App\Livewire\Admin\Property\EditProperty;
 use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
+use App\Livewire\Admin\Setting\SettingComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
 use App\Livewire\Home\Pages\ArticleComponent as PagesArticleComponent;
 use App\Livewire\Home\Pages\BlogComponent;
@@ -154,6 +155,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/articles', ArticleComponent::class)->name('articles');
         Route::get('/posts', PostComponent::class)->name('posts');
         Route::get('/sliders', SliderComponent::class)->name('sliders');
+        Route::get('/settings', SettingComponent::class)->name('settings');
+
 
 
         // Route::resource('/advertise', PropertyController::class);
@@ -169,8 +172,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Route::resource('/posts', PostController::class)->except('show');
         // Route::resource('/articles', ArticleController::class)->except('show');
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
-        Route::get('/settings', [SettingController::class, 'show'])->name('settings.show');
-        Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+        // Route::get('/settings', [SettingController::class, 'show'])->name('settings.show');
+        // Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
         Route::resource('/users', UserController::class);
 
         Route::delete('/delete-image/{image}', function (Image $image, ToastrFactory $flasher) {

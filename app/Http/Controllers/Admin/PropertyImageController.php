@@ -40,6 +40,38 @@ class PropertyImageController extends Controller
     }
 
 
+    public function uploadLogo($imageUpload)
+    {
+        if (isset($imageUpload)) {
+
+            //درایور پیش فرض ذخیره
+            $filesystem = config('filesystems.default');
+            //مسیر ذخیره سازی درایور پیش فرض
+            $pach = config('filesystems.disks.' . $filesystem)['root'];
+            //پسوند تصویر
+            $extension = $imageUpload->extension();
+
+            $image = PertiongenerateImageName($extension);
+
+
+            if (!Storage::exists('logo')) {
+                // این پوشه را بساز
+                Storage::makeDirectory('logo');
+            }
+
+            $img = Image::make($imageUpload)->resize(1200, 800);
+            $img->save($pach . '/' . 'logo' . '/' . $image);
+
+
+            return $image;
+        } else {
+            $image = "default.png";
+            return $image;
+        }
+    }
+
+
+
     public function uploadOtherImage($otherimageUpload)
     {
         if (isset($otherimageUpload)) {
@@ -57,7 +89,7 @@ class PropertyImageController extends Controller
 
                 $image = PertiongenerateImageName($img->getClientOriginalName());
 
-                $imge = Image::make($img)->resize(1200, 800);
+                $imge = Image::make($img)->resize(96, 340);
                 array_push($fileNameImages, $image);
                 $imge->save($pach . '/' . 'otherpreview' . '/' . $image);
                 // $img->move(public_path('assets/images/property/preview'), $image);

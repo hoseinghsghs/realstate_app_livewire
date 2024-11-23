@@ -169,8 +169,7 @@
                                                     <hr>
                                                     <div class="row clearfix">
                                                         @foreach ($featuresco as $feature)
-                                                            <div class="checkbox col-auto"
-                                                                wire:key="{{ $feature->id }}">
+                                                            <div class="checkbox col-auto">
                                                                 <input id="check-{{ $feature->id }}" type="checkbox"
                                                                     wire:model.live="features"
                                                                     value="{{ $feature->id }}">
@@ -444,7 +443,8 @@
                 function r(e, t, n, r, i, o, f, u, s, c, a, p) {
                     var d, l = "";
                     return a && (p = a(p)), !(!p || "string" != typeof p) && (u && h(p, u) && (p = p.replace(u, ""), d = !
-                        0), r && h(p, r) && (p = p.replace(r, "")), s && h(p, s) && (p = p.replace(s, ""), d = !0), i &&
+                            0), r && h(p, r) && (p = p.replace(r, "")), s && h(p, s) && (p = p.replace(s, ""), d = !0),
+                        i &&
                         function(e, t) {
                             return e.slice(-1 * t.length) === t
                         }(p, i) && (p = p.slice(0, -1 * i.length)), t && (p = p.split(t).join("")), n && (p = p.replace(
