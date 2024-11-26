@@ -6,14 +6,14 @@
                     <div class="nav-header">
                         @if (url()->current() == route('home'))
                             <a class="nav-brand static-logo" href="/" wire:navigate><img
-                                    src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo.png' }}"
+                                    src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                                     width="70px" class="logo" alt="" /></a>
                             <a class="nav-brand fixed-logo" href="/" wire:navigate><img
-                                    src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo2.png' }}"
+                                    src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo2.png' }}"
                                     width="70px" class="logo" alt="" /></a>
                         @else
                             <a class="nav-brand" href="/" wire:navigate>
-                                <img src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo.png' }}"
+                                <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                                     width="70px" class="logo" alt="" />
                             </a>
                         @endif
@@ -119,8 +119,8 @@
                                             مندی
                                             ها</a>
                                         <!-- <li> <a href="" class="color-bg db_log-out"><i class="far fa-power-off"></i>
-                                                                                                                                                                                                                                                                                                                                                                                                                </a>
-                                                                                                                                                                                                                                                                                                                                                                                                            </li> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                            </li> -->
                                     <li class="add-listing">
                                         <a href="/user/properties/createproperty" wire:navigate class="theme-cl">
                                             <i class="fas fa-plus-circle ml-1"></i>ثبت آگهی

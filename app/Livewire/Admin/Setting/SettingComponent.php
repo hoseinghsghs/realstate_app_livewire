@@ -155,7 +155,6 @@ class SettingComponent extends Component
         $data['emails'] = json_encode($data['emails']);
         $data['phones'] = json_encode($data['phones']);
         $data['links'] = json_encode($data['links']);
-
         if ($this->logo) {
             Storage::deleteDirectory('logo');
             $image_controller = new PropertyImageController();

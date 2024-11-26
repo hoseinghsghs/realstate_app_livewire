@@ -40,17 +40,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--=============== css  ===============-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
+    <link type="text/css" rel="stylesheet" href="/assets/home/css/jquery-ui.css">
     <link href="/assets/home/css/styles.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/assets/home/css/modal.css">
     <!--=============== favicons ===============-->
 
-    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="shortcut icon"
+        href="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
-    <meta name="keywords"
-        content="املاک عبدیان ,مشاور املاک , املاک سپاهان شهر, مشاور املاک عبدیان, amlak abdiyan, abdiyan, املاک عبدیان سپاهان شهر ,مشاور املاک سپاهان شهر" />
-    <meta name="description"
-        content="املاک عبدیان سریع ترین راه برای یافتن خانه ای که دوست داید . مشاوره با مجرب ترین و با سابقه ترین و همچنین متخصصین خرید و فروش ملاک |املاک عبدیان" />
+
+    <meta name="description" content="{{ $setting->seo_description }}" />
     <meta name="subject" content="real_state" />
     <meta name="copyright" content="amlack_abdiyan" />
     <meta name="designer" content="hosein ghasemi, amir rajabi" />
@@ -66,7 +68,7 @@
     <meta property="business:contact_data:locality" content="اصفهان">
     <meta property="business:contact_data:country_name" content="ایران">
     <meta property="business:contact_data:phone_number" content="09131161729">
-    <meta property="business:contact_data:website" content="https://abdiyan.com">
+    <meta property="business:contact_data:website" content={{ env('APP_URL') }}>
     <!-- -----------------  twitter ----------------- -->
     <meta name="twitter:title" content="املاک عبدیان سایت مشاور املاک">
     <meta name="twitter:description"
@@ -80,7 +82,7 @@
     <meta property="og:image:height" content="200">
     <meta property="og:description"
         content="املاک عبدیان از با سابقه ترین های مشاورین املاک به شما در رسیدن به خانه ی مد نظر خود کمک می کند . مشاوره با، مجرب ترین و با تجربه ترین و همچنین متخصصین خرید و فروش املاک ">
-    <meta property="og:url" content="https://abdiyan.com">
+    <meta property="og:url" content={{ env('APP_URL') }}>
     <meta property="og:site_name" content="املاک عبدیان |سریع تر به ملک دلخواهت برس">
 
 
@@ -89,7 +91,7 @@
     @livewireStyles
 
     <!-- BEGIN RAYCHAT CODE -->
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         ! function() {
             function t() {
                 var t = document.createElement("script");
@@ -106,7 +108,7 @@
             "complete" == e.readyState ? t() : a.attachEvent ? a.attachEvent("onload", t) : a.addEventListener("load", t, !
                 1)
         }();
-    </script>
+    </script> --}}
     <!-- END RAYCHAT CODE -->
 </head>
 <div class="overlay"></div>
@@ -129,22 +131,24 @@
 
     <!--=============== scripts  ===============
     -->
+    <script src="{{ asset('js/home.js') }}"></script>
+    {{-- 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> --}}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-    <script src="/assets/home/js/popper.min.js"></script>
-    <script src="/assets/home/js/bootstrap.min.js"></script>
-    <script src="/assets/home/js/ion.rangeSlider.min.js"></script>
+    {{-- <script src="/assets/home/js/popper.min.js"></script> --}}
+    {{-- <script src="/assets/home/js/bootstrap.min.js"></script> --}}
+    {{-- <script src="/assets/home/js/ion.rangeSlider.min.js"></script>
     <script src="/assets/home/js/select2.min.js"></script>
     <script src="/assets/home/js/jquery.magnific-popup.min.js"></script>
     <script src="/assets/home/js/slick.js"></script>
     <script src="/assets/home/js/slider-bg.js"></script>
     <script src="/assets/home/js/lightbox.js"></script>
     <script src="/assets/home/js/imagesloaded.js"></script>
-    <script src="/assets/home/js/custom.js"></script>
+    <script src="/assets/home/js/custom.js"></script>  --}}
+
+
     <script>
         $('#loginform').submit(function(event) {
             event.preventDefault();
@@ -238,7 +242,7 @@
 
         });
     </script>
-    <script src="/assets/home/notify/notify.js"></script>
+    {{-- <script src="/assets/home/notify/notify.js"></script> --}}
     @if (session('msg'))
         <script>
             $(document).ready(function() {

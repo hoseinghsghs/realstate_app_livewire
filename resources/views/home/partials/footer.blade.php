@@ -6,19 +6,19 @@
 
                 <div class="col-lg-5 col-md-5">
                     <div class="footer_widget">
-                        <img src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo.png' }}"
+                        <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                             class="img-footer small mb-2" alt="" />
                         <p>{{ $setting->description }}</p>
                         <p>ساعات کاری:<strong> {{ $setting->workday }}</strong></p>
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-6 col-md-7 mr-auto">
+                <div class="col-lg-6 col-md-7 mr-auto">
                     <div class="row">
                         <div class="col-lg-5 col-md-5">
                             <div class="footer_widget">
                                 <h4 class="widget_title">لینک های مفید</h4>
-                                @dd($setting->links)
+                                {{-- @dd(json_decode($setting->links, true))
                                 @if (!empty(json_decode($setting->links, true)))
                                     <div class="col-lg-9 col-md-8 d-block pr">
                                         <div class="footer-links">
@@ -48,7 +48,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
                         </div>
 
                     </div>
-                </div> --}}
+                </div>
 
             </div>
         </div>

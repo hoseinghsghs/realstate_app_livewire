@@ -7,7 +7,7 @@
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
             <a href="{{ route('home') }}"><img
-                    src="{{ $setting->icon ? asset('storage/' . $setting->icon) : '/images/logo.png' }}" width="45"
+                    src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}" width="45"
                     style="margin-right:20px"><span class="m-l-10"></span></a>
 
         </div>
@@ -122,8 +122,9 @@
     <aside id="leftsidebar" class="sidebar">
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-            <a href="{{ route('home') }}"><img src=" {{ asset('assets/images/logo.png') }}" width="45"
-                    alt="Aero"><span class="m-l-10">پنل مدیریت</span></a>
+            <a href="{{ route('home') }}"><img
+                    src=" {{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}}"
+                    width="45" alt="Aero"><span class="m-l-10">پنل مدیریت</span></a>
         </div>
         <div class="menu">
             <ul class="list">

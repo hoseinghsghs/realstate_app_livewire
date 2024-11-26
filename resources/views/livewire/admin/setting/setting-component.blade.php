@@ -350,8 +350,8 @@
                                             <div class="custom-file d-flex flex-row-reverse">
                                                 <input wire:model="logo" type="file" class="custom-file-input"
                                                     id="customFile" lang="ar" dir="rtl">
-                                                <label class="custom-file-label text-right" for="customFile">انتخاب
-                                                    عکس</label>
+                                                <label class="custom-file-label text-right" for="customFile">
+                                                </label>
                                             </div>
                                             @if ($logo || $logo_url)
                                                 <img src="{{ isset($logo) ? $logo->temporaryUrl() : asset('storage/logo/' . $logo_url) }}"
