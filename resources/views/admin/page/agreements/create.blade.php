@@ -68,7 +68,7 @@
                                     <div class="col-md">
                                         <div class="form-group">
                                             <label class="form-label">نام مشاور</label>
-                                            <input name="adviser" type="text" class="form-control" maxlength="40" value="{{old('adviser')}}" required>
+                                            <input  wire:model="adviser" type="text" class="form-control" maxlength="40" required>
                                         </div>
                                     </div>
                                 </div>

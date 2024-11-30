@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Admin\Agreement\AgreementList;
+use App\Livewire\Admin\Agreement\CreateAgreement;
+use App\Livewire\Admin\Agreement\EditAgreement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -92,11 +95,9 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
     Route::get('/dashboard', Index::class)->name('home');
 
 
-
-
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
-    Route::get('/wish_list',  [WishListController::class, 'show'])->name('show');
+    Route::get('/wish_list', [WishListController::class, 'show'])->name('show');
 
     Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
@@ -139,7 +140,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('chenge');
 
 
-
     Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
@@ -150,6 +150,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
+
+        Route::get('/agreements', AgreementList::class)->name('agreements.index');
+        Route::get('/agreements/show/{agreement}', ShowProperty::class)->name('agreements.show');
+        Route::get('/agreements/create', CreateAgreement::class)->name('agreements.create');
+        Route::get('/agreements/{agreement}/edit', EditAgreement::class)->name('agreements.edit');
+
         Route::get('/services', ServiceComponent::class)->name('services');
         Route::get('/features', FeatureComponent::class)->name('features');
         Route::get('/articles', ArticleComponent::class)->name('articles');
@@ -158,9 +164,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/settings', SettingComponent::class)->name('settings');
 
 
-
         // Route::resource('/advertise', PropertyController::class);
-        Route::resource('/agreements', AgreementController::class);
+        // Route::resource('/agreements', AgreementController::class);
         // Route::resource('/services', ServiceController::class)->except(['show']);
         // Route::resource('/features', FeatureController::class)->except(['show']);
 
@@ -215,7 +220,6 @@ Route::get('/test1', function () {
 
 
         $client = new SoapClient("http://panelis.ir/post/send.php?wsdl");
-
 
 
         $encoding = "UTF-8"; //CP1256, CP1252

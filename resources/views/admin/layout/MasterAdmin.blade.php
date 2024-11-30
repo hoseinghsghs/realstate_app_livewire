@@ -36,6 +36,9 @@
 
     <script src="{{ asset('js/admin.js') }}"></script>
     {{-- @flasher_render --}}
+    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
+    <script src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://unpkg.com/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
     @stack('scripts')
     <script>
         function loadbtn(event) {
