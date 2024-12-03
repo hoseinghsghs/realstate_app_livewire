@@ -197,8 +197,8 @@
                                     <div class="col-md-4 col-lg-3">
                                         <label class="form-label">مدت اجاره <abbr title="ضروری"
                                                                                   style="color:red;">*</abbr></label>
-                                        <div class="form-group @error('form.rent_term') is-invalid @enderror">
-                                            <input type="text" name="rent_term" class="form-control" maxlength="20"
+                                        <div class="form-group">
+                                            <input type="text" name="rent_term" class="form-control @error('form.rent_term') is-invalid @enderror" maxlength="20"
                                                    wire:model="form.rent_term">
                                             @error('form.rent_term')
                                             <div class="invalid-feedback">{{ $message }}</div>
