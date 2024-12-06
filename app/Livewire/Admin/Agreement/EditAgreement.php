@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Agreement;
 use App\Livewire\Forms\AgreementForm;
 use App\Models\Agreement;
 use App\Models\Image;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -21,27 +22,40 @@ class EditAgreement extends Component
     public function mount(Agreement $agreement): void
     {
         $this->agreement = $agreement;
-        $this->form->setAgreement($agreement);
+        $this->form->setAgreement($agreement->getAttributes());
     }
 
     public function update()
     {
+        $this->form->format_prices();
         $this->validate();
 
-        $this->agreement->update($this->form->except('images'));
-        //upload images
-        if (count($this->form->images) > 0) {
-            $paths = [];
-            foreach ($this->form->images as $image) {
-                $path = $image->store(path: 'agreement');
-                $paths[] = ['url' => $path];
+        DB::beginTransaction();
+
+        try {
+            $this->agreement->update($this->form->except('images'));
+            //upload images
+            if (count($this->form->images) > 0) {
+                $paths = [];
+                foreach ($this->form->images as $image) {
+                    $path = $image->store(path: 'agreement');
+                    $paths[] = ['url' => $path];
+                }
+                $this->agreement->images()->createMany($paths);
             }
-            $this->agreement->images()->createMany($paths);
+            // reset temporary images
+            $this->form->images = [];
+            flash()->success('تغییرات با موفقیت ذخیره شد.');
+
+            DB::commit();
+            // fresh the agreement after update
+            $this->agreement->fresh();
+            $this->form->setAgreement($this->agreement->getAttributes());
+        } catch (\Exception $e) {
+            // something went wrong
+            DB::rollback();
+            flash()->error($e->getMessage());
         }
-        // reset temporary images
-        $this->form->images = [];
-        flash()->success('تغییرات با موفقیت ذخیره شد.');
-//        return $this->redirect(route('admin.agreements.index'), navigate: true);
     }
 
     public function delete_photo(Image $photo): void

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Agreement;
 
 use App\Livewire\Forms\AgreementForm;
 use App\Models\Agreement;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -21,20 +22,37 @@ class CreateAgreement extends Component
 
     public function save()
     {
+        $this->form->format_prices();
         $this->validate();
 
-        $agreement = Agreement::create($this->form->except('images'));
-        //upload images
-        if (count($this->form->images) > 0) {
-            $paths = [];
-            foreach ($this->form->images as $image) {
-                $path = $image->store(path: 'agreement');
-                $paths[] = ['url' => $path];
+        DB::beginTransaction();
+
+        try {
+            $this->agreement->update($this->form->except('images'));
+            //upload images
+            if (count($this->form->images) > 0) {
+                $paths = [];
+                foreach ($this->form->images as $image) {
+                    $path = $image->store(path: 'agreement');
+                    $paths[] = ['url' => $path];
+                }
+                $this->agreement->images()->createMany($paths);
             }
-            $agreement->images()->createMany($paths);
+            // reset temporary images
+            $this->form->images = [];
+            flash()->success('تغییرات با موفقیت ذخیره شد.');
+
+            DB::commit();
+
+            flash()->success('قولنامه با موفقیت ایجاد شد.');
+            return $this->redirect(route('admin.agreements.index'), navigate: true);
+        } catch (\Exception $e) {
+            // something went wrong
+            DB::rollback();
+
+            $this->form->reset();
+            flash()->error($e->getMessage());
         }
-        flash()->success('قولنامه با موفقیت ایجاد شد.');
-        return $this->redirect(route('admin.agreements.index'), navigate: true);
     }
 
     public function delete_temp_image($id): void

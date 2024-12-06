@@ -3,6 +3,7 @@
 use App\Livewire\Admin\Agreement\AgreementList;
 use App\Livewire\Admin\Agreement\CreateAgreement;
 use App\Livewire\Admin\Agreement\EditAgreement;
+use App\Livewire\Admin\Agreement\ShowAgreement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -152,7 +153,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
 
         Route::get('/agreements', AgreementList::class)->name('agreements.index');
-        Route::get('/agreements/show/{agreement}', ShowProperty::class)->name('agreements.show');
+        Route::get('/agreements/show/{agreement}', ShowAgreement::class)->name('agreements.show');
         Route::get('/agreements/create', CreateAgreement::class)->name('agreements.create');
         Route::get('/agreements/{agreement}/edit', EditAgreement::class)->name('agreements.edit');
 

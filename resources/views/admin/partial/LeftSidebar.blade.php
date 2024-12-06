@@ -45,8 +45,8 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hc-fw"></i><span>قولنامه
                         </span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('admin.agreements.index') }}>لیست قولنامه ها</a></li>
-                        <li><a href={{ route('admin.agreements.create') }}>ایجاد قولنامه</a></li>
+                        <li><a wire:navigate href={{ route('admin.agreements.index') }}>لیست قولنامه ها</a></li>
+                        <li><a wire:navigate href={{ route('admin.agreements.create') }}>ایجاد قولنامه</a></li>
                     </ul>
                 </li>
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i

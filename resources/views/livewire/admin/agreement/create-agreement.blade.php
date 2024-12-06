@@ -198,7 +198,9 @@
                                         <label class="form-label">مدت اجاره <abbr title="ضروری"
                                                                                   style="color:red;">*</abbr></label>
                                         <div class="form-group">
-                                            <input type="text" name="rent_term" class="form-control @error('form.rent_term') is-invalid @enderror" maxlength="20"
+                                            <input type="text" name="rent_term"
+                                                   class="form-control @error('form.rent_term') is-invalid @enderror"
+                                                   maxlength="20"
                                                    wire:model="form.rent_term">
                                             @error('form.rent_term')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -261,9 +263,10 @@
                                             <label class="form-label">مبلغ رهن <abbr title="ضروری"
                                                                                      style="color:red;">*</abbr></label>
                                             <div class="input-group">
-                                                <input type="number" name="mortgage_price" dir="ltr"
+                                                <input type="text" name="mortgage_price" dir="ltr"
+                                                       onkeyup="formatNumber(this)"
                                                        class="form-control @error('form.mortgage_price') is-invalid @enderror"
-                                                       wire:model="form.mortgage_price">
+                                                >
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">تومان</span>
                                                 </div>
@@ -278,8 +281,8 @@
                                             <label class="form-label">مبلغ اجاره <abbr title="ضروری"
                                                                                        style="color:red;">*</abbr></label>
                                             <div class="input-group">
-                                                <input type="number" name="rent_price" dir="ltr"
-                                                       class="form-control @error('form.rent_price') is-invalid @enderror"
+                                                <input type="text" name="rent_price" dir="ltr"
+                                                      onkeyup="formatNumber(this)" class="form-control @error('form.rent_price') is-invalid @enderror"
                                                        wire:model="form.rent_price">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">تومان</span>
@@ -297,7 +300,7 @@
                                             <label class="form-label">مبلغ فروش <abbr title="ضروری"
                                                                                       style="color:red;">*</abbr></label>
                                             <div class="input-group">
-                                                <input type="number" name="sell_price" dir="ltr"
+                                                <input type="text" name="sell_price" dir="ltr" onkeyup="formatNumber(this)"
                                                        class="form-control @error('form.sell_price') is-invalid @enderror"
                                                        wire:model="form.sell_price">
                                                 <div class="input-group-append">
@@ -368,10 +371,26 @@
     <link rel="stylesheet" type="text/css"
           href="https://unpkg.com/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css"/>
 @endpush
+<script defer>
+    function formatNumber(input) {
+        // Remove existing commas
+        let inputValue = input.value.replace(/,/g, '');
 
+        // Keep only numeric characters (0-9)
+        inputValue = inputValue.replace(/[^0-9]/g, '');
+        if (inputValue) {
+            // Convert to number and back to string
+            inputValue = Number(inputValue).toString();
+        }
+        // Format with commas
+        input.value = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+</script>
 @script
 <script>
+
     $(document).ready(async function () {
+
         //persian date picker
         const createDate = $("#create-date").pDatepicker({
             format: 'L',

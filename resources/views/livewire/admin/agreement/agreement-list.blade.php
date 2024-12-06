@@ -46,7 +46,7 @@
                                     <table class="table table-hover c_table theme-color">
                                         <thead>
                                         <tr>
-                                            <th>شماره</th>
+                                            <th>#</th>
                                             <th>نوع قولنامه</th>
                                             <th>تاریخ قرارداد</th>
                                             <th>موجر/فروشنده</th>
@@ -55,9 +55,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($agreements as $agreement)
+                                        @foreach($agreements as $key=>$agreement)
                                             <tr wire:key="{{$agreement->id}}">
-                                                <td>{{$agreement->id}}</td>
+                                                <td>{{$agreements->firstItem() + $key}}</td>
                                                 <td>{{$agreement->agreement_type==='rental'?'اجاره':"فروش"}}</td>
                                                 <td dir="ltr">{{verta( $agreement->agreement_date)->format('Y/m/d')}}</td>
                                                 <td>{{$agreement->owner_name}}</td>

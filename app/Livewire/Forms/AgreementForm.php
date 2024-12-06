@@ -45,7 +45,17 @@ class AgreementForm extends Form
 
     public function setAgreement($agreement): void
     {
-        $this->agreement_type = $agreement->agreement_type;
+        if ($agreement['sell_price']) {
+            $agreement['sell_price'] =  number_format((int)$agreement['sell_price']);
+        }
+        if ($agreement['rent_price']) {
+            $agreement['rent_price'] = number_format((int)$agreement['rent_price']);
+        }
+        if ($agreement['mortgage_price']) {
+            $agreement['mortgage_price'] = number_format((int)$agreement['mortgage_price']);
+        }
+        $this->fill($agreement);
+        /*$this->agreement_type = $agreement->agreement_type;
         $this->agreement_date = $agreement->agreement_date;
         $this->start_date = $agreement->start_date;
         $this->end_date = $agreement->end_date;
@@ -60,6 +70,19 @@ class AgreementForm extends Form
         $this->owner_birth = $agreement->owner_birth;
         $this->owner_tel = $agreement->owner_tel;
         $this->description = $agreement->description;
-        $this->sell_price = $agreement->sell_price;
+        $this->sell_price = $agreement->sell_price;*/
+    }
+
+    public function format_prices()
+    {
+        if ($this->sell_price) {
+            $this->sell_price = (int)str_replace(',', '', $this->sell_price);
+        }
+        if ($this->rent_price) {
+            $this->rent_price = (int)str_replace(',', '', $this->rent_price);
+        }
+        if ($this->mortgage_price) {
+            $this->mortgage_price = (int)str_replace(',', '', $this->mortgage_price);
+        }
     }
 }
