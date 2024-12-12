@@ -54,23 +54,8 @@ class AgreementForm extends Form
         if ($agreement['mortgage_price']) {
             $agreement['mortgage_price'] = number_format((int)$agreement['mortgage_price']);
         }
+
         $this->fill($agreement);
-        /*$this->agreement_type = $agreement->agreement_type;
-        $this->agreement_date = $agreement->agreement_date;
-        $this->start_date = $agreement->start_date;
-        $this->end_date = $agreement->end_date;
-        $this->rent_term = $agreement->rent_term;
-        $this->mortgage_price = $agreement->mortgage_price;
-        $this->rent_price = $agreement->rent_price;
-        $this->adviser = $agreement->adviser;
-        $this->customer_name = $agreement->customer_name;
-        $this->customer_birth = $agreement->customer_birth;
-        $this->customer_tel = $agreement->customer_tel;
-        $this->owner_name = $agreement->owner_name;
-        $this->owner_birth = $agreement->owner_birth;
-        $this->owner_tel = $agreement->owner_tel;
-        $this->description = $agreement->description;
-        $this->sell_price = $agreement->sell_price;*/
     }
 
     public function format_prices()
