@@ -33,7 +33,7 @@ class HomeController extends Controller
         $property_sell_ma = Property::active()->latest()->where('type', 'مغازه')->get();
         $property_sell_la = Property::active()->latest()->where('type', 'زمین و کلنگی')->get();
 
-        
+
 
         $property = Property::active()->latest()->get();
         $service = Service::all();
@@ -70,7 +70,7 @@ class HomeController extends Controller
             'apcount',
             'hocount',
             'macount',
-            'lacount',    
+            'lacount',
             'ucount',
             'posts',
             'articles',
@@ -116,7 +116,7 @@ class HomeController extends Controller
 
         $data['user_id'] = auth()->id();
         $property->comments()->create($data);
-        return back()->with('msg','نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد');
+        return back()->with('msg', 'نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد');
     }
     // search along the properties
     public function properties_list(Request $request)
@@ -150,7 +150,7 @@ class HomeController extends Controller
         })->when($search, function ($query, $search) {
             return $query->where('title', 'LIKE', '%' . $search . '%')->orWhere('address', 'like', '%' . $search . '%');
         })->when($tr_type === 'فروش' && $price_range, function ($query) use ($price_range) {
-            $price_range = array_map('intval', explode(';', $price_range)); 
+            $price_range = array_map('intval', explode(';', $price_range));
             return $query->whereBetween('bidprice', $price_range);
         })->when($tr_type === 'رهن و اجاره' && $rahn_range, function ($query) use ($rahn_range) {
             $rahn_range = array_map('intval', explode(';', $rahn_range));

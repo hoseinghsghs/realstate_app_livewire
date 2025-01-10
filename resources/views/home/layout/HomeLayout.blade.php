@@ -32,7 +32,7 @@
 <head>
     <!--=============== basic  ===============-->
     <meta charset="UTF-8">
-    <title>{{ $setting->title }} - @yield('title')</title>
+    <title>{{ $setting->title }} @yield('title')</title>
 
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content="" />
@@ -132,21 +132,7 @@
     <!--=============== scripts  ===============
     -->
     <script src="{{ asset('js/home.js') }}"></script>
-    {{-- 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> --}}
-
-    {{-- <script src="/assets/home/js/popper.min.js"></script> --}}
-    {{-- <script src="/assets/home/js/bootstrap.min.js"></script> --}}
-    {{-- <script src="/assets/home/js/ion.rangeSlider.min.js"></script>
-    <script src="/assets/home/js/select2.min.js"></script>
-    <script src="/assets/home/js/jquery.magnific-popup.min.js"></script>
-    <script src="/assets/home/js/slick.js"></script>
-    <script src="/assets/home/js/slider-bg.js"></script>
-    <script src="/assets/home/js/lightbox.js"></script>
-    <script src="/assets/home/js/imagesloaded.js"></script>
-    <script src="/assets/home/js/custom.js"></script>  --}}
 
 
     <script>
