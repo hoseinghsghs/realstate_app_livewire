@@ -25,6 +25,7 @@ class CreateProperty extends Component
     public function mount()
     {
         $this->form->currentStep = 1;
+        $this->form->states = Get_States();
     }
 
     public function decStep()
@@ -35,25 +36,32 @@ class CreateProperty extends Component
     {
         $this->form->increaseStep();
     }
-
+    public function delete_temp_image($id): void
+    {
+        if (array_key_exists($id, $this->form->otherimg)) {
+            unset($this->form->otherimg[$id]);
+        }
+    }
 
 
     public function save()
     {
         if (Gate::allows('is_admin')) {
             $this->form->store();
-            alert()->success('', 'ملک با موفقیت ثبت شد');
+            flash()->success('ملک با موفقیت ثبت شد');
             // $flasher->addSuccess();
             return $this->redirect('/admin/properties', navigate: true);
 
             return redirect()->route('admin.properties.index');
         } elseif (Gate::allows('is_agent')) {
-            // $flasher->addSuccess('ملک با موفقیت ثبت شد');
+            flash()->success('ملک با موفقیت ثبت شد');
             $this->form->store();
             return redirect()->route('agent.properties.index');
         } elseif (Gate::allows('is_user')) {
             $this->form->store();
-            return redirect()->route('user.home')->with('msg', 'کاربر گرامی ملک شما با موفقیت ثبت گردید .');
+            flash()->success('کاربر گرامی ملک شما با موفقیت ثبت گردید .');
+
+            return redirect()->route('user.home');
         }
     }
     public function render()

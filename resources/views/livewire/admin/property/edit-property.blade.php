@@ -1015,11 +1015,12 @@
                                                                                     class="custom-file d-flex flex-row-reverse">
                                                                                     <input
                                                                                         onchange="validateImage(this)"
-                                                                                        wire:model.defer.live="form.img"
+                                                                                        wire:model.live="form.img"
                                                                                         type="file"
                                                                                         class="custom-file-input"
                                                                                         id="customFile" lang="ar"
                                                                                         dir="rtl">
+
                                                                                     <label
                                                                                         class="custom-file-label text-right"
                                                                                         for="customFile">
@@ -1028,44 +1029,48 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        @if ($form->img)
-                                                                            @if ($form->is_edit)
+                                                                        @if ($form->is_edit)
+                                                                            @if ($form->img)
                                                                                 <img src="{{ $form->img->temporaryUrl() }}"
                                                                                     style="border: #00ff40 2px solid ; border-radius: 0.5rem"
                                                                                     height="300rem">
                                                                             @endif
-                                                                        @else
-                                                                            </hr>
-                                                                            <div class="container-fluid">
-                                                                                <div class="row clearfix">
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="card">
-                                                                                            <div class="tab-content">
-                                                                                                <div class="tab-pane active"
-                                                                                                    id="a2018">
+                                                                        @endif
+
+                                                                        </hr>
+                                                                        <div class="container-fluid">
+                                                                            <div class="row clearfix">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="card">
+                                                                                        <div class="tab-content">
+                                                                                            <div class="tab-pane active"
+                                                                                                id="a2018">
+                                                                                                <div
+                                                                                                    class="col-lg-3 col-md-4 col-sm-12">
                                                                                                     <div
-                                                                                                        class="col-lg-3 col-md-4 col-sm-12">
-                                                                                                        <div
-                                                                                                            class="hover">
-                                                                                                        </div>
-                                                                                                        <a href="{{ asset('storage/preview/' . $property->img) }}"
-                                                                                                            class="file"
-                                                                                                            target="_blank">
-                                                                                                            <div
-                                                                                                                class="image">
-                                                                                                                <img src="{{ asset('storage/preview/' . $property->img) }}"
-                                                                                                                    alt="img"
-                                                                                                                    class="img-fluid">
-                                                                                                            </div>
-                                                                                                        </a>
+                                                                                                        class="hover">
                                                                                                     </div>
+
+
+                                                                                                    <a href="{{ asset('storage/preview/' . $this->property->img) }}"
+                                                                                                        wire:key="{{ $this->property->img }}"
+                                                                                                        class="file"
+                                                                                                        target="_blank">
+                                                                                                        <div
+                                                                                                            class="image">
+                                                                                                            <img src="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                                wire:key="{{ $property->img }}"
+                                                                                                                alt="img"
+                                                                                                                class="img-fluid">
+                                                                                                        </div>
+                                                                                                    </a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        @endif
+                                                                        </div>
                                                                         <div class="row mt-4">
                                                                             <div class="form-group col-md-4">
                                                                                 <label class="form-label"
@@ -1107,13 +1112,24 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-                                                                    @if ($form->otherimg)
-                                                                        @foreach ($form->otherimg as $imge)
-                                                                            <img src="{{ $imge->temporaryUrl() }}"
-                                                                                style="border: #00ff40 2px solid ; border-radius: 0.5rem"
-                                                                                height="300rem">
-                                                                        @endforeach
+                                                                    @if ($form->otherimg && count($form->otherimg) > 0)
+                                                                        <div class="col-12 mb-3">
+                                                                            <div
+                                                                                class="d-flex flex-wrap rounded border border-secondary shadow-md bg-light p-1">
+                                                                                @foreach ($form->otherimg as $key => $image)
+                                                                                    <div class="position-relative  mx-2 my-1"
+                                                                                        style="width: 150px;">
+                                                                                        <img width="100%"
+                                                                                            class="rounded border shadow-md"
+                                                                                            src="{{ $image->temporaryUrl() }}">
+                                                                                        <a wire:click="delete_temp_image({{ $key }})"
+                                                                                            class="position-absolute text-danger text-md"
+                                                                                            style="top: 5px;right: 10px;cursor:pointer;"><i
+                                                                                                class="zmdi zmdi-close"></i></a>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
                                                                     @endif
                                                                     <div class="container-fluid">
                                                                         <div class="row clearfix">

@@ -1058,12 +1058,32 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                @if ($form->otherimg)
+                                                                @if ($form->otherimg && count($form->otherimg) > 0)
+                                                                    <div class="col-12 mb-3">
+                                                                        <div
+                                                                            class="d-flex flex-wrap rounded border border-secondary shadow-md bg-light p-1">
+                                                                            @foreach ($form->otherimg as $key => $image)
+                                                                                <div class="position-relative  mx-2 my-1"
+                                                                                    style="width: 150px;">
+                                                                                    <img width="100%"
+                                                                                        class="rounded border shadow-md"
+                                                                                        src="{{ $image->temporaryUrl() }}">
+                                                                                    <a wire:click="delete_temp_image({{ $key }})"
+                                                                                        class="position-absolute text-danger text-md"
+                                                                                        style="top: 5px;right: 10px;cursor:pointer;"><i
+                                                                                            class="zmdi zmdi-close"></i></a>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+
+                                                                {{-- @if ($form->otherimg)
                                                                     @foreach ($form->otherimg as $imge)
                                                                         <img src="{{ $imge->temporaryUrl() }}"
                                                                             height="300rem">
                                                                     @endforeach
-                                                                @endif
+                                                                @endif --}}
                                                             </section>
                                                         </div>
                                                     </div>
