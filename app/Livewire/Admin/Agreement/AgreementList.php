@@ -73,12 +73,12 @@ class AgreementList extends Component
     {
         $this->validate();
         $agreements = Agreement::when($this->agreement_type, function ($query) {
-            return $query->where('agreement_type', $this->agreement_type);
+            $query->where('agreement_type', $this->agreement_type);
         })->when($this->name_lastname, function ($query) {
-            return $query->whereAny(['customer_name', 'owner_name'], 'like', '%' . $this->name_lastname . '%');
+            $query->whereAny(['customer_name', 'owner_name'], 'like', '%' . $this->name_lastname . '%');
         })->when($this->agreement_date, function ($query) {
             $date_time = explode(' ', $this->agreement_date);
-            return $query->whereDate('agreement_date', $date_time[0]);
+            $query->whereDate('agreement_date', $date_time[0]);
         })->latest()->paginate(10);
 
         return view('livewire.admin.agreement.agreement-list', compact(['agreements']))->extends('admin.layout.MasterAdmin')->section('Content');

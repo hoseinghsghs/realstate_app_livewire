@@ -22,7 +22,7 @@ class HomeController extends Controller
     public function index()
     {
         $slider = Slider::where('position', 'اسلایدر')->get();
-        $baner = Slider::where('position', 'بنر')->get();
+//        $baner = Slider::where('position', 'بنر')->get();
         $service_image = Slider::where('position', 'تصویرسرویس')->get();
         $baner = Slider::where('position', 'بنر')->get();
         $property_rent = Property::active()->latest()->where('tr_type', 'رهن و اجاره')->take(6)->get();
