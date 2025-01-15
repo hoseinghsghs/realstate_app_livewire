@@ -21,6 +21,13 @@ class EditProperty extends Component
     {
         $this->form->currentStep = 1;
         $this->form->setProperty($property);
+        $this->form->states = Get_States();
+    }
+    public function delete_temp_image($id): void
+    {
+        if (array_key_exists($id, $this->form->otherimg)) {
+            unset($this->form->otherimg[$id]);
+        }
     }
 
     public function decStep()
@@ -47,8 +54,9 @@ class EditProperty extends Component
     public function update()
     {
         $this->form->update();
-        alert()->success('', 'ملک با موفقیت ,ویرایش شد');
-        return $this->redirect('/admin/properties', navigate: true);
+        $this->emitToSelf('$refresh');
+
+        flash()->success('ملک با موفقیت ,ویرایش شد');
     }
 
     public function delete(PropertyImage $image)
@@ -57,7 +65,7 @@ class EditProperty extends Component
             Storage::delete('storage/otherpreview/'  . $image->name);
         }
         $image->delete();
-        alert()->success('', 'تصویر با موفقیت حذف گردید');
+        flash()->success('تصویر با موفقیت حذف گردید');
     }
 
     public function render()

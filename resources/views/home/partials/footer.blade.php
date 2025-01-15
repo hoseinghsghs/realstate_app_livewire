@@ -4,39 +4,39 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-lg-5 col-md-5">
+                <div class="col-lg-4 col-md-4">
                     <div class="footer_widget">
                         <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                             class="img-footer small mb-2" alt="" />
                         <p>{{ $setting->description }}</p>
-                        <p>ساعات کاری:<strong> {{ $setting->workday }}</strong></p>
+                        <p style="color:#8bdeff">ساعات کاری:<strong> {{ $setting->work_days }}</strong></p>
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-7 mr-auto">
+                <div class="col-lg-7 col-md-8 ">
                     <div class="row">
                         <div class="col-lg-5 col-md-5">
                             <div class="footer_widget">
                                 <h4 class="widget_title">لینک های مفید</h4>
-                                {{-- @dd(json_decode($setting->links, true))
-                                @if (!empty(json_decode($setting->links, true)))
-                                    <div class="col-lg-9 col-md-8 d-block pr">
-                                        <div class="footer-links">
-                                            @foreach (json_decode($setting->links, true) as $pLink)
-                                                <div class="col-lg-3 col-md-3 col-xs-12 pr">
-                                                    <div class="row">
-                                                        <section class="footer-links-col">
+                                <div class="col-lg-11 col-md-10 d-block pr">
+                                    <div class="footer-links">
+                                        @if ($setting->links)
+                                            @foreach ($setting->links as $pLink)
+                                                <div class="col-xs-12 pr">
+                                                    <div class="row mt-1">
+                                                        <section class="p-1">
                                                             <div class="headline-links">
-                                                                <a href="#">
-                                                                    {{ $pLink['name'] }}
+                                                                <a href="#" style="color:#8bdeff">
+                                                                    {{ $pLink->name }}
                                                                 </a>
                                                             </div>
-                                                            @isset($pLink['children'])
+                                                            @isset($pLink->children)
                                                                 <ul class="footer-menu-ul mr-2">
-                                                                    @foreach ($pLink['children'] as $link)
-                                                                        <li class="menu-item-type-custom">
-                                                                            <a href="{{ $link['url'] }}">
-                                                                                {{ $link['title'] }}
+                                                                    @foreach ($pLink->children as $link)
+                                                                        <li class="menu-item-type-custom mt-1">
+                                                                            <a href="{{ $link->url }}" wire:navigate
+                                                                                style="color:#8bdeff">
+                                                                                {{ $link->title }}
                                                                             </a>
                                                                         </li>
                                                                     @endforeach
@@ -46,23 +46,23 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                        </div>
+                                        @endif
                                     </div>
-                                @endif --}}
+                                </div>
                             </div>
                         </div>
-
                         <div class="col-lg-7 col-md-7">
                             <div class="footer_widget">
                                 <h4 class="widget_title">اطلاعات تماس</h4>
-                                <p><i class="ti-location-pin"></i> آدرس: {{ $setting->address }}</p>
-                                <p><i class="ti-mobile"></i> تلفن:</p>
+                                <p style="color:#8bdeff"><i class="ti-location-pin"></i> آدرس: {{ $setting->address }}
+                                </p>
+                                <p style="color:#8bdeff"><i class="ti-mobile"></i> تلفن:</p>
                                 @isset($setting->phone)
                                     @foreach ($setting->phone as $phone)
                                         <a class="mx-1" href="tel:{{ $phone }}">{{ $phone }}</a>
                                     @endforeach
                                 @endisset
-                                <p><i class="ti-email"></i> ایمیل: </p>
+                                <p style="color:#8bdeff"><i class="ti-email"></i> ایمیل: </p>
                                 @isset($setting->email)
                                     @foreach ($setting->email as $email)
                                         <span class="mx-1">{{ $email }}</span>
@@ -70,10 +70,8 @@
                                 @endisset
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

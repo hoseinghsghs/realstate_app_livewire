@@ -37,10 +37,6 @@ class SettingComponent extends Component
 
     public $icon;
 
-
-
-
-
     protected $listeners = ['privacyChanged', 'rulesChanged', 'keywordsChanged'];
     protected $rules = [
         'title' => 'nullable|string|max:250|min:3',
@@ -52,14 +48,14 @@ class SettingComponent extends Component
         'links.*.name' => 'required|string|distinct',
         'links.*.children.*.title' => 'required|string|distinct',
         'links.*.children.*.url' => 'required|url',
-        'whatsapp' => 'nullable|string',
-        'instagram' => 'nullable|string',
-        'address' => 'nullable|string',
-        'work_days' => 'nullable|string',
-        'longitude' => 'nullable|numeric',
-        'latitude' => 'nullable|numeric',
-        'telegram' => 'nullable|string',
-        'description' => 'nullable|string',
+        'whatsapp' => 'nullable|string|max:250',
+        'instagram' => 'nullable|string|max:250',
+        'address' => 'nullable|string|max:250',
+        'work_days' => 'nullable|string|max:250',
+        'longitude' => 'nullable|numeric|max:250',
+        'latitude' => 'nullable|numeric|max:250',
+        'telegram' => 'nullable|string|max:250',
+        'description' => 'nullable|string|max:250',
         'seo_description' => 'nullable|string|max:250|min:3',
         'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];

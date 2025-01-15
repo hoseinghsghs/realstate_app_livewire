@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Post;
 use App\Models\Property;
 use App\Models\Service;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\User;
 use App\Models\WishList;
@@ -20,17 +21,17 @@ class HomeComponent extends Component
         $baner = Slider::where('position', 'بنر')->get();
         $service_image = Slider::where('position', 'تصویرسرویس')->get();
         $baner = Slider::where('position', 'بنر')->get();
-        $property_rent = Property::active()->latest()->where('tr_type', 'رهن و اجاره')->take(6)->get();
-        $property_sell = Property::active()->latest()->where('tr_type', 'فروش')->take(6)->get();
+        $property = Property::active()->latest();
 
-        $property_type_ap = Property::active()->latest()->where('type', 'آپارتمان')->get();
-        $property_sell_ho = Property::active()->latest()->where('type', 'خانه ویلایی')->get();
-        $property_sell_ma = Property::active()->latest()->where('type', 'مغازه')->get();
-        $property_sell_la = Property::active()->latest()->where('type', 'زمین و کلنگی')->get();
+        $property_rent = $property->where('tr_type', 'رهن و اجاره')->take(6)->get();
+        $property_sell = $property->where('tr_type', 'فروش')->take(6)->get();
 
 
+        $property_type_ap = $property->where('type', 'آپارتمان')->get();
+        $property_sell_ho = $property->where('type', 'خانه ویلایی')->get();
+        $property_sell_ma = $property->where('type', 'مغازه')->get();
+        $property_sell_la = $property->where('type', 'زمین و کلنگی')->get();
 
-        $property = Property::active()->latest()->get();
         $service = Service::all();
         $user_agent = User::where([['role_id', 2], ['isactive', 1]])->get();
         $wishlist = WishList::where('user_id', auth()->id())->get();
@@ -48,6 +49,11 @@ class HomeComponent extends Component
         $specials = Property::latest()->where('lable', 'ویژه ها')->get();
         $posts = Post::with('image')->latest()->take(3)->get();
         $articles = Article::with('image')->latest()->take(3)->get();
+        $setting = Setting::findOrNew(1);
+        $setting->title = $setting->title;
+        $setting->emails = json_decode($setting->emails, true);
+        $setting->phones = json_decode($setting->phones, true);
+        $setting->links = json_decode($setting->links, true) ?? [];
 
         return view('livewire.home.pages.home-component',  compact(
             'user_agent',
@@ -70,7 +76,8 @@ class HomeComponent extends Component
             'ucount',
             'posts',
             'articles',
-            'specials'
+            'specials',
+            'setting'
         ))->extends('home.layout.HomeLayout')->section('content');
     }
 }
