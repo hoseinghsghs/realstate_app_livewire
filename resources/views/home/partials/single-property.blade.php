@@ -116,7 +116,7 @@
                 </div>
             </div>
             <div class="footer-flex">
-                <a href={{ route('properties.show', [$property->id]) }} class="prt-view">مشاهده جزئیات</a>
+                <a wire:navigate href={{ route('properties.show', [$property->id]) }} class="prt-view">مشاهده جزئیات</a>
             </div>
 
         </div>

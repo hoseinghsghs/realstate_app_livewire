@@ -63,10 +63,10 @@
                     <div class="collapse" id="fltbox">
                         <!-- Find New Property -->
                         <div class="sidebar-widgets p-4">
-                            <form id="filterProperty" method="GET" action="{{route('properties.list')}}">
-                                <div class="form-group">
-                                    <div class="simple-input">
-                                        <select id="ptype" name="tr_type" class="form-control">
+                            <form wire:submit="search_properties">
+                                <div @class(["form-group","d-none"=>count(request()->query())===1 && request()->query('deal_type')])>
+                                    <div class="simple-input" wire:ignore wire:key={{request()->query('deal_type')}}>
+                                        <select id="deal_type" class="form-control">
                                             <option value="">&nbsp;</option>
                                             <option>رهن و اجاره</option>
                                             <option>فروش</option>
@@ -74,16 +74,15 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <div class="simple-input">
-                                        <select name="type" id="type" class="form-control">
+                                    <div class="simple-input" wire:ignore>
+                                        <select id="property_type" class="form-control">
                                             <option value="">&nbsp;</option>
                                             <option>آپارتمان</option>
                                             <option>خانه ویلایی</option>
                                             <option>زمین و کلنگی</option>
                                             <option>مغازه</option>
-                                            <option>دفتر کار </option>
+                                            <option>دفتر کار</option>
                                             <option>باغ</option>
                                             <option>انبار</option>
                                         </select>
@@ -91,8 +90,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="simple-input">
-                                        <select name="district" id="district" class="form-control">
+                                    <div class="simple-input" wire:ignore>
+                                        <select id="district" class="form-control">
                                             <option value="">&nbsp;</option>
                                             @isset($districts)
                                                 @foreach($districts as $district)
@@ -105,7 +104,9 @@
 
                                 <div class="form-group">
                                     <div class="input-with-icon">
-                                        <input name="search" type="text" class="form-control" placeholder="عنوان،آدرس">
+                                        <input wire:model.live.debounce.600="filter.search" type="text"
+                                               class="form-control"
+                                               placeholder="عنوان، آدرس">
                                         <i class="ti-search"></i>
                                     </div>
                                 </div>
@@ -113,8 +114,8 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <div class="simple-input">
-                                                <select name="floorsell" id="floor" class="form-control">
+                                            <div class="simple-input" wire:ignore>
+                                                <select id="floor" class="form-control">
                                                     <option value="">&nbsp;</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -126,8 +127,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <div class="simple-input">
-                                                <select name="bedroom" id="bedrooms" class="form-control">
+                                            <div class="simple-input" wire:ignore>
+                                                <select id="bedroom" class="form-control">
                                                     <option value="">&nbsp;</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -143,7 +144,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
-                                            <div class="simple-input">
+                                            <div class="simple-input" wire:ignore>
                                                 <select id="docType" name="doc" class="form-control">
                                                     <option value="">&nbsp;</option>
                                                     <option>سند دار</option>
@@ -158,7 +159,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <div class="simple-input">
-                                                <input name="code" type="text" class="form-control"
+                                                <input wire:model.live.debounce.600="filter.code" type="text"
+                                                       class="form-control"
                                                        placeholder="شناسه ملک">
                                             </div>
                                         </div>
@@ -167,26 +169,29 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
                                         <h6>متراژ(مترمربع)</h6>
-                                        <div class="rg-slider">
-                                            <input type="text" class="meter-range-slider" name="meter-range" value="" />
+                                        <div class="rg-slider" wire:ignore>
+                                            <input type="text" class="meter-range-slider" name="meter-range" value=""/>
                                         </div>
                                     </div>
-                                    <div id="price" class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                    <div id="price" @class(["col-lg-12 col-md-12 col-sm-12 pt-4 pb-4","d-none"=>$filter['deal_type'] === 'رهن و اجاره' || !$filter['deal_type']])>
                                         <h6>قیمت(تومان)</h6>
-                                        <div class="rg-slider">
-                                            <input type="text" class="price-range-slider" name="price-range" value="" />
+                                        <div class="rg-slider" wire:ignore>
+                                            <input type="text" class="price-range-slider" name="price-range"
+                                                   value=""/>
                                         </div>
                                     </div>
-                                    <div id="rahn" class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                    <div id="rahn" @class(["col-lg-12 col-md-12 col-sm-12 pt-4 pb-4","d-none"=>$filter['deal_type'] === 'فروش' || !$filter['deal_type']])>
                                         <h6>رهن(تومان)</h6>
-                                        <div class="rg-slider">
-                                            <input type="text" class="rahn-range-slider" name="rahn-range" value="" />
+                                        <div class="rg-slider" wire:ignore>
+                                            <input type="text" class="rahn-range-slider" name="rahn-range"
+                                                   value=""/>
                                         </div>
                                     </div>
-                                    <div id="rent" class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                    <div id="rent" @class(["col-lg-12 col-md-12 col-sm-12 pt-4 pb-4","d-none"=>$filter['deal_type'] === 'فروش' || !$filter['deal_type']])>
                                         <h6>اجاره(تومان)</h6>
-                                        <div class="rg-slider">
-                                            <input type="text" class="rent-range-slider" name="rent-range" value="" />
+                                        <div class="rg-slider" wire:ignore>
+                                            <input type="text" class="rent-range-slider" name="rent-range"
+                                                   value=""/>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +203,9 @@
                                                 @foreach($all_features as $feature)
                                                     <li class="col-lg-6 col-md-6 p-0">
                                                         <input id="check-{{$feature->id}}" class="checkbox-custom"
-                                                               value="{{$feature->id}}" name="features[]" type="checkbox">
+                                                               value="{{$feature->id}}"
+                                                               wire:model.live="filter.features"
+                                                               type="checkbox">
                                                         <label for="check-{{$feature->id}}"
                                                                class="checkbox-custom-label">{{$feature->name}}</label>
                                                     </li>
@@ -209,7 +216,7 @@
                                 @endif
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-                                        <button class="btn theme-bg-2 rounded full-width">جستجو</button>
+                                        <button type="submit" class="btn theme-bg-2 rounded full-width">جستجو</button>
                                     </div>
                                 </div>
                             </form>
@@ -238,3 +245,180 @@
         </div>
     </div>
 </section>
+
+@script
+<script>
+    // range sliders
+    $(".price-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.price_range[0],
+        max: $wire.price_range[1],
+        from: $wire.price_range[0],
+        to: $wire.price_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.price_range', [data.from, data.to])
+        }
+    });
+
+    $(".meter-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.meter_range[0],
+        max: $wire.meter_range[1],
+        from: $wire.meter_range[0],
+        to: $wire.meter_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.meter_range', [data.from, data.to])
+        }
+    });
+    $(".rahn-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.rahn_range[0],
+        max: $wire.rahn_range[1],
+        from: $wire.rahn_range[0],
+        to: $wire.rahn_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.rahn_range', [data.from, data.to])
+        }
+    });
+    $(".rent-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.rent_range[0],
+        max: $wire.rent_range[1],
+        from: $wire.rent_range[0],
+        to: $wire.rent_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.rent_range', [data.from, data.to])
+        }
+    });
+    $(document).ready(async function () {
+        $('#deal_type').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.deal_type', null);
+            } else {
+                console.log(data);
+                @this.
+                set('filter.deal_type', data);
+            }
+        });
+
+        $('#property_type').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.property_type', null);
+            } else {
+                @this.
+                set('filter.property_type', data);
+            }
+        });
+
+        $('#district').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.district', null);
+            } else {
+                @this.
+                set('filter.district', data);
+            }
+        });
+
+        $('#floor').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.floor', null);
+            } else {
+                @this.
+                set('filter.floor', data);
+            }
+        });
+
+        $('#bedroom').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.bedroom', null);
+            } else {
+                @this.
+                set('filter.bedroom', data);
+            }
+        });
+
+        $('#docType').on('change', function (e) {
+            let data = $(this).select2("val");
+            if (data === null) {
+                @this.
+                set('filter.docType', null);
+            } else {
+                @this.
+                set('filter.docType', data);
+            }
+        });
+    });
+
+    // Select Bedrooms
+    $("#bedroom").select2({
+        dir: "rtl",
+        placeholder: "اتاق خواب",
+        allowClear: true,
+    });
+
+    // Select Bedrooms
+    $("#district").select2({
+        dir: "rtl",
+        placeholder: "محله",
+        allowClear: true,
+    });
+
+    // Select Property floor
+    $("#floor").select2({
+        dir: "rtl",
+        placeholder: "طبقه",
+        allowClear: true,
+    });
+
+    // Select docType
+    $("#docType").select2({
+        dir: "rtl",
+        placeholder: "نوع سند",
+        allowClear: true,
+    });
+
+    // Select Property Types
+    $("#property_type").select2({
+        dir: "rtl",
+        placeholder: "نوع ملک",
+        allowClear: true,
+    });
+
+    // Select Property Types
+    $("#deal_type").select2({
+        dir: "rtl",
+        placeholder: "نوع معامله",
+        allowClear: true,
+    });
+</script>
+@endscript

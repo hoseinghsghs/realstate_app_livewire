@@ -442,7 +442,6 @@ $(function() {
 	  ]
 	});
 
-	
 	// Select Bedrooms
 	$('#bedrooms').select2({
 		dir: "rtl",
@@ -486,14 +485,14 @@ $(function() {
 	});
 	
 	// Select Property Types
-	$('#ptypes').select2({
+	/*$('#property_type').select2({
 		dir: "rtl",
 		placeholder: "نوع ملک",
 		allowClear: true
-	});
+	});*/
 	
 	// Select Property Types
-	$('#ptype').select2({
+	$('#dealType').select2({
 		dir: "rtl",
 		placeholder: "نوع معامله",
 		allowClear: true
@@ -507,11 +506,11 @@ $(function() {
 	});
 	
 	// Select Property status
-	$('#type').select2({
+	/*$('#type').select2({
 		dir: "rtl",
 		placeholder: "نوع ملک",
 		allowClear: true
-	});
+	});*/
 	
 	// Select Property floor
 	$('#floor').select2({
@@ -598,18 +597,18 @@ $(function() {
 	});
 	
 	// Select Tab  Property Types
-	$('#ptype-1').select2({
+	/*$('#ptype-1').select2({
 		dir: "rtl",
 		placeholder: "نوع ملک",
 		allowClear: true
-	});
+	});*/
 	
 	// Select Tab Property Types
-	$('#ptype-2').select2({
+	/*$('#ptype-2').select2({
 		dir: "rtl",
 		placeholder: "نوع ملک",
 		allowClear: true
-	});
+	});*/
 	
 	
 	
