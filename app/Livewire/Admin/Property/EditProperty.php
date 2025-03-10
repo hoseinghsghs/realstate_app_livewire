@@ -17,6 +17,12 @@ class EditProperty extends Component
     public CreatPropertyForm $form;
     public Property $property;
 
+    #[On('imageUpdated')]
+    public function refreshImage()
+    {
+        $this->property = $this->property->fresh();
+    }
+
     public function mount(Property $property)
     {
         $this->form->currentStep = 1;
@@ -51,10 +57,12 @@ class EditProperty extends Component
             $this->property->features()->detach($features);
         }
     }
+
     public function update()
     {
         $this->form->update();
-        // $this->emitToSelf('$refresh');
+        $this->property = $this->property->fresh();
+
 
         flash()->success('ملک با موفقیت ,ویرایش شد');
     }

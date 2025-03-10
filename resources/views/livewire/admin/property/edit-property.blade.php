@@ -1027,40 +1027,34 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="row mt-2">
+                                                                            <div class="row">
 
-                                                                        @if ($form->is_edit)
-                                                                            @if ($form->img)
-                                                                                <img src="{{ $form->img->temporaryUrl() }}"
-                                                                                    style="border: #00ff40 2px solid ; border-radius: 0.5rem"
-                                                                                    height="300rem">
-                                                                            @endif
-                                                                        @endif
-
-                                                                        </hr>
-                                                                        <div class="container-fluid">
-                                                                            <div class="row clearfix">
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="card">
-
-                                                                                        <div
-                                                                                            class="col-lg-3 col-md-4 col-sm-12">
-                                                                                            <div class="hover">
-                                                                                            </div>
-                                                                                            <a href="{{ asset('storage/preview/' . $this->property->img) }}"
-                                                                                                wire:key="{{ $this->property->img }}"
+                                                                                @if ($form->is_edit)
+                                                                                    @if ($form->img)
+                                                                                        <div class="col-12">
+                                                                                            <img src="{{ $form->img->temporaryUrl() }}"
+                                                                                                style="border: #00ff40 2px solid ; border-radius: 0.5rem"
+                                                                                                height="300rem">
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <div class="col-12">
+                                                                                            <div class="hover"></div>
+                                                                                            <a href="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                wire:key="{{ $property->img }}"
                                                                                                 class="file"
                                                                                                 target="_blank">
                                                                                                 <div class="image">
                                                                                                     <img src="{{ asset('storage/preview/' . $property->img) }}"
                                                                                                         wire:key="{{ $property->img }}"
                                                                                                         alt="img"
-                                                                                                        class="img-fluid">
+                                                                                                        style="border: #00b7ff 2px solid ; border-radius: 0.5rem"
+                                                                                                        height="300rem">
                                                                                                 </div>
                                                                                             </a>
                                                                                         </div>
-
-                                                                                    </div>
-                                                                                </div>
+                                                                                    @endif
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mt-4">
