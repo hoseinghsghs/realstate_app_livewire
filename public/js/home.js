@@ -2524,50 +2524,50 @@ $(function () {
   //   $('[data-toggle="tooltip"]').tooltip();
 
   // Range Slider Script
-  $(".price-range-slider").ionRangeSlider({
-    rtl: true,
-    type: "double",
-    prettify_enabled: true,
-    prettify_separator: ",",
-    min: 100000000,
-    max: 90000000000,
-    from: 100000000,
-    to: 90000000000,
-    grid: true
-  });
-  $(".meter-range-slider").ionRangeSlider({
-    rtl: true,
-    type: "double",
-    prettify_enabled: true,
-    prettify_separator: ",",
-    min: 1,
-    max: 5000,
-    from: 1,
-    to: 5000,
-    grid: true
+  /*$(".price-range-slider").ionRangeSlider({
+      rtl: true,
+      type: "double",
+      prettify_enabled: true,
+      prettify_separator: ",",
+      min: 100000000,
+      max: 90000000000,
+      from: 100000000,
+      to: 90000000000,
+      grid: true,
+  });*/
+  /*$(".meter-range-slider").ionRangeSlider({
+      rtl: true,
+      type: "double",
+      prettify_enabled: true,
+      prettify_separator: ",",
+      min: 1,
+      max: 5000,
+      from: 1,
+      to: 5000,
+      grid: true,
   });
   $(".rahn-range-slider").ionRangeSlider({
-    rtl: true,
-    type: "double",
-    prettify_enabled: true,
-    prettify_separator: ",",
-    min: 10000000,
-    max: 1000000000,
-    from: 10000000,
-    to: 1000000000,
-    grid: true
+      rtl: true,
+      type: "double",
+      prettify_enabled: true,
+      prettify_separator: ",",
+      min: 10000000,
+      max: 1000000000,
+      from: 10000000,
+      to: 1000000000,
+      grid: true,
   });
   $(".rent-range-slider").ionRangeSlider({
-    rtl: true,
-    type: "double",
-    prettify_enabled: true,
-    prettify_separator: ",",
-    min: 0,
-    max: 500000000,
-    from: 0,
-    to: 500000000,
-    grid: true
-  });
+      rtl: true,
+      type: "double",
+      prettify_enabled: true,
+      prettify_separator: ",",
+      min: 0,
+      max: 500000000,
+      from: 0,
+      to: 500000000,
+      grid: true,
+  });*/
 
   // Bottom To Top Scroll Script
   $(window).on("scroll", function () {
@@ -2718,80 +2718,10 @@ $(function () {
     }]
   });
 
-  // Select Bedrooms
-  $("#bedrooms").select2({
-    dir: "rtl",
-    placeholder: "اتاق خواب",
-    allowClear: true
-  });
-
-  // Select Bedrooms
-  $("#district").select2({
-    dir: "rtl",
-    placeholder: "محله",
-    allowClear: true
-  });
-
-  // Select Bedrooms
-  $("#bedrooms2").select2({
-    dir: "rtl",
-    placeholder: "اتاق خواب",
-    allowClear: true
-  });
-
-  // Select docType
-  $("#docType").select2({
-    dir: "rtl",
-    placeholder: "نوع سند",
-    allowClear: true
-  });
-
-  // Select Bathrooms
-  $("#bathrooms1").select2({
-    dir: "rtl",
-    placeholder: "حمام",
-    allowClear: true
-  });
-
-  // Select Bathrooms
-  $("#bathrooms2").select2({
-    dir: "rtl",
-    placeholder: "حمام",
-    allowClear: true
-  });
-
-  // Select Property Types
-  $("#ptypes").select2({
-    dir: "rtl",
-    placeholder: "نوع ملک",
-    allowClear: true
-  });
-
-  // Select Property Types
-  $("#ptype").select2({
-    dir: "rtl",
-    placeholder: "نوع معامله",
-    allowClear: true
-  });
-
   // Looking For
   $("#lookingfor").select2({
     dir: "rtl",
     placeholder: "به دنبال",
-    allowClear: true
-  });
-
-  // Select Property status
-  $("#type").select2({
-    dir: "rtl",
-    placeholder: "نوع ملک",
-    allowClear: true
-  });
-
-  // Select Property floor
-  $("#floor").select2({
-    dir: "rtl",
-    placeholder: "طبقه",
     allowClear: true
   });
 

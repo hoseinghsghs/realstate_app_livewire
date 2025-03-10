@@ -9749,7 +9749,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AM
 } /*(this, function (a) {
     !(function (a) {
         "use strict";
-          function b(b) {
+         function b(b) {
             var c = [
                 {
                     re: /[\xC0-\xC6]/g,
@@ -9811,7 +9811,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AM
                 b
             );
         }
-          function c(b) {
+         function c(b) {
             var c = arguments,
                 d = b;
             [].shift.apply(c);
