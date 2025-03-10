@@ -54,7 +54,7 @@ class EditProperty extends Component
     public function update()
     {
         $this->form->update();
-        $this->emitToSelf('$refresh');
+        // $this->emitToSelf('$refresh');
 
         flash()->success('ملک با موفقیت ,ویرایش شد');
     }

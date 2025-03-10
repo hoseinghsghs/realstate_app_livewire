@@ -1020,7 +1020,6 @@
                                                                                         class="custom-file-input"
                                                                                         id="customFile" lang="ar"
                                                                                         dir="rtl">
-
                                                                                     <label
                                                                                         class="custom-file-label text-right"
                                                                                         for="customFile">
@@ -1042,31 +1041,24 @@
                                                                             <div class="row clearfix">
                                                                                 <div class="col-lg-12">
                                                                                     <div class="card">
-                                                                                        <div class="tab-content">
-                                                                                            <div class="tab-pane active"
-                                                                                                id="a2018">
-                                                                                                <div
-                                                                                                    class="col-lg-3 col-md-4 col-sm-12">
-                                                                                                    <div
-                                                                                                        class="hover">
-                                                                                                    </div>
 
-
-                                                                                                    <a href="{{ asset('storage/preview/' . $this->property->img) }}"
-                                                                                                        wire:key="{{ $this->property->img }}"
-                                                                                                        class="file"
-                                                                                                        target="_blank">
-                                                                                                        <div
-                                                                                                            class="image">
-                                                                                                            <img src="{{ asset('storage/preview/' . $property->img) }}"
-                                                                                                                wire:key="{{ $property->img }}"
-                                                                                                                alt="img"
-                                                                                                                class="img-fluid">
-                                                                                                        </div>
-                                                                                                    </a>
-                                                                                                </div>
+                                                                                        <div
+                                                                                            class="col-lg-3 col-md-4 col-sm-12">
+                                                                                            <div class="hover">
                                                                                             </div>
+                                                                                            <a href="{{ asset('storage/preview/' . $this->property->img) }}"
+                                                                                                wire:key="{{ $this->property->img }}"
+                                                                                                class="file"
+                                                                                                target="_blank">
+                                                                                                <div class="image">
+                                                                                                    <img src="{{ asset('storage/preview/' . $property->img) }}"
+                                                                                                        wire:key="{{ $property->img }}"
+                                                                                                        alt="img"
+                                                                                                        class="img-fluid">
+                                                                                                </div>
+                                                                                            </a>
                                                                                         </div>
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
