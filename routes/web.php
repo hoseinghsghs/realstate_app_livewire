@@ -46,6 +46,9 @@ use App\Livewire\Admin\Property\ShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
 use App\Livewire\Admin\Setting\SettingComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
+use App\Livewire\Admin\User\Create;
+use App\Livewire\Admin\User\Edit;
+use App\Livewire\Admin\User\UserList;
 use App\Livewire\Home\Pages\ArticleComponent as PagesArticleComponent;
 use App\Livewire\Home\Pages\BlogComponent;
 use App\Livewire\Home\Pages\HomeComponent;
@@ -163,25 +166,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/articles', ArticleComponent::class)->name('articles');
         Route::get('/posts', PostComponent::class)->name('posts');
         Route::get('/sliders', SliderComponent::class)->name('sliders');
+
         Route::get('/settings', SettingComponent::class)->name('settings');
 
+        Route::get('/user/cearte', Create::class)->name('cearte-user');
+        Route::get('/user/edit/{user}', Edit::class)->name('edit-user');
+        Route::get('/user/user-list', UserList::class)->name('list-user');
 
-        // Route::resource('/advertise', PropertyController::class);
-        // Route::resource('/agreements', AgreementController::class);
-        // Route::resource('/services', ServiceController::class)->except(['show']);
-        // Route::resource('/features', FeatureController::class)->except(['show']);
 
-        //livewire routes
-        // Route::get('/features/create', CreateFeature::class)->name('features.create');
 
-        // Route::resource('/sliders', SliderController::class)->except(['show']);
+
         Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
-        // Route::resource('/posts', PostController::class)->except('show');
-        // Route::resource('/articles', ArticleController::class)->except('show');
+
+
+
+
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
-        // Route::get('/settings', [SettingController::class, 'show'])->name('settings.show');
-        // Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
-        Route::resource('/users', UserController::class);
+
+
+        Route::get('/settings', SettingComponent::class)->name('settings');
+
 
         Route::delete('/delete-image/{image}', function (Image $image, ToastrFactory $flasher) {
 

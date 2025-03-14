@@ -10,10 +10,31 @@ use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\User;
 use App\Models\WishList;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class HomeComponent extends Component
 {
+
+
+    public $email, $password, $remember;
+
+    protected $rules = [
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ];
+
+    public function login()
+    {
+        $this->validate();
+
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+            return redirect()->route('dashboard'); // تغییر مسیر به داشبورد
+        } else {
+            $this->addError('email', 'ایمیل یا رمز عبور اشتباه است.');
+        }
+    }
+
 
     public function render()
     {

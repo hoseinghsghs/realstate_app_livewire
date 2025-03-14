@@ -5,18 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Flasher\Toastr\Prime\ToastrFactory;
-
-use Illuminate\Support\Facades\Auth;
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Support\Str;
 use Image;
 
@@ -29,8 +22,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::where('role_id', 2)->latest()->paginate(10);
-        return view('admin.page.users.index',compact('users'));
+        $users = User::where('role_id', 2)->latest()->paginate(10);
+        return view('admin.page.users.index', compact('users'));
     }
 
     /**
@@ -41,7 +34,6 @@ class UserController extends Controller
     public function create()
     {
         return view('admin.page.users.create');
-
     }
 
     /**
@@ -62,48 +54,50 @@ class UserController extends Controller
                 Rule::unique(User::class),
             ],
             'password' => [
-                'required', 'string', 'min:8', 'confirmed'
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
             ],
-           'image' => 'image|mimes:jpeg,jpg,png|max:1024|required'
+            'image' => 'image|mimes:jpeg,jpg,png|max:1024|required'
         ]);
-          if (isset($request->isactive)) {
-            $request->isactive=true;
-          }else {
-            $request->isactive=false;
-          }    
-          
-          $image = $request->file('image');
-          $slug  = Str::slug($request->name);
+        if (isset($request->isactive)) {
+            $request->isactive = true;
+        } else {
+            $request->isactive = false;
+        }
 
-          if (isset($image)) {
-  
-              // گرفتن تاریخ
-              $currentDate = Carbon::now()->toDateString();
-              // نام عکس
-              $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->extension();
-              // آیا این پوشه وجود دارد
-              if (!Storage::exists('profile')) {
-                  // این پوشه را بساز
-                  Storage::makeDirectory('profile');
-              }
-  
-              $img = Image::make($image)->resize(800, 533);
-              $img->save(Storage::getAdapter()->getPathPrefix() . 'profile/' . $imagename);
-          } else {
-              $imagename = 'default.png';
-          }
+        $image = $request->file('image');
+        $slug  = Str::slug($request->name);
+
+        if (isset($image)) {
+
+            // گرفتن تاریخ
+            $currentDate = Carbon::now()->toDateString();
+            // نام عکس
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->extension();
+            // آیا این پوشه وجود دارد
+            if (!Storage::exists('profile')) {
+                // این پوشه را بساز
+                Storage::makeDirectory('profile');
+            }
+
+            $img = Image::make($image)->resize(800, 533);
+            $img->save(Storage::getAdapter()->getPathPrefix() . 'profile/' . $imagename);
+        } else {
+            $imagename = 'default.png';
+        }
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 2,      
-            'phone' => $request->phone,   
-            'image'=> $imagename,
-            'isactive' => $request->isactive,       
+            'role_id' => 2,
+            'phone' => $request->phone,
+            'image' => $imagename,
+            'isactive' => $request->isactive,
         ]);
-        $flasher->addSuccess( 'مشاور جدید ثبت گردید');
+        $flasher->addSuccess('مشاور جدید ثبت گردید');
         return redirect()->route('agent.home');
-        
     }
 
     /**
@@ -126,7 +120,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = user::find($id);
-        return view('admin.page.users.edit',compact('user'));
+        return view('admin.page.users.edit', compact('user'));
     }
 
     /**
@@ -146,44 +140,44 @@ class UserController extends Controller
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($id),
-                
+
             ],
             'image' => 'image|mimes:jpeg,jpg,png|max:1024|required'
         ]);
 
         if (isset($request->isactive)) {
-            $request->isactive=true;
-          }else {
-            $request->isactive=false;
-          } 
+            $request->isactive = true;
+        } else {
+            $request->isactive = false;
+        }
 
-          $image = $request->file('image');
-          $slug  = Str::slug($request->title);
-          if (isset($image)) {
-              $currentDate = Carbon::now()->toDateString();
-              $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->extension();
-              if (!Storage::exists('profile')) {
-                  Storage::makeDirectory('profile');
-              }
-              if (Storage::exists('profile/' . $request->image)) {
-                  Storage::delete('profile/' . $request->image);
-              }
-              Image::make($image)->resize(800, 533)->save(Storage::getAdapter()->getPathPrefix() . 'profile/' . $imagename);
-          } else {
-              $imagename = User::find($id)->image;
-          }
+        $image = $request->file('image');
+        $slug  = Str::slug($request->title);
+        if (isset($image)) {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->extension();
+            if (!Storage::exists('profile')) {
+                Storage::makeDirectory('profile');
+            }
+            if (Storage::exists('profile/' . $request->image)) {
+                Storage::delete('profile/' . $request->image);
+            }
+            Image::make($image)->resize(800, 533)->save(Storage::getAdapter()->getPathPrefix() . 'profile/' . $imagename);
+        } else {
+            $imagename = User::find($id)->image;
+        }
 
 
-          User::where('id', $id)->update([
+        User::where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 2,      
-            'phone' => $request->phone,   
-            'image'=> $imagename,
-            'isactive' => $request->isactive,       
+            'role_id' => 2,
+            'phone' => $request->phone,
+            'image' => $imagename,
+            'isactive' => $request->isactive,
         ]);
-        $flasher->addSuccess( 'مشاور ویرایش شد');
+        $flasher->addSuccess('مشاور ویرایش شد');
         return redirect()->route('admin.users.index');
     }
     /**
@@ -192,12 +186,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,ToastrFactory $flasher)
+    public function destroy($id, ToastrFactory $flasher)
     {
         //asign all posts and properties to the admin when delete user
-        $admin=User::where('role_id',1)->first();
+        $admin = User::where('role_id', 1)->first();
         $user = user::find($id);
-        $user->properties()->update(['user_id'=>$admin->id]);
+        $user->properties()->update(['user_id' => $admin->id]);
         $user->delete();
 
         if (Storage::exists('profile/' . $user->image)) {
@@ -206,6 +200,5 @@ class UserController extends Controller
 
         $flasher->addSuccess('کاربر با موفقیت حذف شد');
         return back();
-  
     }
 }

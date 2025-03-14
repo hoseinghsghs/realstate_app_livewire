@@ -90,30 +90,11 @@
     @stack('styles')
     @livewireStyles
 
-    <!-- BEGIN RAYCHAT CODE -->
-    {{-- <script type="text/javascript">
-        ! function() {
-            function t() {
-                var t = document.createElement("script");
-                t.type = "text/javascript", t.async = !0, localStorage.getItem("rayToken") ? t.src =
-                    "https://app.raychat.io/scripts/js/" + o + "?rid=" + localStorage.getItem("rayToken") + "&href=" +
-                    window.location.href : t.src = "https://app.raychat.io/scripts/js/" + o + "?href=" + window.location
-                    .href;
-                var e = document.getElementsByTagName("script")[0];
-                e.parentNode.insertBefore(t, e)
-            }
-            var e = document,
-                a = window,
-                o = "56e4467a-2f8d-42c1-92d3-21fb20df3ae2";
-            "complete" == e.readyState ? t() : a.attachEvent ? a.attachEvent("onload", t) : a.addEventListener("load", t, !
-                1)
-        }();
-    </script> --}}
-    <!-- END RAYCHAT CODE -->
 </head>
 <div class="overlay"></div>
 
 <body class="yellow-skin">
+    @include('sweetalert::alert')
 
 
     @include('home.partials.loader')
@@ -123,7 +104,7 @@
         @yield('content')
 
         @include('home.partials.footer')
-        @include('home.partials.register')
+        @include('home.partials.registered')
         <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
     </div>
