@@ -105,7 +105,8 @@
 
                         <li><a href="/admin/user/user-list" wire:navigate>لیست کاربران</a></li>
                         <li><a href="/admin/user/cearte" wire:navigate>اضافه کردن مشاور </a></li>
-                        <li><a href="{{ route('admin.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
+                        <li><a href="{{ route('admin.edit-profile', Auth::user()->id) }}" wire:navigate>ویرایش پروفایل
+                                کاربری </a></li>
                         <li><a href={{ route('admin.chenge') }}>تغییر کلمه عبور </a></li>
                     </ul>
                 </li>
@@ -148,10 +149,15 @@
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>
                             املاک</span></a>
                     <ul class="ml-menu">
-                        <li><a href={{ route('agent.properties.index') }}>لیست املاک</a></li>
-                        <li><a href={{ route('agent.properties.create') }}>اضافه کردن ملک</a></li>
+                        <li><a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a></li>
+                        <li><a href="/admin/properties" wire:navigate>لیست املاک</a></li>
+
+                        {{-- <li><a href={{ route('agent.properties.index') }}>لیست املاک</a></li>
+                        <li><a href={{ route('agent.properties.create') }}>اضافه کردن ملک</a></li> --}}
                     </ul>
                 </li>
+
+
                 <ul class="ml-menu">
                     <li><a href="mail-inbox.html">ایمیل</a></li>
                     <li><a href="chat.html">برنامه چت</a></li>
@@ -164,8 +170,14 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i
                             class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
                     <ul class="ml-menu">
-                        <li><a href="{{ route('agent.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
-                        <li><a href={{ route('agent.chenge') }}>تغییر کلمه عبور </a></li>
+                        {{-- <li><a href="{{ route('agent.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
+                        <li><a href={{ route('agent.chenge') }}>تغییر کلمه عبور </a></li> --}}
+
+
+                        <li><a href="{{ route('admin.edit-profile', Auth::user()->id) }}" wire:navigate>ویرایش پروفایل
+                                کاربری </a></li>
+                        <li><a href={{ route('admin.chenge') }}>تغییر کلمه عبور </a></li>
+
                     </ul>
                 </li>
                 <!-- خروج -->

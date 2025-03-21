@@ -38,6 +38,7 @@ use App\Livewire\Admin\DashboardComponent;
 use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Feature\FeatureComponent;
 use App\Livewire\Admin\Post\PostComponent;
+use App\Livewire\Admin\Profile\EditProfile;
 use App\Livewire\Admin\Property\CreateProperty;
 use App\Livewire\Admin\Property\DeviceComponent;
 use App\Livewire\Admin\Property\EditProperty;
@@ -173,13 +174,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/user/edit/{user}', Edit::class)->name('edit-user');
         Route::get('/user/user-list', UserList::class)->name('list-user');
 
+        Route::get('/profile/edit/{user}', EditProfile::class)->name('edit-profile');
 
 
 
-        Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
 
-
-
+        // Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
 
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
 
