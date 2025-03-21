@@ -146,16 +146,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('chenge');
 
 
-    Route::group(['middleware' => ['auth', 'role:admin,agent']], function () {
-        Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
-        Route::resource('/properties', PropertyController::class);
-
-        //livewire routes
-        Route::get('/dashboard', DashboardComponent::class)->name('home');
-        Route::get('/properties', PropertyComponent::class)->name('properties.index');
+    Route::group(['middleware' => ['auth', 'adminagent']], function () {
         Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
+        Route::get('/properties', PropertyComponent::class)->name('properties.index');
+    });
+
+    Route::group(['middleware' => ['auth', 'admin']], function () {
+        Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
+        // Route::resource('/properties', PropertyController::class);
+
+        //livewire routes
+        Route::get('/dashboard', DashboardComponent::class)->name('home');
+
 
         Route::get('/agreements', AgreementList::class)->name('agreements.index');
         Route::get('/agreements/show/{agreement}', ShowAgreement::class)->name('agreements.show');
