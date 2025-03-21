@@ -146,7 +146,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('chenge');
 
 
-    Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::group(['middleware' => ['auth', 'role:admin,agent']], function () {
         Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
         Route::resource('/properties', PropertyController::class);
 
