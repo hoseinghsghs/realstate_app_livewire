@@ -46,6 +46,7 @@ class CreateProperty extends Component
 
     public function save()
     {
+
         if (Gate::allows('is_admin')) {
             $this->form->store();
             flash()->success('ملک با موفقیت ثبت شد');
@@ -54,9 +55,10 @@ class CreateProperty extends Component
 
             return redirect()->route('admin.properties.index');
         } elseif (Gate::allows('is_agent')) {
-            flash()->success('ملک با موفقیت ثبت شد');
+
             $this->form->store();
-            return redirect()->route('agent.properties.index');
+            flash()->success('ملک با موفقیت ثبت شد');
+            return redirect()->route('admin.properties.index');
         } elseif (Gate::allows('is_user')) {
             $this->form->store();
             flash()->success('کاربر گرامی ملک شما با موفقیت ثبت گردید .');

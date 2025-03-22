@@ -126,8 +126,9 @@
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
             <a href="{{ route('home') }}"><img
-                    src=" {{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}}"
-                    width="45" alt="Aero"><span class="m-l-10">پنل مدیریت</span></a>
+                    src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
+                    width="45" style="margin-right:20px"><span class="m-l-10"></span></a>
+
         </div>
         <div class="menu">
             <ul class="list">
@@ -140,7 +141,7 @@
 
                         <div class="detail">
                             <h6><strong>{{ Auth::user()->name }}</strong></h6>
-                            <small>مدیر سایت</small>
+                            <small>مشاور</small>
                         </div>
                     </div>
                 </li>
@@ -151,9 +152,6 @@
                     <ul class="ml-menu">
                         <li><a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a></li>
                         <li><a href="/admin/properties" wire:navigate>لیست املاک</a></li>
-
-                        {{-- <li><a href={{ route('agent.properties.index') }}>لیست املاک</a></li>
-                        <li><a href={{ route('agent.properties.create') }}>اضافه کردن ملک</a></li> --}}
                     </ul>
                 </li>
 
@@ -170,14 +168,9 @@
                 <li> <a href="javascript:void(0);" class="menu-toggle"><i
                             class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
                     <ul class="ml-menu">
-                        {{-- <li><a href="{{ route('agent.profile.edit', Auth::user()->id) }}">ویرایش پروفایل کاربری </a></li>
-                        <li><a href={{ route('agent.chenge') }}>تغییر کلمه عبور </a></li> --}}
-
-
                         <li><a href="{{ route('admin.edit-profile', Auth::user()->id) }}" wire:navigate>ویرایش پروفایل
                                 کاربری </a></li>
                         <li><a href={{ route('admin.chenge') }}>تغییر کلمه عبور </a></li>
-
                     </ul>
                 </li>
                 <!-- خروج -->

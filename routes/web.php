@@ -99,8 +99,6 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
     // Livewire route
     Route::get('/properties/createproperty', UserProfileCreateProperty::class)->name('properties.create');
     Route::get('/dashboard', Index::class)->name('home');
-
-
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
     Route::get('/wish_list', [WishListController::class, 'show'])->name('show');
@@ -151,6 +149,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
         Route::get('/properties', PropertyComponent::class)->name('properties.index');
+        Route::get('/profile/edit/{user}', EditProfile::class)->name('edit-profile');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function () {
@@ -159,8 +158,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         //livewire routes
         Route::get('/dashboard', DashboardComponent::class)->name('home');
-
-
         Route::get('/agreements', AgreementList::class)->name('agreements.index');
         Route::get('/agreements/show/{agreement}', ShowAgreement::class)->name('agreements.show');
         Route::get('/agreements/create', CreateAgreement::class)->name('agreements.create');
@@ -178,7 +175,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/user/edit/{user}', Edit::class)->name('edit-user');
         Route::get('/user/user-list', UserList::class)->name('list-user');
 
-        Route::get('/profile/edit/{user}', EditProfile::class)->name('edit-profile');
 
 
 

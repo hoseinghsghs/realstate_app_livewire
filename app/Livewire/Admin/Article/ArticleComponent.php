@@ -93,7 +93,7 @@ class ArticleComponent extends Component
             }
 
             $this->ref();
-            // flash()->addSuccess('تغییرات با موفقیت ذخیره شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد');
         } else {
 
             $this->validate([
@@ -131,7 +131,7 @@ class ArticleComponent extends Component
             }
 
             $this->ref();
-            // flash()->addSuccess('درخواست با موفقیت ایجاد شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد');
         }
     }
 

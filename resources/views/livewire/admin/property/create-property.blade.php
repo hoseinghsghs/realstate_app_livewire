@@ -72,1047 +72,951 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="body">
-                                @can('is_admin')
-                                    <form wire:submit="save">
-                                    @endcan
-                                    @can('is_agent')
-                                        <form wire:submit="saveForAgent">
-                                        @endcan
-                                        <form wire:submit="save">
-                                            <form wire:submit.prevent="register">
-                                                {{-- STEP 1 --}}
-                                                @if ($form->currentStep == 1)
-                                                    {{-- <div class="step-one"> --}}
-                                                    <section>
-                                                        <div class="card">
-                                                            <div class="body">
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-lg-4 col-md-4 form-group @error('form.title') is-invalid @enderror">
-                                                                        <label for="title">عنوان <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="text" class="form-control"
-                                                                            wire:model='form.title' />
-                                                                        @error('form.title')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
+                                <form wire:submit="save">
+                                    {{-- STEP 1 --}}
+                                    @if ($form->currentStep == 1)
+                                        {{-- <div class="step-one"> --}}
+                                        <section>
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-lg-4 col-md-4 form-group @error('form.title') is-invalid @enderror">
+                                                            <label for="title">عنوان <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="text" class="form-control"
+                                                                wire:model='form.title' />
+                                                            @error('form.title')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
 
-                                                                    <div
-                                                                        class="col-lg-4 col-md-4 form-group @error('form.code') is-invalid @enderror">
-                                                                        <label for="title">کد ملک <abbr
-                                                                                title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="text" wire:model='form.code'
-                                                                            class="form-control" />
-                                                                        @error('form.code')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-4 col-md-4 mb-4 @error('form.lable') is-invalid @enderror">
-                                                                        <div class="form-group mbb" wire:ignore>
-                                                                            <label for="lable">لیبل</label>
-                                                                            <select wire:model='form.lable'
-                                                                                id="lable" class="form-control">
-                                                                                <option>
-                                                                                </option>
-                                                                                <option>
-                                                                                    ویژه ها</option>
-                                                                                <option>
-                                                                                    فروخته شد</option>
-                                                                                <option>
-                                                                                    اجاره داده شد</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('form.lable')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
+                                                        <div
+                                                            class="col-lg-4 col-md-4 form-group @error('form.code') is-invalid @enderror">
+                                                            <label for="title">کد ملک <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="text" wire:model='form.code'
+                                                                class="form-control" />
+                                                            @error('form.code')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-4 col-md-4 mb-4 @error('form.lable') is-invalid @enderror">
+                                                            <div class="form-group mbb" wire:ignore>
+                                                                <label for="lable">لیبل</label>
+                                                                <select wire:model='form.lable' id="lable"
+                                                                    class="form-control">
+                                                                    <option>
+                                                                    </option>
+                                                                    <option>
+                                                                        ویژه ها</option>
+                                                                    <option>
+                                                                        فروخته شد</option>
+                                                                    <option>
+                                                                        اجاره داده شد</option>
+                                                                </select>
+                                                            </div>
+                                                            @error('form.lable')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
 
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-lg-4 col-md-6 mb-4 @error('form.tr_type') is-invalid @enderror">
+                                                            <div class="form-group mbb">
+                                                                <label for="tr_type"> نوع معامله
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <select wire:model.live='form.tr_type' id="tr_type"
+                                                                    class="form-control">
+                                                                    <option>
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
+                                                                        رهن و
+                                                                        اجاره
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
+                                                                        فروش
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
+                                                                        پیش
+                                                                        فروش
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            @error('form.tr_type')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div
+                                                            class="col-lg-4 col-md-6 mb-4 p @error('form.usertype') is-invalid @enderror">
+                                                            <div class="form-group mbb">
+                                                                <label for="usertype"> نوع کاربری
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <select wire:model='form.usertype' id="usertype"
+                                                                    class="form-control">
+                                                                    <option>
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
+                                                                        مسکونی
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
+                                                                        تجاری
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
+                                                                        آموزشی
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
+                                                                        اداری
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
+                                                                        باغ ویلا
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
+                                                                        دیگر
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+
+                                                            @error('form.usertype')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-4 col-md-6 mb-4  @error('form.type') is-invalid @enderror">
+                                                            <div class="form-group mbb">
+                                                                <label for="type">نوع ملک
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <select wire:model='form.type' id="type"
+                                                                    class="form-control">
+                                                                    <option>
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
+                                                                        آپارتمان
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
+                                                                        خانه
+                                                                        ویلایی
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
+                                                                        زمین
+                                                                        و
+                                                                        کلنگی
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'مغازه' ? 'selected' : '' }}>
+                                                                        مغازه
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
+                                                                        دفتر کار
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'باغ' ? 'selected' : '' }}>
+                                                                        باغ
+                                                                    </option>
+                                                                    <option
+                                                                        {{ old('type') == 'انبار' ? 'selected' : '' }}>
+                                                                        انبار
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            @error('form.type')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-lg-4 col-md-6  form-group @error('form.bedroom') is-invalid @enderror">
+                                                            <label for="bedroom">تعداد خواب
+                                                                <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="number" id="bedroom"
+                                                                wire:model='form.bedroom' step="1" aria-disabled
+                                                                class="form-control" value="{{ old('bedroom') }}" />
+                                                            @error('form.bedroom')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div
+                                                            class="col-lg-4 col-md-6  form-group @error('form.floorsell') is-invalid @enderror">
+                                                            <label for="floorsell"> طبقه مورد
+                                                                معامله <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="text" wire:model='form.floorsell'
+                                                                id="floorsell" aria-disabled class="form-control"
+                                                                value="{{ old('floorsell') }}" />
+                                                            @error('form.floorsell')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-4 col-md-6  form-group @error('form.floor') is-invalid @enderror">
+                                                            <label for="floor">تعداد
+                                                                طبقات</label>
+                                                            <input type="number" wire:model='form.floor'
+                                                                id="floor" step="1" aria-disabled
+                                                                class="form-control" value="{{ old('floor') }}" />
+                                                            @error('form.floor')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-sm-4 form-group @error('form.year') is-invalid @enderror">
+                                                            <label for="year">قدمت
+                                                                ساخت</label>
+                                                            <input type="number" id="year"
+                                                                wire:model='form.year' class="form-control"
+                                                                placeholder="سال" value="{{ old('year') }}" />
+                                                            @error('form.year')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-sm-4 form-group @error('form.area') is-invalid @enderror">
+                                                            <label for="area">مساحت زمین
+                                                                (برحسب متر
+                                                                مربع)</label>
+                                                            <input type="number" id="area"
+                                                                wire:model='form.area' value="{{ old('area') }}"
+                                                                class="form-control" placeholder="متر مربع" />
+                                                            @error('form.area')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-sm-4 form-group @error('form.meter') is-invalid @enderror">
+                                                            <label for="meter">متراژ زیر بنا
+                                                                <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="number" id="meter"
+                                                                wire:model='form.meter' value="{{ old('meter') }}"
+                                                                max="10000" class="form-control" />
+                                                            @error('form.meter')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- موقعیت مکانی -->
+                                                    <br>
+                                                    <h5 style="color:#04BE5B">موقعیت مکانی</h5>
+                                                    <hr>
+                                                    <div class="row clearfix ir-select">
+                                                        <div
+                                                            class="col-sm-4 mb-4 @error('form.province') is-invalid @enderror">
+                                                            <div class="form-group mbb">
+                                                                <label for="province">استان
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <select class="ir-province  form-control"
+                                                                    wire:model.live='form.province'>
+                                                                    <option value="">انتخاب استان
+                                                                    </option>
+                                                                    @foreach ($form->states as $stateName => $cities)
+                                                                        <option value="{{ $stateName }}">
+                                                                            {{ $stateName }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('form.province')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div
+                                                            class="col-sm-4 mb-4 @error('form.city') is-invalid @enderror">
+                                                            <div class="form-group mbb">
+                                                                <label for="city">شهر <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <select class="ir-city  form-control"
+                                                                    wire:model='form.city'>
+                                                                    <option></option>
+                                                                    @foreach ($form->states[$form->province] ?? [] as $city)
+                                                                        <option value="{{ $city }}">
+                                                                            {{ $city }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('form.city')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+
+                                                        <div
+                                                            class="col-sm-4 form-group @error('form.district') is-invalid @enderror">
+                                                            <label for="district">محله
+                                                                <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <input type="text" step="any"
+                                                                wire:model='form.district' id="district"
+                                                                class="form-control" />
+                                                            @error('form.district')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <small class="col-12 "> برای پیدا کردن
+                                                            موقعیت روی لینک
+                                                            مقابل کلیک
+                                                            کنید
+                                                            <a href="https://neshan.org/maps" target="_blank">نقشه
+                                                                نشان</a></small>
+                                                        <div
+                                                            class="col-sm-6 form-group @error('form.lon') is-invalid @enderror">
+                                                            <label for="lon">طول
+                                                                جغرافیایی</label>
+                                                            <input type="number" step="any" id="lon"
+                                                                wire:model='form.lon' class="form-control" />
+                                                            @error('form.lon')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div
+                                                            class="col-sm-6 form-group @error('form.lat') is-invalid @enderror">
+                                                            <label for="lat">عرض
+                                                                جغرافیایی</label>
+                                                            <input type="number" step="any"
+                                                                wire:model='form.lat' id="lat"
+                                                                class="form-control" />
+                                                            @error('form.lat')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-sm-12 form-group @error('form.address') is-invalid @enderror">
+                                                            <label for="">آدرس
+                                                                <abbr title="ضروری"
+                                                                    style="color:red;">*</abbr></label>
+                                                            <div class="form-line">
+                                                                <textarea rows="3" class="form-control no-resize" id="address" wire:model='form.address'
+                                                                    placeholder="آدرس را وارد کنید"></textarea>
+                                                                @error('form.address')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- اطلاعات مربوط به خرید -->
+                                                    <br>
+                                                    <div class="header">
+                                                        <h2><strong>ویدیو</strong></h2>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div
+                                                            class="col-sm-12 form-group @error('form.ambed') is-invalid @enderror">
+                                                            <label for="ambed">کد امبد
+                                                                ویدیو</label>
+                                                            <input type="text" id="ambed"
+                                                                wire:model='form.ambed' class="form-control" />
+                                                            @error('form.ambed')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    @if ($this->form->tr_type == 'فروش' || $this->form->tr_type == 'پیش فروش')
+                                                        <h5 style="color:#04BE5B">اطلاعات مربوط به
+                                                            فروش ملک </h5>
+                                                        <hr>
+
+                                                        <div class="row clearfix">
+                                                            <div
+                                                                class="col-sm-4 form-group @error('form.loan') is-invalid @enderror">
+                                                                <label for="loan">وام
+                                                                    بانکی</label>
+                                                                <input type="text" id="loan"
+                                                                    wire:model='form.loan' class="form-control" />
+                                                                @error('form.loan')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div
+                                                                class="col-sm-4 form-group @error('form.loanamount') is-invalid @enderror">
+                                                                <label for="loanamount">مبلغ
+                                                                    وام</label>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"
+                                                                        id="loanamount" wire:model='form.loanamount'
+                                                                        onkeyup="separateNum(this.value,this);"
+                                                                        aria-label="Amount (to the nearest dollar)">
                                                                 </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6 mb-4 @error('form.tr_type') is-invalid @enderror">
-                                                                        <div class="form-group mbb">
-                                                                            <label for="tr_type"> نوع معامله
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <select wire:model.live='form.tr_type'
-                                                                                id="tr_type" class="form-control">
-                                                                                <option>
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
-                                                                                    رهن و
-                                                                                    اجاره
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
-                                                                                    فروش
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('tr_type') == 'پیش فروش' ? 'selected' : '' }}>
-                                                                                    پیش
-                                                                                    فروش
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('form.tr_type')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
+                                                                @error('form.loanamount')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div
+                                                                class="col-sm-4 form-group @error('form.meter_price') is-invalid @enderror">
+                                                                <label for="meter_price">قیمت متری
+                                                                    (برحسب متر
+                                                                    مربع)</label>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
                                                                     </div>
-
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6 mb-4 p @error('form.usertype') is-invalid @enderror">
-                                                                        <div class="form-group mbb">
-                                                                            <label for="usertype"> نوع کاربری
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <select wire:model='form.usertype'
-                                                                                id="usertype" class="form-control">
-                                                                                <option>
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
-                                                                                    مسکونی
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
-                                                                                    تجاری
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
-                                                                                    آموزشی
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
-                                                                                    اداری
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'باغ ویلا' ? 'selected' : '' }}>
-                                                                                    باغ ویلا
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
-                                                                                    دیگر
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-
-                                                                        @error('form.usertype')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6 mb-4  @error('form.type') is-invalid @enderror">
-                                                                        <div class="form-group mbb">
-                                                                            <label for="type">نوع ملک
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <select wire:model='form.type'
-                                                                                id="type" class="form-control">
-                                                                                <option>
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
-                                                                                    آپارتمان
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
-                                                                                    خانه
-                                                                                    ویلایی
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
-                                                                                    زمین
-                                                                                    و
-                                                                                    کلنگی
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'مغازه' ? 'selected' : '' }}>
-                                                                                    مغازه
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
-                                                                                    دفتر کار
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'باغ' ? 'selected' : '' }}>
-                                                                                    باغ
-                                                                                </option>
-                                                                                <option
-                                                                                    {{ old('type') == 'انبار' ? 'selected' : '' }}>
-                                                                                    انبار
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('form.type')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6  form-group @error('form.bedroom') is-invalid @enderror">
-                                                                        <label for="bedroom">تعداد خواب
-                                                                            <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="number" id="bedroom"
-                                                                            wire:model='form.bedroom' step="1"
-                                                                            aria-disabled class="form-control"
-                                                                            value="{{ old('bedroom') }}" />
-                                                                        @error('form.bedroom')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6  form-group @error('form.floorsell') is-invalid @enderror">
-                                                                        <label for="floorsell"> طبقه مورد
-                                                                            معامله <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="text"
-                                                                            wire:model='form.floorsell' id="floorsell"
-                                                                            aria-disabled class="form-control"
-                                                                            value="{{ old('floorsell') }}" />
-                                                                        @error('form.floorsell')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-lg-4 col-md-6  form-group @error('form.floor') is-invalid @enderror">
-                                                                        <label for="floor">تعداد
-                                                                            طبقات</label>
-                                                                        <input type="number" wire:model='form.floor'
-                                                                            id="floor" step="1"
-                                                                            aria-disabled class="form-control"
-                                                                            value="{{ old('floor') }}" />
-                                                                        @error('form.floor')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.year') is-invalid @enderror">
-                                                                        <label for="year">قدمت
-                                                                            ساخت</label>
-                                                                        <input type="number" id="year"
-                                                                            wire:model='form.year'
-                                                                            class="form-control" placeholder="سال"
-                                                                            value="{{ old('year') }}" />
-                                                                        @error('form.year')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.area') is-invalid @enderror">
-                                                                        <label for="area">مساحت زمین
-                                                                            (برحسب متر
-                                                                            مربع)</label>
-                                                                        <input type="number" id="area"
-                                                                            wire:model='form.area'
-                                                                            value="{{ old('area') }}"
-                                                                            class="form-control"
-                                                                            placeholder="متر مربع" />
-                                                                        @error('form.area')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.meter') is-invalid @enderror">
-                                                                        <label for="meter">متراژ زیر بنا
-                                                                            <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="number" id="meter"
-                                                                            wire:model='form.meter'
-                                                                            value="{{ old('meter') }}"
-                                                                            max="10000" class="form-control" />
-                                                                        @error('form.meter')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
+                                                                    <input type="text" class="form-control"
+                                                                        id="meter_price"
+                                                                        onkeyup="separateNum(this.value,this);"
+                                                                        wire:model='form.meter_price'
+                                                                        aria-label="Amount (to the nearest dollar)">
                                                                 </div>
 
-                                                                <!-- موقعیت مکانی -->
-                                                                <br>
-                                                                <h5 style="color:#04BE5B">موقعیت مکانی</h5>
-                                                                <hr>
-                                                                <div class="row clearfix ir-select">
-                                                                    <div
-                                                                        class="col-sm-4 mb-4 @error('form.province') is-invalid @enderror">
-                                                                        <div class="form-group mbb">
-                                                                            <label for="province">استان
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <select class="ir-province  form-control"
-                                                                                wire:model.live='form.province'>
-                                                                                <option value="">انتخاب استان
-                                                                                </option>
-                                                                                @foreach ($form->states as $stateName => $cities)
-                                                                                    <option
-                                                                                        value="{{ $stateName }}">
-                                                                                        {{ $stateName }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('form.province')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
+                                                                @error('form.meter_price')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="row clearfix">
+                                                            <div
+                                                                class="col-lg-6 form-group @error('form.bidprice') is-invalid @enderror mb-4">
+                                                                <label for="bidprice">قیمت پیشنهادی
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <div class="input-group mbb">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
                                                                     </div>
+                                                                    <input type="text" class="form-control"
+                                                                        id="bidprice" wire:model='form.bidprice'
+                                                                        onkeyup="changePrice(this.value,this);"
+                                                                        aria-label="Amount (to the nearest dollar) "
+                                                                        minlength="10" maxlength="15">
+                                                                </div>
+                                                                @error('form.bidprice')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div
+                                                                class="col-lg-6 form-group @error('form.ugprice') is-invalid @enderror">
+                                                                <label for="ugprice">قیمت کارشناسی
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <div class="input-group mbb">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"
+                                                                        id="ugprice" wire:model='form.ugprice'
+                                                                        aria-label="Amount (to the nearest dollar)"
+                                                                        onkeyup="separateNum(this.value,this);"
+                                                                        minlength="10" maxlength="15">
+                                                                </div>
+                                                                @error('form.ugprice')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    <!-- اطلاعات مربوط به خرید اجاره -->
+                                                    @if ($this->form->tr_type == 'رهن و اجاره')
+                                                        <h5 style="color:#04BE5B">اطلاعات مربوط به
+                                                            رهن و اجاره
+                                                        </h5>
+                                                        <div class="row clearfix">
+                                                            <div
+                                                                class="col-lg-3 col-md-6 form-group @error('form.people_number') is-invalid @enderror">
+                                                                <label for="people_number">حداکثر
+                                                                    تعداد
+                                                                    نفرات</label>
+                                                                <input type="number" id="people_number"
+                                                                    wire:model='form.people_number'
+                                                                    class="form-control" />
+                                                                @error('form.people_number')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div
+                                                                class="col-lg-3  form-group @error('form.rent') is-invalid @enderror">
+                                                                <label for="rent">مبلغ اجاره
+                                                                    <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr></label>
+                                                                <div class="input-group mbb">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
+                                                                    </div>
+                                                                    <input type="text" wire:model='form.rent'
+                                                                        class="form-control" id="rent"
+                                                                        aria-label="Amount (to the nearest dollar)"
+                                                                        onkeyup="separateNum(this.value,this);"
+                                                                        maxlength="10">
+                                                                </div>
+                                                                @error('form.rent')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div
+                                                                class="col-lg-3 form-group @error('form.rahn') is-invalid @enderror">
+                                                                <label for="rahn">مبلغ رهن <abbr title="ضروری"
+                                                                        style="color:red;">*</abbr>
+                                                                </label>
+                                                                <div class="input-group mbb">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">تومان</span>
+                                                                    </div>
+                                                                    <input type="text" wire:model='form.rahn'
+                                                                        class="form-control" id="rahn"
+                                                                        aria-label="Amount (to the nearest dollar)"
+                                                                        onkeyup="separateNum(this.value,this);"
+                                                                        maxlength="11">
+                                                                </div>
+                                                                @error('form.rahn')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 ">
+                                                                <br><br>
+                                                                <div class="checkbox">
+                                                                    <input id="ischange" wire:model='form.ischange'
+                                                                        type="checkbox">
+                                                                    @error('form.ischange')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                    <label for="ischange">قابل تغیر
+                                                                        اجاره و
+                                                                        رهن</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    <!-- امکانات -->
+                                                    <br>
+                                                    <h5 style="color:#04BE5B">وضعیت </h5>
+                                                    <hr>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-3 col-md-6">
+                                                            <div class="checkbox">
+                                                                <input id="isactive" type="checkbox"
+                                                                    wire:model='form.isactive' checked>
+                                                                @error('form.isactive')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                                <label for="isactive">انتشار
+                                                                    ملک</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    @endif
 
-                                                                    <div
-                                                                        class="col-sm-4 mb-4 @error('form.city') is-invalid @enderror">
-                                                                        <div class="form-group mbb">
-                                                                            <label for="city">شهر <abbr
-                                                                                    title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <select class="ir-city  form-control"
-                                                                                wire:model='form.city'>
-                                                                                <option></option>
-                                                                                @foreach ($form->states[$form->province] ?? [] as $city)
-                                                                                    <option
-                                                                                        value="{{ $city }}">
-                                                                                        {{ $city }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        @error('form.city')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
+                                    {{-- STEP 2 --}}
 
-                                                                    <div
-                                                                        class="col-sm-4 form-group @error('form.district') is-invalid @enderror">
-                                                                        <label for="district">محله
-                                                                            <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <input type="text" step="any"
-                                                                            wire:model='form.district' id="district"
-                                                                            class="form-control" />
-                                                                        @error('form.district')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
+                                    @if ($form->currentStep == 2)
+                                        <div class="step-two">
+                                            <div class="card">
+                                                <h2>مشخصات مالک</h2>
+                                                <section>
+                                                    <p>
+                                                    <div class="card">
+                                                        <div class="body">
+                                                            <div class="row clearfix">
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.name_family') is-invalid @enderror">
+                                                                    <label for="name_family">نام نام
+                                                                        خانوادگی <abbr title="ضروری"
+                                                                            style="color:red;">*</abbr>
+                                                                    </label>
+                                                                    <input type="text" id="name_family"
+                                                                        wire:model='form.name_family'
+                                                                        class="form-control" />
+                                                                    @error('form.name_family')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                    <div class="valid-feedback">
+                                                                        حله
+                                                                    </div>
+                                                                    <div class="invalid-feedback">
+                                                                        این فیلد مورد نیاز است
                                                                     </div>
                                                                 </div>
-                                                                <div class="row clearfix">
-                                                                    <small class="col-12 "> برای پیدا کردن
-                                                                        موقعیت روی لینک
-                                                                        مقابل کلیک
-                                                                        کنید
-                                                                        <a href="https://neshan.org/maps"
-                                                                            target="_blank">نقشه
-                                                                            نشان</a></small>
-                                                                    <div
-                                                                        class="col-sm-6 form-group @error('form.lon') is-invalid @enderror">
-                                                                        <label for="lon">طول
-                                                                            جغرافیایی</label>
-                                                                        <input type="number" step="any"
-                                                                            id="lon" wire:model='form.lon'
-                                                                            class="form-control" />
-                                                                        @error('form.lon')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div
-                                                                        class="col-sm-6 form-group @error('form.lat') is-invalid @enderror">
-                                                                        <label for="lat">عرض
-                                                                            جغرافیایی</label>
-                                                                        <input type="number" step="any"
-                                                                            wire:model='form.lat' id="lat"
-                                                                            class="form-control" />
-                                                                        @error('form.lat')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.telephone') is-invalid @enderror">
+                                                                    <label for="telephone">شماره
+                                                                        تلفن</label>
+                                                                    <input type="text" id="telephone"
+                                                                        wire:model='form.telephone'
+                                                                        class="form-control" />
+                                                                    @error('form.telephone')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
                                                                 </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-sm-12 form-group @error('form.address') is-invalid @enderror">
-                                                                        <label for="">آدرس
-                                                                            <abbr title="ضروری"
-                                                                                style="color:red;">*</abbr></label>
-                                                                        <div class="form-line">
-                                                                            <textarea rows="3" class="form-control no-resize" id="address" wire:model='form.address'
-                                                                                placeholder="آدرس را وارد کنید"></textarea>
-                                                                            @error('form.address')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.phone') is-invalid @enderror">
+                                                                    <label for="phone">شماره موبایل
+                                                                        <abbr title="ضروری"
+                                                                            style="color:red;">*</abbr>
+                                                                    </label>
+                                                                    <input type="text" maxlength="11"
+                                                                        id="phone" wire:model='form.phone'
+                                                                        class="form-control" />
+                                                                    @error('form.phone')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                    <div class="valid-feedback">
+                                                                        حله
                                                                     </div>
-                                                                </div>
-                                                                <!-- اطلاعات مربوط به خرید -->
-                                                                <br>
-                                                                <div class="header">
-                                                                    <h2><strong>ویدیو</strong></h2>
-                                                                </div>
-                                                                <div class="row clearfix">
-                                                                    <div
-                                                                        class="col-sm-12 form-group @error('form.ambed') is-invalid @enderror">
-                                                                        <label for="ambed">کد امبد
-                                                                            ویدیو</label>
-                                                                        <input type="text" id="ambed"
-                                                                            wire:model='form.ambed'
-                                                                            class="form-control" />
-                                                                        @error('form.ambed')
-                                                                            <small
-                                                                                class="text-danger">{{ $message }}</small>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-                                                                @if ($this->form->tr_type == 'فروش' || $this->form->tr_type == 'پیش فروش')
-                                                                    <h5 style="color:#04BE5B">اطلاعات مربوط به
-                                                                        فروش ملک </h5>
-                                                                    <hr>
-
-                                                                    <div class="row clearfix">
-                                                                        <div
-                                                                            class="col-sm-4 form-group @error('form.loan') is-invalid @enderror">
-                                                                            <label for="loan">وام
-                                                                                بانکی</label>
-                                                                            <input type="text" id="loan"
-                                                                                wire:model='form.loan'
-                                                                                class="form-control" />
-                                                                            @error('form.loan')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div
-                                                                            class="col-sm-4 form-group @error('form.loanamount') is-invalid @enderror">
-                                                                            <label for="loanamount">مبلغ
-                                                                                وام</label>
-                                                                            <div class="input-group mb-3">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    id="loanamount"
-                                                                                    wire:model='form.loanamount'
-                                                                                    onkeyup="separateNum(this.value,this);"
-                                                                                    aria-label="Amount (to the nearest dollar)">
-                                                                            </div>
-                                                                            @error('form.loanamount')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div
-                                                                            class="col-sm-4 form-group @error('form.meter_price') is-invalid @enderror">
-                                                                            <label for="meter_price">قیمت متری
-                                                                                (برحسب متر
-                                                                                مربع)</label>
-                                                                            <div class="input-group mb-3">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    id="meter_price"
-                                                                                    onkeyup="separateNum(this.value,this);"
-                                                                                    wire:model='form.meter_price'
-                                                                                    aria-label="Amount (to the nearest dollar)">
-                                                                            </div>
-
-                                                                            @error('form.meter_price')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row clearfix">
-                                                                        <div
-                                                                            class="col-lg-6 form-group @error('form.bidprice') is-invalid @enderror mb-4">
-                                                                            <label for="bidprice">قیمت پیشنهادی
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <div class="input-group mbb">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    id="bidprice"
-                                                                                    wire:model='form.bidprice'
-                                                                                    onkeyup="changePrice(this.value,this);"
-                                                                                    aria-label="Amount (to the nearest dollar) "
-                                                                                    minlength="10" maxlength="15">
-                                                                            </div>
-                                                                            @error('form.bidprice')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div
-                                                                            class="col-lg-6 form-group @error('form.ugprice') is-invalid @enderror">
-                                                                            <label for="ugprice">قیمت کارشناسی
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <div class="input-group mbb">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    id="ugprice"
-                                                                                    wire:model='form.ugprice'
-                                                                                    aria-label="Amount (to the nearest dollar)"
-                                                                                    onkeyup="separateNum(this.value,this);"
-                                                                                    minlength="10" maxlength="15">
-                                                                            </div>
-                                                                            @error('form.ugprice')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                                <!-- اطلاعات مربوط به خرید اجاره -->
-                                                                @if ($this->form->tr_type == 'رهن و اجاره')
-                                                                    <h5 style="color:#04BE5B">اطلاعات مربوط به
-                                                                        رهن و اجاره
-                                                                    </h5>
-                                                                    <div class="row clearfix">
-                                                                        <div
-                                                                            class="col-lg-3 col-md-6 form-group @error('form.people_number') is-invalid @enderror">
-                                                                            <label for="people_number">حداکثر
-                                                                                تعداد
-                                                                                نفرات</label>
-                                                                            <input type="number" id="people_number"
-                                                                                wire:model='form.people_number'
-                                                                                class="form-control" />
-                                                                            @error('form.people_number')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div
-                                                                            class="col-lg-3  form-group @error('form.rent') is-invalid @enderror">
-                                                                            <label for="rent">مبلغ اجاره
-                                                                                <abbr title="ضروری"
-                                                                                    style="color:red;">*</abbr></label>
-                                                                            <div class="input-group mbb">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    wire:model='form.rent'
-                                                                                    class="form-control"
-                                                                                    id="rent"
-                                                                                    aria-label="Amount (to the nearest dollar)"
-                                                                                    onkeyup="separateNum(this.value,this);"
-                                                                                    maxlength="10">
-                                                                            </div>
-                                                                            @error('form.rent')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div
-                                                                            class="col-lg-3 form-group @error('form.rahn') is-invalid @enderror">
-                                                                            <label for="rahn">مبلغ رهن <abbr
-                                                                                    title="ضروری"
-                                                                                    style="color:red;">*</abbr>
-                                                                            </label>
-                                                                            <div class="input-group mbb">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span
-                                                                                        class="input-group-text">تومان</span>
-                                                                                </div>
-                                                                                <input type="text"
-                                                                                    wire:model='form.rahn'
-                                                                                    class="form-control"
-                                                                                    id="rahn"
-                                                                                    aria-label="Amount (to the nearest dollar)"
-                                                                                    onkeyup="separateNum(this.value,this);"
-                                                                                    maxlength="11">
-                                                                            </div>
-                                                                            @error('form.rahn')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div class="col-lg-3 col-md-6 ">
-                                                                            <br><br>
-                                                                            <div class="checkbox">
-                                                                                <input id="ischange"
-                                                                                    wire:model='form.ischange'
-                                                                                    type="checkbox">
-                                                                                @error('form.ischange')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                                <label for="ischange">قابل تغیر
-                                                                                    اجاره و
-                                                                                    رهن</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                                <!-- امکانات -->
-                                                                <br>
-                                                                <h5 style="color:#04BE5B">وضعیت </h5>
-                                                                <hr>
-                                                                <div class="row clearfix">
-                                                                    <div class="col-lg-3 col-md-6">
-                                                                        <div class="checkbox">
-                                                                            <input id="isactive" type="checkbox"
-                                                                                wire:model='form.isactive' checked>
-                                                                            @error('form.isactive')
-                                                                                <small
-                                                                                    class="text-danger">{{ $message }}</small>
-                                                                            @enderror
-                                                                            <label for="isactive">انتشار
-                                                                                ملک</label>
-                                                                        </div>
+                                                                    <div class="invalid-feedback">
+                                                                        این فیلد مورد نیاز است
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </section>
-                                                @endif
+                                                    </div>
+                                                    </p>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    {{-- STEP 3 --}}
 
-                                                {{-- STEP 2 --}}
-
-                                                @if ($form->currentStep == 2)
-                                                    <div class="step-two">
-                                                        <div class="card">
-                                                            <h2>مشخصات مالک</h2>
-                                                            <section>
-                                                                <p>
-                                                                <div class="card">
-                                                                    <div class="body">
-                                                                        <div class="row clearfix">
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.name_family') is-invalid @enderror">
-                                                                                <label for="name_family">نام نام
-                                                                                    خانوادگی <abbr title="ضروری"
-                                                                                        style="color:red;">*</abbr>
-                                                                                </label>
-                                                                                <input type="text" id="name_family"
-                                                                                    wire:model='form.name_family'
-                                                                                    class="form-control" />
-                                                                                @error('form.name_family')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                                <div class="valid-feedback">
-                                                                                    حله
-                                                                                </div>
-                                                                                <div class="invalid-feedback">
-                                                                                    این فیلد مورد نیاز است
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.telephone') is-invalid @enderror">
-                                                                                <label for="telephone">شماره
-                                                                                    تلفن</label>
-                                                                                <input type="text" id="telephone"
-                                                                                    wire:model='form.telephone'
-                                                                                    class="form-control" />
-                                                                                @error('form.telephone')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.phone') is-invalid @enderror">
-                                                                                <label for="phone">شماره موبایل
-                                                                                    <abbr title="ضروری"
-                                                                                        style="color:red;">*</abbr>
-                                                                                </label>
-                                                                                <input type="text" maxlength="11"
-                                                                                    id="phone"
-                                                                                    wire:model='form.phone'
-                                                                                    class="form-control" />
-                                                                                @error('form.phone')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                                <div class="valid-feedback">
-                                                                                    حله
-                                                                                </div>
-                                                                                <div class="invalid-feedback">
-                                                                                    این فیلد مورد نیاز است
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                    @if ($form->currentStep == 3)
+                                        <div class="step-three">
+                                            <div class="card">
+                                                <h2>سایر مشخصات</h2>
+                                                <section>
+                                                    <p>
+                                                    <div class="card">
+                                                        <div class="body">
+                                                            <div class="row clearfix">
+                                                                <div
+                                                                    class="col-lg-3 form-group @error('form.doc') is-invalid @enderror">
+                                                                    <label for="doc">نوع
+                                                                        سند</label>
+                                                                    <select wire:model='form.doc' id="doc"
+                                                                        class="form-control show-tick ms select2">
+                                                                        <option disabled selected hidden>
+                                                                        </option>
+                                                                        <option>سند
+                                                                            دار
+                                                                        </option>
+                                                                        <option>
+                                                                            قولنامه ای
+                                                                        </option>
+                                                                        <option>در
+                                                                            دست اقدام
+                                                                        </option>
+                                                                        <option>مشاع
+                                                                        </option>
+                                                                        <option>دیگر
+                                                                        </option>
+                                                                    </select>
+                                                                    @error('form.doc')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-lg-3 form-group @error('form.dimension') is-invalid @enderror">
+                                                                    <label for="dimension">ابعاد</label>
+                                                                    <input type="text" id="dimension"
+                                                                        wire:model='form.dimension'
+                                                                        class="form-control" />
+                                                                    @error('form.dimension')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-lg-3 form-group @error('form.view') is-invalid @enderror">
+                                                                    <label for="view">نما</label>
+                                                                    <input type="text" wire:model='form.view'
+                                                                        id="view" class="form-control" />
+                                                                    @error('form.view')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-lg-3 form-group @error('form.door') is-invalid @enderror">
+                                                                    <label for="door">درب
+                                                                        ورودی</label>
+                                                                    <input type="text" wire:model='form.door'
+                                                                        id="door" class="form-control" />
+                                                                    @error('form.door')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row clearfix">
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.screen') is-invalid @enderror">
+                                                                    <label for="screen">پرده</label>
+                                                                    <input type="text" wire:model='form.screen'
+                                                                        id="screen" class="form-control" />
+                                                                    @error('form.screen')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.cover') is-invalid @enderror">
+                                                                    <label for="cover">کفپوش</label>
+                                                                    <input type="text" id="cover"
+                                                                        wire:model='form.cover'
+                                                                        class="form-control" />
+                                                                    @error('form.cover')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.phone_line') is-invalid @enderror">
+                                                                    <label for="phone line">خط
+                                                                        تلفن</label>
+                                                                    <input type="text" id="phone_line"
+                                                                        wire:model='form.phone_line'
+                                                                        class="form-control" />
+                                                                    @error('form.phone_line')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row clearfix">
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.cool') is-invalid @enderror">
+                                                                    <label for="cool">سیستم
+                                                                        برودتی</label>
+                                                                    <input type="text" wire:model='form.cool'
+                                                                        id="cool" class="form-control" />
+                                                                    @error('form.cool')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.heat') is-invalid @enderror">
+                                                                    <label for="heat">سیستم
+                                                                        حرارتی</label>
+                                                                    <input type="text" wire:model='form.heat'
+                                                                        id="heat" class="form-control" />
+                                                                    @error('form.heat')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-sm-4 form-group @error('form.cabinet') is-invalid @enderror">
+                                                                    <label for="cabinet">کابینت</label>
+                                                                    <input type="text" wire:model='form.cabinet'
+                                                                        id="cabinet" class="form-control" />
+                                                                    @error('form.cabinet')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                                <div
+                                                                    class="col-lg-4 form-group @error('form.collection') is-invalid @enderror">
+                                                                    <label for="collection">تعداد واحد
+                                                                        های
+                                                                        مجموعه</label>
+                                                                    <input type="number" id="collection"
+                                                                        wire:model='form.collection'
+                                                                        class="form-control" />
+                                                                    @error('form.collection')
+                                                                        <small
+                                                                            class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row clearfix">
+                                                                <div
+                                                                    class="col-sm-12 form-group @error('form.description') is-invalid @enderror">
+                                                                    <label for="">توضیحات</label>
+                                                                    <div class="form-line">
+                                                                        <textarea rows="5" class="form-control no-resize" id="description" wire:model='form.description'
+                                                                            placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                                        @error('form.description')
+                                                                            <small
+                                                                                class="text-danger">{{ $message }}</small>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
-                                                                </p>
-                                                            </section>
+                                                                <div
+                                                                    class="col-sm-12 form-group @error('form.agent_description') is-invalid @enderror">
+                                                                    <label for="">توضیحات
+                                                                        مشاور</label>
+                                                                    <div class="form-line">
+                                                                        <textarea rows="5" class="form-control no-resize" id="agent_description" wire:model='form.agent_description'
+                                                                            placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                                        @error('form.agent_description')
+                                                                            <small
+                                                                                class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <h5 style="color:#04BE5B">امکانات </h5>
+                                                            <hr>
+                                                            <div class="row clearfix">
+                                                                @foreach ($features as $key => $feature)
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="checkbox">
+                                                                            <input type="checkbox"
+                                                                                id="features-{{ $feature->id }}"
+                                                                                wire:model='form.features'
+                                                                                class="filled-in chk-col-indigo"
+                                                                                value="{{ $feature->id }}"
+                                                                                {{ (is_array(old('features')) and in_array($feature->id, old('features'))) ? ' checked' : '' }} />
+                                                                            @error('form.features')
+                                                                                <small
+                                                                                    class="text-danger">{{ $message }}</small>
+                                                                            @enderror
+                                                                            <label
+                                                                                for="features-{{ $feature->id }}">{{ $feature->name }}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                @endif
-                                                {{-- STEP 3 --}}
-
-                                                @if ($form->currentStep == 3)
-                                                    <div class="step-three">
-                                                        <div class="card">
-                                                            <h2>سایر مشخصات</h2>
-                                                            <section>
-                                                                <p>
-                                                                <div class="card">
-                                                                    <div class="body">
-                                                                        <div class="row clearfix">
-                                                                            <div
-                                                                                class="col-lg-3 form-group @error('form.doc') is-invalid @enderror">
-                                                                                <label for="doc">نوع
-                                                                                    سند</label>
-                                                                                <select wire:model='form.doc'
-                                                                                    id="doc"
-                                                                                    class="form-control show-tick ms select2">
-                                                                                    <option disabled selected hidden>
-                                                                                    </option>
-                                                                                    <option>سند
-                                                                                        دار
-                                                                                    </option>
-                                                                                    <option>
-                                                                                        قولنامه ای
-                                                                                    </option>
-                                                                                    <option>در
-                                                                                        دست اقدام
-                                                                                    </option>
-                                                                                    <option>مشاع
-                                                                                    </option>
-                                                                                    <option>دیگر
-                                                                                    </option>
-                                                                                </select>
-                                                                                @error('form.doc')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-3 form-group @error('form.dimension') is-invalid @enderror">
-                                                                                <label for="dimension">ابعاد</label>
-                                                                                <input type="text" id="dimension"
-                                                                                    wire:model='form.dimension'
-                                                                                    class="form-control" />
-                                                                                @error('form.dimension')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-3 form-group @error('form.view') is-invalid @enderror">
-                                                                                <label for="view">نما</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.view'
-                                                                                    id="view"
-                                                                                    class="form-control" />
-                                                                                @error('form.view')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-3 form-group @error('form.door') is-invalid @enderror">
-                                                                                <label for="door">درب
-                                                                                    ورودی</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.door'
-                                                                                    id="door"
-                                                                                    class="form-control" />
-                                                                                @error('form.door')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row clearfix">
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.screen') is-invalid @enderror">
-                                                                                <label for="screen">پرده</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.screen'
-                                                                                    id="screen"
-                                                                                    class="form-control" />
-                                                                                @error('form.screen')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.cover') is-invalid @enderror">
-                                                                                <label for="cover">کفپوش</label>
-                                                                                <input type="text" id="cover"
-                                                                                    wire:model='form.cover'
-                                                                                    class="form-control" />
-                                                                                @error('form.cover')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.phone_line') is-invalid @enderror">
-                                                                                <label for="phone line">خط
-                                                                                    تلفن</label>
-                                                                                <input type="text" id="phone_line"
-                                                                                    wire:model='form.phone_line'
-                                                                                    class="form-control" />
-                                                                                @error('form.phone_line')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row clearfix">
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.cool') is-invalid @enderror">
-                                                                                <label for="cool">سیستم
-                                                                                    برودتی</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.cool'
-                                                                                    id="cool"
-                                                                                    class="form-control" />
-                                                                                @error('form.cool')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.heat') is-invalid @enderror">
-                                                                                <label for="heat">سیستم
-                                                                                    حرارتی</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.heat'
-                                                                                    id="heat"
-                                                                                    class="form-control" />
-                                                                                @error('form.heat')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-4 form-group @error('form.cabinet') is-invalid @enderror">
-                                                                                <label for="cabinet">کابینت</label>
-                                                                                <input type="text"
-                                                                                    wire:model='form.cabinet'
-                                                                                    id="cabinet"
-                                                                                    class="form-control" />
-                                                                                @error('form.cabinet')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-4 form-group @error('form.collection') is-invalid @enderror">
-                                                                                <label for="collection">تعداد واحد
-                                                                                    های
-                                                                                    مجموعه</label>
-                                                                                <input type="number" id="collection"
-                                                                                    wire:model='form.collection'
-                                                                                    class="form-control" />
-                                                                                @error('form.collection')
-                                                                                    <small
-                                                                                        class="text-danger">{{ $message }}</small>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row clearfix">
-                                                                            <div
-                                                                                class="col-sm-12 form-group @error('form.description') is-invalid @enderror">
-                                                                                <label for="">توضیحات</label>
-                                                                                <div class="form-line">
-                                                                                    <textarea rows="5" class="form-control no-resize" id="description" wire:model='form.description'
-                                                                                        placeholder="توضیحات را وارد کنید ...."></textarea>
-                                                                                    @error('form.description')
-                                                                                        <small
-                                                                                            class="text-danger">{{ $message }}</small>
-                                                                                    @enderror
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-sm-12 form-group @error('form.agent_description') is-invalid @enderror">
-                                                                                <label for="">توضیحات
-                                                                                    مشاور</label>
-                                                                                <div class="form-line">
-                                                                                    <textarea rows="5" class="form-control no-resize" id="agent_description" wire:model='form.agent_description'
-                                                                                        placeholder="توضیحات را وارد کنید ...."></textarea>
-                                                                                    @error('form.agent_description')
-                                                                                        <small
-                                                                                            class="text-danger">{{ $message }}</small>
-                                                                                    @enderror
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <h5 style="color:#04BE5B">امکانات </h5>
-                                                                        <hr>
-                                                                        <div class="row clearfix">
-                                                                            @foreach ($features as $key => $feature)
-                                                                                <div class="col-lg-3 col-md-6">
-                                                                                    <div class="checkbox">
-                                                                                        <input type="checkbox"
-                                                                                            id="features-{{ $feature->id }}"
-                                                                                            wire:model='form.features'
-                                                                                            class="filled-in chk-col-indigo"
-                                                                                            value="{{ $feature->id }}"
-                                                                                            {{ (is_array(old('features')) and in_array($feature->id, old('features'))) ? ' checked' : '' }} />
-                                                                                        @error('form.features')
-                                                                                            <small
-                                                                                                class="text-danger">{{ $message }}</small>
-                                                                                        @enderror
-                                                                                        <label
-                                                                                            for="features-{{ $feature->id }}">{{ $feature->name }}</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endforeach
-                                                                        </div>
+                                                    </p>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($form->currentStep == 4)
+                                        <div class="step-three">
+                                            <div class="card">
+                                                <section>
+                                                    <div class="card">
+                                                        <div class="body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label class="form-label"
+                                                                        for="exampleFormControlFile1">آپلود
+                                                                        تصویر اصلی<span wire:loading
+                                                                            wire:target="form.img"
+                                                                            class="spinner-border spinner-border-sm"
+                                                                            role="status"
+                                                                            aria-hidden="true"></span></label>
+                                                                    <div class="custom-file d-flex flex-row-reverse">
+                                                                        <input onchange="validateImage(this)"
+                                                                            wire:model.live="form.img" type="file"
+                                                                            class="custom-file-input" id="customFile"
+                                                                            lang="ar" dir="rtl">
+                                                                        <label class="custom-file-label text-right"
+                                                                            for="customFile">
+                                                                        </label>
                                                                     </div>
                                                                 </div>
-                                                                </p>
-                                                            </section>
+                                                            </div>
+                                                            @if ($form->img)
+                                                                <img src="{{ $form->img->temporaryUrl() }}"
+                                                                    height="300rem">
+                                                            @endif
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label class="form-label"
+                                                                        for="exampleFormControlFile1">آپلود
+                                                                        سایر تصاویر<span wire:loading
+                                                                            wire:target="form.otherimg"
+                                                                            class="spinner-border spinner-border-sm"
+                                                                            role="status"
+                                                                            aria-hidden="true"></span></label>
+                                                                    <div class="custom-file d-flex flex-row-reverse">
+                                                                        <input wire:model.live="form.otherimg"
+                                                                            type="file" id="imageUpload"
+                                                                            class="custom-file-input" lang="ar"
+                                                                            dir="rtl" multiple>
+                                                                        <label class="custom-file-label text-right"
+                                                                            for="customFile">
+                                                                        </label>
+                                                                    </div>
+                                                                    <small class="text-danger"
+                                                                        id="validation-errors"></small>
+
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                @endif
-                                                @if ($form->currentStep == 4)
-                                                    <div class="step-three">
-                                                        <div class="card">
-                                                            <section>
-                                                                <div class="card">
-                                                                    <div class="body">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-4">
-                                                                                <label class="form-label"
-                                                                                    for="exampleFormControlFile1">آپلود
-                                                                                    تصویر اصلی<span wire:loading
-                                                                                        wire:target="form.img"
-                                                                                        class="spinner-border spinner-border-sm"
-                                                                                        role="status"
-                                                                                        aria-hidden="true"></span></label>
-                                                                                <div
-                                                                                    class="custom-file d-flex flex-row-reverse">
-                                                                                    <input
-                                                                                        onchange="validateImage(this)"
-                                                                                        wire:model.live="form.img"
-                                                                                        type="file"
-                                                                                        class="custom-file-input"
-                                                                                        id="customFile" lang="ar"
-                                                                                        dir="rtl">
-                                                                                    <label
-                                                                                        class="custom-file-label text-right"
-                                                                                        for="customFile">
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        @if ($form->img)
-                                                                            <img src="{{ $form->img->temporaryUrl() }}"
-                                                                                height="300rem">
-                                                                        @endif
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-4">
-                                                                                <label class="form-label"
-                                                                                    for="exampleFormControlFile1">آپلود
-                                                                                    سایر تصاویر<span wire:loading
-                                                                                        wire:target="form.otherimg"
-                                                                                        class="spinner-border spinner-border-sm"
-                                                                                        role="status"
-                                                                                        aria-hidden="true"></span></label>
-                                                                                <div
-                                                                                    class="custom-file d-flex flex-row-reverse">
-                                                                                    <input
-                                                                                        wire:model.live="form.otherimg"
-                                                                                        type="file"
-                                                                                        id="imageUpload"
-                                                                                        class="custom-file-input"
-                                                                                        lang="ar" dir="rtl"
-                                                                                        multiple>
-                                                                                    <label
-                                                                                        class="custom-file-label text-right"
-                                                                                        for="customFile">
-                                                                                    </label>
-                                                                                </div>
-                                                                                <small class="text-danger"
-                                                                                    id="validation-errors"></small>
-
-                                                                            </div>
-                                                                        </div>
+                                                    @if ($form->otherimg && count($form->otherimg) > 0)
+                                                        <div class="col-12 mb-3">
+                                                            <div
+                                                                class="d-flex flex-wrap rounded border border-secondary shadow-md bg-light p-1">
+                                                                @foreach ($form->otherimg as $key => $image)
+                                                                    <div class="position-relative  mx-2 my-1"
+                                                                        style="width: 150px;">
+                                                                        <img width="100%"
+                                                                            class="rounded border shadow-md"
+                                                                            src="{{ $image->temporaryUrl() }}">
+                                                                        <a wire:click="delete_temp_image({{ $key }})"
+                                                                            class="position-absolute text-danger text-md"
+                                                                            style="top: 5px;right: 10px;cursor:pointer;"><i
+                                                                                class="zmdi zmdi-close"></i></a>
                                                                     </div>
-                                                                </div>
-                                                                @if ($form->otherimg && count($form->otherimg) > 0)
-                                                                    <div class="col-12 mb-3">
-                                                                        <div
-                                                                            class="d-flex flex-wrap rounded border border-secondary shadow-md bg-light p-1">
-                                                                            @foreach ($form->otherimg as $key => $image)
-                                                                                <div class="position-relative  mx-2 my-1"
-                                                                                    style="width: 150px;">
-                                                                                    <img width="100%"
-                                                                                        class="rounded border shadow-md"
-                                                                                        src="{{ $image->temporaryUrl() }}">
-                                                                                    <a wire:click="delete_temp_image({{ $key }})"
-                                                                                        class="position-absolute text-danger text-md"
-                                                                                        style="top: 5px;right: 10px;cursor:pointer;"><i
-                                                                                            class="zmdi zmdi-close"></i></a>
-                                                                                </div>
-                                                                            @endforeach
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    @endif
 
-                                                                {{-- @if ($form->otherimg)
+                                                    {{-- @if ($form->otherimg)
                                                                     @foreach ($form->otherimg as $imge)
                                                                         <img src="{{ $imge->temporaryUrl() }}"
                                                                             height="300rem">
                                                                     @endforeach
                                                                 @endif --}}
-                                                            </section>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                                <div
-                                                    class="action-buttons d-flex justify-content-between bg-white pt-2 pb-2">
-                                                    @if ($form->currentStep == 1)
-                                                        <div></div>
-                                                    @endif
-                                                    @if ($form->currentStep == 2 || $form->currentStep == 3 || $form->currentStep == 4)
-                                                        <button type="button" class="btn btn-md btn-secondary"
-                                                            wire:click="decStep()">
-                                                            قبلی
-                                                        </button>
-                                                    @endif
-                                                    @if ($form->currentStep == 1 || $form->currentStep == 2 || $form->currentStep == 3)
-                                                        <button type="button" class="btn btn-md btn-success"
-                                                            wire:click="incStep()">
-                                                            بعدی
-                                                        </button>
-                                                    @endif
-                                                    @if ($form->currentStep == 4)
-                                                        <button type="submit" class="btn btn-md btn-primary">ثبت
-                                                            اطلاعات</button>
-                                                    @endif
-                                                </div>
-                                            </form>
-                                        </form>
-                                    </form>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="action-buttons d-flex justify-content-between bg-white pt-2 pb-2">
+                                        @if ($form->currentStep == 1)
+                                            <div></div>
+                                        @endif
+                                        @if ($form->currentStep == 2 || $form->currentStep == 3 || $form->currentStep == 4)
+                                            <button type="button" class="btn btn-md btn-secondary"
+                                                wire:click="decStep()">
+                                                قبلی
+                                            </button>
+                                        @endif
+                                        @if ($form->currentStep == 1 || $form->currentStep == 2 || $form->currentStep == 3)
+                                            <button type="button" class="btn btn-md btn-success"
+                                                wire:click="incStep()">
+                                                بعدی
+                                            </button>
+                                        @endif
+                                        @if ($form->currentStep == 4)
+                                            <button type="submit" class="btn btn-md btn-primary">ثبت
+                                                اطلاعات</button>
+                                        @endif
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

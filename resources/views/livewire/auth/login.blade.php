@@ -24,8 +24,11 @@
 
         <div class="form-group">
             <input type="checkbox" wire:model="remember"> مرا به خاطر بسپار
+            <a href="/forget_password" style="font-size: 13px ; float: left;" wire:navigate>کلمه
+                عبور خود را
+                فراموش کرده
+                اید؟</a>
         </div>
-
         <button type="submit" class="btn btn-primary">ورود</button>
     </form>
 </div>

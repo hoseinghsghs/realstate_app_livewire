@@ -32,6 +32,14 @@ class EditProfile extends Component
 
     public function mount($user)
     {
+
+        if (Gate::allows('is_agent')) {
+            if (Auth::user()->id !== $user->id) {
+                flash()->error('شما اجازه دسترسی به این صفحه را ندارید.');
+                return $this->redirect('/admin/properties', navigate: true);
+            }
+        }
+
         $user = Auth::user();
         $this->name = $user->name;
         $this->phone = $user->phone;
@@ -71,7 +79,6 @@ class EditProfile extends Component
         } else {
             $this->isactive = false;
         }
-
         $this->user->update([
             'name' => $this->name,
             'phone' => $this->phone,
@@ -86,9 +93,9 @@ class EditProfile extends Component
         if (Gate::allows('is_admin')) {
             return $this->redirect(route('admin.home'), navigate: true);
         } else if (Gate::allows('is_agent')) {
-            return $this->redirect(route('admin.agent.home'), navigate: true);
+            return $this->redirect(route('agent.home'), navigate: true);
         }
-        return $this->redirect(route('admin.edit-user', $this->user), navigate: true);
+        // return $this->redirect(route('admin.edit-user', $this->user), navigate: true);
     }
 
     public function render()

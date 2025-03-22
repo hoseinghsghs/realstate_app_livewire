@@ -7,6 +7,8 @@ use App\Models\Property;
 use Livewire\Component;
 use App\Livewire\Forms\CreatPropertyForm;
 use App\Models\PropertyImage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
@@ -25,6 +27,13 @@ class EditProperty extends Component
 
     public function mount(Property $property)
     {
+        if (Gate::allows('is_agent')) {
+            if (Auth::user()->id !== $property->user_id) {
+                flash()->error('شما اجازه دسترسی به این صفحه را ندارید.');
+                return $this->redirect('/admin/properties', navigate: true);
+            }
+        }
+
         $this->form->currentStep = 1;
         $this->form->setProperty($property);
         $this->form->states = Get_States();
@@ -62,8 +71,6 @@ class EditProperty extends Component
     {
         $this->form->update();
         $this->property = $this->property->fresh();
-
-
         flash()->success('ملک با موفقیت ,ویرایش شد');
     }
 

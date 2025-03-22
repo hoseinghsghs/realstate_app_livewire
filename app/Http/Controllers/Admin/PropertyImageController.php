@@ -89,7 +89,7 @@ class PropertyImageController extends Controller
 
                 $image = PertiongenerateImageName($img->getClientOriginalName());
 
-                $imge = Image::make($img)->resize(96, 340);
+                $imge = Image::make($img)->resize(1200, 800);
                 array_push($fileNameImages, $image);
                 $imge->save($pach . '/' . 'otherpreview' . '/' . $image);
                 // $img->move(public_path('assets/images/property/preview'), $image);
