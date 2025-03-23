@@ -100,7 +100,7 @@ class SliderComponent extends Component
             );
 
             $this->ref();
-            // flash()->addSuccess('تغییرات با موفقیت ذخیره شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد');
         } else {
 
             $this->validate([
@@ -142,7 +142,7 @@ class SliderComponent extends Component
                 "image" => $imagename,
             ]);
             $this->ref();
-            // flash()->addSuccess('درخواست با موفقیت ایجاد شد');
+            flash()->success('اسلاید با موفقیت ذخیره شد');
         }
     }
 

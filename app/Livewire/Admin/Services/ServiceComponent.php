@@ -50,7 +50,7 @@ class ServiceComponent extends Component
             ]);
 
             $this->ref();
-            alert()->success('', 'تغییرات با موفقیت ذخیره شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد');
         } else {
 
             $this->validate([
@@ -67,13 +67,12 @@ class ServiceComponent extends Component
                 "service_order" => $this->service_order,
             ]);
             $this->ref();
-            alert()->success('', 'سرویس با موفقیت ذخیره شد');
+            flash()->success('سرویس با موفقیت ذخیره شد');
         }
     }
 
     public function edit_service(Service $service)
     {
-
         $this->is_edit = true;
         $this->title = $service->title;
         $this->description = $service->description;
@@ -82,11 +81,10 @@ class ServiceComponent extends Component
         $this->display = "disabled";
     }
 
-
     public function destroy(Service $service)
     {
         $service->delete();
-        alert()->success('', 'سرویس با موفقیت حذف شد');
+        flash()->success('سرویس با موفقیت حذف شد');
         return back();
     }
 

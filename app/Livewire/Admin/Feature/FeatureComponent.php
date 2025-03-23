@@ -41,7 +41,7 @@ class FeatureComponent extends Component
             $this->is_edit = false;
             $this->reset("name");
             $this->reset("display");
-            alert()->success('', 'تغییرات با موفقیت ذخیره شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد.');
         } else {
 
             $this->validate([
@@ -52,7 +52,7 @@ class FeatureComponent extends Component
                 'slug' => $this->name,
             ]);
             $this->reset("name");
-            alert()->success('', 'با موفقیت ذخیره شد');
+            flash()->success('با موفقیت ذخیره شد.');
         }
     }
 
@@ -69,10 +69,10 @@ class FeatureComponent extends Component
     {
 
         if ($feature->properties()->exists()) {
-            alert()->success('', 'به علت الحاق ملک امکان حذف آن وجود ندارد');
+            flash()->error('به علت الحاق ملک امکان حذف آن وجود ندارد');
         } else {
             $feature->delete();
-            alert()->success('', 'با موفقیت ذخیره شد');
+            flash()->success('با موفقیت ذخیره شد.');
         }
     }
 
