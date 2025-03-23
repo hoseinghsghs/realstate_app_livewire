@@ -160,9 +160,7 @@ class SettingComponent extends Component
             unset($data['logo']);
         }
         ModelsSetting::updateOrCreate(['id' => 1], $data);
-
-        // toastr()->livewire()->addSuccess('تغییرات با موفقیت ذخیره شد');
-        // return redirect()->route('admin.settings.show');
+        flash()->success('تغییرات با موفقیت ذخیره شد');
     }
     public function render()
     {

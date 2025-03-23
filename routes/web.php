@@ -176,16 +176,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/user/user-list', UserList::class)->name('list-user');
 
 
-
-
-
-        // Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
-
         Route::resource('/comments', CommentController::class)->only(['index', 'edit', 'destroy']);
 
-
         Route::get('/settings', SettingComponent::class)->name('settings');
-
 
         Route::delete('/delete-image/{image}', function (Image $image, ToastrFactory $flasher) {
 
