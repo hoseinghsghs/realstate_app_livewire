@@ -51,13 +51,15 @@
                                     <div class="form-group col-12 @error('body') is-invalid @enderror">
                                         <label for="summernote">متن<abbr class="required" title="ضروری"
                                                 style="color:red;">*</abbr></label>
+
                                         <div wire:ignore>
-                                            <textarea class="form-control summernote-editor" id="summernote" rows="9" wire:model.defer="body">{!! $this->body !!}</textarea>
+                                            <textarea id="summernote" wire:key="summernote"></textarea>
                                         </div>
                                         @error('body')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
+
 
 
                                     <div class="form-group col-12 @error('image') is-invalid @enderror">
@@ -233,6 +235,54 @@
 
 </div>
 </section>
+
+<head>
+    <script data-navigate-track>
+        document.addEventListener('livewire:navigated', function() {
+            initSummernote();
+        });
+        document.addEventListener('init-summernote', function() {
+            initSummernote();
+        });
+
+        function initSummernote() {
+            if (window.jQuery && $('#summernote').length) {
+                // Destroy نمونه های موجود Summernote
+                if ($('#summernote').hasClass('summernote-loaded')) {
+                    $('#summernote').summernote('destroy');
+                    $('#summernote').removeClass('summernote-loaded');
+                }
+                // مقداردهی اولیه Summernote
+                $('#summernote').summernote({
+                    height: 200,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['fontname', ['fontname']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
+                // نمایش محتوای قبلی در حالت ویرایش
+                if (@this.is_edit) {
+                    $('#summernote').summernote('code', @this.body);
+                } else {
+                    $('#summernote').summernote('code', ''); // پاک کردن محتوا در حالت افزودن/صرف نظر
+                }
+
+                $('#summernote').on('summernote.change', function(we, contents, $editable) {
+                    console.log(contents);
+                    @this.set('body', contents);
+                });
+                $('#summernote').addClass('summernote-loaded');
+            }
+        }
+    </script>
+</head>
+
 @push('scripts')
     <script>
         $('.scroll').click(function() {

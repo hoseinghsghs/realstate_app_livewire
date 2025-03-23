@@ -53,8 +53,7 @@
                                                 style="color:red;">*</abbr></label>
 
                                         <div wire:ignore>
-
-                                            <textarea class="form-control summer summernote-editor" id="summernote" rows="9" wire:model.defer="body">{!! $this->body !!}</textarea>
+                                            <textarea id="summernote" wire:key="summernote"></textarea>
                                         </div>
                                         @error('body')
                                             <small class="text-danger">{{ $message }}</small>
@@ -119,11 +118,11 @@
                                             class="btn btn-raised btn-warning waves-effect">
                                             ویرایش
                                             <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="add_article"></span>
+                                                onclick="initSummernote()" wire:target="add_article"></span>
                                         </button>
                                     @elseif(!$is_edit)
                                         <button wire:click="add_article" wire:loading.attr="disabled"
-                                            class="btn btn-raised btn-primary waves-effect">
+                                            onclick="initSummernote()" class="btn btn-raised btn-primary waves-effect">
                                             افزودن
                                             <span class="spinner-border spinner-border-sm text-light" wire:loading
                                                 wire:target="add_article"></span>
@@ -134,7 +133,7 @@
                                         <button class="btn btn-raised btn-info waves-effect"
                                             wire:loading.attr="disabled" wire:click="ref">صرف نظر
                                             <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="ref"></span>
+                                                onclick="initSummernote()" wire:target="ref"></span>
                                         </button>
                                     @endif
                                 </div>
@@ -237,6 +236,54 @@
 </div>
 </section>
 
+
+<head>
+    <script data-navigate-track>
+        document.addEventListener('livewire:navigated', function() {
+            initSummernote();
+        });
+        document.addEventListener('init-summernote', function() {
+            initSummernote();
+        });
+
+        function initSummernote() {
+            if (window.jQuery && $('#summernote').length) {
+                // Destroy نمونه های موجود Summernote
+                if ($('#summernote').hasClass('summernote-loaded')) {
+                    $('#summernote').summernote('destroy');
+                    $('#summernote').removeClass('summernote-loaded');
+                }
+                // مقداردهی اولیه Summernote
+                $('#summernote').summernote({
+                    height: 200,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['fontname', ['fontname']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link']],
+                        ['view', ['fullscreen', 'codeview', 'help']]
+                    ]
+                });
+                // نمایش محتوای قبلی در حالت ویرایش
+                if (@this.is_edit) {
+                    $('#summernote').summernote('code', @this.body);
+                } else {
+                    $('#summernote').summernote('code', ''); // پاک کردن محتوا در حالت افزودن/صرف نظر
+                }
+
+                $('#summernote').on('summernote.change', function(we, contents, $editable) {
+                    console.log(contents);
+                    @this.set('body', contents);
+                });
+                $('#summernote').addClass('summernote-loaded');
+            }
+        }
+    </script>
+</head>
+
 @push('scripts')
     @if ($this->is_edit)
         <script>
@@ -244,17 +291,12 @@
         </script>
     @endif
 
-    <script>
+    <script data-navigate-track>
         $('.scroll').click(function() {
             $("html, body").animate({
                 scrollTop: 0
             }, 600);
             return false;
-        });
-        $(document).ready(function() {
-            $('#summernote').on('summernote.change', function(we, contents, $editable) {
-                @this.set('body', contents);
-            });
         });
     </script>
 @endpush

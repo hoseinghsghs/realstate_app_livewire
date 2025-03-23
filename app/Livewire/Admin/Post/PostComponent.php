@@ -37,6 +37,7 @@ class PostComponent extends Component
         $this->reset("description");
         $this->reset("display");
         $this->reset("post");
+        $this->dispatch('init-summernote');
         $this->dispatch('resetfile');
         $this->resetValidation();
     }
@@ -90,7 +91,7 @@ class PostComponent extends Component
             }
 
             $this->ref();
-            // flash()->addSuccess('تغییرات با موفقیت ذخیره شد');
+            flash()->success('تغییرات با موفقیت ذخیره شد.');
         } else {
 
             $this->validate([
@@ -128,7 +129,7 @@ class PostComponent extends Component
             }
 
             $this->ref();
-            // flash()->addSuccess('درخواست با موفقیت ایجاد شد');
+            flash()->success('پست با موفقیت ایجاد شد');
         }
     }
 
@@ -147,6 +148,7 @@ class PostComponent extends Component
         } else {
             $this->status = false;
         };
+        $this->dispatch('init-summernote');
     }
 
     public function render()
