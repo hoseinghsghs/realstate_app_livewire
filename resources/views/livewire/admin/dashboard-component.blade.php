@@ -92,6 +92,16 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2><strong> درصد </strong> نوع کاربری </h2>
+                            </div>
+                            <div class="body">
+                                <div id="chart-pie-2" class="c3_chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
 
                         <div class="body_scroll">
 
@@ -219,6 +229,15 @@
                     $sell = @json($sell);
                     $presell = @json($presell);
 
+                    $apr = @json($apr);
+                    $vil = @json($vil);
+                    $kol = @json($kol);
+                    $mag = @json($mag);
+                    $kar = @json($kar);
+                    $bag = @json($bag);
+                    $anb = @json($anb);
+
+
                     var chart = c3.generate({
                         bindto: "#chart-area-spline-sracked", // id of chart wrapper
 
@@ -303,6 +322,52 @@
                                 'data1': ' رهن و اجاره  ',
                                 'data2': '  فروش ',
                                 'data3': ' پیش فروش ',
+                            }
+                        },
+                        axis: {},
+                        legend: {
+                            show: true, //hide legend
+                        },
+                        padding: {
+                            bottom: 0,
+                            top: 0
+                        },
+                    });
+                });
+
+                $(document).ready(function() {
+                    var chart = c3.generate({
+                        bindto: '#chart-pie-2', // id of chart wrapper
+                        data: {
+                            columns: [
+                                // each columns data
+                                ['data1', $apr],
+                                ['data2', $vil],
+                                ['data3', $kol],
+                                ['data4', $mag],
+                                ['data5', $kar],
+                                ['data6', $bag],
+                                ['data7', $anb],
+                            ],
+                            type: 'pie', // default type of chart
+                            colors: {
+                                'data1': Aero.colors["blue-darker"],
+                                'data2': Aero.colors["green"],
+                                'data3': Aero.colors["orange"],
+                                'data4': Aero.colors["red"],
+                                'data5': Aero.colors["yellow"],
+                                'data6': Aero.colors["pink"],
+                                'data7': Aero.colors["gray"],
+                            },
+                            names: {
+                                'data1': "آپارتمان",
+                                'data2': "ویلایی",
+                                'data3': "کلنگی",
+                                'data4': "مغازه",
+                                'data5': "اداری",
+                                'data6': "باغ",
+                                'data7': "انبار",
+
                             }
                         },
                         axis: {},

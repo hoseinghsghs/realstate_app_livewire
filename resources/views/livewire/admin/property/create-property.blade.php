@@ -259,28 +259,31 @@
                                                         </div>
 
                                                         <div
-                                                            class="col-lg-4 col-md-6  form-group @error('form.floorsell') is-invalid @enderror">
-                                                            <label for="floorsell"> طبقه مورد
-                                                                معامله <abbr title="ضروری"
-                                                                    style="color:red;">*</abbr></label>
-                                                            <input type="text" wire:model='form.floorsell'
-                                                                id="floorsell" aria-disabled class="form-control"
-                                                                value="{{ old('floorsell') }}" />
-                                                            @error('form.floorsell')
-                                                                <small class="text-danger">{{ $message }}</small>
-                                                            @enderror
-                                                        </div>
-                                                        <div
-                                                            class="col-lg-4 col-md-6  form-group @error('form.floor') is-invalid @enderror">
-                                                            <label for="floor">تعداد
-                                                                طبقات</label>
-                                                            <input type="number" wire:model='form.floor'
-                                                                id="floor" step="1" aria-disabled
-                                                                class="form-control" value="{{ old('floor') }}" />
+                                                            class="col-lg-4 col-md-6 form-group @error('form.floor') is-invalid @enderror">
+                                                            <label for="floor">تعداد طبقات</label>
+                                                            <input type="number" wire:model.blur="form.floor"
+                                                                id="floor" step="1" class="form-control" />
                                                             @error('form.floor')
                                                                 <small class="text-danger">{{ $message }}</small>
                                                             @enderror
                                                         </div>
+
+                                                        <div
+                                                            class="col-lg-4 col-md-6 form-group @error('form.floorsell') is-invalid @enderror">
+                                                            <label for="floorsell">طبقه مورد معامله <abbr
+                                                                    title="ضروری" style="color:red;">*</abbr></label>
+                                                            <select wire:model="form.floorsell" id="floorsell"
+                                                                class="form-control" style="height: 64px" multiple>
+                                                                @foreach (range(1, max(1, (int) $form->floor)) as $floor)
+                                                                    <option value="{{ $floor }}">
+                                                                        {{ $floor }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('form.floorsell')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+
                                                     </div>
                                                     <div class="row clearfix">
                                                         <div

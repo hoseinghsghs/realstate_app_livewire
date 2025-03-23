@@ -70,7 +70,10 @@ class EditProperty extends Component
     public function update()
     {
         $this->form->update();
+
         $this->property = $this->property->fresh();
+        $this->form->floorsell = json_decode($this->property->floorsell, true);
+
         flash()->success('ملک با موفقیت ,ویرایش شد');
     }
 

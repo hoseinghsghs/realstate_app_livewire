@@ -42,7 +42,16 @@ class CreateProperty extends Component
             unset($this->form->otherimg[$id]);
         }
     }
+    public function updatedFormFloor($value)
+    {
+        // اطمینان از این که مقدار عددی و مثبت است
+        $this->form->floor = max(1, (int) $value);
 
+        // حذف طبقات انتخاب‌شده که خارج از محدوده جدید هستند
+        $this->form->floorsell = array_filter($this->form->floorsell, function ($item) use ($value) {
+            return $item <= $value;
+        });
+    }
 
     public function save()
     {
