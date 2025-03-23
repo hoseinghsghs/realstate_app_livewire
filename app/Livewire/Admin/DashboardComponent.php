@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Agreement;
 use App\Models\Comment;
+use App\Models\Post;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\Visit;
@@ -18,21 +19,24 @@ class DashboardComponent extends Component
     {
         $v = verta();
         $now = $v->year;
-        $m1 = Visit::where('date', '1')->where('years', $now)->get();
-        $m2 = Visit::where('date', '2')->where('years', $now)->get();
-        $m3 = Visit::where('date', '3')->where('years', $now)->get();
-        $m4 = Visit::where('date', '4')->where('years', $now)->get();
-        $m5 = Visit::where('date', '5')->where('years', $now)->get();
-        $m6 = Visit::where('date', '6')->where('years', $now)->get();
-        $m7 = Visit::where('date', '7')->where('years', $now)->get();
-        $m8 = Visit::where('date', '8')->where('years', $now)->get();
-        $m9 = Visit::where('date', '9')->where('years', $now)->get();
-        $m10 = Visit::where('date', '10')->where('years', $now)->get();
-        $m11 = Visit::where('date', '11')->where('years', $now)->get();
-        $m12 = Visit::where('date', '12')->where('years', $now)->get();
 
-        $visit = Visit::all();
-        $propertycount = Property::count();
+        $property = Property::all();
+        $year = $v->year; // سال مورد نظر را از درخواست دریافت کنید، در صورت عدم وجود، سال جاری را در نظر بگیرید
+
+        $rent = $property->where("tr_type", "رهن و اجاره")->count();
+        $sell = $property->where("tr_type", "فروش")->count();
+        $presell = $property->where("tr_type", "پیش فروش")->count();
+
+        $monthlyCounts = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $from = verta()->year($year)->month($month)->startMonth()->toCarbon();
+            $to = verta()->year($year)->month($month)->endMonth()->toCarbon();
+
+            $count = Property::whereBetween('created_at', [$from, $to])->count();
+            $monthlyCounts[$month] = $count;
+        };
+
+        $postcount = Post::count();
         $propertycount = Property::count();
         $commentcount  = Comment::count();
         $usercount     = User::count();
@@ -41,30 +45,23 @@ class DashboardComponent extends Component
         $users         = User::with('role')->take(5)->get();
         // $comments      = Comment::with('users')->take(5)->get();
         //agent
-        $propertycountAgent = Property::where('user_id', Auth::user()->id)->count();
+        $propertycountAgent = $property->where('user_id', Auth::user()->id)->count();
         $comments      = Comment::with('user')->take(5)->get();
         return view('livewire.admin.dashboard-component', compact(
             'propertycount',
             'commentcount',
+            'postcount',
             'usercount',
             'agreementcount',
             'properties',
             'users',
             'comments',
             'propertycountAgent',
-            'visit',
-            'm1',
-            'm2',
-            'm3',
-            'm4',
-            'm5',
-            'm6',
-            'm7',
-            'm8',
-            'm9',
-            'm10',
-            'm11',
-            'm12',
+            'monthlyCounts',
+            'rent',
+            'sell',
+            'presell',
+
         ))->extends('admin.layout.MasterAdmin')->section('Content');
     }
 }
