@@ -1,5 +1,9 @@
 <!doctype html>
 <html class="no-js " lang="en">
+@php
+    use App\Models\Setting;
+    $setting = Setting::firstOrNew();
+@endphp
 
 <head>
     @include('admin.partial.Head')
@@ -12,12 +16,17 @@
                 <div class="col-lg-4 col-sm-12">
                     <form id="loginformadmin" class="card auth_form">
                         <div class="header">
-                            <img class="logo" src="assets/images/logo.svg" alt="">
+
+
+                            <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
+                                width="70px" class="logo" alt="" />
+
                             <h5>ورود</h5>
                         </div>
                         <div class="body">
                             <div class="input-group ">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="ایمیل">
+                                <input type="text" name="email" id="email" class="form-control"
+                                    placeholder="ایمیل">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="zmdi zmdi-account-circle"></i></span>
                                 </div>
@@ -58,55 +67,55 @@
         </div>
     </div>
 </body>
-<script src="{{asset('js/admin.js')}}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
 @flasher_render
 
 
 <script>
-$('#loginformadmin').submit(function(event) {
-    event.preventDefault();
-    $.post("{{route('login')}}",
+    $('#loginformadmin').submit(function(event) {
+        event.preventDefault();
+        $.post("{{ route('login') }}",
 
-        {
-            '_token': "{{csrf_token()}}",
-            'email': $('#email').val(),
-            'password': $('#password').val(),
-            'check': $('#check-a3').val(),
+            {
+                '_token': "{{ csrf_token() }}",
+                'email': $('#email').val(),
+                'password': $('#password').val(),
+                'check': $('#check-a3').val(),
 
-        },
-        function(response, status) {
-            window.location.replace("{{route('setroute')}}");
-        }
+            },
+            function(response, status) {
+                window.location.replace("{{ route('setroute') }}");
+            }
 
-    ).fail(function(response) {
-        console.log(response.responseJSON.errors);
+        ).fail(function(response) {
+            console.log(response.responseJSON.errors);
 
-        if (response.responseJSON.errors.email) {
-            $('#erroremail').html(response.responseJSON.errors.email);
-        } else {
-            $('#erroremail').html("");
-        }
+            if (response.responseJSON.errors.email) {
+                $('#erroremail').html(response.responseJSON.errors.email);
+            } else {
+                $('#erroremail').html("");
+            }
 
-        if (response.responseJSON.errors.password) {
-            $('#errorpassword').html(response.responseJSON.errors.password[0]);
-        } else {
-            $('#errorpassword').html("");
-        }
+            if (response.responseJSON.errors.password) {
+                $('#errorpassword').html(response.responseJSON.errors.password[0]);
+            } else {
+                $('#errorpassword').html("");
+            }
 
-    })
+        })
 
 
-});
+    });
 </script>
 <script>
-$(document).ready(function() {
-    $("#loading").hide();
-    $(document).ajaxStart(function() {
-        $("#loading").show();
-    }).ajaxStop(function() {
+    $(document).ready(function() {
         $("#loading").hide();
+        $(document).ajaxStart(function() {
+            $("#loading").show();
+        }).ajaxStop(function() {
+            $("#loading").hide();
+        });
     });
-});
 </script>
 
 </html>

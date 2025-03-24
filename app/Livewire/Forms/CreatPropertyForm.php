@@ -28,7 +28,7 @@ class CreatPropertyForm extends Form
     public $code;
     public $usertype;
     public $bedroom;
-    public $floorsell;
+    public $floorsell = [];
     public $floor;
     public $year;
     public $area;
@@ -89,7 +89,7 @@ class CreatPropertyForm extends Form
                 'usertype' => 'required|string',
                 'type' => 'required|string',
                 'bedroom' => 'required|numeric',
-                'floorsell' => 'required|string',
+                'floorsell' => 'required|array',
                 'floor' => 'nullable|numeric',
                 'year' => 'nullable|numeric',
                 'area' => 'nullable|numeric',
@@ -186,6 +186,7 @@ class CreatPropertyForm extends Form
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
+        $this->floorsell  = json_encode($this->floorsell);
 
         $PropertyImageController = new PropertyImageController();
         if (isset($this->img)) {
@@ -244,7 +245,7 @@ class CreatPropertyForm extends Form
                 'usertype' => 'required|string',
                 'type' => 'required|string',
                 'bedroom' => 'required|numeric',
-                'floorsell' => 'required|string',
+                'floorsell' => 'required|array',
                 'floor' => 'nullable|numeric',
                 'year' => 'nullable|numeric',
                 'area' => 'nullable|numeric',
@@ -327,6 +328,7 @@ class CreatPropertyForm extends Form
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
+        $this->floorsell  = json_encode($this->floorsell);
         // $this->property->features()->sync($this->features);
         if ($this->tr_type == 'رهن و اجاره') {
             $this->loanamount = $this->loan = $this->bidprice = $this->ugprice = $this->meter_price = $this->loan = null;
@@ -368,7 +370,7 @@ class CreatPropertyForm extends Form
         $this->code = $property->code;
         $this->usertype = $property->usertype;
         $this->bedroom = $property->bedroom;
-        $this->floorsell = $property->floorsell;
+        $this->floorsell = json_decode($property->floorsell, true);
         $this->floor = $property->floor;
         $this->year = $property->year;
         $this->area = $property->area;
@@ -436,7 +438,7 @@ class CreatPropertyForm extends Form
             'usertype' => 'required|string',
             'type' => 'required|string',
             'bedroom' => 'required|numeric',
-            'floorsell' => 'required|string',
+            'floorsell' => 'required|array',
             'floor' => 'nullable|numeric',
             'year' => 'nullable|numeric',
             'area' => 'nullable|numeric',
@@ -465,7 +467,7 @@ class CreatPropertyForm extends Form
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
-
+        $this->floorsell  = json_encode($this->floorsell);
         $PropertyImageController = new PropertyImageController();
         if (isset($this->img)) {
             $imageName = $PropertyImageController->upload($this->img);

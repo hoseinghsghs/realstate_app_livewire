@@ -149,10 +149,10 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
-                        <div class="header">
-                            <h2 style="display: inline;"><strong>لیست پست ها </strong>
+                        <div>
+                            <h5 style="display: inline; float: right; color:#e47297"><strong>لیست پست ها </strong>
                                 ({{ $posts->total() }})
-                            </h2>
+                            </h5>
                         </div>
                         <div class="body">
                             @if (count($posts) === 0)

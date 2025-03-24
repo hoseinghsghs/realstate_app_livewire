@@ -33,18 +33,24 @@
                 ])><a href="/admin/dashboard" wire:navigate><i
                             class="zmdi zmdi-view-dashboard zmdi-hc-2x"></i><span> داشبورد </span></a></li>
 
-
                 <li @class([
-                    'active open' => request()->routeIs(
-                        'admin.properties.index',
-                        'admin.properties.create'),
-                ])><a href="javascript:void(0);" class="menu-toggle"><i
-                            class="zmdi zmdi-home"></i><span>
-                            املاک</span></a>
+                    'active open' =>
+                        request()->routeIs(
+                            'admin.properties.index',
+                            'admin.properties.create') && request()->query('type_property') !== 'advertise',
+                ])>
+                    <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>املاک</span></a>
                     <ul class="ml-menu">
-                        <li @class(['active' => request()->routeIs('admin.properties.create')])><a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a>
+                        <li @class(['active' => request()->routeIs('admin.properties.create')])>
+                            <a href="/admin/properties/create" wire:navigate>اضافه کردن ملک</a>
                         </li>
-                        <li @class(['active' => request()->routeIs('admin.properties.index')])><a href="/admin/properties" wire:navigate>لیست املاک</a></li>
+                        <li @class([
+                            'active' =>
+                                request()->routeIs('admin.properties.index') &&
+                                request()->query('type_property') !== 'advertise',
+                        ])>
+                            <a href="/admin/properties" wire:navigate>لیست املاک</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -74,7 +80,7 @@
 
 
                 <li @class([
-                    'active open' => request()->routeIs('admin.properties.index'),
+                    'active open' => request()->query('type_property') === 'advertise',
                 ])><a
                         href="{{ route('admin.properties.index', ['type_property' => 'advertise']) }}" wire:navigate><i
                             class="zmdi zmdi-assignment-o"></i><span>

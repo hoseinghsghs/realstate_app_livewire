@@ -3,16 +3,14 @@
 @section('title', 'Categories')
 
 @push('styles')
-
     <!-- JQuery DataTable Css -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}">
-
 @endpush
 
 @section('content')
 
     <div class="block-header">
-        <a href="{{route('admin.categories.create')}}" class="waves-effect waves-light btn right m-b-15 addbtn">
+        <a href="{{ route('admin.categories.create') }}" class="waves-effect waves-light btn right m-b-15 addbtn">
             <i class="material-icons left">+</i>
             <span>ساخت </span>
         </a>
@@ -39,7 +37,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                       <th>ردیف</th>
+                                    <th>ردیف</th>
                                     <th>عکس</th>
                                     <th>نام</th>
                                     <th>شماره</th>
@@ -48,30 +46,35 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @foreach( $categories as $key => $category )
-                                <tr>
-                                    <td>{{$key+1}}</td>
-                                    <td>
-                                        @if(Storage::exists('category/thumb/'.$category->image))
-                                            <img src="{{Storage::url('category/thumb/'.$category->image)}}" alt="{{$category->name}}" width="60" class="img-responsive img-rounded">
-                                        @endif
-                                    </td>
-                                    <td>{{$category->name}}</td>
-                                    <td>{{$category->posts->count()}}</td>
-                                    <td>{{$category->slug}}</td>
-                                    <td class="text-center">
-                                        <a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-info btn-sm waves-effect">
-                                            <i class="material-icons">ویرایش</i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm waves-effect" onclick="deleteCategory({{$category->id}})">
-                                            <i class="material-icons">حذف</i>
-                                        </button>
-                                        <form action="{{route('admin.categories.destroy',$category->id)}}" method="POST" id="del-category-{{$category->id}}" style="display:none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
-                                </tr>
+                                @foreach ($categories as $key => $category)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            @if (Storage::exists('category/thumb/' . $category->image))
+                                                <img src="{{ Storage::url('category/thumb/' . $category->image) }}"
+                                                    alt="{{ $category->name }}" width="60"
+                                                    class="img-responsive img-rounded">
+                                            @endif
+                                        </td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->posts->count() }}</td>
+                                        <td>{{ $category->slug }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}"
+                                                class="btn btn-info btn-sm waves-effect">
+                                                <i class="material-icons">ویرایش</i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm waves-effect"
+                                                onclick="deleteCategory({{ $category->id }})">
+                                                <i class="material-icons">حذف</i>
+                                            </button>
+                                            <form action="{{ route('admin.categories.destroy', $category->id) }}"
+                                                method="POST" id="del-category-{{ $category->id }}" style="display:none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -85,7 +88,6 @@
 
 
 @push('scripts')
-
     <!-- Jquery DataTable Plugin Js -->
     <script src="{{ asset('backend/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('backend/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
@@ -101,28 +103,26 @@
     <script src="{{ asset('backend/js/pages/tables/jquery-datatable.js') }}"></script>
 
     <script>
-        function deleteCategory(id){
-            
+        function deleteCategory(id) {
+
             swal({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-                    document.getElementById('del-category-'+id).submit();
+                    document.getElementById('del-category-' + id).submit();
                     swal(
-                    'Deleted!',
-                    'Category has been deleted.',
-                    'success'
+                        'Deleted!',
+                        'Category has been deleted.',
+                        'success'
                     )
                 }
             })
         }
     </script>
-
-
 @endpush

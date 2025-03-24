@@ -1,4 +1,8 @@
 <!doctype html>
+@php
+    use App\Models\Setting;
+    $setting = Setting::firstOrNew();
+@endphp
 <html class="no-js " lang="en">
 
 <head>
@@ -11,28 +15,28 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                        <li>{{ $error }}</li>
                     @endforeach
-                    <form action="{{route('password.update')}}" method="POST" id="forgetUpdatePassword"
+                    <form action="{{ route('password.update') }}" method="POST" id="forgetUpdatePassword"
                         class="card auth_form">
                         @csrf
-                        <input type="hidden" name="token" value="{{$request->route('token')}}">
+                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
                         <div class="header">
-                            <img class="logo" src="assets/images/logo.svg" alt="">
+
+                            <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
+                                width="70px" class="logo" alt="" />
                             <h5>تغییر کلمه عبور</h5>
                         </div>
                         <div class="body">
                             <div class="input-group ">
                                 <input type="text" name="email" id="email" class="form-control"
-                                    placeholder="{{$request->email}}">
+                                    placeholder="{{ $request->email }}">
                             </div>
                             <div class="input-group">
                                 <p style="color:red;" id="errorcurrent_password">
 
                                     @error('email')
-
-                                    {{ $message }}
-
+                                        {{ $message }}
                                     @enderror
                                 </p>
                             </div>
@@ -46,8 +50,9 @@
                             <div class="input-group">
                                 <p style="color:red;" id="errorpassword">
                                     @error('password')
-                                    {{ $message }}
-                                    @enderror</p>
+                                        {{ $message }}
+                                    @enderror
+                                </p>
                             </div>
                             <div class="input-group">
                                 <p style="color:red;" id="erroremail"></p>
@@ -72,14 +77,14 @@
                 </div>
                 <div class="col-lg-8 col-sm-12">
                     <div class="card">
-                        <img src="{{asset('assets/images/signin.svg')}}" alt="Sign In" />
+                        <img src="{{ asset('assets/images/signin.svg') }}" alt="Sign In" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-<script src="{{asset('js/admin.js')}}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
 @flasher_render
 
 </html>

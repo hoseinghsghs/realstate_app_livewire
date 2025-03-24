@@ -22,10 +22,17 @@ class DashboardComponent extends Component
 
         $property = Property::all();
         $year = $v->year; // سال مورد نظر را از درخواست دریافت کنید، در صورت عدم وجود، سال جاری را در نظر بگیرید
-
         $rent = $property->where("tr_type", "رهن و اجاره")->count();
         $sell = $property->where("tr_type", "فروش")->count();
         $presell = $property->where("tr_type", "پیش فروش")->count();
+
+        $apr = $property->where("type", 'آپارتمان')->count();
+        $vil = $property->where("type", 'خانه ویلایی')->count();
+        $kol = $property->where("type", 'زمین و کلنگی')->count();
+        $mag = $property->where("type", 'مغازه')->count();
+        $kar = $property->where("type", 'دفتر کار')->count();
+        $bag = $property->where("type", 'باغ')->count();
+        $anb = $property->where("type", 'انبار')->count();
 
         $monthlyCounts = [];
         for ($month = 1; $month <= 12; $month++) {
@@ -61,6 +68,13 @@ class DashboardComponent extends Component
             'rent',
             'sell',
             'presell',
+            'apr',
+            'vil',
+            'kol',
+            'mag',
+            'kar',
+            'bag',
+            'anb',
 
         ))->extends('admin.layout.MasterAdmin')->section('Content');
     }
