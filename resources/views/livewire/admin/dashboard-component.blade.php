@@ -70,8 +70,8 @@
                     </div>
                     <div class="col-12">
                         <div class="card">
-                            <div class="header">
-                                <h2><strong><i class="zmdi zmdi-chart"></i> گزارش</strong> املاک ثبت شده</h2>
+                            <div>
+                                <strong><i class="zmdi zmdi-chart" style="color: #e47297"></i> املاک ثبت شده </strong>
                             </div>
                             <div class="body">
                                 <div id="chart-area-spline-sracked" class="c3_chart d_sales"></div>
@@ -83,8 +83,8 @@
 
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="card">
-                            <div class="header">
-                                <h2><strong> درصد </strong> نوع معامله </h2>
+                            <div>
+                                <i class="zmdi zmdi-chart" style="color: #e47297"></i><strong> نوع معامله </strong>
                             </div>
                             <div class="body">
                                 <div id="chart-pie" class="c3_chart"></div>
@@ -93,8 +93,8 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="card">
-                            <div class="header">
-                                <h2><strong> درصد </strong> نوع کاربری </h2>
+                            <div>
+                                <i class="zmdi zmdi-chart" style="color: #e47297"></i><strong> نوع کاربری </strong>
                             </div>
                             <div class="body">
                                 <div id="chart-pie-2" class="c3_chart"></div>
@@ -383,7 +383,7 @@
 
 
 
-            }, 500);
+            }, 1500);
         }
 
 

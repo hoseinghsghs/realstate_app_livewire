@@ -712,7 +712,6 @@
                                                 @if ($form->currentStep == 2)
                                                     <div class="step-two">
                                                         <div class="card">
-                                                            <h2>مشخصات مالک</h2>
                                                             <section>
                                                                 <p>
                                                                 <div class="card">

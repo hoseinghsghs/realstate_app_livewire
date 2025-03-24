@@ -76,14 +76,12 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="card">
-                                        <div class="header">
-                                            <h2><strong>آواتار</strong></h2>
-                                        </div>
+
                                         <div class="body">
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label class="form-label" for="exampleFormControlFile1">آپلود
-                                                        تصویر اصلی<span wire:loading wire:target="image"
+                                                        تصویر آواتار<span wire:loading wire:target="image"
                                                             class="spinner-border spinner-border-sm" role="status"
                                                             aria-hidden="true"></span></label>
                                                     <div class="custom-file d-flex flex-row-reverse">

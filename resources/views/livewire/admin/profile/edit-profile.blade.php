@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <div class="header">
+                    <div>
                         <h5>تنظیمات حساب</h5>
                     </div>
                     <form wire:submit.prevent="updateProfile" enctype="multipart/form-data" novalidate>
@@ -73,13 +73,11 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="card">
-                                        <div class="header">
-                                            <h2><strong>آواتار</strong></h2>
-                                        </div>
+
                                         <div class="body">
                                             <div class="form-group col-6 @error('image') is-invalid @enderror">
                                                 <label class="form-label" for="exampleFormControlFile1">آپلود
-                                                    تصویر <span wire:loading wire:target="image"
+                                                    تصویر آواتار <span wire:loading wire:target="image"
                                                         class="spinner-border spinner-border-sm" role="status"
                                                         aria-hidden="true"></span></label>
                                                 <div class="custom-file d-flex flex-row-reverse">
