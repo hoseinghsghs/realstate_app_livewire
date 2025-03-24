@@ -1,9 +1,9 @@
+@section('title', 'خانه')
 <div>
-    @section('title', 'خانه')
     <!-- ============================ Hero Banner  Start================================== -->
     <div class="image-cover hero_banner"
-        style="background:url(storage/slider/{{ $slider->first()->image ?? 'slider-default.png' }}) no-repeat;"
-        data-overlay="0">
+         style="background:url(storage/slider/{{ $slider->first()->image ?? 'slider-default.png' }}) no-repeat;"
+         data-overlay="0">
         <div class="container">
             <h1 class="big-header-capt mb-0">خانه جدید خود را پیدا کنید</h1>
             <p class="text-center mb-4">با پلتفرم جست و جو ما سریع تر خانه خود را پیدا کنید</p>
@@ -12,14 +12,13 @@
                 <div class="col-xl-10 col-lg-11 col-md-12">
                     <div class="full_search_box nexio_search lightanic_search hero_search-radius modern">
                         <div class="search_hero_wrapping">
-
-                            <form method="GET" action="{{ route('properties.list') }}">
+                            <form wire:submit="searchProperty">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-3 col-sm-12">
-                                        <div class="form-group">
+                                        <div class="form-group" wire:ignore>
                                             <label>نوع معامله</label>
                                             <div class="input-with-icon">
-                                                <select id="ptype" name="tr_type" class="form-control">
+                                                <select id="deal_type" name="tr_type" class="form-control">
                                                     <option value="">&nbsp;</option>
                                                     <option>رهن و اجاره</option>
                                                     <option>فروش</option>
@@ -30,7 +29,7 @@
                                     </div>
 
                                     <div class="col-lg-3 col-md-3 col-sm-12">
-                                        <div class="form-group">
+                                        <div class="form-group" wire:ignore>
                                             <label>نوع ملک</label>
                                             <div class="input-with-icon">
                                                 <select name="type" id="type" class="form-control">
@@ -43,7 +42,7 @@
                                                         کلنگی
                                                     </option>
                                                     <option>مغازه</option>
-                                                    <option>دفتر کار </option>
+                                                    <option>دفتر کار</option>
                                                     <option>باغ</option>
                                                     <option>انبار</option>
                                                 </select>
@@ -52,7 +51,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <div class="form-group none">
+                                        <div class="form-group none" wire:ignore>
                                             <label>محله ها</label>
                                             <div class="input-with-icon">
                                                 <select name="district" id="district" class="form-control">
@@ -86,7 +85,6 @@
     <!-- ============================ Property Category Start ================================== -->
     <section class="min">
         <div class="container">
-
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-8">
                     <div class="sec-heading center">
@@ -97,334 +95,318 @@
             </div>
 
             <div class="row justify-content-center mt-4">
-
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="/properties/list?type=آپارتمان" wire:navigate>
+                        <a href="{{route('properties.list',['property_type'=>'آپارتمان'])}}" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
-                                    <img src="assets/home/img/f-1.png" class="img-fluid hover" alt="" />
-                                    <img src="assets/home/img/f-11.png" class="img-fluid simple" alt="" />
+                                    <img src="assets/home/img/f-1.png" class="img-fluid hover" alt=""/>
+                                    <img src="assets/home/img/f-11.png" class="img-fluid simple" alt=""/>
                                 </div>
                                 <div class="_category_caption">
                                     <h5>آپارتمان</h5>
-                                    <span style="color: black;">{{ $apcount }} ملک</span>
+                                    <span style="color: black;">{{ $apartment_properties_count }} ملک</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="/properties/list?type=خانه ویلایی" wire:navigate>
+                        <a href="{{route('properties.list',['property_type'=>'خانه ویلایی'])}}" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
-                                    <img src="assets/home/img/f-2.png" class="img-fluid hover" alt="" />
-                                    <img src="assets/home/img/f-22.png" class="img-fluid simple" alt="" />
+                                    <img src="assets/home/img/f-2.png" class="img-fluid hover" alt=""/>
+                                    <img src="assets/home/img/f-22.png" class="img-fluid simple" alt=""/>
                                 </div>
                                 <div class="_category_caption">
                                     <h5>خانه ویلایی</h5>
-                                    <span style="color: black;">{{ $hocount }} ملک</span>
+                                    <span style="color: black;">{{ $villa_properties_count }} ملک</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-
-
-
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="/properties/list?type=مغازه" wire:navigate>
+                        <a href="{{route('properties.list',['property_type'=>'مغازه'])}}" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
-                                    <img src="assets/home/img/f-5.png" class="img-fluid hover" alt="" />
-                                    <img src="assets/home/img/f-55.png" class="img-fluid simple" alt="" />
+                                    <img src="assets/home/img/f-5.png" class="img-fluid hover" alt=""/>
+                                    <img src="assets/home/img/f-55.png" class="img-fluid simple" alt=""/>
                                 </div>
                                 <div class="_category_caption">
                                     <h5>مغازه</h5>
-                                    <span style="color: black;">{{ $macount }} ملک</span>
+                                    <span style="color: black;">{{ $shop_properties_count }} ملک</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-
-
                 <!-- Single Category -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="_category_box">
-                        <a href="/properties/list?type=زمین و کلنگی" wire:navigate>
+                        <a href="{{route('properties.list',['property_type'=>'زمین و کلنگی'])}}" wire:navigate>
                             <div class="_category_elio">
                                 <div class="_category_thumb">
-                                    <img src="assets/home/img/f-4.png" class="img-fluid hover" alt="" />
-                                    <img src="assets/home/img/f-44.png" class="img-fluid simple" alt="" />
+                                    <img src="assets/home/img/f-4.png" class="img-fluid hover" alt=""/>
+                                    <img src="assets/home/img/f-44.png" class="img-fluid simple" alt=""/>
                                 </div>
                                 <div class="_category_caption">
                                     <h5>زمین</h5>
-                                    <span style="color: black;">{{ $lacount }} ملک</span>
+                                    <span style="color: black;">{{ $land_properties_count }} ملک</span>
                                 </div>
-
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
     <!-- ============================ Property Category End ================================== -->
 
     <!-- ============================ Properties Start ================================== -->
-    <section class="pt-0 min">
-        <div class="container">
+    @if($rent_properties->count()>0)
+        <section class="pt-0 min">
+            <div class="container">
 
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-8">
-                    <div class="sec-heading center">
-                        <h2>آخرین املاک برای رهن و اجاره</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-8">
+                        <div class="sec-heading center">
+                            <h2>آخرین املاک برای رهن و اجاره</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row justify-content-center">
+                <div class="row justify-content-center">
+                    @foreach ($rent_properties as $rent_property)
+                        <!-- Single Property -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="property-listing property-2">
 
-                @foreach ($property_rent as $property_rents)
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="property-listing property-2">
-
-                            <div class="listing-img-wrapper">
-                                @isset($property_rents->lable)
-                                    <div class="_exlio_125" style="background-color:#ff2f2f;">
-                                        {{ $property_rents->lable }}</div>
-                                @endisset
-                                <div class="list-img-slide">
-                                    <div class="click">
-                                        <div><a href="/properties/{{ $property_rents->id }}" wire:navigate><img
-                                                    src="{{ asset('storage/preview/' . $property_rents->img) }}"
-                                                    class="img-fluid mx-auto" alt="" /></a></div>
-                                        <!-- اسلاید -->
-                                        <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
-                                                        class="img-fluid mx-auto" alt="" /></a></div>
-                                            <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
-                                                        class="img-fluid mx-auto" alt="" /></a></div> -->
+                                <div class="listing-img-wrapper">
+                                    @isset($rent_property->lable)
+                                        <div class="_exlio_125" style="background-color:#ff2f2f;">
+                                            {{ $rent_property->lable }}</div>
+                                    @endisset
+                                    <div class="list-img-slide">
+                                        <div class="click">
+                                            <div><a href="/properties/{{ $rent_property->id }}" wire:navigate><img
+                                                            src="{{ asset('storage/preview/' . $rent_property->img) }}"
+                                                            class="img-fluid mx-auto" alt=""/></a></div>
+                                            <!-- اسلاید -->
+                                            <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
+                                                            class="img-fluid mx-auto" alt="" /></a></div>
+                                                <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
+                                                            class="img-fluid mx-auto" alt="" /></a></div> -->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="listing-detail-wrapper">
-                                <div class="listing-short-detail-wrap">
-                                    <div class="_card_list_flex mb-2">
-                                        <div class="_card_flex_01">
+                                <div class="listing-detail-wrapper">
+                                    <div class="listing-short-detail-wrap">
+                                        <div class="_card_list_flex mb-2">
+                                            <div class="_card_flex_01">
                                             <span class="_list_blickes _netork">برای
-                                                {{ $property_rents->tr_type }}</span>
-                                            <span class="_list_blickes types">{{ $property_rents->type }}</span>
+                                                {{ $rent_property->tr_type }}</span>
+                                                <span class="_list_blickes types">{{ $rent_property->type }}</span>
+                                            </div>
+                                            @can('is_user')
+                                                @auth
+                                                    @if ($rent_property->checkUserWishlist(auth()->id()))
+                                                        <a id="{{ $rent_property->id }}"
+                                                           onclick="return send('{{ $rent_property->id }}')"
+                                                           style="color:red;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @elseif ($rent_property->checkUserWishlist(auth()->id()))
+                                                        <a id="{{ $rent_property->id }}"
+                                                           onclick="return send('{{ $rent_property->id }}')"
+                                                           style="color:blue ;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @else
+                                                        <a id="{{ $rent_property->id }}"
+                                                           onclick="return send('{{ $rent_property->id }}')"
+                                                           style="color:blue ;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @endif
+                                                @endauth
+                                            @endcan
                                         </div>
-                                        @can('is_user')
-                                            @auth
-                                                @if ($property_rents->checkUserWishlist(auth()->id()))
-                                                    <a id="{{ $property_rents->id }}"
-                                                        onclick="return send('{{ $property_rents->id }}')"
-                                                        style="color:red;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @elseif ($property_rents->checkUserWishlist(auth()->id()))
-                                                    <a id="{{ $property_rents->id }}"
-                                                        onclick="return send('{{ $property_rents->id }}')"
-                                                        style="color:blue ;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @else
-                                                    <a id="{{ $property_rents->id }}"
-                                                        onclick="return send('{{ $property_rents->id }}')"
-                                                        style="color:blue ;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @endif
-                                            @endauth
-                                        @endcan
-
-                                    </div>
-                                    <div class="_card_list_flex">
-                                        <div class="_card_flex_01">
-                                            <h4 class="listing-name verified"><a
-                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
-                                                    class="prt-link-detail">
-                                                    <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
-                                                        {{ $property_rents->title }}
-                                                    </h6>
-                                                </a></h4>
-                                            <h4 class="listing-name verified"><a
-                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
-                                                    class="prt-link-detail">
+                                        <div class="_card_list_flex">
+                                            <div class="_card_flex_01">
+                                                <h4 class="listing-name verified">
+                                                    <a href={{route("properties.show",$rent_property->id)}} wire:navigate
+                                                       class="prt-link-detail">
+                                                        <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
+                                                            {{ $rent_property->title }}
+                                                        </h6>
+                                                    </a>
+                                                </h4>
+                                                <h4 class="listing-name verified">
                                                     <h6 class="listing-card-info-price mb-2 mt-2 numbers"
                                                         style="font-size: 15px;">مبلغ
                                                         اجاره
                                                         :
-                                                        {{ $property_rents->rent }}
+                                                        {{ $rent_property->rent }}
                                                         تومان
                                                     </h6>
-                                                </a></h4>
-                                            <h4 class="listing-name verified"><a
-                                                    href="/properties/{{ $property_rents->id }}" wire:navigate
-                                                    class="prt-link-detail">
+                                                </h4>
+                                                <h4 class="listing-name verified">
                                                     <h6 class="listing-card-info-price mb-2 numbers"
                                                         style="font-size: 15px;">
                                                         مبلغ رهن
                                                         :
-                                                        {{ $property_rents->rahn }}
+                                                        {{ $rent_property->rahn }}
                                                         تومان
                                                     </h6>
-                                                </a></h4>
+                                                </h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="price-features-wrapper">
-                                <div class="list-fx-features">
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/bed.svg" width="13"
-                                                alt="" />
-                                        </div>{{ $property_rents->bedroom }} خوابه
-                                    </div>
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/01.png" width="13"
-                                                alt="" />
-                                        </div>{{ $property_rents->usertype }}
-                                    </div>
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
-                                                width="13" alt="" />
-                                        </div>{{ $property_rents->meter }} متر مربع
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="listing-detail-footer">
-                                <div class="footer-first">
-                                    <div class="foot-location"><img src="assets/home/img/pin.svg" width="18"
-                                            alt="" />
-                                        {{ $property_rents->city }},
-                                        {{ $property_rents->district }}
+                                <div class="price-features-wrapper">
+                                    <div class="list-fx-features">
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/bed.svg" width="13"
+                                                                             alt=""/>
+                                            </div>{{ $rent_property->bedroom }} خوابه
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/01.png" width="13"
+                                                                             alt=""/>
+                                            </div>{{ $rent_property->usertype }}
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
+                                                                             width="13" alt=""/>
+                                            </div>{{ $rent_property->meter }} متر مربع
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="footer-flex">
-                                    <a href="/properties/{{ $property_rents->id }}" wire:navigate
-                                        class="prt-view">مشاهده
-                                        جزئیات</a>
+
+                                <div class="listing-detail-footer">
+                                    <div class="footer-first">
+                                        <div class="foot-location"><img src="assets/home/img/pin.svg" width="18"
+                                                                        alt=""/>
+                                            {{ $rent_property->city }},
+                                            {{ $rent_property->district }}
+                                        </div>
+                                    </div>
+                                    <div class="footer-flex">
+                                        <a href={{route("properties.show",$rent_property->id)}} wire:navigate
+                                           class="prt-view">مشاهده
+                                            جزئیات</a>
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                    <!-- End Single Property -->
-                @endforeach
-
-
-            </div>
-
-        </div>
-    </section>
-    <!-- برای فروش -->
-    <section class="pt-0 min">
-        <div class="container">
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-8">
-                    <div class="sec-heading center">
-                        <h2>آخرین املاک برای فروش</h2>
-
-                    </div>
+                        <!-- End Single Property -->
+                    @endforeach
                 </div>
             </div>
+        </section>
+    @endif
+    @if($sell_properties->count()>0)
+        <!-- برای فروش -->
+        <section class="pt-0 min">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-8">
+                        <div class="sec-heading center">
+                            <h2>آخرین املاک برای فروش</h2>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="row justify-content-center">
+                <div class="row justify-content-center">
+                    <!-- برای فروش -->
+                    @foreach ($sell_properties as $property_sell)
+                        <!-- Single Property -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="property-listing property-2">
 
-                <!-- برای فروش -->
-                @foreach ($property_sell as $property_sell)
-                    <!-- Single Property -->
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="property-listing property-2">
-
-                            <div class="listing-img-wrapper">
-                                @isset($property_sell->lable)
-                                    <div class="_exlio_125" style="background-color:#ff2f2f;">
-                                        {{ $property_sell->lable }}</div>
-                                @endisset
-                                <div class="list-img-slide">
-                                    <div class="click">
-                                        <div><a href="/properties/{{ $property_sell->id }}" wire:navigate><img
-                                                    src="{{ asset('storage/preview/' . $property_sell->img) }}"
-                                                    class="img-fluid mx-auto" alt="" /></a></div>
-                                        <!-- اسلاید -->
-                                        <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
-                                                      class="img-fluid mx-auto" alt="" /></a></div>
-                                          <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
-                                                      class="img-fluid mx-auto" alt="" /></a></div> -->
+                                <div class="listing-img-wrapper">
+                                    @isset($property_sell->lable)
+                                        <div class="_exlio_125" style="background-color:#ff2f2f;">
+                                            {{ $property_sell->lable }}</div>
+                                    @endisset
+                                    <div class="list-img-slide">
+                                        <div class="click">
+                                            <div><a href="/properties/{{ $property_sell->id }}" wire:navigate><img
+                                                            src="{{ asset('storage/preview/' . $property_sell->img) }}"
+                                                            class="img-fluid mx-auto" alt=""/></a></div>
+                                            <!-- اسلاید -->
+                                            <!-- <div><a href="single-property-1.html"><img src="assets/home/img/p-2.png"
+                                                          class="img-fluid mx-auto" alt="" /></a></div>
+                                              <div><a href="single-property-1.html"><img src="assets/home/img/p-3.png"
+                                                          class="img-fluid mx-auto" alt="" /></a></div> -->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="listing-detail-wrapper">
-                                <div class="listing-short-detail-wrap">
-                                    <div class="_card_list_flex mb-2">
-                                        <div class="_card_flex_01">
+                                <div class="listing-detail-wrapper">
+                                    <div class="listing-short-detail-wrap">
+                                        <div class="_card_list_flex mb-2">
+                                            <div class="_card_flex_01">
                                             <span class="_list_blickes _netork">برای
                                                 {{ $property_sell->tr_type }}</span>
-                                            <span class="_list_blickes types">{{ $property_sell->type }}</span>
+                                                <span class="_list_blickes types">{{ $property_sell->type }}</span>
+                                            </div>
+                                            <!-- <div class="_card_flex_last">
+                                                    <div class="prt_saveed_12lk">
+                                                        <label class="toggler toggler-danger"><input type="checkbox"><i
+                                                                class="ti-heart"></i></label>
+                                                    </div>
+                                                </div> -->
+                                            @can('is_user')
+                                                @auth
+                                                    @if ($property_sell->checkUserWishlist(auth()->id()))
+                                                        <a id="{{ $property_sell->id }}"
+                                                           onclick="return send('{{ $property_sell->id }}')"
+                                                           style="color:red;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @elseif ($property_sell->checkUserWishlist(auth()->id()))
+                                                        <a id="{{ $property_sell->id }}"
+                                                           onclick="return send('{{ $property_sell->id }}')"
+                                                           style="color:blue ;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @else
+                                                        <a id="{{ $property_sell->id }}"
+                                                           onclick="return send('{{ $property_sell->id }}')"
+                                                           style="color:blue ;font-size: 24px;"
+                                                           class="geodir_save-btn tolt"
+                                                           data-microtip-position="left" data-tooltip="ذخیره"><span><i
+                                                                        class="ti-heart"></i></span></a>
+                                                    @endif
+                                                @endauth
+                                            @endcan
                                         </div>
-                                        <!-- <div class="_card_flex_last">
-                                                <div class="prt_saveed_12lk">
-                                                    <label class="toggler toggler-danger"><input type="checkbox"><i
-                                                            class="ti-heart"></i></label>
-                                                </div>
-                                            </div> -->
-                                        <!-- /////////// -->
-                                        @can('is_user')
-                                            @auth
-                                                @if ($property_sell->checkUserWishlist(auth()->id()))
-                                                    <a id="{{ $property_sell->id }}"
-                                                        onclick="return send('{{ $property_sell->id }}')"
-                                                        style="color:red;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @elseif ($property_sell->checkUserWishlist(auth()->id()))
-                                                    <a id="{{ $property_sell->id }}"
-                                                        onclick="return send('{{ $property_sell->id }}')"
-                                                        style="color:blue ;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @else
-                                                    <a id="{{ $property_sell->id }}"
-                                                        onclick="return send('{{ $property_sell->id }}')"
-                                                        style="color:blue ;font-size: 24px;" class="geodir_save-btn tolt"
-                                                        data-microtip-position="left" data-tooltip="ذخیره"><span><i
-                                                                class="ti-heart"></i></span></a>
-                                                @endif
-                                            @endauth
-                                        @endcan
-
-
-                                    </div>
-                                    <div class="_card_list_flex">
-                                        <div class="_card_flex_01">
-                                            <h4 class="listing-name verified"><a
-                                                    href="/properties/{{ $property_sell->id }}" wire:navigate
-                                                    class="prt-link-detail">
-                                                    <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
-                                                        {{ $property_sell->title }}
-                                                    </h6>
-                                                </a></h4>
-                                            <h4 class="listing-name verified"><a
-                                                    href="/properties/{{ $property_sell->id }}" wire:navigate
-                                                    class="prt-link-detail">
+                                        <div class="_card_list_flex">
+                                            <div class="_card_flex_01">
+                                                <h4 class="listing-name verified"><a
+                                                            href={{route("properties.show",$property_sell->id)}} wire:navigate
+                                                            class="prt-link-detail">
+                                                        <h6 class=" mb-2 mt-2 numbers" style="font-size: 15px;">
+                                                            {{ $property_sell->title }}
+                                                        </h6>
+                                                    </a></h4>
+                                                <h4 class="listing-name verified">
                                                     <h6 class="listing-card-info-price mb-2 mt-2 numbers"
                                                         style="font-size: 15px;">
                                                         قیمت پیشنهادی
@@ -432,72 +414,67 @@
                                                         {{ $property_sell->bidprice }}
                                                         تومان
                                                     </h6>
-                                                </a></h4>
-
+                                                </h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="price-features-wrapper">
-                                <div class="list-fx-features">
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/bed.svg" width="13"
-                                                alt="" />
-                                        </div>{{ $property_sell->bedroom }} خوابه
-                                    </div>
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/01.png" width="13"
-                                                alt="" />
-                                        </div>{{ $property_sell->usertype }}
-                                    </div>
-                                    <div class="listing-card-info-icon">
-                                        <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
-                                                width="13" alt="" />
-                                        </div>{{ $property_sell->meter }} متر مربع
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="listing-detail-footer">
-                                <div class="footer-first">
-                                    <div class="foot-location"><img src="assets/home/img/pin.svg" width="18"
-                                            alt="" />
-                                        {{ $property_sell->city }},
-                                        {{ $property_sell->district }}
+                                <div class="price-features-wrapper">
+                                    <div class="list-fx-features">
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/bed.svg" width="13"
+                                                                             alt=""/>
+                                            </div>{{ $property_sell->bedroom }} خوابه
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/01.png" width="13"
+                                                                             alt=""/>
+                                            </div>{{ $property_sell->usertype }}
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon"><img src="assets/home/img/move.svg"
+                                                                             width="13" alt=""/>
+                                            </div>{{ $property_sell->meter }} متر مربع
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="footer-flex">
-                                    <a href="/properties/{{ $property_sell->id }}" wire:navigate
-                                        class="prt-view">مشاهده
-                                        جزئیات</a>
+
+                                <div class="listing-detail-footer">
+                                    <div class="footer-first">
+                                        <div class="foot-location"><img src="assets/home/img/pin.svg" width="18"
+                                                                        alt=""/>
+                                            {{ $property_sell->city }},
+                                            {{ $property_sell->district }}
+                                        </div>
+                                    </div>
+                                    <div class="footer-flex">
+                                        <a href={{route("properties.show",$property_sell->id)}} wire:navigate
+                                           class="prt-view">مشاهده
+                                            جزئیات</a>
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                    <!-- End Single Property -->
-                @endforeach
-                <!-- پایان بریا فروش -->
-
-
+                        <!-- End Single Property -->
+                    @endforeach
+                    <!-- پایان بریا فروش -->
+                </div>
             </div>
-
-        </div>
-    </section>
-    <!-- برای فروش پایان-->
+        </section>
+        <!-- برای فروش پایان-->
+    @endif
     <!-- ============================ Properties End ================================== -->
 
     <!-- ============================ Top Agents ================================== -->
     <section class="image-cover min" style="background:#122947 url(assets/home/img/pattern.png) no-repeat;">
         <div class="container">
-
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-8">
                     <div class="sec-heading center light">
                         <h2>مشاوران برجسته ما</h2>
-
                     </div>
                 </div>
             </div>
@@ -516,16 +493,16 @@
                                         <div class="fr-grid-thumb">
                                             <a>
                                                 <span class="verified"><img src="assets/home/img/verified.svg"
-                                                        class="verify mx-auto" alt=""></span>
+                                                                            class="verify mx-auto" alt=""></span>
                                                 <img src="{{ asset('storage/profile/' . $user_agent->image) }}"
-                                                    class="img-fluid mx-auto" alt="">
+                                                     class="img-fluid mx-auto" alt="">
                                             </a>
                                         </div>
 
                                         <div class="fr-grid-deatil">
                                             <span><i class="ti-phone ml-1"></i>{{ $user_agent->phone }}</span>
                                             <h5 class="fr-can-name"><a
-                                                    href="{{ route('properties.list', ['user_id' => $user_agent->id]) }}">{{ $user_agent->name }}</a>
+                                                        href="{{ route('properties.list', ['user_id' => $user_agent->id]) }}">{{ $user_agent->name }}</a>
                                             </h5>
                                             <!-- <ul class="inline_social">
                                                     <li><a href="#" class="fb"><i class="ti-facebook"></i></a></li>
@@ -537,23 +514,18 @@
 
                                         <div class="fr-infos-deatil">
                                             <a href="tel:{{ $user_agent->phone }}"
-                                                class="btn agent-btn theme-black"><i
-                                                    class="fa fa-phone ml-2"></i>گرفتن
+                                               class="btn agent-btn theme-black"><i
+                                                        class="fa fa-phone ml-2"></i>گرفتن
                                                 تماس</a>
                                             <!-- <a href="#" class="btn agent-btn theme-black"><i class="fa fa-phone"></i></a> -->
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
     <!-- ============================ Top Agents End ================================== -->
@@ -643,11 +615,6 @@
                 </div>
             </section> -->
     <!-- ============================ Property By Location End ================================== -->
-
-    <!-- ============================ Smart Testimonials ================================== -->
-
-    <!-- ============================ Smart Testimonials End ================================== -->
-
     <!-- ============================ article Start ================================== -->
     <section class="min">
         <div class="container">
@@ -656,22 +623,19 @@
                 <div class="col-lg-7 col-md-8">
                     <div class="sec-heading center">
                         <h2>آخرین اخبار و مقالات</h2>
-
                     </div>
                 </div>
             </div>
 
             <div class="row justify-content-center">
-
                 @foreach ($posts as $post)
                     <!-- Single blog Grid -->
                     <div class="col-lg-4 col-md-6">
                         <div class="grid_blog_box">
-
                             <div class="gtid_blog_thumb">
                                 <a href="/blog/{{ $post->id }}" wire:navigate><img
-                                        src="{{ asset('storage/' . $post->image->url) }}" class="img-fluid"
-                                        alt="{{ $post->slug }}" /></a>
+                                            src="{{ asset('storage/' . $post->image->url) }}" class="img-fluid"
+                                            alt="{{ $post->slug }}"/></a>
                                 <div class="gtid_blog_info">
                                     <span>تاریخ</span>{{ Hekmatinasser\Verta\Verta::instance($post->created_at)->format('Y/n/j') }}
                                 </div>
@@ -679,7 +643,8 @@
 
                             <div class="blog-body">
                                 <h4 class="bl-title"><a href="/blog/{{ $post->id }}"
-                                        wire:navigate>{{ $post->title }}</a><span class="latest_new_post">خبر</span>
+                                                        wire:navigate>{{ $post->title }}</a><span
+                                            class="latest_new_post">خبر</span>
                                 </h4>
                                 <div class="text-overflow">
                                     <p>{{ $post->body }}</p>
@@ -689,8 +654,8 @@
                             <div class="modern_property_footer">
                                 <div class="property-author">
                                     <div class="path-img"><a tabindex="-1"><img
-                                                src="{{ asset('storage/profile/' . $post->user->image) }}"
-                                                class="img-fluid" alt=""></a>
+                                                    src="{{ asset('storage/profile/' . $post->user->image) }}"
+                                                    class="img-fluid" alt=""></a>
                                     </div>
                                     <h5><a tabindex="-1">{{ $post->user->name }}</a></h5>
                                 </div>
@@ -711,8 +676,8 @@
                         <div class="grid_blog_box">
                             <div class="gtid_blog_thumb">
                                 <a href="/article/{{ $article->id }}" wire:navigate><img
-                                        src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
-                                        alt="{{ $article->slug }}" /></a>
+                                            src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
+                                            alt="{{ $article->slug }}"/></a>
                                 <div class="gtid_blog_info">
                                     <span>تاریخ</span>{{ Hekmatinasser\Verta\Verta::instance($article->created_at)->format('Y/n/j') }}
 
@@ -721,8 +686,8 @@
 
                             <div class="blog-body">
                                 <h4 class="bl-title"><a href="/article/{{ $article->id }}"
-                                        wire:navigate>{{ $article->title }}</a><span
-                                        class="latest_new_post">مقاله</span></h4>
+                                                        wire:navigate>{{ $article->title }}</a><span
+                                            class="latest_new_post">مقاله</span></h4>
                                 <div class="text-overflow">
                                     <p>{{ $article->body }}</p>
                                 </div>
@@ -731,15 +696,15 @@
                             <div class="modern_property_footer">
                                 <div class="property-author">
                                     <div class="path-img"><a tabindex="-1"><img
-                                                src="{{ asset('storage/profile/' . $article->user->image) }}"
-                                                class="img-fluid" alt=""></a>
+                                                    src="{{ asset('storage/profile/' . $article->user->image) }}"
+                                                    class="img-fluid" alt=""></a>
                                     </div>
                                     <h5><a href=tabindex="-1">{{ $article->user->name }}</a></h5>
                                 </div>
                                 <span class="article-pulish-date">
                                     <div class="footer-flex">
                                         <a href="/article/{{ $article->id }}" wire:navigate
-                                            class="prt-view">مشاهده</a>
+                                           class="prt-view">مشاهده</a>
                                     </div>
                                 </span>
                             </div>
@@ -757,7 +722,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="call_action_wrap">
                         <div class="call_action_wrap-head">
                             <h3>آیا سوالی دارید؟</h3>
@@ -766,46 +730,68 @@
                         <a href='/contact-us' wire:navigate class="btn btn-call_action_wrap">امروز با ما تماس
                             بگیرید</a>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
     <!-- ============================ Call To Action End ================================== -->
     @include('home.partials.send-message')
-    @push('scripts')
-        <script>
-            $body = $("body");
-            $(document).on({
-                ajaxStart: function() {
-                    $body.addClass("loading");
-                },
-                ajaxStop: function() {
-                    $body.removeClass("loading");
-                }
-            });
-            $(document).ready(function() {
-                $("#price,#rahn,#rent").hide();
-                $(document).on('change', '#tr_type', function(e) {
-                    if (this.value === 'فروش') {
-                        $('#price').show();
-                        $('#rahn,#rent').hide();
-                    } else if (this.value === 'رهن و اجاره') {
-                        $('#price').hide();
-                        $('#rahn,#rent').show();
-                    } else {
-                        $("#price,#rahn,#rent").hide();
-                    }
-                })
-            });
-        </script>
-        <script>
-            $.fn.digits = function() {
-                return this.each(function() {
-                    $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-                })
-            }
-            $("h6.numbers").digits();
-        </script>
-    @endpush
 </div>
+@script
+<script>
+    $body = $("body");
+    $(document).on({
+        ajaxStart: function () {
+            $body.addClass("loading");
+        },
+        ajaxStop: function () {
+            $body.removeClass("loading");
+        }
+    });
+    $(document).ready(function () {
+        $("#price,#rahn,#rent").hide();
+        $(document).on('change', '#tr_type', function (e) {
+            if (this.value === 'فروش') {
+                $('#price').show();
+                $('#rahn,#rent').hide();
+            } else if (this.value === 'رهن و اجاره') {
+                $('#price').hide();
+                $('#rahn,#rent').show();
+            } else {
+                $("#price,#rahn,#rent").hide();
+            }
+        })
+    });
+
+    $.fn.digits = function () {
+        return this.each(function () {
+            $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+        })
+    }
+    $("h6.numbers").digits();
+
+    $('#deal_type').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('deal_type', $(this).val());
+    });
+
+    $('#type').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('property_type', $(this).val());
+    });
+
+    $('#district').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('district', $(this).val());
+    });
+</script>
+@endscript

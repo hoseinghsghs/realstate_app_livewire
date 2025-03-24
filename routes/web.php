@@ -4,7 +4,7 @@ use App\Livewire\Admin\Agreement\AgreementList;
 use App\Livewire\Admin\Agreement\CreateAgreement;
 use App\Livewire\Admin\Agreement\EditAgreement;
 use App\Livewire\Admin\Agreement\ShowAgreement;
-use App\Livewire\Home\Pages\PropertyList;
+use App\Livewire\Home\Pages\PropertiesList;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -72,7 +72,7 @@ Route::get('/', HomeComponent::class)->name('home');
 Route::get('/blog', BlogComponent::class)->name('blog.index');
 Route::get('/articled', PagesArticleComponent::class)->name('articled.index');
 
-Route::get('/properties/list', PropertyList::class)->name('properties.list');
+Route::get('/properties/list', PropertiesList::class)->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
 Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');

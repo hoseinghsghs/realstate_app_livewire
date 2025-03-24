@@ -7,7 +7,7 @@ use App\Models\Property;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-class PropertyList extends Component
+class PropertiesList extends Component
 {
     #[Url]
     public $deal_type = '';
@@ -22,39 +22,22 @@ class PropertyList extends Component
                       'price_range' => [],
                       'rent_range'  => [], 'rahn_range' => [], 'meter_range' => [], 'bedroom' => '', 'floor' => '',
                       'code'        => '', 'docType' => '', 'features' => []];
-    /*public $filter_deal_type = '';
-    public $filter_property_type = '';
-    public $filter_district = '';
-    public $search = '';
-    public $filter_price_range = [];
-    public $filter_rent_range = [];
-    public $filter_rahn_range = [];
-    public $filter_meter_range = [];
-    public $bedroom = '';
-    public $floor = '';
-    public $code = '';
-    public $docType = '';
-    public $features = [];*/
     public $all_features;
     public $all_districts;
-    public $price_range = [];
-    public $rent_range = [];
-    public $rahn_range = [];
-    public $meter_range = [];
+    public $max_floors = 5;
 
-    private function getMinMaxOfColumn($column, $defaultMax)
+    private function getMinMaxOfColumn($column, $defaultMax): array
     {
-
         $min_value = Property::min($column);
         $max_value = Property::max($column);
-        $min_value = 10 ** floor(log10($min_value));
+        $min_value = (int)(10 ** floor(log10($min_value)));
         if ($max_value)
-            $max_value = 10 ** (ceil(log10($max_value)));
+            $max_value = (int)(10 ** (ceil(log10($max_value))));
         else
             $max_value = $defaultMax;
         // if max and min value was same set zero for min
-        if ($max_value===$min_value){
-            $min_value=0;
+        if ($max_value === $min_value) {
+            $min_value = 0;
         }
         return [$min_value, $max_value];
     }
@@ -71,10 +54,13 @@ class PropertyList extends Component
         if ($this->district)
             $this->filter['district'] = $this->district;
 
-        $this->meter_range = $this->getMinMaxOfColumn('meter', 5000);
-        $this->rahn_range = $this->getMinMaxOfColumn('rahn', 1000000000);
-        $this->rent_range = $this->getMinMaxOfColumn('rent', 500000000);
-        $this->price_range = $this->getMinMaxOfColumn('bidprice', 90000000000);
+        $this->filter["meter_rang"] = $this->getMinMaxOfColumn('meter', 5000);
+        $this->filter["rahn_range"] = $this->getMinMaxOfColumn('rahn', 1000000000);
+        $this->filter["rent_range"] = $this->getMinMaxOfColumn('rent', 500000000);
+        $this->filter["price_range"] = $this->getMinMaxOfColumn('bidprice', 90000000000);
+        $m_floors = Property::max("floor");
+        if ($m_floors > $this->max_floors)
+            $this->max_floors = (int)$m_floors;
     }
 
     public function search_properties()
@@ -122,7 +108,6 @@ class PropertyList extends Component
             }
             return $query;
         })->withCount('images')->latest()->paginate(6);
-
         return view('livewire.home.pages.properties-list',
             ['properties' => $properties, 'all_features' => $this->all_features,
              'districts'  => $this->all_districts])->extends('home.layout.HomeLayout');
