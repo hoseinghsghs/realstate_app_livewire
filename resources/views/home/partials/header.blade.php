@@ -71,7 +71,7 @@
                             </li>
                             <li @class(['active' => request()->routeIs('home')])><a href="/"
                                                                                            wire:navigate>خانه</a></li>
-                            <li @class(['active' => request()->routeIs('properties.list') && empty(request()->query())])>
+                            <li @class(['active' => request()->routeIs('properties.list') && empty(request()->has("deal_type"))])>
                                 <a href="{{route('properties.list')}}" wire:navigate>املاک<span
                                             class="submenu-indicator"></span></a>
                             </li>

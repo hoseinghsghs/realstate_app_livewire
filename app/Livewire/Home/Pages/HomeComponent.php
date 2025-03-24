@@ -17,10 +17,10 @@ class HomeComponent extends Component
 {
 
 
-    public $email, $password, $remember;
+    public $email, $password, $remember, $deal_type, $property_type, $district;
 
     protected $rules = [
-        'email' => 'required|email',
+        'email'    => 'required|email',
         'password' => 'required|min:6',
     ];
 
@@ -35,70 +35,53 @@ class HomeComponent extends Component
         }
     }
 
+    public function searchProperty()
+    {
+        return $this->redirect(route('properties.list',
+            ['deal_type' => $this->deal_type, "property_type" => $this->property_type, "district" => $this->district]),
+            true);
+    }
 
     public function render()
     {
-        $slider = Slider::where('position', 'اسلایدر')->get();
-        $baner = Slider::where('position', 'بنر')->get();
-        $service_image = Slider::where('position', 'تصویرسرویس')->get();
-        $baner = Slider::where('position', 'بنر')->get();
-        $property = Property::active()->latest();
+        $sliders = Slider::all();
+        $slider = $sliders->where('position', 'اسلایدر');
 
-        $property_rent = $property->where('tr_type', 'رهن و اجاره')->take(6)->get();
-        $property_sell = $property->where('tr_type', 'فروش')->take(6)->get();
+        $properties = Property::active()->latest()->get();
+        $rent_properties = $properties->where('tr_type', 'رهن و اجاره')->take(6);
+        $sell_properties = $properties->where('tr_type', 'فروش')->take(6);
+        $apartment_properties_count = $properties->where('type', 'آپارتمان')->count();
+        $villa_properties_count = $properties->where('type', 'خانه ویلایی')->count();
+        $shop_properties_count = $properties->where('type', 'مغازه')->count();
+        $land_properties_count = $properties->where('type', 'زمین و کلنگی')->count();
 
+        $districts = $properties->unique('district')->pluck('district');
+        $specials = $properties->where('lable', 'ویژه ها');
 
-        $property_type_ap = $property->where('type', 'آپارتمان')->get();
-        $property_sell_ho = $property->where('type', 'خانه ویلایی')->get();
-        $property_sell_ma = $property->where('type', 'مغازه')->get();
-        $property_sell_la = $property->where('type', 'زمین و کلنگی')->get();
-
-        $service = Service::all();
         $user_agent = User::where([['role_id', 2], ['isactive', 1]])->get();
         $wishlist = WishList::where('user_id', auth()->id())->get();
-        $districts = Property::all()->unique('district')->pluck('district');
         $acount = User::where([['role_id', 2], ['isactive', 1]])->count();
-        $rcount = $property_rent->count();
-        $scount = $property_sell->count();
-
-        $apcount = $property_type_ap->count();
-        $hocount = $property_sell_ho->count();
-        $macount = $property_sell_ma->count();
-        $lacount = $property_sell_la->count();
 
         $ucount = User::count();
-        $specials = Property::latest()->where('lable', 'ویژه ها')->get();
         $posts = Post::with('image')->latest()->take(3)->get();
         $articles = Article::with('image')->latest()->take(3)->get();
-        $setting = Setting::findOrNew(1);
-        $setting->title = $setting->title;
-        $setting->emails = json_decode($setting->emails, true);
-        $setting->phones = json_decode($setting->phones, true);
-        $setting->links = json_decode($setting->links, true) ?? [];
 
-        return view('livewire.home.pages.home-component',  compact(
+        return view('livewire.home.pages.home-component', compact(
             'user_agent',
             'slider',
-            'service',
-            'baner',
-            'service_image',
-            'property_sell',
-            'property_rent',
-            'property',
+            'rent_properties',
+            'sell_properties',
             'wishlist',
             'districts',
-            'rcount',
-            'scount',
+            'apartment_properties_count',
+            'villa_properties_count',
+            'shop_properties_count',
+            'land_properties_count',
             'acount',
-            'apcount',
-            'hocount',
-            'macount',
-            'lacount',
             'ucount',
             'posts',
             'articles',
             'specials',
-            'setting'
         ))->extends('home.layout.HomeLayout')->section('content');
     }
 }
