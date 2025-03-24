@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <form id="UpdatePassword" class="card auth_form">
-                        <div class="header">
+                        <div style="text-align: center;">
 
                             <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                                 width="70px" class="logo" alt="" />

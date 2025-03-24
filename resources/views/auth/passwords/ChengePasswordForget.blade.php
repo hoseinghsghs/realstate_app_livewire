@@ -21,7 +21,7 @@
                         class="card auth_form">
                         @csrf
                         <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                        <div class="header">
+                        <div style="text-align: center;">>
 
                             <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
                                 width="70px" class="logo" alt="" />
