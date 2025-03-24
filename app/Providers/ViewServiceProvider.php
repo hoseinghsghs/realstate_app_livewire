@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Property;
 use App\Models\WishList;
@@ -24,15 +25,20 @@ class ViewServiceProvider extends ServiceProvider
      *
      * @return void
      */
-  
+
     public function boot()
     {
-       
-        view()->composer(['home.pages.UserProfile.index','test','home.partials.header','home.pages.UserProfile.wish_list','addcslashes','admin.partial.LeftSidebar'], function($view)
-        {
-            $view->with('property', Property::latest()->where('isactive', 1)->get())
-           ->with('wishlist', Wishlist::where('user_id' , auth()->id())->get())->with('setting',Setting::firstOrNew());
-          
+
+        view()->composer(['home.pages.UserProfile.index', 'test', 'home.partials.header',
+            'home.pages.UserProfile.wish_list', 'addcslashes', 'admin.partial.LeftSidebar'], function ($view) {
+            $view->with('wishlist', Wishlist::where('user_id', auth()->id())->get());
+
         });
+
+        $setting = Setting::firstOrNew();
+        $setting['phones'] = json_decode($setting->phones);
+        $setting['emails'] = json_decode($setting->emails);
+        $setting['links'] = json_decode($setting->links);
+        View::share('setting', $setting);
     }
 }

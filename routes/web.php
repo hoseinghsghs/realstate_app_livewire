@@ -5,6 +5,7 @@ use App\Livewire\Admin\Agreement\CreateAgreement;
 use App\Livewire\Admin\Agreement\EditAgreement;
 use App\Livewire\Admin\Agreement\ShowAgreement;
 use App\Livewire\Home\Pages\PropertiesList;
+use App\Livewire\Home\Pages\SingleProperty;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -74,7 +75,7 @@ Route::get('/articled', PagesArticleComponent::class)->name('articled.index');
 
 Route::get('/properties/list', PropertiesList::class)->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
-Route::get('/properties/{property}', [HomeController::class, 'show_property'])->name('properties.show');
+Route::get('/properties/{property}', SingleProperty::class)->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
 // Route::any('/admin', [AuthController::class,'login']);
 // Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

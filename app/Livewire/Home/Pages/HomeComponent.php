@@ -15,8 +15,6 @@ use Livewire\Component;
 
 class HomeComponent extends Component
 {
-
-
     public $email, $password, $remember, $deal_type, $property_type, $district;
 
     protected $rules = [

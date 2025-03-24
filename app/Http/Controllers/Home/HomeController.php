@@ -103,8 +103,8 @@ class HomeController extends Controller
         } else {
             $wishlist = WishList::where("user_id", '=', auth()->id())->where("property_id", '=', $property->id)->first();
         }
-        $setting = Setting::firstOrNew();
-        return view('home.pages.single-estate', compact('property', 'similar_properties', 'user', 'wishlist', 'setting'));
+//        $setting = Setting::firstOrNew();
+        return view('home.pages.single-estate', compact('property', 'similar_properties', 'user', 'wishlist'));
     }
     //register comments in single property
     public function register_comment(Request $request, Property $property)

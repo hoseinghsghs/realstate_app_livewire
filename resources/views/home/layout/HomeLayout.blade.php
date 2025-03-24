@@ -4,11 +4,6 @@
     use App\Models\Visit;
     use Hekmatinasser\Verta\Verta;
 
-    $setting = Setting::firstOrNew();
-    $setting['phone'] = json_decode($setting->phone);
-    $setting['email'] = json_decode($setting->email);
-    $setting['links'] = json_decode($setting->links);
-
     $v = verta();
     if (Session::has('visitip')) {
         $ip = Session::get('visitip');

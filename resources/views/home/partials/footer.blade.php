@@ -57,7 +57,7 @@
                                 <p style="color:#8bdeff">
                                     <i class="ti-mobile"></i><span>تلفن:</span>
                                     @isset($setting->phones)
-                                        @foreach (json_decode($setting->phones, true) as $phone)
+                                        @foreach ($setting->phones as $phone)
                                             <a class="mx-1" href="tel:{{ $phone }}">{{ $phone }}</a>
                                             @if(!$loop->last)
                                                 ,
@@ -67,7 +67,7 @@
                                 </p>
                                 <p style="color:#8bdeff"><i class="ti-email"></i><span>ایمیل:</span>
                                     @isset($setting->emails)
-                                        @foreach (json_decode($setting->emails, true) as $email)
+                                        @foreach ($setting->emails as $email)
                                             <a href="mailto:{{$email}}" class="mx-1">{{ $email }}</a>
                                             @if(!$loop->last)
                                                 ,

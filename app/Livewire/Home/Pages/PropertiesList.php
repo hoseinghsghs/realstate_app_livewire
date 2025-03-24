@@ -45,7 +45,7 @@ class PropertiesList extends Component
     public function mount()
     {
         $this->all_features = Feature::all();
-        $this->all_districts = Property::all()->unique('district')->pluck('district');
+        $this->all_districts = Property::active()->get()->unique('district')->pluck('district');
 
         if ($this->deal_type)
             $this->filter['deal_type'] = $this->deal_type;
@@ -61,11 +61,6 @@ class PropertiesList extends Component
         $m_floors = Property::max("floor");
         if ($m_floors > $this->max_floors)
             $this->max_floors = (int)$m_floors;
-    }
-
-    public function search_properties()
-    {
-        dd($this->deal_type);
     }
 
     public function render()
@@ -108,6 +103,7 @@ class PropertiesList extends Component
             }
             return $query;
         })->withCount('images')->latest()->paginate(6);
+
         return view('livewire.home.pages.properties-list',
             ['properties' => $properties, 'all_features' => $this->all_features,
              'districts'  => $this->all_districts])->extends('home.layout.HomeLayout');
