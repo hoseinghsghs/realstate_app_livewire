@@ -76,6 +76,7 @@ class ServiceComponent extends Component
         $this->is_edit = true;
         $this->title = $service->title;
         $this->description = $service->description;
+        $this->service_order = $service->service_order;
         $this->icon = $service->icon;
         $this->service = $service;
         $this->display = "disabled";
@@ -92,6 +93,6 @@ class ServiceComponent extends Component
     {
         $services = Service::latest()->paginate(10);
 
-        return view('livewire.admin.services.service-component', compact('services'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.services.service-component', compact('services'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

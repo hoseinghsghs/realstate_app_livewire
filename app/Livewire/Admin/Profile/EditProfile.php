@@ -48,6 +48,7 @@ class EditProfile extends Component
         $this->isactive = $user->isactive;
     }
 
+
     public function updateProfile()
     {
         $this->validate();
@@ -67,7 +68,7 @@ class EditProfile extends Component
             if (Storage::exists('profile/' . $this->image)) {
                 Storage::delete('profile/' . $this->image);
             }
-            $img = Image::make($image)->resize(800, 533);
+            $img = Image::make($image)->resize(800, 800);
 
             $img->save($pach  . '/profile/' . $imagename);
         } else {
@@ -100,6 +101,6 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.admin.profile.edit-profile')->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.profile.edit-profile')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

@@ -76,6 +76,6 @@ class DashboardComponent extends Component
             'bag',
             'anb',
 
-        ))->extends('admin.layout.MasterAdmin')->section('Content');
+        ))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

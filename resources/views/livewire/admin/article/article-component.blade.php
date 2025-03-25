@@ -89,6 +89,7 @@
                                                     target="_blank">
                                                     <div class="image">
                                                         <img src="{{ asset('storage/' . $article->image->url) }}"
+                                                            style="border: #00c3ff 2px solid ; border-radius: 0.5rem ; width: 25%"
                                                             alt="img" class="img-fluid">
                                                     </div>
                                                 </a>
@@ -209,6 +210,17 @@
                                                             <span class="spinner-border spinner-border-sm text-light"
                                                                 wire:loading
                                                                 wire:target="edit_article({{ $article->id }}) "></span>
+                                                            <button class="btn btn-raised btn-danger waves-effect"
+                                                                wire:loading.attr="disabled"
+                                                                wire:click="destroy({{ $article->id }})"
+                                                                wire:confirm="از حذف رکورد مورد نظر اطمینان دارید؟"
+                                                                {{ $display }}>
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                                <span
+                                                                    class="spinner-border spinner-border-sm text-light"
+                                                                    wire:loading
+                                                                    wire:target="destroy({{ $article->id }})"></span>
+                                                            </button>
                                                         </button>
                                                     </td>
                                                 </tr>

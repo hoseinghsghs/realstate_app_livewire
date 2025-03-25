@@ -151,10 +151,23 @@ class PostComponent extends Component
         $this->dispatch('init-summernote');
     }
 
+    public function destroy(Post $post)
+    {
+        if (Storage::exists($post->image->url)) {
+            Storage::delete($post->image->url);
+        }
+        $post->image()->delete();
+        $post->delete();
+
+        flash()->success('پست با موفقیت حذف شد');
+        return back();
+    }
+
+
     public function render()
     {
         $posts = Post::latest()->paginate(10);
 
-        return view('livewire.admin.post.post-component', compact('posts'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.post.post-component', compact('posts'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

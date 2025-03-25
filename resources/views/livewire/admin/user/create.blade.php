@@ -94,7 +94,8 @@
                                                 </div>
                                             </div>
                                             @if ($this->image)
-                                                <img src="{{ $this->image->temporaryUrl() }}" height="300rem"
+                                                <img src="{{ $this->image->temporaryUrl() }}"
+                                                    style="border: #00ff4c 2px solid ; border-radius: 0.5rem ;width: 25%;"
                                                     class="mb-3">
                                             @endif
                                         </div>

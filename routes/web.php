@@ -8,12 +8,6 @@ use App\Livewire\Home\Pages\PropertiesList;
 use App\Livewire\Home\Pages\SingleProperty;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\FeatureController;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Home\ArticleHomeController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\WishListController;
@@ -21,11 +15,7 @@ use App\Http\Controllers\UploadController;
 use App\Notifications\OtpSms;
 use App\Channels\SmsChannel;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Notification;
-use App\Http\Controllers\Admin\AgreementController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\BlogController;
 use App\Models\Image;
@@ -36,12 +26,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
 use App\Livewire\Admin\Article\ArticleComponent;
 use App\Livewire\Admin\DashboardComponent;
-use App\Livewire\Admin\Feature\CreateFeature;
 use App\Livewire\Admin\Feature\FeatureComponent;
 use App\Livewire\Admin\Post\PostComponent;
 use App\Livewire\Admin\Profile\EditProfile;
 use App\Livewire\Admin\Property\CreateProperty;
-use App\Livewire\Admin\Property\DeviceComponent;
 use App\Livewire\Admin\Property\EditProperty;
 use App\Livewire\Admin\Property\PropertyComponent;
 use App\Livewire\Admin\Property\ShowProperty;
@@ -56,19 +44,11 @@ use App\Livewire\Home\Pages\BlogComponent;
 use App\Livewire\Home\Pages\HomeComponent;
 use App\Livewire\Home\Pages\UserProfile\CreateProperty as UserProfileCreateProperty;
 use App\Livewire\Home\Pages\UserProfile\Index;
-use App\Models\Article;
-use App\Models\WishList;
-use Livewire\Livewire;
 
 //define route
 Route::get('/router', [RouteController::class, 'index'])->name('setroute');
 
-//home route
-//-------------------------------------------------------------------------------------------------------------------
-
-// Route::view('/contact-us','home.pages.contact-us');
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-// livewire home route
+//livewire home route
 Route::get('/', HomeComponent::class)->name('home');
 Route::get('/blog', BlogComponent::class)->name('blog.index');
 Route::get('/articled', PagesArticleComponent::class)->name('articled.index');
@@ -77,10 +57,7 @@ Route::get('/properties/list', PropertiesList::class)->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
 Route::get('/properties/{property}', SingleProperty::class)->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
-// Route::any('/admin', [AuthController::class,'login']);
-// Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
-// Route::get('/articled', [ArticleHomeController::class, 'index'])->name('articled.index');
 Route::get('/article/{article}', [ArticleHomeController::class, 'show'])->name('article.show');
 Route::get('/contact-us', function () {
     $setting = Setting::firstOrNew();
@@ -94,10 +71,8 @@ Route::get('/forget_password', function () {
 })->name('forget_password');
 
 //------------------------------------------------------------------------------------
-//user route
+//Livewire user route
 Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(function () {
-
-    // Livewire route
     Route::get('/properties/createproperty', UserProfileCreateProperty::class)->name('properties.create');
     Route::get('/dashboard', Index::class)->name('home');
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
@@ -106,17 +81,8 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
 
     Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
-    // Route::get('/submit-propert', function () {
-    //     $wishlist = Wishlist::where('user_id', auth()->id())->get();
-    //     return view('home.pages.UserProfile.submit-property', compact('wishlist'));
-    // })->name('submit-propert');
-
     Route::post('/upload/store', [UploadController::class, 'store'])->name('upload');
     Route::post('/delete', [UploadController::class, 'delete'])->name('del');
-
-    // Route::get('/dashboard', function () {
-    //     return view('home.pages.UserProfile.index');
-    // })->name('home');
 });
 
 //------------------------------------------------------------------------------------
@@ -155,7 +121,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
-        // Route::resource('/properties', PropertyController::class);
 
         //livewire routes
         Route::get('/dashboard', DashboardComponent::class)->name('home');
@@ -188,8 +153,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             $flasher->addSuccess('عکس با موفقیت حذف شد');
             return back();
         })->name('deleteImage')->middleware('cors');
-
-        // Route::resource('/posts', PostController::class);
     });
 });
 

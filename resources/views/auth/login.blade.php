@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <form id="loginformadmin" class="card auth_form">
-                        <div style="text-align: center;">>
+                        <div style="text-align: center;">
 
 
                             <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-8 col-sm-12">
                     <div class="card">
-                        <img src="assets/images/signin.svg" alt="Sign In" />
+                        <img src="{{ asset('assets/images/signin.svg') }}" alt="Sign In" />
                     </div>
                 </div>
             </div>

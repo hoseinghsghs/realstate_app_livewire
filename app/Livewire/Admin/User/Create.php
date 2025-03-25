@@ -36,16 +36,17 @@ class Create extends Component
             // گرفتن تاریخ
             $currentDate = Carbon::now()->toDateString();
             $filesystem = config('filesystems.default');
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $this->image->extension();
 
+            $filesystem = config('filesystems.default');
             $pach = config('filesystems.disks.' . $filesystem)['root'];
             // نام عکس
-            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $this->image->extension();
             // آیا این پوشه وجود دارد
             if (!Storage::exists('profile')) {
                 // این پوشه را بساز
                 Storage::makeDirectory('profile');
             }
-            Image::make($this->image)->resize(2000, 1228)->save($pach . '/' . 'slider/' . $imagename);
+            // Image::make($this->image)->resize(2000, 1228)->save($pach . '/' . 'profile/' . $imagename);
 
             $img = Image::make($this->image)->resize(800, 533);
             $img->save($pach . '/profile/' . $imagename);
@@ -53,7 +54,6 @@ class Create extends Component
             $imagename = 'default.png';
         }
 
-        $imagename = $this->image ? $this->image->store('avatars', 'public') : null;
 
         User::create([
             'name' => $this->name,
@@ -71,11 +71,8 @@ class Create extends Component
         return $this->redirect(route('admin.cearte-user'), navigate: true);
     }
 
-
-
-
     public function render()
     {
-        return view('livewire.admin.user.create')->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.user.create')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }
