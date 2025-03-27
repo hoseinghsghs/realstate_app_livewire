@@ -46,7 +46,6 @@ class CreatePropertiesTable extends Migration
             $table->string('rahn')->nullable();
             $table->string('bidprice')->nullable();
             $table->string('ugprice')->nullable();
-            $table->json('floorsell')->nullable();
             $table->string('floor')->nullable();
             $table->string('name_family')->nullable();
             $table->string('telephone')->nullable();

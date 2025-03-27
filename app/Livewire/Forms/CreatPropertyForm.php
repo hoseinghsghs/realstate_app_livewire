@@ -174,6 +174,8 @@ class CreatPropertyForm extends Form
 
     public function store()
     {
+
+
         $this->bidprice = Str::replace(',', '', $this->bidprice);
         $this->ugprice = Str::replace(',', '', $this->ugprice);
         $this->loanamount = Str::replace(',', '', $this->loanamount);
@@ -181,7 +183,6 @@ class CreatPropertyForm extends Form
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
-        $this->floorsell  = json_encode($this->floorsell);
 
         $PropertyImageController = new PropertyImageController();
         if (isset($this->img)) {
@@ -217,7 +218,7 @@ class CreatPropertyForm extends Form
         } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
             $this->rahn = $this->rent = $this->people_number = null;
         }
-        $property = Property::create($this->except(['is_edit', 'property', 'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
+        $property = Property::create($this->except(['is_edit', 'property', 'floorsell', 'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
         $property->features()->sync($this->features);
         if (isset($imageOtherName)) {
             foreach ($imageOtherName as $name) {
@@ -226,6 +227,12 @@ class CreatPropertyForm extends Form
                     'name' => $name,
                 ]);
             }
+        }
+
+        foreach ($this->floorsell as $floor) {
+            $property->floors_sell()->create([
+                'floor' => $floor,
+            ]);
         }
     }
 
@@ -324,7 +331,6 @@ class CreatPropertyForm extends Form
 
 
 
-        $this->property->floorsell()->sync($this->floorsell);
 
 
         if ($this->tr_type == 'رهن و اجاره') {
@@ -333,8 +339,16 @@ class CreatPropertyForm extends Form
             $this->rahn = $this->rent = $this->people_number = null;
         }
         $this->property->update(
-            $this->except(['is_edit', 'property', 'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep'])
+            $this->except(['is_edit', 'property', 'states', 'features', 'floorsell',  'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep'])
         );
+
+        $this->property->floors_sell()->delete();
+        foreach ($this->floorsell as $floor) {
+            $this->property->floors_sell()->create([
+                'floor' => $floor,
+            ]);
+        }
+
         $this->reset("img");
     }
 
@@ -367,7 +381,7 @@ class CreatPropertyForm extends Form
         $this->code = $property->code;
         $this->usertype = $property->usertype;
         $this->bedroom = $property->bedroom;
-        $this->floorsell = json_decode($property->floorsell, true);
+        $this->floorsell = $property->floors_sell->pluck('floor')->toArray();
         $this->floor = $property->floor;
         $this->year = $property->year;
         $this->area = $property->area;
