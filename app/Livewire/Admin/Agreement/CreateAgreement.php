@@ -17,7 +17,7 @@ class CreateAgreement extends Component
     public function mount()
     {
         $this->form->agreement_type = 'rental';
-//        $this->form->images = [];
+        //        $this->form->images = [];
     }
 
     public function save()
@@ -64,6 +64,6 @@ class CreateAgreement extends Component
 
     public function render()
     {
-        return view('livewire.admin.agreement.create-agreement')->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.agreement.create-agreement')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

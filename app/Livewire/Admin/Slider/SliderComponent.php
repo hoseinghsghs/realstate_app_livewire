@@ -162,10 +162,19 @@ class SliderComponent extends Component
             $this->status = false;
         };
     }
+    public function destroy(Slider $slider)
+    {
+        if (Storage::exists('slider/' . $slider->image)) {
+            Storage::delete('slider/' . $slider->image);
+        }
+        $slider->delete();
 
+        flash()->success('اسلایدر با موفقیت حذف شد');
+        return back();
+    }
     public function render()
     {
         $sliders = Slider::latest()->paginate(10);
-        return view('livewire.admin.slider.slider-component', compact('sliders'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.slider.slider-component', compact('sliders'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

@@ -70,6 +70,7 @@ class ArticleComponent extends Component
                 ]
             );
 
+
             if (isset($this->image)) {
                 $currentDate = Carbon::now()->toDateString();
 
@@ -154,9 +155,20 @@ class ArticleComponent extends Component
         $this->dispatch('init-summernote');
     }
 
+    public function destroy(Article $article)
+    {
+        if (Storage::exists($article->image->url)) {
+            Storage::delete($article->image->url);
+        }
+        $article->image()->delete();
+        $article->delete();
+
+        flash()->success('مقاله با موفقیت حذف شد');
+        return back();
+    }
     public function render()
     {
         $articles = Article::latest()->paginate(10);
-        return view('livewire.admin.article.article-component', compact('articles'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.article.article-component', compact('articles'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

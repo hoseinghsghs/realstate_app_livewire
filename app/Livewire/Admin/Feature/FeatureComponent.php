@@ -69,16 +69,16 @@ class FeatureComponent extends Component
     {
 
         if ($feature->properties()->exists()) {
-            flash()->error('به علت الحاق ملک امکان حذف آن وجود ندارد');
+            flash()->option('rtl', true)->warning('به علت الحاق ملک امکان حذف آن وجود ندارد');
         } else {
             $feature->delete();
-            flash()->success('با موفقیت ذخیره شد.');
+            flash()->option('rtl', true)->success('با موفقیت حذف شد.');
         }
     }
 
     public function render()
     {
         $features = Feature::latest()->paginate(10);
-        return view('livewire.admin.feature.feature-component', compact('features'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.feature.feature-component', compact('features'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

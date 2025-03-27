@@ -92,6 +92,6 @@ class EditAgreement extends Component
     public function render()
     {
         $photos = $this->agreement->images;
-        return view('livewire.admin.agreement.edit-agreement', compact('photos'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.agreement.edit-agreement', compact('photos'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

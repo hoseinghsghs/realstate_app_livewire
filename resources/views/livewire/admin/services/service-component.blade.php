@@ -36,13 +36,17 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 col-sm-6">
+                                <div class=" col-lg-6 col-md-12 col-sm-6">
                                     <small> برای گرفتن نام آیکن ها روی این لینک کلیک کنید و نام آیکن را در فیلد زیر
-                                        قرار دهید <a href="https://materializecss.com/icons.html"
+                                        قرار دهید <a
+                                            href="https://zavoloklom.github.io/material-design-iconic-font/icons.html"
                                             target="_blank">Materialize
                                             Icon</a></small>
                                     <label> آیکن </label>
-                                    <input type="text" name="icon" wire:model.defer="icon" class="form-control">
+
+
+                                    <input type="text" name="icon" wire:model.live="icon" class="form-control">
+                                    <i class="zmdi zmdi-{{ $this->icon }} mt-2" style="color: blueviolet"></i>
                                     @error('icon')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
@@ -118,7 +122,9 @@
                                                 <tr wire:key="{{ $Service->id }}" wire:loading.attr="disabled">
                                                     <td>{{ $loop->index + 1 }}</td>
                                                     <td>{{ $Service->title }}</td>
-                                                    <td>{{ $Service->icon }}</td>
+                                                    <td>
+                                                        <i class="zmdi zmdi-{{ $Service->icon }}"></i>
+                                                    </td>
                                                     <td>{{ $Service->service_order }}</td>
                                                     <td class="text-center js-sweetalert">
                                                         <button wire:click="edit_service({{ $Service->id }})"
@@ -130,14 +136,16 @@
                                                                 wire:target="edit_service({{ $Service->id }}) "></span>
                                                         </button>
 
-                                                        {{-- <button class="btn btn-raised btn-danger waves-effect"
+                                                        <button class="btn btn-raised btn-danger waves-effect"
                                                             wire:loading.attr="disabled"
-                                                            wire:click="del_Service({{ $Service->id }})"
-                                                wire:confirm="از حذف رکورد مورد نظر اطمینان دارید؟"
-                                                {{ $display }}>
-                                                <i class="zmdi zmdi-delete"></i>
-                                                <span class="spinner-border spinner-border-sm text-light" wire:loading wire:target="del_Service({{ $Service->id }})"></span>
-                                                </button> --}}
+                                                            wire:click="destroy({{ $Service->id }})"
+                                                            wire:confirm="از حذف رکورد مورد نظر اطمینان دارید؟"
+                                                            {{ $display }}>
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                            <span class="spinner-border spinner-border-sm text-light"
+                                                                wire:loading
+                                                                wire:target="destroy({{ $Service->id }})"></span>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -55,7 +55,6 @@ class AgreementList extends Component
             flash()->success('قولنامه با موفقیت حذف شد');
 
             DB::commit();
-
         } catch (\Exception $e) {
             // something went wrong
             DB::rollback();
@@ -81,6 +80,6 @@ class AgreementList extends Component
             $query->whereDate('agreement_date', $date_time[0]);
         })->latest()->paginate(10);
 
-        return view('livewire.admin.agreement.agreement-list', compact(['agreements']))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.agreement.agreement-list', compact(['agreements']))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

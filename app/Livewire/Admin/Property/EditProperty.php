@@ -70,8 +70,8 @@ class EditProperty extends Component
     public function update()
     {
         $this->form->update();
-
         $this->property = $this->property->fresh();
+
         $this->form->floorsell = json_decode($this->property->floorsell, true);
 
         flash()->success('ملک با موفقیت ,ویرایش شد');
@@ -90,6 +90,6 @@ class EditProperty extends Component
     {
         $property = $this->property;
         $features = Feature::latest()->get();
-        return view('livewire.admin.property.edit-property', compact('features', 'property'))->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.property.edit-property', compact('features', 'property'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }

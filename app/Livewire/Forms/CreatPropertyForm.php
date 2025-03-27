@@ -2,18 +2,13 @@
 
 namespace App\Livewire\Forms;
 
-use App\Http\Controllers\Admin\PropertyImageController;
+use App\Livewire\Admin\PropertyImageController;
 use App\Models\Property;
 use App\Models\PropertyImage;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Verta;
-use Image;
-
 
 class CreatPropertyForm extends Form
 {

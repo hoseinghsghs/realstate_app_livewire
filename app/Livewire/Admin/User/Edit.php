@@ -84,6 +84,6 @@ class Edit extends Component
     public function render()
     {
         $user = User::find($this->user);
-        return view('livewire.admin.user.edit')->extends('admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.user.edit')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
     }
 }
