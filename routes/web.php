@@ -60,10 +60,8 @@ Route::post('/properties/{property}/comments', [HomeController::class, 'register
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/article/{article}', [ArticleHomeController::class, 'show'])->name('article.show');
 Route::get('/contact-us', function () {
-    $setting = Setting::firstOrNew();
-    $setting['phone'] = json_decode($setting->phone);
-    $setting['email'] = json_decode($setting->email);
-    return view('home.pages.contact-us', compact('setting'));
+
+    return view('home.pages.contact-us');
 })->name('contactus');
 
 Route::get('/forget_password', function () {

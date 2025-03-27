@@ -82,8 +82,16 @@ class PropertiesList extends Component
     public function render()
     {
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
+            ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
 
 
+                $query->whereHas('floors_sell', function ($query) {
+                    $query->whereBetween('floor', $this->filter['floor_sell_range']);
+                });
+
+
+                return $query;
+            })
             ->when($this->user_id, function ($query) {
                 return $query->where('user_id', $this->user_id);
             })->when($this->filter['deal_type'], function ($query) {
