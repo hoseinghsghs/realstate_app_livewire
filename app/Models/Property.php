@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PropertyFloorSell;
 
 class Property extends Model
 {
@@ -54,6 +55,12 @@ class Property extends Model
         return $this->belongsToMany(Feature::class)->withTimestamps();
     }
 
+    public function floors_sell()
+    {
+
+        return $this->hasMany(PropertyFloorSell::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -68,6 +75,4 @@ class Property extends Model
     {
         return $this->hasMany(WishList::class)->where('user_id', $userId)->exists();
     }
-
-
 }

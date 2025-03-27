@@ -16,15 +16,26 @@ class PropertiesList extends Component
     public $property_type = '';
     #[Url]
     public $district = '';
-//    public $user_type = '';
+    //    public $user_type = '';
     public $user_id = '';
 
-    public $filter = ['deal_type'        => '', 'property_type' => '', 'user_type' => '', 'search' => '',
-                      'district'         => '',
-                      'price_range'      => [],
-                      'rent_range'       => [], 'rahn_range' => [], 'meter_range' => [], 'floor_range' => [1, 5],
-                      'floor_sell_range' => [1, 5], 'bedroom' => '',
-                      'code'             => '', 'docType' => '', 'features' => []];
+    public $filter = [
+        'deal_type'        => '',
+        'property_type' => '',
+        'user_type' => '',
+        'search' => '',
+        'district'         => '',
+        'price_range'      => [],
+        'rent_range'       => [],
+        'rahn_range' => [],
+        'meter_range' => [],
+        'floor_range' => [1, 5],
+        'floor_sell_range' => [1, 5],
+        'bedroom' => '',
+        'code'             => '',
+        'docType' => '',
+        'features' => []
+    ];
     public $all_features;
     public $all_districts;
 
@@ -71,17 +82,8 @@ class PropertiesList extends Component
     public function render()
     {
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
-            ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
-                $min = $this->filter['floor_sell_range'][0];
-                $max = $this->filter['floor_sell_range'][1];
-                $floorsells = $query->select("floorsell")->get();
-                foreach ($floorsells as $floor) {
-                    $acitve_floors=json_decode($floor->floorsell, true);
-                    foreach ($acitve_floors as $acitve_floor) {
-                        return $query
-                    }
-                }
-            })
+
+
             ->when($this->user_id, function ($query) {
                 return $query->where('user_id', $this->user_id);
             })->when($this->filter['deal_type'], function ($query) {
@@ -94,16 +96,22 @@ class PropertiesList extends Component
                 return $query->where('district', $this->filter['district']);
             })->when($this->filter['search'], function ($query) {
                 return $query->whereAny(['title', 'address'], 'like', '%' . $this->filter['search'] . '%');
-            })->when($this->filter['deal_type'] === 'فروش' && count($this->filter['price_range']) === 2,
+            })->when(
+                $this->filter['deal_type'] === 'فروش' && count($this->filter['price_range']) === 2,
                 function ($query) {
                     return $query->whereBetween('bidprice', $this->filter['price_range']);
-                })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rahn_range']) === 2,
+                }
+            )->when(
+                $this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rahn_range']) === 2,
                 function ($query) {
                     return $query->whereBetween('rahn', $this->filter['rahn_range']);
-                })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rent_range']) === 2,
+                }
+            )->when(
+                $this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rent_range']) === 2,
                 function ($query) {
                     return $query->whereBetween('rent', $this->filter['rent_range']);
-                })->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
+                }
+            )->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
                 return $query->whereBetween('meter', $this->filter['meter_range']);
             })->when($this->filter['bedroom'], function ($query) {
                 return $query->where('bedroom', $this->filter['bedroom']);
@@ -120,8 +128,13 @@ class PropertiesList extends Component
                 return $query;
             })->withCount('images')->latest()->paginate(6);
 
-        return view('livewire.home.pages.properties-list',
-            ['properties' => $properties, 'all_features' => $this->all_features,
-             'districts'  => $this->all_districts])->extends('home.layout.HomeLayout');
+        return view(
+            'livewire.home.pages.properties-list',
+            [
+                'properties' => $properties,
+                'all_features' => $this->all_features,
+                'districts'  => $this->all_districts
+            ]
+        )->extends('home.layout.HomeLayout');
     }
 }

@@ -285,8 +285,6 @@ class CreatPropertyForm extends Form
             ];
         }
 
-
-
         if ($this->img) {
             $this->is_edit = true;
             $PropertyImageController = new PropertyImageController();
@@ -323,8 +321,12 @@ class CreatPropertyForm extends Form
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
-        $this->floorsell  = json_encode($this->floorsell);
-        // $this->property->features()->sync($this->features);
+
+
+
+        $this->property->floorsell()->sync($this->floorsell);
+
+
         if ($this->tr_type == 'رهن و اجاره') {
             $this->loanamount = $this->loan = $this->bidprice = $this->ugprice = $this->meter_price = $this->loan = null;
         } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
