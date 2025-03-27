@@ -259,10 +259,12 @@
         function initSummernote() {
             if (window.jQuery && $('#summernote').length) {
                 // Destroy نمونه های موجود Summernote
-                if ($('#summernote').hasClass('summernote-loaded')) {
-                    $('#summernote').summernote('destroy');
-                    $('#summernote').removeClass('summernote-loaded');
-                }
+                $(document).ready(function() {
+                    let secondSummernote = $('.note-editor').eq(1); // گرفتن دومین نمونه‌ی Summernote
+                    if (secondSummernote.length > 0) {
+                        secondSummernote.remove(); // حذف دومین نمونه از صفحه
+                    }
+                });
                 // مقداردهی اولیه Summernote
                 $('#summernote').summernote({
                     height: 200,
