@@ -262,7 +262,8 @@
                                                             class="col-lg-4 col-md-6 form-group @error('form.floor') is-invalid @enderror">
                                                             <label for="floor">تعداد طبقات</label>
                                                             <input type="number" wire:model.blur="form.floor"
-                                                                id="floor" step="1" class="form-control" />
+                                                                id="floorCount" step="1"
+                                                                class="form-control" />
                                                             @error('form.floor')
                                                                 <small class="text-danger">{{ $message }}</small>
                                                             @enderror
@@ -272,13 +273,18 @@
                                                             class="col-lg-4 col-md-6 form-group @error('form.floorsell') is-invalid @enderror">
                                                             <label for="floorsell">طبقه مورد معامله <abbr
                                                                     title="ضروری" style="color:red;">*</abbr></label>
-                                                            <select wire:model="form.floorsell" id="floorsell"
-                                                                class="form-control" style="height: 64px" multiple>
-                                                                @foreach (range(1, max(1, (int) $form->floor)) as $floor)
-                                                                    <option value="{{ $floor }}">
-                                                                        {{ $floor }}</option>
-                                                                @endforeach
-                                                            </select>
+
+                                                            <div wire:ignore>
+                                                                <select id="floorsell" class="form-control" multiple>
+
+
+                                                                    @foreach (range(1, max(1, (int) $form->floor)) as $floor)
+                                                                        <option value="{{ $floor }}">
+                                                                            {{ $floor }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
                                                             @error('form.floorsell')
                                                                 <small class="text-danger">{{ $message }}</small>
                                                             @enderror
@@ -1129,7 +1135,35 @@
         }
     </style>
 @endpush
+@script
+    <script>
+        $(document).ready(function() {
+            $('#floorsell').select2({
+                dir: "rtl",
+                placeholder: "طبقه مورد معامله",
+                allowClear: true,
+            }).on('change', function() {
+                @this.set('form.floorsell', $(this).val());
+            });
 
+            // رویداد تغییر تعداد طبقات
+            $('#floorCount').on('input', function() {
+                let floorCount = parseInt($(this).val()); // تعداد طبقات وارد شده
+                let options = [];
+
+                if (!isNaN(floorCount) && floorCount > 0) {
+                    // تولید گزینه‌ها بر اساس تعداد طبقات
+                    for (let i = 1; i <= floorCount; i++) {
+                        options.push(new Option(`طبقه ${i}`, i, false, false));
+                    }
+                }
+
+                // پاک کردن گزینه‌های قبلی و اضافه کردن گزینه‌های جدید
+                $('#floorsell').empty().append(options).trigger('change');
+            });
+        });
+    </script>
+@endscript
 @push('scripts')
     <script src="{{ asset('assets/js/ir-city-select.min.js') }}"></script>
     <script>

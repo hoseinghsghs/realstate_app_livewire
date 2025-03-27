@@ -253,7 +253,8 @@
                                             <div class="input-group">
                                                 <input type="text" name="mortgage_price" dir="ltr"
                                                     onkeyup="formatNumber(this)"
-                                                    class="form-control @error('form.mortgage_price') is-invalid @enderror">
+                                                    class="form-control @error('form.mortgage_price') is-invalid @enderror"
+                                                    wire:model="form.mortgage_price">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">تومان</span>
                                                 </div>
