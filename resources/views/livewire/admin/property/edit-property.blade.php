@@ -4,13 +4,13 @@
             <div class="block-header">
                 <div class="row">
                     <div class="col-lg-7 col-md-6 col-sm-12">
-                        <h2>افزودن ملک</h2>
+                        <h2>ویرایش ملک</h2>
                         </br>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}"><i
                                         class="zmdi zmdi-home"></i>خانه</a></li>
                             <li class="breadcrumb-item active">املاک</li>
-                            <li class="breadcrumb-item active">اضافه کردن ملک</li>
+                            <li class="breadcrumb-item active">ویرایش ملک</li>
                         </ul>
                         <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
                                 class="zmdi zmdi-sort-amount-desc"></i></button>
