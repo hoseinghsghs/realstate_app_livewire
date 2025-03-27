@@ -62,9 +62,9 @@
                         <!-- Find New Property -->
                         <div class="sidebar-widgets p-4">
                             <div @class(["form-group","d-none"=>$deal_type])>
-                                <div class="simple-input">
-                                    <select id="deal_type" class="form-control" wire:model.live="filter.deal_type">
-                                        <option value="">نوع معامله</option>
+                                <div class="simple-input" wire:ignore>
+                                    <select id="deal_type" class="form-control">
+                                        <option value=""></option>
                                         <option>رهن و اجاره</option>
                                         <option>فروش</option>
                                         <option>پیش فروش</option>
@@ -72,10 +72,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="simple-input">
-                                    <select id="property_type" wire:model="filter.property_type"
-                                            class="form-control">
-                                        <option value="">نوع ملک</option>
+                                <div class="simple-input" wire:ignore>
+                                    <select id="property_type" class="form-control">
+                                        <option value=""></option>
                                         <option>آپارتمان</option>
                                         <option>خانه ویلایی</option>
                                         <option>زمین و کلنگی</option>
@@ -88,9 +87,9 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="simple-input">
-                                    <select id="district" wire:model="filter.district" class="form-control">
-                                        <option value="">محله</option>
+                                <div class="simple-input" wire:ignore>
+                                    <select id="district" class="form-control">
+                                        <option value=""></option>
                                         @isset($districts)
                                             @foreach($districts as $district)
                                                 <option>{{$district}}</option>
@@ -101,10 +100,9 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="simple-input">
-                                    <select id="docType" name="doc" class="form-control"
-                                            wire:model.live="filter.docType">
-                                        <option value="">نوع سند</option>
+                                <div class="simple-input" wire:ignore>
+                                    <select id="docType" class="form-control">
+                                        <option value=""></option>
                                         <option>سند دار</option>
                                         <option>قولنامه ای</option>
                                         <option>در دست اقدام</option>
@@ -124,23 +122,11 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-12 col-xl-6">
+                                {{--<div class="col-12 col-xl-6">
                                     <div class="form-group">
-                                        <div class="simple-input">
-                                            <select id="floor" class="form-control" wire:model.live="filter.floor">
-                                                <option value="">تعداد طبقات
-                                                @for($i=1;$i<=$max_floors;$i++)
-                                                    <option>{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-xl-6">
-                                    <div class="form-group">
-                                        <div class="simple-input">
+                                        <div class="simple-input" wire:ignore>
                                             <select id="floor" class="form-control">
-                                                <option value="">طبقه مورد معامله
+                                                <option value=""></option>
                                                 @for($i=1;$i<=$max_floors;$i++)
                                                     <option>{{$i}}</option>
                                                 @endfor
@@ -150,10 +136,21 @@
                                 </div>
                                 <div class="col-12 col-xl-6">
                                     <div class="form-group">
-                                        <div class="simple-input">
-                                            <select id="bedroom" class="form-control"
-                                                    wire:model.live="filter.bedroom">
-                                                <option value="">اتاق خواب</option>
+                                        <div class="simple-input" wire:ignore>
+                                            <select id="floor-sell" class="form-control">
+                                                <option value=""></option>
+                                                @for($i=1;$i<=$max_floors;$i++)
+                                                    <option>{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>--}}
+                                <div class="col-12 col-xl-6">
+                                    <div class="form-group">
+                                        <div class="simple-input" wire:ignore>
+                                            <select id="bedroom" class="form-control">
+                                                <option value=""></option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -175,6 +172,19 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                    <h6>تعداد طبقه</h6>
+                                    <div class="rg-slider" wire:ignore>
+                                        <input type="text" class="floor-range-slider" name="floor-range" value=""/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+                                    <h6>طبقه مورد معامله</h6>
+                                    <div class="rg-slider" wire:ignore>
+                                        <input type="text" class="floor-sell-range-slider" name="floor-sell-range"
+                                               value=""/>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
                                     <h6>متراژ(مترمربع)</h6>
                                     <div class="rg-slider" wire:ignore>
@@ -266,6 +276,7 @@
         max: $wire.filter.price_range[1],
         from: $wire.filter.price_range[0],
         to: $wire.filter.price_range[1],
+        step: 1000000,
         grid: true,
         onFinish: function (data) {
             @this.
@@ -297,6 +308,7 @@
         max: $wire.filter.rahn_range[1],
         from: $wire.filter.rahn_range[0],
         to: $wire.filter.rahn_range[1],
+        step: 1000000,
         grid: true,
         onFinish: function (data) {
             @this.
@@ -312,11 +324,91 @@
         max: $wire.filter.rent_range[1],
         from: $wire.filter.rent_range[0],
         to: $wire.filter.rent_range[1],
+        step: 1000000,
         grid: true,
         onFinish: function (data) {
             @this.
             set('filter.rent_range', [data.from, data.to])
         }
     });
+
+    $(".floor-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.filter.floor_range[0],
+        max: $wire.filter.floor_range[1],
+        from: $wire.filter.floor_range[0],
+        to: $wire.filter.floor_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.floor_range', [data.from, data.to])
+            floorSellRangeSlider.update({
+                min: data.from,
+                max: data.to,
+                from: data.from,
+                to: data.to
+            });
+        }
+    });
+
+    let floorSellRangeSlider = $(".floor-sell-range-slider").ionRangeSlider({
+        rtl: true,
+        type: "double",
+        prettify_enabled: true,
+        prettify_separator: ",",
+        min: $wire.filter.floor_sell_range[0],
+        max: $wire.filter.floor_sell_range[1],
+        from: $wire.filter.floor_sell_range[0],
+        to: $wire.filter.floor_sell_range[1],
+        grid: true,
+        onFinish: function (data) {
+            @this.
+            set('filter.floor_sell_range', [data.from, data.to])
+        }
+    }).data("ionRangeSlider");
+
+    $('#deal_type').select2({
+        dir: "rtl",
+        placeholder: "نوع معامله",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('filter.deal_type', $(this).val());
+    });
+
+    $('#property_type').select2({
+        dir: "rtl",
+        placeholder: "نوع ملک",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('filter.property_type', $(this).val());
+    });
+
+    $('#district').select2({
+        dir: "rtl",
+        placeholder: "محله",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('filter.district', $(this).val());
+    });
+
+    $('#docType').select2({
+        dir: "rtl",
+        placeholder: "نوع سند",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('filter.docType', $(this).val());
+    });
+
+    $('#bedroom').select2({
+        dir: "rtl",
+        placeholder: "اتاق خواب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('filter.bedroom', $(this).val());
+    });
+
 </script>
 @endscript

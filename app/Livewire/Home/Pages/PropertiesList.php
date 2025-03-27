@@ -6,6 +6,7 @@ use App\Models\Feature;
 use App\Models\Property;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Staudenmeir\EloquentEagerLimit\Builder;
 
 class PropertiesList extends Component
 {
@@ -18,13 +19,14 @@ class PropertiesList extends Component
 //    public $user_type = '';
     public $user_id = '';
 
-    public $filter = ['deal_type'   => '', 'property_type' => '', 'user_type' => '', 'search' => '', 'district' => '',
-                      'price_range' => [],
-                      'rent_range'  => [], 'rahn_range' => [], 'meter_range' => [], 'bedroom' => '', 'floor' => '',
-                      'code'        => '', 'docType' => '', 'features' => []];
+    public $filter = ['deal_type'        => '', 'property_type' => '', 'user_type' => '', 'search' => '',
+                      'district'         => '',
+                      'price_range'      => [],
+                      'rent_range'       => [], 'rahn_range' => [], 'meter_range' => [], 'floor_range' => [1, 5],
+                      'floor_sell_range' => [1, 5], 'bedroom' => '',
+                      'code'             => '', 'docType' => '', 'features' => []];
     public $all_features;
     public $all_districts;
-    public $max_floors = 5;
 
     private function getMinMaxOfColumn($column, $defaultMax): array
     {
@@ -58,51 +60,65 @@ class PropertiesList extends Component
         $this->filter["rahn_range"] = $this->getMinMaxOfColumn('rahn', 1000000000);
         $this->filter["rent_range"] = $this->getMinMaxOfColumn('rent', 500000000);
         $this->filter["price_range"] = $this->getMinMaxOfColumn('bidprice', 90000000000);
+        // get the maximum floors of properties
         $m_floors = Property::max("floor");
-        if ($m_floors > $this->max_floors)
-            $this->max_floors = (int)$m_floors;
+        if ($m_floors > $this->filter["floor_range"][1]) {
+            $this->filter["floor_range"][1] = (int)$m_floors;
+            $this->filter["floor_sell_range"][1] = (int)$m_floors;
+        }
     }
 
     public function render()
     {
-        $properties = Property::with('user')->active()->when($this->user_id, function ($query) {
-            return $query->where('user_id', $this->user_id);
-        })->when($this->filter['deal_type'], function ($query) {
-            return $query->where('tr_type', $this->filter['deal_type']);
-        })->when($this->filter['user_type'], function ($query) {
-            return $query->where('usertype', $this->filter['user_type']);
-        })->when($this->filter['property_type'], function ($query) {
-            return $query->where('type', $this->filter['property_type']);
-        })->when($this->filter['district'], function ($query) {
-            return $query->where('district', $this->filter['district']);
-        })->when($this->filter['search'], function ($query) {
-            return $query->whereAny(['title', 'address'], 'like', '%' . $this->filter['search'] . '%');
-        })->when($this->filter['deal_type'] === 'فروش' && count($this->filter['price_range']) === 2, function ($query) {
-            return $query->whereBetween('bidprice', $this->filter['price_range']);
-        })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rahn_range']) === 2,
-            function ($query) {
-                return $query->whereBetween('rahn', $this->filter['rahn_range']);
-            })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rent_range']) === 2,
-            function ($query) {
-                return $query->whereBetween('rent', $this->filter['rent_range']);
-            })->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
-            return $query->whereBetween('meter', $this->filter['meter_range']);
-        })->when($this->filter['bedroom'], function ($query) {
-            return $query->where('bedroom', $this->filter['bedroom']);
-        })->when($this->filter['floor'], function ($query) {
-            return $query->where('floorsell', $this->filter['floor']);
-        })->when($this->filter['code'], function ($query) {
-            return $query->where('code', $this->filter['code']);
-        })->when($this->filter['docType'], function ($query) {
-            return $query->where('doc', $this->filter['docType']);
-        })->when(count($this->filter['features']) > 0, function ($query) {
-            foreach ($this->filter['features'] as $featureId) {
-                $query->whereHas('features', function ($query) use ($featureId) {
-                    $query->where('features.id', $featureId);
-                });
-            }
-            return $query;
-        })->withCount('images')->latest()->paginate(6);
+        $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
+            ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
+                $min = $this->filter['floor_sell_range'][0];
+                $max = $this->filter['floor_sell_range'][1];
+                $floorsells = $query->select("floorsell")->get();
+                foreach ($floorsells as $floor) {
+                    $acitve_floors=json_decode($floor->floorsell, true);
+                    foreach ($acitve_floors as $acitve_floor) {
+                        return $query
+                    }
+                }
+            })
+            ->when($this->user_id, function ($query) {
+                return $query->where('user_id', $this->user_id);
+            })->when($this->filter['deal_type'], function ($query) {
+                return $query->where('tr_type', $this->filter['deal_type']);
+            })->when($this->filter['user_type'], function ($query) {
+                return $query->where('usertype', $this->filter['user_type']);
+            })->when($this->filter['property_type'], function ($query) {
+                return $query->where('type', $this->filter['property_type']);
+            })->when($this->filter['district'], function ($query) {
+                return $query->where('district', $this->filter['district']);
+            })->when($this->filter['search'], function ($query) {
+                return $query->whereAny(['title', 'address'], 'like', '%' . $this->filter['search'] . '%');
+            })->when($this->filter['deal_type'] === 'فروش' && count($this->filter['price_range']) === 2,
+                function ($query) {
+                    return $query->whereBetween('bidprice', $this->filter['price_range']);
+                })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rahn_range']) === 2,
+                function ($query) {
+                    return $query->whereBetween('rahn', $this->filter['rahn_range']);
+                })->when($this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rent_range']) === 2,
+                function ($query) {
+                    return $query->whereBetween('rent', $this->filter['rent_range']);
+                })->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
+                return $query->whereBetween('meter', $this->filter['meter_range']);
+            })->when($this->filter['bedroom'], function ($query) {
+                return $query->where('bedroom', $this->filter['bedroom']);
+            })->when($this->filter['code'], function ($query) {
+                return $query->where('code', $this->filter['code']);
+            })->when($this->filter['docType'], function ($query) {
+                return $query->where('doc', $this->filter['docType']);
+            })->when(count($this->filter['features']) > 0, function ($query) {
+                foreach ($this->filter['features'] as $featureId) {
+                    $query->whereHas('features', function ($query) use ($featureId) {
+                        $query->where('features.id', $featureId);
+                    });
+                }
+                return $query;
+            })->withCount('images')->latest()->paginate(6);
 
         return view('livewire.home.pages.properties-list',
             ['properties' => $properties, 'all_features' => $this->all_features,
