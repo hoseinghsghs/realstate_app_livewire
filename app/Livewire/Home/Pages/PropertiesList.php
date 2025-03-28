@@ -83,15 +83,14 @@ class PropertiesList extends Component
     {
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
             ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
-                $min = $this->filter['floor_sell_range'][0];
-                $max = $this->filter['floor_sell_range'][1];
-                $floorsells = $query->select("floorsell")->get();
-                foreach ($floorsells as $floor) {
-                    $acitve_floors=json_decode($floor->floorsell, true);
-                    foreach ($acitve_floors as $acitve_floor) {
-                        return $query->whereBetween("floorsell", [$min, $max]);
-                    }
-                }
+
+
+                $query->whereHas('floors_sell', function ($query) {
+                    $query->whereBetween('floor', $this->filter['floor_sell_range']);
+                });
+
+
+                return $query;
             })
             ->when($this->user_id, function ($query) {
                 return $query->where('user_id', $this->user_id);
