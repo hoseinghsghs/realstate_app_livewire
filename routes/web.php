@@ -4,11 +4,13 @@ use App\Livewire\Admin\Agreement\AgreementList;
 use App\Livewire\Admin\Agreement\CreateAgreement;
 use App\Livewire\Admin\Agreement\EditAgreement;
 use App\Livewire\Admin\Agreement\ShowAgreement;
+use App\Livewire\Home\Pages\ContactUs;
 use App\Livewire\Home\Pages\PropertiesList;
-use App\Livewire\Home\Pages\SingleProperty;
+use App\Livewire\Home\Pages\ShowArticle;
+use App\Livewire\Home\Pages\ShowBlog;
+use App\Livewire\Home\Pages\ShowProperty;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PropertyController;
-use App\Http\Controllers\Home\ArticleHomeController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\WishListController;
 use App\Http\Controllers\UploadController;
@@ -17,14 +19,12 @@ use App\Channels\SmsChannel;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Home\BlogController;
 use App\Models\Image;
 use App\Models\PropertyImage;
-use App\Models\Setting;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RouteController;
-use App\Livewire\Admin\Article\ArticleComponent;
+use App\Livewire\Admin\Article\ArticleComponent as AdminArticleComponent;
 use App\Livewire\Admin\DashboardComponent;
 use App\Livewire\Admin\Feature\FeatureComponent;
 use App\Livewire\Admin\Post\PostComponent;
@@ -32,14 +32,14 @@ use App\Livewire\Admin\Profile\EditProfile;
 use App\Livewire\Admin\Property\CreateProperty;
 use App\Livewire\Admin\Property\EditProperty;
 use App\Livewire\Admin\Property\PropertyComponent;
-use App\Livewire\Admin\Property\ShowProperty;
+use App\Livewire\Admin\Property\ShowProperty as AdminShowProperty;
 use App\Livewire\Admin\Services\ServiceComponent;
 use App\Livewire\Admin\Setting\SettingComponent;
 use App\Livewire\Admin\Slider\SliderComponent;
 use App\Livewire\Admin\User\Create;
 use App\Livewire\Admin\User\Edit;
 use App\Livewire\Admin\User\UserList;
-use App\Livewire\Home\Pages\ArticleComponent as PagesArticleComponent;
+use App\Livewire\Home\Pages\ArticleComponent;
 use App\Livewire\Home\Pages\BlogComponent;
 use App\Livewire\Home\Pages\HomeComponent;
 use App\Livewire\Home\Pages\UserProfile\CreateProperty as UserProfileCreateProperty;
@@ -51,18 +51,14 @@ Route::get('/router', [RouteController::class, 'index'])->name('setroute');
 //livewire home route
 Route::get('/', HomeComponent::class)->name('home');
 Route::get('/blog', BlogComponent::class)->name('blog.index');
-Route::get('/articled', PagesArticleComponent::class)->name('articled.index');
-
+Route::get('/blog/{post}', ShowBlog::class)->name('blog.show');
+Route::get('/articles', ArticleComponent::class)->name('articles.index');
+Route::get('/article/{article}', ShowArticle::class)->name('article.show');
 Route::get('/properties/list', PropertiesList::class)->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
-Route::get('/properties/{property}', SingleProperty::class)->name('properties.show');
+Route::get('/properties/{property}', ShowProperty::class)->name('properties.show');
 Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
-Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/article/{article}', [ArticleHomeController::class, 'show'])->name('article.show');
-Route::get('/contact-us', function () {
-
-    return view('home.pages.contact-us');
-})->name('contactus');
+Route::get('/contact-us', ContactUs::class)->name('contact_us');
 
 Route::get('/forget_password', function () {
     return view('auth.passwords.ForgetPassword');
@@ -110,7 +106,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
     Route::group(['middleware' => ['auth', 'adminagent']], function () {
-        Route::get('/properties/show/{property}', ShowProperty::class)->name('properties.show');
+        Route::get('/properties/show/{property}', AdminShowProperty::class)->name('properties.show');
         Route::get('/properties/create', CreateProperty::class)->name('properties.create');
         Route::get('/properties/{property}/edit', EditProperty::class)->name('properties.edit');
         Route::get('/properties', PropertyComponent::class)->name('properties.index');
@@ -129,7 +125,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/services', ServiceComponent::class)->name('services');
         Route::get('/features', FeatureComponent::class)->name('features');
-        Route::get('/articles', ArticleComponent::class)->name('articles');
+        Route::get('/articles', AdminArticleComponent::class)->name('articles');
         Route::get('/posts', PostComponent::class)->name('posts');
         Route::get('/sliders', SliderComponent::class)->name('sliders');
 

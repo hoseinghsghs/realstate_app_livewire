@@ -1,13 +1,14 @@
-@extends('home.layout.HomeLayout')
+@extends('livewire.home.layout.HomeLayout')
 @section('title', 'ثبت آگهی')
 @section('content')
     @push('styles')
-        <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+        <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
-            crossorigin="anonymous">
-        <link href="{{ asset('assets/file/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css" />
+              crossorigin="anonymous">
+        <link href="{{ asset('assets/file/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
-        <link href="{{ asset('assets/file/themes/explorer-fas/theme.css') }}" media="all" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/file/themes/explorer-fas/theme.css') }}" media="all" rel="stylesheet"
+              type="text/css"/>
     @endpush
     <!-- ============================ Page Title Start================================== -->
     <div class="page-title" style="background:#f4f4f4 url(/assets/home/img/slider-5.jpg);" data-overlay="5">
@@ -50,10 +51,11 @@
                                             <!-- <li class="alert alert-danger alert-sm">{{ $error }}</li> -->
 
                                             <div class="col-sm-4">
-                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <div class="alert alert-danger alert-dismissible fade show"
+                                                     role="alert">
                                                     {{ $error }}
                                                     <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close">
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -61,8 +63,8 @@
                                         @endforeach
                                     </div>
                                     <form action="{{ route('user.properties.store') }}" class="needs-validation"
-                                        method="POST" id="form_advanced_validation" enctype="multipart/form-data"
-                                        novalidate>
+                                          method="POST" id="form_advanced_validation" enctype="multipart/form-data"
+                                          novalidate>
                                         @csrf
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane in active" id="home_with_icon_title">
@@ -75,10 +77,10 @@
                                                                 <label for="title">عنوان *</label>
                                                                 <div class="form-group">
                                                                     <input type="text" wire:model='form.title'
-                                                                        value="{{ old('title') }}" id="title"
-                                                                        class="form-control" required />
+                                                                           value="{{ old('title') }}" id="title"
+                                                                           class="form-control" required/>
                                                                     @error('form.title')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -86,8 +88,8 @@
                                                                 <label for="title">نام *</label>
                                                                 <div class="form-group">
                                                                     <input type="text" wire:model='form.name_family'
-                                                                        value="{{ old('name_family') }}" id="title"
-                                                                        class="form-control" required />
+                                                                           value="{{ old('name_family') }}" id="title"
+                                                                           class="form-control" required/>
 
                                                                 </div>
                                                             </div>
@@ -95,9 +97,9 @@
                                                                 <label for="title">شماره تماس *</label>
                                                                 <div class="form-group">
                                                                     <input type="text" maxlength="11"
-                                                                        wire:model='form.telephone'
-                                                                        value="{{ old('phone') }}" id="title"
-                                                                        class="form-control" required />
+                                                                           wire:model='form.telephone'
+                                                                           value="{{ old('phone') }}" id="title"
+                                                                           class="form-control" required/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -106,22 +108,22 @@
                                                                 <label for="tr_type"> نوع معامله *</label>
                                                                 <div class="form-group">
                                                                     <select wire:model.live='form.tr_type'
-                                                                        onchange="settype()" id="tr_type" required
-                                                                        class="form-control show-tick ms select2">
+                                                                            onchange="settype()" id="tr_type" required
+                                                                            class="form-control show-tick ms select2">
                                                                         <option disabled selected hidden>
                                                                         </option>
                                                                         <option
-                                                                            {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
+                                                                                {{ old('tr_type') == 'رهن و اجاره' ? 'selected' : '' }}>
                                                                             رهن و
                                                                             اجاره
                                                                         </option>
                                                                         <option
-                                                                            {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
+                                                                                {{ old('tr_type') == 'فروش' ? 'selected' : '' }}>
                                                                             فروش
                                                                         </option>
                                                                     </select>
                                                                     @error('form.tr_type')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -129,31 +131,31 @@
                                                                 <label for="usertype"> نوع کاربری *</label>
                                                                 <div class="form-group">
                                                                     <select wire:model='form.usertype' id="usertype"
-                                                                        class="form-control show-tick ms select2">
+                                                                            class="form-control show-tick ms select2">
                                                                         <option disabled selected hidden></option>
                                                                         <option
-                                                                            {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
+                                                                                {{ old('usertype') == 'مسکونی' ? 'selected' : '' }}>
                                                                             مسکونی
                                                                         </option>
                                                                         <option
-                                                                            {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
+                                                                                {{ old('usertype') == 'تجاری' ? 'selected' : '' }}>
                                                                             تجاری
                                                                         </option>
                                                                         <option
-                                                                            {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
+                                                                                {{ old('usertype') == 'آموزشی' ? 'selected' : '' }}>
                                                                             آموزشی
                                                                         </option>
                                                                         <option
-                                                                            {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
+                                                                                {{ old('usertype') == 'اداری' ? 'selected' : '' }}>
                                                                             اداری
                                                                         </option>
                                                                         <option
-                                                                            {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
+                                                                                {{ old('usertype') == 'دیگر' ? 'selected' : '' }}>
                                                                             دیگر
                                                                         </option>
                                                                     </select>
                                                                     @error('form.usertype')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -161,41 +163,42 @@
                                                                 <label for="type">نوع ملک *</label>
                                                                 <div class="form-group">
                                                                     <select wire:model='form.type' id="type" required
-                                                                        class="form-control show-tick ms select2">
+                                                                            class="form-control show-tick ms select2">
                                                                         <option disabled selected hidden></option>
                                                                         <option
-                                                                            {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'آپارتمان' ? 'selected' : '' }}>
                                                                             آپارتمان
                                                                         </option>
                                                                         <option
-                                                                            {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'خانه ویلایی' ? 'selected' : '' }}>
                                                                             خانه
                                                                             ویلایی
                                                                         </option>
                                                                         <option
-                                                                            {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'زمین و کلنگی' ? 'selected' : '' }}>
                                                                             زمین
                                                                             و
                                                                             کلنگی
                                                                         </option>
                                                                         <option
-                                                                            {{ old('type') == 'مغازه' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'مغازه' ? 'selected' : '' }}>
                                                                             مغازه
                                                                         </option>
                                                                         <option
-                                                                            {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'دفتر کار' ? 'selected' : '' }}>
                                                                             دفتر کار
                                                                         </option>
                                                                         <option
-                                                                            {{ old('type') == 'باغ' ? 'selected' : '' }}>
-                                                                            باغ</option>
+                                                                                {{ old('type') == 'باغ' ? 'selected' : '' }}>
+                                                                            باغ
+                                                                        </option>
                                                                         <option
-                                                                            {{ old('type') == 'انبار' ? 'selected' : '' }}>
+                                                                                {{ old('type') == 'انبار' ? 'selected' : '' }}>
                                                                             انبار
                                                                         </option>
                                                                     </select>
                                                                     @error('form.type')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -205,11 +208,11 @@
                                                                 <label for="bedroom">تعداد خواب *</label>
                                                                 <div class="form-group">
                                                                     <input type="number" id="bedroom"
-                                                                        wire:model='form.bedroom' step="1"
-                                                                        aria-disabled class="form-control"
-                                                                        value="{{ old('bedroom') }}" required />
+                                                                           wire:model='form.bedroom' step="1"
+                                                                           aria-disabled class="form-control"
+                                                                           value="{{ old('bedroom') }}" required/>
                                                                     @error('form.bedroom')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -218,11 +221,11 @@
                                                                 <label for="floorsell"> طبقه مورد معامله *</label>
                                                                 <div class="form-group">
                                                                     <input type="number" wire:model='form.floorsell'
-                                                                        id="floorsell" step="1" aria-disabled
-                                                                        class="form-control" required
-                                                                        value="{{ old('floorsell') }}" />
+                                                                           id="floorsell" step="1" aria-disabled
+                                                                           class="form-control" required
+                                                                           value="{{ old('floorsell') }}"/>
                                                                     @error('form.floorsell')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -230,10 +233,10 @@
                                                                 <label for="floor">تعداد طبقات</label>
                                                                 <div class="form-group">
                                                                     <input type="number" wire:model='form.floor'
-                                                                        step="1" aria-disabled class="form-control"
-                                                                        value="{{ old('floor') }}" />
+                                                                           step="1" aria-disabled class="form-control"
+                                                                           value="{{ old('floor') }}"/>
                                                                     @error('form.floor')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -243,26 +246,27 @@
                                                                 <label for="year">قدمت ساخت</label>
                                                                 <div class="form-group">
                                                                     <input type="number" id="year"
-                                                                        wire:model='form.year' class="form-control"
-                                                                        placeholder="سال" value="{{ old('year') }}" />
+                                                                           wire:model='form.year' class="form-control"
+                                                                           placeholder="سال" value="{{ old('year') }}"/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4">
                                                                 <label for="area">مساحت زمین (برحسب متر مربع)</label>
                                                                 <div class="form-group">
                                                                     <input type="number" id="area"
-                                                                        wire:model='form.area'
-                                                                        value="{{ old('area') }}" class="form-control"
-                                                                        placeholder="متر مربع" />
+                                                                           wire:model='form.area'
+                                                                           value="{{ old('area') }}"
+                                                                           class="form-control"
+                                                                           placeholder="متر مربع"/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-4">
                                                                 <label for="meter">متراژ زیر بنا *</label>
                                                                 <div class="form-group">
                                                                     <input type="number" id="meter"
-                                                                        wire:model='form.meter'
-                                                                        value="{{ old('meter') }}" max="10000"
-                                                                        class="form-control" required />
+                                                                           wire:model='form.meter'
+                                                                           value="{{ old('meter') }}" max="10000"
+                                                                           class="form-control" required/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -276,7 +280,7 @@
                                                                 <label for="province">استان *</label>
                                                                 <div class="form-group">
                                                                     <select class="ir-province  form-control"
-                                                                        wire:model.live='form.province'>
+                                                                            wire:model.live='form.province'>
                                                                         <option value="">انتخاب استان
                                                                         </option>
                                                                         @foreach ($form->states as $stateName => $cities)
@@ -285,7 +289,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                     @error('form.province')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -293,14 +297,14 @@
                                                                 <label for="city">شهر *</label>
                                                                 <div class="form-group">
                                                                     <select class="ir-city  form-control"
-                                                                        wire:model='form.city'>
+                                                                            wire:model='form.city'>
                                                                         @foreach ($form->states[$form->province] ?? [] as $city)
                                                                             <option value="{{ $city }}">
                                                                                 {{ $city }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     @error('form.city')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -308,10 +312,11 @@
                                                                 <label for="district">محله *</label>
                                                                 <div class="form-group">
                                                                     <input type="text" step="any"
-                                                                        wire:model='form.district' class="form-control"
-                                                                        value="{{ old('district') }}" required />
+                                                                           wire:model='form.district'
+                                                                           class="form-control"
+                                                                           value="{{ old('district') }}" required/>
                                                                     @error('form.district')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -321,8 +326,11 @@
                                                                 <label for="">آدرس *</label>
                                                                 <div class="form-group">
                                                                     <div class="form-line">
-                                                                        <textarea rows="3" class="form-control no-resize" id="address" wire:model='form.address'
-                                                                            placeholder="آدرس را وارد کنید" required>{{ old('address') }}</textarea>
+                                                                        <textarea rows="3"
+                                                                                  class="form-control no-resize"
+                                                                                  id="address" wire:model='form.address'
+                                                                                  placeholder="آدرس را وارد کنید"
+                                                                                  required>{{ old('address') }}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -341,9 +349,9 @@
                                                                 <div class="form-group">
                                                                     <div class="file-loading">
                                                                         <input id="input-21"
-                                                                            data-overwrite-initial="true"
-                                                                            name="otherimg[]" multiple type="file"
-                                                                            data-theme="fas">
+                                                                               data-overwrite-initial="true"
+                                                                               name="otherimg[]" multiple type="file"
+                                                                               data-theme="fas">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -365,12 +373,13 @@
                                                                         <div class="input-group mb-3">
 
                                                                             <input type="text"
-                                                                                value="{{ old('bidprice') }}"
-                                                                                class="form-control" id="bidprice"
-                                                                                wire:model='form.bidprice'
-                                                                                aria-label="Amount (to the nearest dollar) "
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                minlength="10" maxlength="13" required>
+                                                                                   value="{{ old('bidprice') }}"
+                                                                                   class="form-control" id="bidprice"
+                                                                                   wire:model='form.bidprice'
+                                                                                   aria-label="Amount (to the nearest dollar) "
+                                                                                   onkeyup="separateNum(this.value,this);"
+                                                                                   minlength="10" maxlength="13"
+                                                                                   required>
                                                                             <div class="input-group-append">
                                                                             </div>
                                                                         </div>
@@ -392,14 +401,14 @@
                                                                         <div class="input-group mb-3">
 
                                                                             <input type="text"
-                                                                                value="{{ old('rent') }}"
-                                                                                class="form-control" id="rent"
-                                                                                wire:model='form.rent'
-                                                                                aria-label="Amount (to the nearest dollar)"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                maxlength="10" required>
+                                                                                   value="{{ old('rent') }}"
+                                                                                   class="form-control" id="rent"
+                                                                                   wire:model='form.rent'
+                                                                                   aria-label="Amount (to the nearest dollar)"
+                                                                                   onkeyup="separateNum(this.value,this);"
+                                                                                   maxlength="10" required>
                                                                             @error('form.rent')
-                                                                                <small
+                                                                            <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
                                                                             <div class="input-group-append">
@@ -412,14 +421,14 @@
                                                                     <div class="form-group">
                                                                         <div class="input-group mb-3">
                                                                             <input type="text"
-                                                                                value="{{ old('rahn') }}"
-                                                                                class="form-control"
-                                                                                wire:model='form.rahn'
-                                                                                aria-label="Amount (to the nearest dollar)"
-                                                                                onkeyup="separateNum(this.value,this);"
-                                                                                maxlength="11" required>
+                                                                                   value="{{ old('rahn') }}"
+                                                                                   class="form-control"
+                                                                                   wire:model='form.rahn'
+                                                                                   aria-label="Amount (to the nearest dollar)"
+                                                                                   onkeyup="separateNum(this.value,this);"
+                                                                                   maxlength="11" required>
                                                                             @error('form.rahn')
-                                                                                <small
+                                                                            <small
                                                                                     class="text-danger">{{ $message }}</small>
                                                                             @enderror
                                                                             <div class="input-group-append">
@@ -431,9 +440,9 @@
                                                                     <br><br>
                                                                     <div class="checkbox">
                                                                         <input id="ischange" wire:model='form.ischange'
-                                                                            type="checkbox">
+                                                                               type="checkbox">
                                                                         @error('form.ischange')
-                                                                            <small
+                                                                        <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                         <label for="ischange">قابل تغیر
@@ -450,7 +459,7 @@
                                                                 <label for="doc">نوع سند</label>
                                                                 <div class="form-group">
                                                                     <select wire:model='form.doc' id="doc"
-                                                                        class="form-control show-tick ms select2">
+                                                                            class="form-control show-tick ms select2">
                                                                         <option disabled selected hidden>
                                                                         </option>
                                                                         <option>سند
@@ -468,7 +477,7 @@
                                                                         </option>
                                                                     </select>
                                                                     @error('form.doc')
-                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    <small class="text-danger">{{ $message }}</small>
                                                                     @enderror
                                                                 </div>
                                                             </div>
@@ -478,10 +487,13 @@
                                                                 <label for="">توضیحات</label>
                                                                 <div class="form-group">
                                                                     <div class="form-line">
-                                                                        <textarea rows="5" class="form-control no-resize" id="description" wire:model='form.description'
-                                                                            placeholder="توضیحات را وارد کنید ...."></textarea>
+                                                                        <textarea rows="5"
+                                                                                  class="form-control no-resize"
+                                                                                  id="description"
+                                                                                  wire:model='form.description'
+                                                                                  placeholder="توضیحات را وارد کنید ...."></textarea>
                                                                         @error('form.description')
-                                                                            <small
+                                                                        <small
                                                                                 class="text-danger">{{ $message }}</small>
                                                                         @enderror
                                                                     </div>
@@ -491,14 +503,13 @@
                                                     </div>
 
 
-
                                                     <div class="body">
                                                         <div class="col-lg-5 ">
                                                         </div>
                                                         <div class="col-lg-4 ">
                                                             <button style="padding: 12px 40px 12px 40px" type="submit"
-                                                                class="btn btn-raised btn-primary waves-effect"
-                                                                onclick="">
+                                                                    class="btn btn-raised btn-primary waves-effect"
+                                                                    onclick="">
                                                                 ثبت اطلاعات
                                                             </button>
                                                         </div>
@@ -537,7 +548,7 @@
 
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#input-21").fileinput({
                 previewFileType: "image",
                 browseClass: "btn btn-success",
@@ -571,9 +582,9 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#price,#rahn").hide();
-            $(document).on('change', '#tr_type', function(e) {
+            $(document).on('change', '#tr_type', function (e) {
                 if (this.value === 'فروش') {
                     $('#price').show();
                     $('#rahn input').attr('disabled', 'disabled');
@@ -589,7 +600,6 @@
                 }
             })
         })
-
 
 
         function baractive() {
@@ -618,14 +628,14 @@
         }
     </script>
     <script>
-        (function() {
+        (function () {
             'use strict';
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
                 //         // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();

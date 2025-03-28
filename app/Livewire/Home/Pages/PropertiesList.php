@@ -21,20 +21,20 @@ class PropertiesList extends Component
 
     public $filter = [
         'deal_type'        => '',
-        'property_type' => '',
-        'user_type' => '',
-        'search' => '',
+        'property_type'    => '',
+        'user_type'        => '',
+        'search'           => '',
         'district'         => '',
         'price_range'      => [],
         'rent_range'       => [],
-        'rahn_range' => [],
-        'meter_range' => [],
-        'floor_range' => [1, 5],
+        'rahn_range'       => [],
+        'meter_range'      => [],
+        'floor_range'      => [1, 5],
         'floor_sell_range' => [1, 5],
-        'bedroom' => '',
+        'bedroom'          => '',
         'code'             => '',
-        'docType' => '',
-        'features' => []
+        'docType'          => '',
+        'features'         => []
     ];
     public $all_features;
     public $all_districts;
@@ -83,14 +83,9 @@ class PropertiesList extends Component
     {
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
             ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
-
-
-                $query->whereHas('floors_sell', function ($query) {
+                return $query->whereHas('floors_sell', function ($query) {
                     $query->whereBetween('floor', $this->filter['floor_sell_range']);
                 });
-
-
-                return $query;
             })
             ->when($this->user_id, function ($query) {
                 return $query->where('user_id', $this->user_id);
@@ -139,10 +134,10 @@ class PropertiesList extends Component
         return view(
             'livewire.home.pages.properties-list',
             [
-                'properties' => $properties,
+                'properties'   => $properties,
                 'all_features' => $this->all_features,
-                'districts'  => $this->all_districts
+                'districts'    => $this->all_districts
             ]
-        )->extends('home.layout.HomeLayout');
+        )->extends('livewire.home.layout.HomeLayout');
     }
 }

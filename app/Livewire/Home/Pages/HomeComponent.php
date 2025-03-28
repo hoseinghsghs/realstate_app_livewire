@@ -80,6 +80,6 @@ class HomeComponent extends Component
             'posts',
             'articles',
             'specials',
-        ))->extends('home.layout.HomeLayout')->section('content');
+        ))->extends('livewire.home.layout.HomeLayout')->section('content');
     }
 }

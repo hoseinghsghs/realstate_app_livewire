@@ -5,14 +5,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-
                     <div class="breadcrumbs-wrap">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item active" aria-current="page"></li>
                         </ol>
                         <h2 class="breadcrumb-title">مقالات</h2>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -21,14 +19,11 @@
 
     <!-- ============================ Agency List Start ================================== -->
     <section class="gray">
-
         <div class="container">
-
             <div class="row">
                 <div class="col text-center">
                     <div class="sec-heading center">
                         <h2>آخرین مقالات</h2>
-                        <p></p>
                     </div>
                 </div>
             </div>
@@ -40,23 +35,19 @@
                         <!-- Single blog Grid -->
                         <div class="col-lg-4 col-md-6">
                             <div class="grid_blog_box">
-
-
                                 <div class="gtid_blog_thumb">
                                     @isset($article->image->url)
-                                        <a href="/article/{{ $article->id }}" wire:navigate><img
+                                        <a href="{{ route("article.show",$article->id) }}" wire:navigate><img
                                                 src="{{ asset('storage/' . $article->image->url) }}" class="img-fluid"
                                                 alt="{{ $article->slug }}" /></a>
                                     @endisset
-
-
                                     <div class="gtid_blog_info">
-                                        <span>تاریخ</span>{{ Hekmatinasser\Verta\Verta::instance($article->created_at)->format('Y/n/j') }}
+                                        <span>تاریخ</span>{{ verta($article->created_at)->format('Y/n/j') }}
                                     </div>
                                 </div>
 
                                 <div class="blog-body">
-                                    <h4 class="bl-title"><a href="/article/{{ $article->id }}"
+                                    <h4 class="bl-title"><a href="{{ route("article.show",$article->id) }}"
                                             wire:navigate>{{ $article->title }}</a><span
                                             class="latest_new_post">مقاله</span></h4>
                                     <div class="text-overflow">
@@ -74,13 +65,12 @@
                                     <span class="article-pulish-date">
                                         <span class="article-pulish-date">
                                             <div class="footer-flex">
-                                                <a href="/article/{{ $article->id }}" wire:navigate
+                                                <a href="{{ route("article.show",$article->id) }}" wire:navigate
                                                     class="prt-view">مشاهده</a>
                                             </div>
                                         </span>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
                     @endforeach
@@ -90,10 +80,9 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    {{ $articles->onEachSide(1)->links('home.partials.pagination') }}
+                    {{ $articles->onEachSide(1)->links('livewire.home.partials.pagination') }}
                 </div>
             </div>
         </div>
-
     </section>
 </div>

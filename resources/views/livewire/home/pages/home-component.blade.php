@@ -735,7 +735,7 @@
         </div>
     </section>
     <!-- ============================ Call To Action End ================================== -->
-    @include('home.partials.send-message')
+    @include('livewire.home.partials.send-message')
 </div>
 @script
 <script>

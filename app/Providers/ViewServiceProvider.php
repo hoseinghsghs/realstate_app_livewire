@@ -29,8 +29,8 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        view()->composer(['home.pages.UserProfile.index', 'test', 'home.partials.header',
-            'home.pages.UserProfile.wish_list', 'addcslashes', 'admin.partial.LeftSidebar'], function ($view) {
+        view()->composer(['livewire.home.pages.UserProfile.index', 'livewire.home.partials.header',
+            'livewire.home.pages.UserProfile.wish_list', 'addcslashes', 'admin.partial.LeftSidebar'], function ($view) {
             $view->with('wishlist', Wishlist::where('user_id', auth()->id())->get());
 
         });
