@@ -95,7 +95,14 @@
                                 <button type="button" class="list-group-item list-group-item-action">
                                     <div class="row clearfix">
                                         <div class="col-6"><strong>طبقه مورد معامله:</strong></div>
-                                        <div class="col-6">{{ $property->floorsell }}</div>
+                                        <div class="col-6">
+                                            @foreach ($property->floors_sell()->pluck('floor')->toArray() as $floor)
+                                                {{ $floor }}
+                                                @if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </button>
                                 <button type="button" class="list-group-item list-group-item-action">
@@ -435,17 +442,15 @@
                 <div class="row clearfix">
                     @if (isset($property->img))
                         <div class="col-12 mb-5">
-                            <img src="{{ asset('storage/preview/' . $property->img) }}" />
+                            <a href="{{ asset('storage/preview/' . $property->img) }}" target="_blank">
+                                <img src="{{ asset('storage/preview/' . $property->img) }}"
+                                    class="img-fluid img-thumbnail" width="30%" />
+                            </a>
                         </div>
                     @else
                         تصویر وجود ندارد
                     @endif
-
-
-
-
                 </div>
-
                 <br>
                 <h5 style="color:#04BE5B">سایر تصاویر</h5>
                 <hr>
@@ -453,11 +458,19 @@
                     @if ($property->images->isEmpty())
                         تصویر وجود ندارد
                     @else
-                        @foreach ($property->images as $image)
-                            <div class="col-sm-4 mb-3">
-                                <img src="{{ asset('storage/otherpreview/' . $image->name) }}" />
-                            </div>
-                        @endforeach
+                        <div class="row">
+                            @foreach ($property->images as $image)
+                                <div class="col-md-3 col-sm-6 mb-4">
+                                    <div class="card border-primary">
+                                        <a href="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                            target="_blank">
+                                            <img src="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                                class="card-img-top img-fluid img-thumbnail" alt="Property Image" />
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     @endif
                 </div>
             </div>
