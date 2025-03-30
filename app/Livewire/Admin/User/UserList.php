@@ -15,6 +15,6 @@ class UserList extends Component
         $users = User::where('role_id', 2)->latest()->paginate(10);
         // return view('admin.page.users.index',compact('users'));
 
-        return view('livewire.admin.user.user-list', compact('users'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.user.user-list', compact('users'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

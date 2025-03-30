@@ -80,6 +80,6 @@ class AgreementList extends Component
             $query->whereDate('agreement_date', $date_time[0]);
         })->latest()->paginate(10);
 
-        return view('livewire.admin.agreement.agreement-list', compact(['agreements']))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.agreement.agreement-list', compact(['agreements']))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

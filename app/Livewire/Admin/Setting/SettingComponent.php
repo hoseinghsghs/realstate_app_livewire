@@ -164,6 +164,6 @@ class SettingComponent extends Component
     }
     public function render()
     {
-        return view('livewire.admin.setting.setting-component')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.setting.setting-component')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

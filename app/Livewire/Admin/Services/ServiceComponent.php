@@ -93,6 +93,6 @@ class ServiceComponent extends Component
     {
         $services = Service::latest()->paginate(10);
 
-        return view('livewire.admin.services.service-component', compact('services'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.services.service-component', compact('services'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

@@ -6,7 +6,7 @@
 @endphp
 
 <head>
-    @include('livewire.admin-layout.partial.Head')
+    @include('livewire.admin.partial.Head')
 </head>
 
 <body class="theme-blush">

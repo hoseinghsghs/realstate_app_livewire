@@ -101,6 +101,6 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.admin.profile.edit-profile')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.profile.edit-profile')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

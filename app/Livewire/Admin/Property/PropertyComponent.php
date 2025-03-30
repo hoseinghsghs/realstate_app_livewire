@@ -80,6 +80,6 @@ class PropertyComponent extends Component
         $this->featuresco = $featuresco = Feature::latest()->get();
         $propertyAgent = Property::where('user_id', Auth::user()->id)->latest()->paginate(10);
         $districts = Property::all()->unique('district')->pluck('district');
-        return view('livewire.admin.property.property-component', compact('properties', 'featuresco', 'districts'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.property.property-component', compact('properties', 'featuresco', 'districts'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

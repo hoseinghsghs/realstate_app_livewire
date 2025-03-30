@@ -79,6 +79,6 @@ class FeatureComponent extends Component
     public function render()
     {
         $features = Feature::latest()->paginate(10);
-        return view('livewire.admin.feature.feature-component', compact('features'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.feature.feature-component', compact('features'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

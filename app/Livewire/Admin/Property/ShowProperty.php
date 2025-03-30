@@ -22,6 +22,6 @@ class ShowProperty extends Component
     public function render()
     {
         $property = $this->property->get();
-        return view('livewire.admin.property.show-property', compact('property'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.property.show-property', compact('property'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

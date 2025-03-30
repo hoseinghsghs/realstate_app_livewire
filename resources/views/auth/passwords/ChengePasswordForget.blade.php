@@ -6,7 +6,7 @@
 <html class="no-js " lang="en">
 
 <head>
-    @include('livewire.admin-layout.partial.Head')
+    @include('livewire.admin.partial.Head')
 </head>
 
 <body class="theme-blush">

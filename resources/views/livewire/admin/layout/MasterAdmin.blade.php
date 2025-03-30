@@ -2,7 +2,7 @@
 <html class="no-js " lang="fa">
 
 <head>
-    @include('livewire.admin-layout.partial.Head')
+    @include('livewire.admin.partial.Head')
     @stack('styles')
     @livewireStyles
 </head>
@@ -13,13 +13,13 @@
     <div class="overlay">
     </div>
     <!-- Right Icon menu Sidebar -->
-    @include('livewire.admin-layout.partial.RightIconSidebar')
+    @include('livewire.admin.partial.RightIconSidebar')
 
     <!-- Left Sidebar -->
-    @include('livewire.admin-layout.partial.LeftSidebar')
+    @include('livewire.admin.partial.LeftSidebar')
 
     <!-- Right Sidebar -->
-    @include('livewire.admin-layout.partial.RightSidebar')
+    @include('livewire.admin.partial.RightSidebar')
     <!-- Main Content -->
 
     @yield('Content')

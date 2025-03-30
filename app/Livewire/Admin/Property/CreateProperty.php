@@ -79,6 +79,6 @@ class CreateProperty extends Component
     {
         $services = Service::latest()->get();
         $features = Feature::latest()->get();
-        return view('livewire.admin.property.create-property', compact('services', 'features'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.property.create-property', compact('services', 'features'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

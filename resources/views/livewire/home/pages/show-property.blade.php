@@ -2,47 +2,87 @@
 <div>
     <!-- ============================ Hero Banner  Start================================== -->
     <!-- Gallery Part Start -->
-    <section class="gallery_parts pt-2 pb-2 d-none d-sm-none d-md-none d-lg-none d-xl-block">
+    <section class="gallery_slider pt-4 pb-4">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 col-md-7 col-sm-12 pl-1">
-                    <div class="gg_single_part left"><a href="{{ asset('storage/preview/' . $property->img) }}"
-                                                        class="mfp-gallery"><img
-                                    src="{{ asset('storage/preview/' . $property->img) }}"
-                                    class="img-fluid mx-auto" alt=""/></a></div>
-                </div>
-                @if (count($property->images) > 0)
-                    <div class="col-lg-4 col-md-5 col-sm-12 pr-1">
-                        @foreach ($property->images->take(3) as $sImage)
-                            <div
-                                    class="{{ $loop->index == 1 ? 'gg_single_part-right min mt-2 mb-2' : 'gg_single_part-right min' }}">
-                                <a href="{{ asset('storage/otherpreview/' . $sImage->name) }}" class="mfp-gallery"><img
-                                            src="{{ asset('storage/otherpreview/' . $sImage->name) }}"
-                                            class="img-fluid mx-auto"
-                                            alt=""/></a>
-                            </div>
-                        @endforeach
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="main-image shadow-sm rounded">
+                        <a href="{{ asset('storage/preview/' . $property->img) }}" data-fancybox="gallery">
+                            <img src="{{ asset('storage/preview/' . $property->img) }}" class="d-block w-100 rounded"
+                                alt="Main Image" style="max-height: 500px; object-fit: cover;">
+                        </a>
                     </div>
-                @endif
+                </div>
+                <div class="col-lg-4">
+                    <div class="small-images d-flex flex-column">
+                        @if (!empty($property->images) && is_iterable($property->images))
+                            @foreach ($property->images->take(2) as $image)
+                                <div class="small-image mb-2">
+                                    <a href="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                        data-fancybox="gallery">
+                                        <img src="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                            class="d-block w-100 rounded" alt="Property Image"
+                                            style="max-height: 150px; object-fit: cover;">
+                                    </a>
+                                </div>
+                            @endforeach
+                            @if ($property->images->count() > 3)
+                                <div class="small-image mb-2">
+                                    <a href="javascript:void(0);" class="view-more-images" onclick="showAllImages()">
+                                        <div class="d-flex justify-content-center align-items-center bg-light rounded"
+                                            style="height: 150px; border: 1px solid #ddd;">
+                                            <span class="text-muted">+{{ $property->images->count() - 3 }} تصاویر
+                                                بیشتر</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="hidden-images" style="display: none;">
+                                    @foreach ($property->images->skip(3) as $image)
+                                        <a href="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                            data-fancybox="gallery">
+                                            <img src="{{ asset('storage/otherpreview/' . $image->name) }}"
+                                                class="d-block w-100 rounded" alt="Property Image"
+                                                style="max-height: 150px; object-fit: cover;">
+                                        </a>
+                                    @endforeach
+                                    <div class="small-image mt-2">
+                                        <a href="javascript:void(0);" class="view-less-images"
+                                            onclick="hideAllImages()">
+                                            <div class="d-flex justify-content-center align-items-center bg-light rounded"
+                                                style="height: 50px; border: 1px solid #ddd;">
+                                                <span class="text-muted">- نمایش کمتر</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+
+                        <script>
+                            function showAllImages() {
+                                document.getElementById('hidden-images').style.display = 'block';
+                                document.querySelector('.view-more-images').style.display = 'none';
+                            }
+
+                            function hideAllImages() {
+                                document.getElementById('hidden-images').style.display = 'none';
+                                document.querySelector('.view-more-images').style.display = 'block';
+                            }
+                        </script>
+
+                        <script>
+                            function showAllImages() {
+                                document.getElementById('hidden-images').style.display = 'block';
+                                document.querySelector('.view-more-images').style.display = 'none';
+                            }
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    @if (count($property->images) > 0)
-        <div class="featured_slick_gallery gray d-block d-md-block d-lg-block d-xl-none">
-            <div class="featured_slick_gallery-slide">
-                <div class="featured_slick_padd"><a href="{{ asset('storage/preview/' . $property->img) }}"
-                                                    class="mfp-gallery"><img
-                                src="{{ asset('storage/preview/' . $property->img) }}"
-                                class="img-fluid mx-auto" alt=""/></a></div>
-                @foreach ($property->images as $aImage)
-                    <div class="featured_slick_padd"><a href="{{ asset('storage/otherpreview/' . $aImage->name) }}"
-                                                        class="mfp-gallery"><img
-                                    src="{{ asset('storage/otherpreview/' . $aImage->name) }}"
-                                    class="img-fluid mx-auto" alt=""/></a></div>
-                @endforeach
-            </div>
-        </div>
-    @endif
+
+
     <!-- ============================ Hero Banner End ================================== -->
 
     <!-- ============================ Property Detail Start ================================== -->
@@ -59,7 +99,7 @@
                                 <div class="_card_list_flex mb-2">
                                     <div class="_card_flex_01">
                                         <span
-                                                class="_list_blickes types">{{ verta($property->created_at)->format('%d %B، %Y') }}</span>
+                                            class="_list_blickes types">{{ verta($property->created_at)->format('%d %B، %Y') }}</span>
                                         @if (isset($property->lable))
                                             <span class="_list_blickes _netork">{{ $property->lable }}</span>
                                         @endif
@@ -71,8 +111,8 @@
                                             @can('is_user')
                                                 <li>
                                                     <a> <i id='wished' onclick="sender('{{ $property->id }}')"
-                                                           class=" fa fa-bookmark"
-                                                           style="{{ $wishlist ? 'font-size:30px;color:green' : 'font-size:20px;color:gray' }}">
+                                                            class=" fa fa-bookmark"
+                                                            style="{{ $wishlist ? 'font-size:30px;color:green' : 'font-size:20px;color:gray' }}">
                                                         </i>
                                                     </a>
                                                 </li>
@@ -107,7 +147,8 @@
                         <div class="_prtis_list_header">
                             <ul>
                                 <li>
-                                    <div class="content_thumb"><img src="/assets/home/img/bed.svg" alt=""/></div>
+                                    <div class="content_thumb"><img src="/assets/home/img/bed.svg" alt="" />
+                                    </div>
                                     <div class="content">
                                         <span class="dark">{{ $property->bedroom }}</span>
                                         <span class="title">اتاق خواب</span>
@@ -117,9 +158,9 @@
                                     <div class="content_thumb"><i class="fa fa-building ml-1"></i></div>
                                     <div class="content">
                                         <span class="dark">
-                                            @foreach($property->floors_sell()->pluck("floor")->toArray() as $floor)
-                                                {{$floor}}
-                                                @if(!$loop->last)
+                                            @foreach ($property->floors_sell()->pluck('floor')->toArray() as $floor)
+                                                {{ $floor }}
+                                                @if (!$loop->last)
                                                     ,
                                                 @endif
                                             @endforeach
@@ -128,7 +169,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="content_thumb"><img src="/assets/home/img/area.svg" alt=""/></div>
+                                    <div class="content_thumb"><img src="/assets/home/img/area.svg" alt="" />
+                                    </div>
                                     <div class="content">
                                         <span class="dark">{{ $property->meter }} مترمربع</span>
                                         <span class="title">متراژ زیربنا</span>
@@ -223,71 +265,71 @@
                                         مجموعه
                                     </li>
                                 @endisset
+                        </ul>
+                    </div>
+                </div>
+                @isset($property->description)
+                    <!-- Single Block Wrap -->
+                    <div class="_prtis_list mb-4">
+                        <div class="_prtis_list_header min">
+                            <h4 class="m-0">درباره <span class="theme-cl">ملک</span></h4>
+                        </div>
+                        <div class="_prtis_list_body">
+                            <p>{{ $property->description }}</p>
+                        </div>
+                    </div>
+                @endisset
+
+                @if (count($property->features) > 0)
+                    <!-- Single Block Wrap -->
+                    <div class="_prtis_list mb-4">
+
+                        <div class="_prtis_list_header min">
+                            <h4 class="m-0">همه <span class="theme-cl">امکانات رفاهی</span></h4>
+                        </div>
+
+                        <div class="_prtis_list_body">
+                            <ul class="avl-features third">
+                                @foreach ($property->features as $feature)
+                                    <li class="active">{{ $feature->name }}</li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    @isset($property->description)
-                        <!-- Single Block Wrap -->
-                        <div class="_prtis_list mb-4">
-                            <div class="_prtis_list_header min">
-                                <h4 class="m-0">درباره <span class="theme-cl">ملک</span></h4>
-                            </div>
-                            <div class="_prtis_list_body">
-                                <p>{{ $property->description }}</p>
+                @endif
+
+                @if ($property->ambed)
+                    <!-- Single Block Wrap -->
+                    <div class="_prtis_list mb-4">
+
+                        <div class="_prtis_list_header min">
+                            <h4 class="m-0"><span class="theme-cl">ویدیو</span></h4>
+                        </div>
+
+                        <div class="_prtis_list_body">
+                            @php
+                                echo $property->ambed;
+                            @endphp:
+
+                        </div>
+                    </div>
+                @endif
+
+                @isset($property->lon)
+                    <div class="_prtis_list mb-4">
+                        <div class="_prtis_list_header min">
+                            <h4 class="m-0">موقعیت <span class="theme-cl">ملک</span></h4>
+                        </div>
+                        <div class="_prtis_list_body">
+                            <div class="map-container">
+                                <div id="smap" class="full-width"
+                                    style="height: 450px; background: #eee; border: 2px solid #aaa;"></div>
                             </div>
                         </div>
-                    @endisset
-
-                    @if (count($property->features) > 0)
-                        <!-- Single Block Wrap -->
-                        <div class="_prtis_list mb-4">
-
-                            <div class="_prtis_list_header min">
-                                <h4 class="m-0">همه <span class="theme-cl">امکانات رفاهی</span></h4>
-                            </div>
-
-                            <div class="_prtis_list_body">
-                                <ul class="avl-features third">
-                                    @foreach ($property->features as $feature)
-                                        <li class="active">{{ $feature->name }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if ($property->ambed)
-                        <!-- Single Block Wrap -->
-                        <div class="_prtis_list mb-4">
-
-                            <div class="_prtis_list_header min">
-                                <h4 class="m-0"><span class="theme-cl">ویدیو</span></h4>
-                            </div>
-
-                            <div class="_prtis_list_body">
-                                @php
-                                    echo $property->ambed;
-                                @endphp:
-
-                            </div>
-                        </div>
-                    @endif
-
-                    @isset($property->lon)
-                        <div class="_prtis_list mb-4">
-                            <div class="_prtis_list_header min">
-                                <h4 class="m-0">موقعیت <span class="theme-cl">ملک</span></h4>
-                            </div>
-                            <div class="_prtis_list_body">
-                                <div class="map-container">
-                                    <div id="smap" class="full-width"
-                                         style="height: 450px; background: #eee; border: 2px solid #aaa;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    @endisset
-                    <!-- Single Reviews Block -->
-                    {{-- <div class="_prtis_list mb-4">
+                    </div>
+                @endisset
+                <!-- Single Reviews Block -->
+                {{-- <div class="_prtis_list mb-4">
 
                         <div class="_prtis_list_header min">
                             <h4 class="m-0">{{ $property->comments_count }} نظر <span class="theme-cl">ارسال
@@ -330,8 +372,8 @@
                         @endif
                     </div> --}}
 
-                    <!-- Single Write a Review -->
-                    {{-- <div class="_prtis_list mb-4">
+                <!-- Single Write a Review -->
+                {{-- <div class="_prtis_list mb-4">
 
                         <div class="_prtis_list_header min">
                             <h4 class="m-0">ارسال <span class="theme-cl">نظرات</span></h4>
@@ -376,148 +418,151 @@
 
                     </div> --}}
 
-                </div>
+            </div>
 
-                <!-- property Sidebar -->
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="property-sidebar">
+            <!-- property Sidebar -->
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="property-sidebar">
 
-                        <!-- Agent Detail -->
-                        <div class="sider_blocks_wrap">
-                            <div class="side-booking-body">
-                                <div class="agent-_blocks_title">
+                    <!-- Agent Detail -->
+                    <div class="sider_blocks_wrap">
+                        <div class="side-booking-body">
+                            <div class="agent-_blocks_title">
 
-                                    <div class="agent-_blocks_thumb"><img
-                                                src="{{ asset('storage/profile/' . $user->image) }}"
-                                                alt="{{ $user->name }}"></div>
-                                    <div class="agent-_blocks_caption">
-                                        <h4><a
-                                                    href="{{ route('properties.list', ['user_id' => $user->id]) }}">{{ $user->name }}</a>
-                                        </h4>
-                                        <span class="approved-agent"><i class="ti-check"></i>تعداد ملک ثبت شده:
+                                <div class="agent-_blocks_thumb"><img
+                                        src="{{ asset('storage/profile/' . $user->image) }}"
+                                        alt="{{ $user->name }}"></div>
+                                <div class="agent-_blocks_caption">
+                                    <h4><a
+                                            href="{{ route('properties.list', ['user_id' => $user->id]) }}">{{ $user->name }}</a>
+                                    </h4>
+                                    <span class="approved-agent"><i class="ti-check"></i>تعداد ملک ثبت شده:
                                         {{ $user->properties_count }}</span>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </div>
+                                <div class="clearfix"></div>
+                            </div>
 
-                                <a href="tel:{{ $user->phone }}" class="agent-btn-contact"><i
-                                            class="ti-mobile"></i>تماس</a>
+                            <a href="tel:{{ $user->phone }}" class="agent-btn-contact"><i
+                                    class="ti-mobile"></i>تماس</a>
 
-                                <span id="number" data-last="{{ $user->phone }}">
+                            <span id="number" data-last="{{ $user->phone }}">
                                 <span><i class="ti-headphone-alt"></i><a class="see">نمایش شماره...</a></span>
                             </span>
-                            </div>
                         </div>
-                        @if (count($similar_properties) > 0)
-                            <!-- Featured Property -->
-                            <div class="sidebar-widgets">
-                                <h4>املاک مشابه</h4>
-                                <div class="sidebar_featured_property">
-                                    <!-- List Sibar Property -->
-                                    @foreach ($similar_properties as $sProperty)
-                                        <div class="sides_list_property">
-                                            <div class="sides_list_property_thumb">
-                                                <img src="{{ asset('storage/preview/' . $sProperty->img) }}"
-                                                     class="img-fluid" alt="{{ $sProperty->title }}"/>
-                                            </div>
-                                            <div class="sides_list_property_detail">
-                                                <h4><a
-                                                            href="{{ route('properties.show', $sProperty->id) }}">{{ $sProperty->title }}</a>
-                                                </h4>
-                                                <span><i class="ti-location-pin"></i> {{ $sProperty->province }} ،
+                    </div>
+                    @if (count($similar_properties) > 0)
+                        <!-- Featured Property -->
+                        <div class="sidebar-widgets">
+                            <h4>املاک مشابه</h4>
+                            <div class="sidebar_featured_property">
+                                <!-- List Sibar Property -->
+                                @foreach ($similar_properties as $sProperty)
+                                    <div class="sides_list_property">
+                                        <div class="sides_list_property_thumb">
+                                            <img src="{{ asset('storage/preview/' . $sProperty->img) }}"
+                                                class="img-fluid" alt="{{ $sProperty->title }}" />
+                                        </div>
+                                        <div class="sides_list_property_detail">
+                                            <h4><a
+                                                    href="{{ route('properties.show', $sProperty->id) }}">{{ $sProperty->title }}</a>
+                                            </h4>
+                                            <span><i class="ti-location-pin"></i> {{ $sProperty->province }} ،
                                                 {{ $sProperty->city }} ، {{ $sProperty->district }} </span>
-                                                <div class="lists_property_price">
-                                                    @if ($sProperty->tr_type === 'رهن و اجاره')
-                                                        <div class="lists_property_types">
-                                                            <div class="property_types_vlix">برای اجاره</div>
-                                                        </div>
-                                                        <div class="lists_property_price_value">
-                                                            <strong>رهن:</strong>
-                                                            <h4>
-                                                                {{ $sProperty->rahn == null ? '' : number_format($sProperty->rahn) }}
+                                            <div class="lists_property_price">
+                                                @if ($sProperty->tr_type === 'رهن و اجاره')
+                                                    <div class="lists_property_types">
+                                                        <div class="property_types_vlix">برای اجاره</div>
+                                                    </div>
+                                                    <div class="lists_property_price_value">
+                                                        <strong>رهن:</strong>
+                                                        <h4>
+                                                            {{ $sProperty->rahn == null ? '' : number_format($sProperty->rahn) }}
 
-                                                                تومان</h4>
-                                                            <strong>اجاره:</strong>
-                                                            <h4>
-                                                                {{ $sProperty->rent == null ? '' : number_format($sProperty->rent) }}
+                                                            تومان</h4>
+                                                        <strong>اجاره:</strong>
+                                                        <h4>
+                                                            {{ $sProperty->rent == null ? '' : number_format($sProperty->rent) }}
 
-                                                                تومان</h4>
-                                                        </div>
-                                                    @else
-                                                        <div class="lists_property_types">
-                                                            <div class="property_types_vlix sale">برای فروش</div>
-                                                        </div>
-                                                        <div class="lists_property_price_value">
-                                                            <h4>
-                                                                {{ $sProperty->bidprice == null ? '' : number_format($sProperty->bidprice) }}
-                                                                تومان</h4>
-                                                        </div>
-                                                    @endif
-                                                </div>
+                                                            تومان</h4>
+                                                    </div>
+                                                @else
+                                                    <div class="lists_property_types">
+                                                        <div class="property_types_vlix sale">برای فروش</div>
+                                                    </div>
+                                                    <div class="lists_property_price_value">
+                                                        <h4>
+                                                            {{ $sProperty->bidprice == null ? '' : number_format($sProperty->bidprice) }}
+                                                            تومان</h4>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
-
+                                    </div>
+                                @endforeach
                             </div>
-                        @endif
-                    </div>
-                </div>
 
+                        </div>
+                    @endif
+                </div>
             </div>
+
         </div>
-    </section>
-    <!-- ============================ Property Detail End ================================== -->
+    </div>
+</section>
+<!-- ============================ Property Detail End ================================== -->
 </div>
 
 @push('styles')
-    <link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+<link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
 @endpush
 @push('scripts')
-    <!-- neshan map -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL">
-    </script>
-    <script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
-    <script>
-        var iconFeature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.transform([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>],
-                'EPSG:4326', 'EPSG:3857')),
-            name: 'Null Island',
-            population: 4000,
-            rainfall: 500
-        });
-        var iconStyle = new ol.style.Style({
-            image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-                anchor: [0.5, 46],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                opacity: 0.75,
-                src: '/images/icons8-home-address-48.png'
-            }))
-        });
+<!-- neshan map -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-        iconFeature.setStyle(iconStyle);
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL">
+</script>
+<script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
+<script>
+    var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.transform([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>],
+            'EPSG:4326', 'EPSG:3857')),
+        name: 'Null Island',
+        population: 4000,
+        rainfall: 500
+    });
+    var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: '/images/icons8-home-address-48.png'
+        }))
+    });
 
-        var vectorSource = new ol.source.Vector({
-            features: [iconFeature]
-        });
-        var vectorLayer = new ol.layer.Vector({
-            source: vectorSource
-        });
-        var myMap = new ol.Map({
-            layers: [new ol.layer.Tile({
-                source: new ol.source.OSM()
-            }), vectorLayer],
-            target: 'smap',
-            key: <?php echo "'" . $setting->apiKey . "'"; ?>,
-            maptype: 'dreamy',
-            poi: true,
-            traffic: false,
-            view: new ol.View({
-                center: ol.proj.fromLonLat([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>]),
-                zoom: 16,
-            })
-        });
-    </script>
-    <!-- ----------- end neshan map -->
+    iconFeature.setStyle(iconStyle);
+
+    var vectorSource = new ol.source.Vector({
+        features: [iconFeature]
+    });
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource
+    });
+    var myMap = new ol.Map({
+        layers: [new ol.layer.Tile({
+            source: new ol.source.OSM()
+        }), vectorLayer],
+        target: 'smap',
+        key: <?php echo "'" . $setting->apiKey . "'"; ?>,
+        maptype: 'dreamy',
+        poi: true,
+        traffic: false,
+        view: new ol.View({
+            center: ol.proj.fromLonLat([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>]),
+            zoom: 16,
+        })
+    });
+</script>
+<!-- ----------- end neshan map -->
 @endpush

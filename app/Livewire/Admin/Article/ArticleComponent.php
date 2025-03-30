@@ -169,6 +169,6 @@ class ArticleComponent extends Component
     public function render()
     {
         $articles = Article::latest()->paginate(10);
-        return view('livewire.admin.article.article-component', compact('articles'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.article.article-component', compact('articles'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

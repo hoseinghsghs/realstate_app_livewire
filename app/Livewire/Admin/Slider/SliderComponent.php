@@ -175,6 +175,6 @@ class SliderComponent extends Component
     public function render()
     {
         $sliders = Slider::latest()->paginate(10);
-        return view('livewire.admin.slider.slider-component', compact('sliders'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.slider.slider-component', compact('sliders'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

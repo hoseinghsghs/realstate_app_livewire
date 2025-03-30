@@ -168,6 +168,6 @@ class PostComponent extends Component
     {
         $posts = Post::latest()->paginate(10);
 
-        return view('livewire.admin.post.post-component', compact('posts'))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.post.post-component', compact('posts'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

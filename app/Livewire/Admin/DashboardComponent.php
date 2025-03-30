@@ -54,7 +54,7 @@ class DashboardComponent extends Component
         //agent
         $propertycountAgent = $property->where('user_id', Auth::user()->id)->count();
         $comments      = Comment::with('user')->take(5)->get();
-        return view('livewire.admin.dashboard-component', compact(
+        return view('livewire.admin.pages.dashboard-component', compact(
             'propertycount',
             'commentcount',
             'postcount',
@@ -76,6 +76,6 @@ class DashboardComponent extends Component
             'bag',
             'anb',
 
-        ))->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        ))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

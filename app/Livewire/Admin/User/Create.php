@@ -73,6 +73,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.admin.user.create')->extends('livewire.admin-layout.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.user.create')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }
