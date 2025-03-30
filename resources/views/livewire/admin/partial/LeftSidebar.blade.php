@@ -6,16 +6,16 @@
     <aside id="leftsidebar" class="sidebar">
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-            <a href="{{ route('home') }}"><img
-                    src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}" width="45"
-                    style="margin-right:20px"><span class="m-l-10"></span></a>
-
+            <a href="{{ route('home') }}" target="_blank">
+                <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}" width="45"
+                    style="margin-right:20px">
+            </a>
         </div>
         <div class="menu">
             <ul class="list">
                 <li>
                     <div class="user-info">
-                        <a class="image" href="{{ route('home') }}"><img default=""
+                        <a class="image"><img default=""
                                 src={{ Auth::user()->image === null
                                     ? asset('storage/profile/admin.png')
                                     : asset('storage/profile/' . Auth::user()->image) }}></a>
