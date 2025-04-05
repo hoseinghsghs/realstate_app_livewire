@@ -381,7 +381,7 @@
         dir: "rtl",
         placeholder: "نوع ملک",
         allowClear: true,
-    }).on('change', function () {
+    }).val($wire.property_type).trigger('change').on('change', function () {
         $wire.$set('filter.property_type', $(this).val());
     });
 
@@ -389,7 +389,7 @@
         dir: "rtl",
         placeholder: "محله",
         allowClear: true,
-    }).on('change', function () {
+    }).val($wire.district).trigger('change').on('change', function () {
         $wire.$set('filter.district', $(this).val());
     });
 

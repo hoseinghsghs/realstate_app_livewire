@@ -16,9 +16,7 @@ class PropertiesList extends Component
     public $property_type = '';
     #[Url]
     public $district = '';
-    //    public $user_type = '';
     public $user_id = '';
-
     public $filter = [
         'deal_type'        => '',
         'property_type'    => '',
@@ -60,12 +58,9 @@ class PropertiesList extends Component
         $this->all_features = Feature::all();
         $this->all_districts = Property::active()->get()->unique('district')->pluck('district');
 
-        if ($this->deal_type)
-            $this->filter['deal_type'] = $this->deal_type;
-        if ($this->property_type)
-            $this->filter['property_type'] = $this->property_type;
-        if ($this->district)
-            $this->filter['district'] = $this->district;
+        $this->filter['deal_type'] = $this->deal_type;
+        $this->filter['property_type'] = $this->property_type;
+        $this->filter['district'] = $this->district;
 
         $this->filter["meter_rang"] = $this->getMinMaxOfColumn('meter', 5000);
         $this->filter["rahn_range"] = $this->getMinMaxOfColumn('rahn', 1000000000);
@@ -130,7 +125,6 @@ class PropertiesList extends Component
                 }
                 return $query;
             })->withCount('images')->latest()->paginate(6);
-
         return view(
             'livewire.home.pages.properties-list',
             [
