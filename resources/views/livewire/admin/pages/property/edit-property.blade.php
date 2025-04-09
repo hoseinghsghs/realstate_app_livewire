@@ -281,7 +281,7 @@
                                                                         <label for="floor">تعداد طبقات</label>
                                                                         <input type="number"
                                                                             wire:model.blur="form.floor"
-                                                                            id="floorCount" step="1"
+                                                                            id="floor" step="1"
                                                                             class="form-control" />
                                                                         @error('form.floor')
                                                                             <small
@@ -295,20 +295,16 @@
                                                                         <label for="floorsell">طبقه مورد معامله <abbr
                                                                                 title="ضروری"
                                                                                 style="color:red;">*</abbr></label>
-
-                                                                        <div wire:ignore>
-                                                                            <select id="floorsell"
-                                                                                class="form-control" multiple>
-
-
-                                                                                @foreach (range(1, max(1, (int) $form->floor)) as $floor)
-                                                                                    <option
-                                                                                        value="{{ $floor }}">
-                                                                                        {{ $floor }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
+                                                                        <select wire:model="form.floorsell"
+                                                                            id="floorsell" class="form-control"
+                                                                            multiple style="height: 64px">
+                                                                            @foreach (range(1, max(1, (int) $form->floor)) as $floor)
+                                                                                <option value="{{ $floor }}"
+                                                                                    {{ in_array($floor, (array) $form->floorsell) ? 'selected' : '' }}>
+                                                                                    {{ $floor }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                         @error('form.floorsell')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
@@ -1222,50 +1218,6 @@
         </div>
     </section>
 </div>
-@script
-    <script>
-        $(document).ready(function() {
-            // مقداردهی اولیه برای حالت ویرایش
-            let selectedFloor = @json($form->floorsell); // مقدار انتخاب شده از سرور
-            let floorCount = parseInt($('#floorCount').val()); // تعداد طبقات وارد شده
-            let options = [];
-
-            if (!isNaN(floorCount) && floorCount > 0) {
-                // تولید گزینه‌ها بر اساس تعداد طبقات
-                for (let i = 1; i <= floorCount; i++) {
-                    options.push(new Option(`طبقه ${i}`, i, false, selectedFloor.includes(i)));
-                }
-            }
-
-            // اضافه کردن گزینه‌ها و مقداردهی اولیه
-            $('#floorsell').empty().append(options).trigger('change');
-
-            $('#floorsell').select2({
-                dir: "rtl",
-                placeholder: "طبقه مورد معامله",
-                allowClear: true,
-            }).on('change', function() {
-                @this.set('form.floorsell', $(this).val());
-            });
-
-            // رویداد تغییر تعداد طبقات
-            $('#floorCount').on('input', function() {
-                floorCount = parseInt($(this).val()); // تعداد طبقات وارد شده
-                options = [];
-
-                if (!isNaN(floorCount) && floorCount > 0) {
-                    // تولید گزینه‌ها بر اساس تعداد طبقات
-                    for (let i = 1; i <= floorCount; i++) {
-                        options.push(new Option(`طبقه ${i}`, i, false, selectedFloor == i));
-                    }
-                }
-
-                // پاک کردن گزینه‌های قبلی و اضافه کردن گزینه‌های جدید
-                $('#floorsell').empty().append(options).trigger('change');
-            });
-        });
-    </script>
-@endscript
 @push('styles')
     <style>
         .mbb {

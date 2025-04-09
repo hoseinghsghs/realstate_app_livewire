@@ -14,7 +14,7 @@
         <div class="form-group">
             <label>کلمه عبور *</label>
             <div class="input-with-icon">
-                <input type="password" wire:model="password" class="form-control">
+                <input type="password" wire:model.defer="password" class="form-control" autocomplete="new-password">
                 <i class="ti-unlock"></i>
             </div>
             @error('password')
