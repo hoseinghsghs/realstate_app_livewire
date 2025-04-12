@@ -441,6 +441,7 @@ class CreatPropertyForm extends Form
 
     public function userStore()
     {
+
         $validate = [
             'name_family' => 'required|string',
             'telephone' => "required|numeric",
@@ -463,6 +464,7 @@ class CreatPropertyForm extends Form
             'district' => 'required',
             "otherimg.*" =>  "image|max:2044",
         ];
+
         if ($this->tr_type == 'رهن و اجاره') {
             unset($validate['loanamount'], $validate['loan'], $validate['bidprice'], $validate['ugprice']);
         } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
@@ -475,10 +477,11 @@ class CreatPropertyForm extends Form
         $this->ugprice = Str::replace(',', '', $this->ugprice);
         $this->loanamount = Str::replace(',', '', $this->loanamount);
         $this->meter_price = Str::replace(',', '', $this->meter_price);
+
         $this->rent = Str::replace(',', '', $this->rent);
         $this->rahn = Str::replace(',', '', $this->rahn);
         $this->user_id = auth()->user()->id;
-        $this->floorsell  = json_encode($this->floorsell);
+
         $PropertyImageController = new PropertyImageController();
         if (isset($this->img)) {
             $imageName = $PropertyImageController->upload($this->img);
@@ -511,7 +514,7 @@ class CreatPropertyForm extends Form
         } elseif ($this->tr_type == 'فروش' || $this->tr_type == 'پیش فروش') {
             $this->rahn = $this->rent = $this->people_number = null;
         }
-        $property = Property::create($this->except(['is_edit', 'property', 'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
+        $property = Property::create($this->except(['is_edit', 'property', 'floorsell',  'states', 'features', 'otherimg', 'bcolor_step_1', 'bcolor_step_2', 'bcolor_step_3', 'bcolor_step_4', 'color_step_1', 'color_step_2', 'color_step_3', 'color_step_4', 'totalSteps', 'currentStep']));
         // $property->features()->sync($this->features);
         if (isset($imageOtherName)) {
             foreach ($imageOtherName as $name) {
@@ -520,6 +523,11 @@ class CreatPropertyForm extends Form
                     'name' => $name,
                 ]);
             }
+        }
+        foreach ($this->floorsell as $floor) {
+            $property->floors_sell()->create([
+                'floor' => $floor,
+            ]);
         }
     }
 }

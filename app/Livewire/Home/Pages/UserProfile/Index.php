@@ -72,6 +72,8 @@ class Index extends Component
             'email' => $this->email,
             'image' => $imagename,
         ]);
+        flash()->success('پروفایل با موفقیت بروزرسانی شد');
+
         // $flasher->addSuccess('پروفایل با موفقیت بروزرسانی شد');
         // if (Gate::allows('is_user')) {
         //     return redirect()->route('user.home');
@@ -88,6 +90,6 @@ class Index extends Component
         $user = Auth::user();
         $property = Property::latest()->where('isactive', 1)->get();
         $wishlist = WishList::where('user_id', auth()->id())->get();
-        return view('livewire.home.pages.user-profile.index', compact('user', 'property', 'wishlist'))->extends('home.layout.HomeLayout')->section('content');
+        return view('livewire.home.pages.user-profile.index', compact('user', 'property', 'wishlist'))->extends('livewire.home.layout.HomeLayout')->section('content');
     }
 }

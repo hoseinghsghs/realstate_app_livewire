@@ -18,12 +18,15 @@ class CreateProperty extends Component
         if (Gate::allows('is_user')) {
             $this->form->userStore();
             $this->form->reset();
+            flash()->success('ثبت آگهی انجام شد');
+
             // return redirect()->route('user.home')->with('msg', 'کاربر گرامی ملک شما با موفقیت ثبت گردید .');
         }
     }
     public function render()
     {
+        $this->form->states = Get_States();
         $wishlist = WishList::where('user_id', auth()->id())->get();
-        return view('livewire.home.pages.user-profile.create-property', compact('wishlist'))->extends('home.layout.HomeLayout')->section('content');
+        return view('livewire.home.pages.user-profile.create-property', compact('wishlist'))->extends('livewire.home.layout.HomeLayout')->section('content');
     }
 }
