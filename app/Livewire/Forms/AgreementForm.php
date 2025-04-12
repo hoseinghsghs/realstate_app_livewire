@@ -18,9 +18,9 @@ class AgreementForm extends Form
     public $end_date;
     #[Validate('required_if:agreement_type,rental|nullable|string|max:30')]
     public $rent_term;
-    #[Validate('required_if:agreement_type,rental|nullable|numeric')]
+    #[Validate('required_if:agreement_type,rental|nullable')]
     public $mortgage_price;
-    #[Validate('required_if:agreement_type,rental|nullable|numeric')]
+    #[Validate('required_if:agreement_type,rental|nullable')]
     public $rent_price;
     #[Validate('nullable|string|max:40')]
     public $adviser;
@@ -38,15 +38,22 @@ class AgreementForm extends Form
     public $owner_tel;
     #[Validate('nullable|string')]
     public $description;
-    #[Validate('required_if:agreement_type,sale|nullable|numeric')]
+    #[Validate('required_if:agreement_type,sale|nullable')]
     public $sell_price;
-    #[Validate(['images' => 'array', 'images.*' => 'image|mimes:jpeg,jpg,png|max:2044'], attribute: ['images.*' => 'فایل انتخابی'])]
+    #[Validate(['images'   => 'array',
+                'images.*' => 'image|mimes:jpeg,jpg,png|max:2044'], attribute: ['images.*' => 'فایل انتخابی'])]
     public $images = [];
+
+    public function format_prices($value)
+    {
+        return (int)str_replace(',', '', $value);
+    }
+
 
     public function setAgreement($agreement): void
     {
         if ($agreement['sell_price']) {
-            $agreement['sell_price'] =  number_format((int)$agreement['sell_price']);
+            $agreement['sell_price'] = number_format((int)$agreement['sell_price']);
         }
         if ($agreement['rent_price']) {
             $agreement['rent_price'] = number_format((int)$agreement['rent_price']);
@@ -56,18 +63,5 @@ class AgreementForm extends Form
         }
 
         $this->fill($agreement);
-    }
-
-    public function format_prices()
-    {
-        if ($this->sell_price) {
-            $this->sell_price = (int)str_replace(',', '', $this->sell_price);
-        }
-        if ($this->rent_price) {
-            $this->rent_price = (int)str_replace(',', '', $this->rent_price);
-        }
-        if ($this->mortgage_price) {
-            $this->mortgage_price = (int)str_replace(',', '', $this->mortgage_price);
-        }
     }
 }
