@@ -27,9 +27,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="body">
-                            <form wire:submit="save" method="POST" enctype="multipart/form-data" autocomplete="off"
-                                class="d-inline-block">
-                                @csrf
+                            <form wire:submit="save" autocomplete="off" class="d-inline-block">
                                 <div class="row clearfix">
                                     <div class="col-md-3 col-sm-6">
                                         <div class="form-group">

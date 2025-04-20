@@ -20,15 +20,20 @@ class CreateAgreement extends Component
         //        $this->form->images = [];
     }
 
+    public function updated($property, $value)
+    {
+        if ($property === "form.sell_price" || $property === "form.rent_price" || $property === "form.mortgage_price") {
+            $field = explode('.', $property)[1];
+            $this->form->$field = (int)str_replace(',', '', $value);
+        }
+    }
+
     public function save()
     {
-        $this->form->format_prices();
         $this->validate();
-
-        DB::beginTransaction();
-
         try {
-            $this->agreement->update($this->form->except('images'));
+            DB::beginTransaction();
+            $agreement = Agreement::create($this->form->except('images'));
             //upload images
             if (count($this->form->images) > 0) {
                 $paths = [];
@@ -36,11 +41,10 @@ class CreateAgreement extends Component
                     $path = $image->store(path: 'agreement');
                     $paths[] = ['url' => $path];
                 }
-                $this->agreement->images()->createMany($paths);
+                $agreement->images()->createMany($paths);
             }
             // reset temporary images
             $this->form->images = [];
-            flash()->success('تغییرات با موفقیت ذخیره شد.');
 
             DB::commit();
 
@@ -64,6 +68,7 @@ class CreateAgreement extends Component
 
     public function render()
     {
-        return view('livewire.admin.pages.agreement.create-agreement')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.agreement.create-agreement')->extends('livewire.admin.layout.MasterAdmin')
+            ->section('Content');
     }
 }
