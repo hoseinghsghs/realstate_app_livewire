@@ -1,12 +1,9 @@
 <div>
     @section('title', 'پروفایل کاربری')
-    @push('styles')
-        <link type="text/css" rel="stylesheet" href="/assets/home/css/dashboard-style.css">
-    @endpush
 
 
     <!-- ============================ Page Title Start================================== -->
-    <div class="page-title" style="background:#f4f4f4 url(assets/img/slider-5.jpg);" data-overlay="5">
+    <div class="page-title" style="background:#f4f4f4 url(/assets/home/img/slider-5.jpg);" data-overlay="5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -145,9 +142,5 @@
             </div>
         </div>
     </section>
-    <!-- ============================ User Dashboard End ================================== -->
-    @push('scripts')
-        <script src="/assets/home/js/dashboard.js"></script>
-        @endpushsrc="/assets/home/js/dashboard.js"></script>
-    @endpush
+
 </div>

@@ -1029,6 +1029,10 @@
 </div>
 @push('styles')
     <style>
+        body {
+            will-change: scroll-position;
+        }
+
         .mbb {
             margin-bottom: 0.1rem;
         }

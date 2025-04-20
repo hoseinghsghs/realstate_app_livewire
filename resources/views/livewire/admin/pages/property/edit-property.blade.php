@@ -295,7 +295,7 @@
                                                                         <label for="floorsell">طبقه مورد معامله <abbr
                                                                                 title="ضروری"
                                                                                 style="color:red;">*</abbr></label>
-                                                                        <select wire:model="form.floorsell"
+                                                                        <select wire:model.defer="form.floorsell"
                                                                             id="floorsell" class="form-control"
                                                                             multiple style="height: 64px">
                                                                             @foreach (range(1, max(1, (int) $form->floor)) as $floor)

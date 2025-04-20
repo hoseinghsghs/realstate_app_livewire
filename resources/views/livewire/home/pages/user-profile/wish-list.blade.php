@@ -1,8 +1,5 @@
 @section('title', 'لیست علاقه مندی ها')
 
-@push('styles')
-    <link type="text/css" rel="stylesheet" href="/assets/home/css/dashboard-style.css">
-@endpush
 
 <section class="gray pt-5 pb-5">
     <div class="container-fluid">
@@ -67,7 +64,3 @@
         </div>
     </div>
 </section>
-
-@push('scripts')
-    <script src="/assets/home/js/dashboard.js"></script>
-@endpush
