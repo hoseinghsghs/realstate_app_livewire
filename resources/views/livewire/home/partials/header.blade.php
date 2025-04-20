@@ -1,4 +1,5 @@
-<div class="{{ url()->current() == route('home') ? 'header header-transparent change-logo' : 'header header-light' }}">
+<div class="{{ url()->current() == route('home') ? 'header header-transparent change-logo' : 'header header-light' }}"
+    style="z-index: 3">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -144,8 +145,8 @@
                                             مندی
                                             ها</a>
                                         <!-- <li> <a href="" class="color-bg db_log-out"><i class="far fa-power-off"></i>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    </li> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            </li> -->
                                     <li class="add-listing">
                                         <a href="/user/properties/createproperty" wire:navigate class="theme-cl">
                                             <i class="fas fa-plus-circle ml-1"></i>ثبت آگهی

@@ -27,6 +27,7 @@ class CreateProperty extends Component
     {
         $this->form->states = Get_States();
         $wishlist = WishList::where('user_id', auth()->id())->get();
+
         return view('livewire.home.pages.user-profile.create-property', compact('wishlist'))->extends('livewire.home.layout.HomeLayout')->section('content');
     }
 }

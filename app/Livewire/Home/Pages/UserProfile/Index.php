@@ -73,23 +73,16 @@ class Index extends Component
             'image' => $imagename,
         ]);
         flash()->success('پروفایل با موفقیت بروزرسانی شد');
-
-        // $flasher->addSuccess('پروفایل با موفقیت بروزرسانی شد');
-        // if (Gate::allows('is_user')) {
-        //     return redirect()->route('user.home');
-        // }
-        // if (Gate::allows('is_admin')) {
-        //     return redirect()->route('admin.home');
-        // } else if (Gate::allows('is_agent')) {
-        //     return redirect()->route('agent.home');
-        // }
     }
 
     public function render()
     {
+
         $user = Auth::user();
         $property = Property::latest()->where('isactive', 1)->get();
         $wishlist = WishList::where('user_id', auth()->id())->get();
+
+
         return view('livewire.home.pages.user-profile.index', compact('user', 'property', 'wishlist'))->extends('livewire.home.layout.HomeLayout')->section('content');
     }
 }

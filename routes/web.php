@@ -44,6 +44,7 @@ use App\Livewire\Home\Pages\BlogComponent;
 use App\Livewire\Home\Pages\HomeComponent;
 use App\Livewire\Home\Pages\UserProfile\CreateProperty as UserProfileCreateProperty;
 use App\Livewire\Home\Pages\UserProfile\Index;
+use App\Livewire\Home\Pages\UserProfile\WishList;
 
 //define route
 Route::get('/router', [RouteController::class, 'index'])->name('setroute');
@@ -71,7 +72,7 @@ Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(functi
     Route::get('/dashboard', Index::class)->name('home');
     Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
-    Route::get('/wish_list', [WishListController::class, 'show'])->name('show');
+    Route::get('/wish_list', WishList::class)->name('show');
 
     Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 

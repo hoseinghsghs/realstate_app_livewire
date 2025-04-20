@@ -1,5 +1,5 @@
 @extends('livewire.home.layout.HomeLayout')
-@section('title','لیست علاقه مندی ها')
+@section('title', 'لیست علاقه مندی ها')
 
 @section('content')
     @push('styles')
@@ -26,35 +26,35 @@
                             <table class="property-table-wrap responsive-table bkmark">
 
                                 <tbody>
-                                <tr>
-                                    <th><i class="fa fa-file-text"></i> ملک ها</th>
-                                    <th></th>
-                                </tr>
-                                @if (!count($wishlist))
-                                    <h3><strong>لیست علاقه مندی های شما خالی است</strong></h3>
-                                @endif
-                                @foreach ($property as $property )
-                                    @if ($property->checkUserWishlist(auth()->id()))
-                                        <!-- Item #1 -->
-                                        <tr id="{{$property->id}}wish">
-                                            <td class="dashboard_propert_wrapper">
-                                                <img src="{{'/storage/preview/'.$property->img}}" alt="">
-                                                <div class="title">
-                                                    <h4><a
-                                                                href="{{route('properties.show',[$property->id])}}">{{$property->title}}</a>
-                                                    </h4>
-                                                    <span> {{$property->province}}, {{$property->city}},
-                                                {{$property->district}} </span>
-                                                    <span class="table-property-price">{{$property->type}}</span>
-                                                </div>
-                                            </td>
-                                            <td class="action">
-                                                <a onclick="return send('{{$property->id}}')" class="delete"><i
-                                                            class="ti-close"></i> حذف</a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <th><i class="fa fa-file-text"></i> ملک ها</th>
+                                        <th></th>
+                                    </tr>
+                                    @if (!count($wishlist))
+                                        <h3><strong>لیست علاقه مندی های شما خالی است</strong></h3>
                                     @endif
-                                @endforeach
+                                    @foreach ($property as $property)
+                                        @if ($property->checkUserWishlist(auth()->id()))
+                                            <!-- Item #1 -->
+                                            <tr id="{{ $property->id }}wish">
+                                                <td class="dashboard_propert_wrapper">
+                                                    <img src="{{ '/storage/preview/' . $property->img }}" alt="">
+                                                    <div class="title">
+                                                        <h4><a
+                                                                href="{{ route('properties.show', [$property->id]) }}">{{ $property->title }}</a>
+                                                        </h4>
+                                                        <span> {{ $property->province }}, {{ $property->city }},
+                                                            {{ $property->district }} </span>
+                                                        <span class="table-property-price">{{ $property->type }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="action">
+                                                    <a wire:click="removeFromWishlist({{ $property->id }})" class="delete"
+                                                        style="cursor: pointer;"><i class="ti-close"></i> حذف</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -74,7 +74,7 @@
 
     <!-- content end -->
     <!-- <div class="dashbard-bg gray-bg" style=""></div>
-    </div> -->
+        </div> -->
 @endsection
 @push('scripts')
     <script>
@@ -82,7 +82,7 @@
             console.log(property);
 
             $.get("/user/add-to-wishlist/" + [property],
-                function (response, status) {
+                function(response, status) {
                     if (response.errors == 'deleted') {
                         $('#count').html(parseInt($('#count').html(), 10) - 1);
                         $('#count1').html(parseInt($('#count1').html(), 10) - 1)
@@ -92,7 +92,7 @@
                             position: "tap",
                         });
                     }
-                }).fail(function () {
+                }).fail(function() {
 
             })
 
