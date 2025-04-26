@@ -34,7 +34,7 @@ class SettingComponent extends Component
     public $instagram;
     public $seo_description;
     public $logo;
-    public $logo_url;
+    public $uploaded_logo;
 
     public $icon;
 
@@ -89,7 +89,7 @@ class SettingComponent extends Component
         $this->apiKey = $settings->apiKey;
         $this->latitude = $settings->latitude;
         $this->longitude = $settings->longitude;
-        $this->logo_url = $settings->logo;
+        $this->uploaded_logo = $settings->logo;
     }
 
 
@@ -148,6 +148,17 @@ class SettingComponent extends Component
         $this->links[$index]['children'] = $cLinks;
     }
 
+    public function deleteLogo()
+    {
+        if ($this->logo)
+            unset($this->logo);
+        if ($this->uploaded_logo) {
+            Storage::deleteDirectory('website-logo');
+            ModelsSetting::where('id', 1)->update(['logo' => null]); // This updates the database
+            $this->uploaded_logo = null;
+        }
+    }
+
     public function save()
     {
         $data = $this->validate();
@@ -155,10 +166,11 @@ class SettingComponent extends Component
         $data['phones'] = json_encode($data['phones']);
         $data['links'] = json_encode($data['links']);
         if ($this->logo) {
-            Storage::deleteDirectory('logo');
-            $image_controller = new PropertyImageController();
-            $image_name = $image_controller->uploadLogo($this->logo);
-            $data['logo'] = $image_name;
+            Storage::deleteDirectory('website-logo');
+            $path = $this->logo->store(path: 'website-logo');
+            $data['logo'] = $path;
+        } elseif ($this->uploaded_logo === null) {
+            $data['logo'] = null; // This will set logo to null in database if it was removed
         } else {
             unset($data['logo']);
         }

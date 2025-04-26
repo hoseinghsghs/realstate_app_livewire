@@ -23,7 +23,6 @@ class CreateSettingsTable extends Migration
             $table->string('work_days')->nullable();
             $table->string('seo_description')->nullable();
             $table->string('logo')->nullable();
-            $table->string('logo_url')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->string('apiKey')->nullable();

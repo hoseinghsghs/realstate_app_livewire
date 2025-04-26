@@ -356,19 +356,30 @@
                                     <div class="header"><h2><strong>لوگو</strong></h2></div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label class="form-label" for="exampleFormControlFile1">آپلود لوگوی سایت
-                                                <span wire:loading wire:target="logo"
-                                                      class="spinner-border spinner-border-sm" role="status"
-                                                      aria-hidden="true"></span></label>
-                                            <div class="custom-file d-flex flex-row-reverse">
-                                                <input wire:model="logo" type="file" class="custom-file-input"
-                                                       id="customFile" lang="ar" dir="rtl">
-                                                <label class="custom-file-label text-right" for="customFile">
-                                                </label>
-                                            </div>
-                                            @if ($logo || $logo_url)
-                                                <img src="{{ isset($logo) ? $logo->temporaryUrl() : asset('storage/logo/' . $logo_url) }}"
-                                                     class="rounded mx-auto d-block img-fluid img-thumbnail preview-img mt-2">
+                                            <label class="form-label">
+                                                آپلود لوگوی سایت:
+                                            </label>
+                                            <input wire:model.live="logo" type="file" style="display: none"
+                                                   id="logo-upload" class="@error('logo') is-invalid @enderror"
+                                            >
+                                            <label class="btn btn-raised btn-info" for="logo-upload">
+                                                <i class="zmdi zmdi-image"></i> آپلود عکس <span wire:loading
+                                                                                                wire:target="logo"
+                                                                                                class="spinner-border spinner-border-sm"
+                                                                                                role="status"
+                                                                                                aria-hidden="true"></span></label>
+                                            @error('logo')
+                                            <small class="text-danger d-block">{{ $message }}</small>
+                                            @enderror
+                                            @if ($logo || $uploaded_logo)
+                                                <div class="position-relative  mx-2 my-1" style="width: 150px;">
+                                                    <img width="100%" class="rounded border shadow-md"
+                                                         src="{{ isset($logo) ? $logo->temporaryUrl() : asset('storage/' . $uploaded_logo) }}">
+                                                    <a wire:click="deleteLogo"
+                                                       class="position-absolute text-danger text-md"
+                                                       style="top: 5px;right: 10px;cursor:pointer;"><i
+                                                                class="zmdi zmdi-close"></i></a>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
