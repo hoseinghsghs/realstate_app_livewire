@@ -14,6 +14,7 @@ class SettingComponent extends Component
 {
 
     use WithFileUploads;
+
     public $title;
     public $email;
     public $emails;
@@ -39,33 +40,35 @@ class SettingComponent extends Component
 
     protected $listeners = ['privacyChanged', 'rulesChanged', 'keywordsChanged'];
     protected $rules = [
-        'title' => 'nullable|string|max:250|min:3',
-        'emails' => 'nullable|array',
-        'emails.*' => 'nullable|email',
-        'phones' => 'nullable|array',
-        'phones.*' => 'nullable|numeric',
-        'links' => 'nullable|array',
-        'links.*.name' => 'required|string|distinct',
+        'title'                    => 'nullable|string|max:250|min:3',
+        'emails'                   => 'nullable|array',
+        'emails.*'                 => 'nullable|email',
+        'phones'                   => 'nullable|array',
+        'phones.*'                 => 'nullable|numeric',
+        'links'                    => 'nullable|array',
+        'links.*.name'             => 'required|string|distinct',
         'links.*.children.*.title' => 'required|string|distinct',
-        'links.*.children.*.url' => 'required|url',
-        'whatsapp' => 'nullable|string|max:250',
-        'instagram' => 'nullable|string|max:250',
-        'address' => 'nullable|string|max:250',
-        'work_days' => 'nullable|string|max:250',
-        'longitude' => 'nullable|numeric|max:250',
-        'latitude' => 'nullable|numeric|max:250',
-        'telegram' => 'nullable|string|max:250',
-        'description' => 'nullable|string|max:250',
-        'seo_description' => 'nullable|string|max:250|min:3',
-        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'links.*.children.*.url'   => 'required|url',
+        'whatsapp'                 => 'nullable|string|max:250',
+        'instagram'                => 'nullable|string|max:250',
+        'address'                  => 'nullable|string|max:250',
+        'work_days'                => 'nullable|string|max:250',
+        'apiKey'                   => 'nullable|string|max:250',
+        'longitude'                => 'nullable|numeric|max:250',
+        'latitude'                 => 'nullable|numeric|max:250',
+        'telegram'                 => 'nullable|string|max:250',
+        'description'              => 'nullable|string|max:250',
+        'seo_description'          => 'nullable|string|max:250|min:3',
+        'logo'                     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];
 
     protected $validationAttributes = [
-        'group_name' => 'عنوان دسته ',
-        'links.*.name' => 'عنوان دسته',
+        'group_name'               => 'عنوان دسته ',
+        'links.*.name'             => 'عنوان دسته',
         'links.*.children.*.title' => 'عنوان لینک',
-        'links.*.children.*.url' => 'آدرس لینک',
-        'seo_description' => 'توضیحات سئو',
+        'links.*.children.*.url'   => 'آدرس لینک',
+        'seo_description'          => 'توضیحات سئو',
+        'apiKey'                   => "کلید دسترسی"
     ];
 
     public function mount()
@@ -83,6 +86,7 @@ class SettingComponent extends Component
         $this->description = $settings->description;
         $this->seo_description = $settings->seo_description;
         $this->work_days = $settings->work_days;
+        $this->apiKey = $settings->apiKey;
         $this->latitude = $settings->latitude;
         $this->longitude = $settings->longitude;
         $this->logo_url = $settings->logo;
@@ -147,7 +151,6 @@ class SettingComponent extends Component
     public function save()
     {
         $data = $this->validate();
-
         $data['emails'] = json_encode($data['emails']);
         $data['phones'] = json_encode($data['phones']);
         $data['links'] = json_encode($data['links']);
@@ -162,8 +165,10 @@ class SettingComponent extends Component
         ModelsSetting::updateOrCreate(['id' => 1], $data);
         flash()->success('تغییرات با موفقیت ذخیره شد');
     }
+
     public function render()
     {
-        return view('livewire.admin.pages.setting.setting-component')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.setting.setting-component')->extends('livewire.admin.layout.MasterAdmin')
+            ->section('Content');
     }
 }

@@ -134,7 +134,7 @@
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
                 opacity: 0.75,
-                src: '/images/icons8-home-address-48.png'
+                src: '/pictures/icons8-home-address-48.png'
             }))
         });
 

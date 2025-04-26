@@ -18,3 +18,4 @@ mix
 mix
   .js("resources/js/home.js", "public/js")
   .postCss("resources/css/home.css", "public/css");
+mix.copyDirectory("resources/assets/pictures","public/pictures");
