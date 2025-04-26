@@ -295,16 +295,22 @@
                                                                         <label for="floorsell">طبقه مورد معامله <abbr
                                                                                 title="ضروری"
                                                                                 style="color:red;">*</abbr></label>
-                                                                        <select wire:model.defer="form.floorsell"
-                                                                            id="floorsell" class="form-control"
-                                                                            multiple style="height: 64px">
+                                                                        <div class="d-flex flex-wrap border rounded p-2 bg-light shadow-sm"
+                                                                            style="min-height: 64px;">
                                                                             @foreach (range(1, max(1, (int) $form->floor)) as $floor)
-                                                                                <option value="{{ $floor }}"
-                                                                                    {{ in_array($floor, (array) $form->floorsell) ? 'selected' : '' }}>
-                                                                                    {{ $floor }}
-                                                                                </option>
+                                                                                <div
+                                                                                    class="form-check form-check-inline m-1">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox"
+                                                                                        id="floorsell-{{ $floor }}"
+                                                                                        wire:model="form.floorsell"
+                                                                                        value="{{ $floor }}">
+                                                                                    <label
+                                                                                        class="form-check-label text-primary mr-1"
+                                                                                        for="floorsell-{{ $floor }}">{{ $floor }}</label>
+                                                                                </div>
                                                                             @endforeach
-                                                                        </select>
+                                                                        </div>
                                                                         @error('form.floorsell')
                                                                             <small
                                                                                 class="text-danger">{{ $message }}</small>
