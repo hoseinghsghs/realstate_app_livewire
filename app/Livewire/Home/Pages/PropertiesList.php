@@ -39,17 +39,23 @@ class PropertiesList extends Component
 
     private function getMinMaxOfColumn($column, $defaultMax): array
     {
-        $min_value = Property::min($column);
-        $max_value = Property::max($column);
+        $values = Property::whereNotNull($column)->pluck($column)->map(fn($value) => (int) $value);
+
+        if ($values->isEmpty()) {
+            return [0, $defaultMax];
+        }
+
+        $min_value = $values->min();
+        $max_value = $values->max();
+
         $min_value = (int)(10 ** floor(log10($min_value)));
-        if ($max_value)
-            $max_value = (int)(10 ** (ceil(log10($max_value))));
-        else
-            $max_value = $defaultMax;
-        // if max and min value was same set zero for min
-        if ($max_value === $min_value) {
+        $max_value = (int)(10 ** ceil(log10($max_value)));
+
+        // if max and min value are the same, set zero for min
+        if ($max_value <= $min_value) {
             $min_value = 0;
         }
+
         return [$min_value, $max_value];
     }
 
@@ -66,6 +72,8 @@ class PropertiesList extends Component
         $this->filter["rahn_range"] = $this->getMinMaxOfColumn('rahn', 1000000000);
         $this->filter["rent_range"] = $this->getMinMaxOfColumn('rent', 500000000);
         $this->filter["price_range"] = $this->getMinMaxOfColumn('bidprice', 90000000000);
+
+        // dd($max_value, $min_value);
         // get the maximum floors of properties
         $m_floors = Property::max("floor");
         if ($m_floors > $this->filter["floor_range"][1]) {
@@ -76,6 +84,7 @@ class PropertiesList extends Component
 
     public function render()
     {
+        // dd($this->filter);
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
             ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
                 return $query->whereHas('floors_sell', function ($query) {
@@ -99,17 +108,20 @@ class PropertiesList extends Component
                 function ($query) {
                     return $query->whereBetween('bidprice', $this->filter['price_range']);
                 }
-            )->when(
+            )
+            ->when(
                 $this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rahn_range']) === 2,
                 function ($query) {
                     return $query->whereBetween('rahn', $this->filter['rahn_range']);
                 }
-            )->when(
+            )
+            ->when(
                 $this->filter['deal_type'] === 'رهن و اجاره' && count($this->filter['rent_range']) === 2,
                 function ($query) {
                     return $query->whereBetween('rent', $this->filter['rent_range']);
                 }
-            )->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
+            )
+            ->when($this->filter['meter_range'] && count($this->filter['meter_range']) === 2, function ($query) {
                 return $query->whereBetween('meter', $this->filter['meter_range']);
             })->when($this->filter['bedroom'], function ($query) {
                 return $query->where('bedroom', $this->filter['bedroom']);
