@@ -113,7 +113,7 @@ class CreatPropertyForm extends Form
             $validate = [
                 "phone" =>  "required|ir_mobile",
                 'name_family' => 'required|string',
-                'telephone' => "required|numeric",
+                'telephone' => "nullable|numeric",
             ];
         } elseif ($this->currentStep == 3) {
             $validate = [
@@ -277,7 +277,7 @@ class CreatPropertyForm extends Form
             $validate = [
                 "phone" =>  "required|ir_mobile",
                 'name_family' => 'required|string',
-                'telephone' => "required|numeric",
+                'telephone' => "nullable|numeric",
             ];
             $this->validate($validate);
         } elseif ($this->currentStep == 3) {
@@ -444,7 +444,7 @@ class CreatPropertyForm extends Form
 
         $validate = [
             'name_family' => 'required|string',
-            'telephone' => "required|numeric",
+            'telephone' => "nullable|numeric",
             'title' => 'required|string',
             'tr_type' => 'required|string',
             'usertype' => 'required|string',

@@ -365,7 +365,7 @@
 
 
                                                             <a href="/admin/properties/{{ $property->id }}/edit"
-                                                                class="btn btn-raised btn-info waves-effect"
+                                                                class="btn btn-raised btn-warning waves-effect"
                                                                 wire:navigate>
 
                                                                 ویرایش
