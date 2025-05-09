@@ -16,6 +16,7 @@ class PropertiesList extends Component
     public $property_type = '';
     #[Url]
     public $district = '';
+
     public $user_id = '';
     public $filter = [
         'deal_type'        => '',
@@ -73,7 +74,6 @@ class PropertiesList extends Component
         $this->filter["rent_range"] = $this->getMinMaxOfColumn('rent', 500000000);
         $this->filter["price_range"] = $this->getMinMaxOfColumn('bidprice', 90000000000);
 
-        // dd($max_value, $min_value);
         // get the maximum floors of properties
         $m_floors = Property::max("floor");
         if ($m_floors > $this->filter["floor_range"][1]) {
@@ -84,7 +84,6 @@ class PropertiesList extends Component
 
     public function render()
     {
-        // dd($this->filter);
         $properties = Property::with('user')->active()->whereBetween("floor", $this->filter["floor_range"])
             ->when(count($this->filter['floor_sell_range']) === 2, function ($query) {
                 return $query->whereHas('floors_sell', function ($query) {
