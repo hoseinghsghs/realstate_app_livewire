@@ -1,5 +1,4 @@
 @section('title', 'ویرایش پروفایل')
-
 <section class="content">
     <div class="body_scroll">
         <div class="block-header">
@@ -19,62 +18,60 @@
                 <div class="col-lg-5 col-md-6 col-sm-12">
                     <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i
                             class="zmdi zmdi-arrow-right"></i></button>
-                    <a href="profile.html" class="btn btn-info btn-icon float-right"><i class="zmdi zmdi-check"></i></a>
                 </div>
             </div>
         </div>
         </hr>
         <div class="container-fluid">
             <div class="row clearfix">
-                <div class="col-md-12">
-                    <div>
-                        <h5>تنظیمات حساب</h5>
-                    </div>
-                    <form wire:submit.prevent="updateProfile" enctype="multipart/form-data" novalidate>
-                        <div class="body">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                <div class="card">
+                    <div class="body">
+                        <div class="col-md-12">
+                            <div>
+                                <h5>تنظیمات حساب</h5>
+                            </div>
+                            <form wire:submit.prevent="updateProfile" enctype="multipart/form-data" novalidate>
+                                <div class="body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
 
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12">
-                                    <label>نام و نام خانوادگی</label>
-                                    <div class="form-group">
-                                        <input wire:model.defer="name" type="text" class="form-control"
-                                            placeholder="نام و نام خانوادگی">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label>شماره تماس</label>
-                                    <div class="form-group">
-                                        <input wire:model.defer="phone" type="text" maxlength="11"
-                                            class="form-control" placeholder="شماره تماس">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label>ایمیل</label>
-                                    <div class="form-group">
-                                        <input wire:model.defer="email" type="email" class="form-control"
-                                            placeholder="ایمیل">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <label>درباره من</label>
-                                    <div class="form-group">
-                                        <input wire:model.defer="about" type="text" maxlength="120" minlength="50"
-                                            class="form-control" placeholder="درباره من">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="card">
-
-                                        <div class="body">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4">
+                                            <label>نام و نام خانوادگی</label>
+                                            <div class="form-group">
+                                                <input wire:model.defer="name" type="text" class="form-control"
+                                                    placeholder="نام و نام خانوادگی">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <label>شماره تماس</label>
+                                            <div class="form-group">
+                                                <input wire:model.defer="phone" type="text" maxlength="11"
+                                                    class="form-control" placeholder="شماره تماس">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <label>ایمیل</label>
+                                            <div class="form-group">
+                                                <input wire:model.defer="email" type="email" class="form-control"
+                                                    placeholder="ایمیل">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <label>درباره من</label>
+                                            <div class="form-group">
+                                                <input wire:model.defer="about" type="text" maxlength="120"
+                                                    minlength="50" class="form-control" placeholder="درباره من">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
                                             <div class="form-group col-6 @error('image') is-invalid @enderror">
                                                 <label class="form-label" for="exampleFormControlFile1">آپلود
                                                     تصویر آواتار <span wire:loading wire:target="image"
@@ -112,14 +109,15 @@
                                                 @endisset
                                             @endif
                                         </div>
+
                                     </div>
+                                    <button type="submit" class="btn btn-raised btn-primary waves-effect">
+                                        بروزرسانی
+                                    </button>
                                 </div>
-                                <button type="submit" class="btn btn-raised btn-primary waves-effect">
-                                    بروزرسانی
-                                </button>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

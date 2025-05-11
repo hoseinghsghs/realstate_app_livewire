@@ -44,8 +44,7 @@
                                         <select name="position" wire:model.live="position" class="form-control"
                                             required>
                                             <option>
-                                                اسلایدر
-                                            </option>
+                                                عکس صفحه اصلی </option>
                                             <option>بنر</option>
                                             <option>
                                                 تصویرسرویس
@@ -148,16 +147,18 @@
             </div>
             <!-- #END# Hover Rows -->
             <!-- لیست -->
+
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
-                        <div>
-                            <h5 style="display: inline; color: #e47297; float: right;"><strong>لیست اسلایدر ها
+                        <div class="header mb-2">
+                            <h2 style="display: inline; color: #e47297; float: right;"><strong>لیست اسلایدر ها
                                 </strong>
                                 ({{ $sliders->total() }})
-                            </h5>
+                            </h2>
                         </div>
                         <div class="body">
+
                             @if (count($sliders) === 0)
                                 <p>هیچ رکوردی وجود ندارد</p>
                             @else

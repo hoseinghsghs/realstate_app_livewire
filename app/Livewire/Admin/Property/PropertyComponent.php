@@ -84,14 +84,16 @@ class PropertyComponent extends Component
                 });
             })->when(Auth::user()->role->id == 2, function ($query) {
                 return $query->where('user_id', Auth::user()->id);
+            })->when(request()->query('type_property') === 'advertise', function ($query) {
+                return $query->whereHas('user', function ($query) {
+                    $query->where('role_id', 3);
+                });
             })->when($this->tr_type, function ($query, $tr_type) {
                 return $query->where('tr_type', $this->tr_type);
             })->when($this->usertype, function ($query, $usertype) {
                 return $query->where('usertype', $this->usertype);
             })->when($this->type, function ($query, $type) {
                 return $query->where('type', $this->type);
-            })->when($this->district, function ($query, $district) {
-                return $query->where('district', $this->district);
             })->when($this->search, function ($query, $search) {
                 return $query->whereAny(['title', 'address'], 'like', '%' . $this->search . '%');
             })->when($this->tr_type === 'فروش' && count($this->price_range) == 2, function ($query) {

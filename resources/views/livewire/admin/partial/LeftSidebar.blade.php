@@ -136,7 +136,7 @@
                 <!-- تنظیمات -->
                 <li @class([
                     'active open' => request()->routeIs(
-                        'admin.cearte-user',
+                        'admin.create-user',
                         'admin.edit-user',
                         'admin.list-user',
                         'admin.edit-profile'),

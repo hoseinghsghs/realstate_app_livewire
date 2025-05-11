@@ -58,7 +58,7 @@ Route::get('/article/{article}', ShowArticle::class)->name('article.show');
 Route::get('/properties/list', PropertiesList::class)->name('properties.list');
 Route::get('/properties/fetch_list', [HomeController::class, 'fetch_list']);
 Route::get('/properties/{property}', ShowProperty::class)->name('properties.show');
-Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
+// Route::post('/properties/{property}/comments', [HomeController::class, 'register_comment'])->middleware('auth')->name('comments.register');
 Route::get('/contact-us', ContactUs::class)->name('contact_us');
 
 Route::get('/forget_password', function () {
@@ -70,11 +70,11 @@ Route::get('/forget_password', function () {
 Route::prefix('user')->middleware(['auth', 'user'])->name('user.')->group(function () {
     Route::get('/properties/createproperty', UserProfileCreateProperty::class)->name('properties.create');
     Route::get('/dashboard', Index::class)->name('home');
-    Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
+    // Route::resource('/profile', ProfileController::class)->except(['show', 'index']);
     Route::get('/add-to-wishlist/{property}', [WishListController::class, 'add'])->name('home.wishlist.add');
     Route::get('/wish_list', WishList::class)->name('show');
 
-    Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
+    // Route::resource('/properties', PropertyController::class)->except(['show', 'update', 'edit']);
 
     Route::post('/upload/store', [UploadController::class, 'store'])->name('upload');
     Route::post('/delete', [UploadController::class, 'delete'])->name('del');
