@@ -9,10 +9,12 @@ use Livewire\WithPagination;
 class UserList extends Component
 {
     use WithPagination;
+    public $numberOfPaginatorsRendered = [];
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
-        $users = User::where('role_id', 2)->latest()->paginate(10);
+        $users = User::latest()->paginate(10);
         // return view('admin.page.users.index',compact('users'));
 
         return view('livewire.admin.pages.user.user-list', compact('users'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');

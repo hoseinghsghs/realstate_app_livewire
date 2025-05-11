@@ -15,6 +15,7 @@ class ArticleComponent extends Component
 
     use WithPagination;
     use WithFileUploads;
+    public $numberOfPaginatorsRendered = [];
 
     protected $paginationTheme = 'bootstrap';
     public Article $article;

@@ -14,6 +14,7 @@ class PostComponent extends Component
 {
     use WithPagination;
     use WithFileUploads;
+    public $numberOfPaginatorsRendered = [];
 
     protected $paginationTheme = 'bootstrap';
     public Post $post;

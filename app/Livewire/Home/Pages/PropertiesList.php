@@ -7,9 +7,15 @@ use App\Models\Property;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Staudenmeir\EloquentEagerLimit\Builder;
+use Livewire\WithPagination;
 
 class PropertiesList extends Component
 {
+    use  WithPagination;
+    public $numberOfPaginatorsRendered = [];
+
+    protected $paginationTheme = 'bootstrap';
+
     #[Url]
     public $deal_type = '';
     #[Url]

@@ -10,6 +10,8 @@ class FeatureComponent extends Component
 {
 
     use WithPagination;
+    public $numberOfPaginatorsRendered = [];
+
     protected $paginationTheme = 'bootstrap';
     public $name;
     public Feature $feature;

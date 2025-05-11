@@ -25,95 +25,93 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12">
-                    <hr>
-                    </br>
-
-                    <form wire:submit.prevent="submit" enctype="multipart/form-data">
+                    <div class="card">
                         <div class="body">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            <form wire:submit.prevent="submit" enctype="multipart/form-data">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-12">
-                                    <label>نام و نام خانوادگی</label>
-                                    <div class="form-group">
-                                        <input wire:model="name" type="text" class="form-control"
-                                            placeholder="نام و نام خانوادگی">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <label>شماره همراه</label>
-                                    <div class="form-group">
-                                        <input wire:model="phone" type="text" maxlength="11" class="form-control"
-                                            placeholder="شماره همراه">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <label>ایمیل</label>
-                                    <div class="form-group">
-                                        <input wire:model="email" type="email" class="form-control"
-                                            placeholder="ایمیل">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <label>پسورد</label>
-                                    <div class="form-group">
-                                        <input wire:model="password" type="password" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <label>پسورد را دباره وارد کنید</label>
-                                    <div class="form-group">
-                                        <input wire:model="password_confirmation" type="password" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="card">
-
-                                        <div class="body">
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <label class="form-label" for="exampleFormControlFile1">آپلود
-                                                        تصویر آواتار<span wire:loading wire:target="image"
-                                                            class="spinner-border spinner-border-sm" role="status"
-                                                            aria-hidden="true"></span></label>
-                                                    <div class="custom-file d-flex flex-row-reverse">
-                                                        <input onchange="validateImage(this)" wire:model.live="image"
-                                                            type="file" class="custom-file-input" id="customFile"
-                                                            lang="ar" dir="rtl">
-                                                        <label class="custom-file-label text-right" for="customFile">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @if ($this->image)
-                                                <img src="{{ $this->image->temporaryUrl() }}"
-                                                    style="border: #00ff4c 2px solid ; border-radius: 0.5rem ;width: 25%;"
-                                                    class="mb-3">
-                                            @endif
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-12">
+                                        <label>نام و نام خانوادگی</label>
+                                        <div class="form-group">
+                                            <input wire:model="name" type="text" class="form-control"
+                                                placeholder="نام و نام خانوادگی">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="checkbox">
-                                        <input wire:model="isactive" type="checkbox" id="isactive" />
-                                        <label for="isactive">فعال</label>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label>شماره همراه</label>
+                                        <div class="form-group">
+                                            <input wire:model="phone" type="text" maxlength="11" class="form-control"
+                                                placeholder="شماره همراه">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label>ایمیل</label>
+                                        <div class="form-group">
+                                            <input wire:model="email" type="email" class="form-control"
+                                                placeholder="ایمیل">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label>پسورد</label>
+                                        <div class="form-group">
+                                            <input wire:model="password" type="password" class="form-control"
+                                                autocomplete="new-password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label>تکرار رمز عبور</label>
+                                        <div class="form-group">
+                                            <input wire:model="password_confirmation" type="password"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <label class="form-label" for="exampleFormControlFile1">آپلود
+                                                    تصویر آواتار<span wire:loading wire:target="image"
+                                                        class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true"></span></label>
+                                                <div class="custom-file d-flex flex-row-reverse">
+                                                    <input onchange="validateImage(this)" wire:model.live="image"
+                                                        type="file" class="custom-file-input" id="customFile"
+                                                        lang="ar" dir="rtl">
+                                                    <label class="custom-file-label text-right" for="customFile">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($this->image)
+                                            <img src="{{ $this->image->temporaryUrl() }}"
+                                                style="border: #00ff4c 2px solid ; border-radius: 0.5rem ;width: 25%;"
+                                                class="mb-3">
+                                        @endif
 
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="checkbox">
+                                            <input wire:model="isactive" type="checkbox" id="isactive" />
+                                            <label for="isactive">فعال</label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                                 <button type="submit" class="btn btn-raised btn-primary waves-effect">
                                     ایجاد حساب
                                 </button>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

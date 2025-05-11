@@ -145,7 +145,8 @@
                     <ul class="ml-menu">
                         <li @class(['active' => request()->routeIs('admin.list-user')])><a href="/admin/user/user-list" wire:navigate>لیست کاربران</a>
                         </li>
-                        <li @class(['active' => request()->routeIs('admin.cearte-user')])><a href="/admin/user/cearte" wire:navigate>اضافه کردن مشاور </a>
+                        <li @class(['active' => request()->routeIs('admin.create-user')])><a href={{ route('admin.create-user') }} wire:navigate>اضافه کردن
+                                مشاور </a>
                         </li>
                         <li @class(['active' => request()->routeIs('admin.edit-profile')])><a href="{{ route('admin.edit-profile', Auth::user()->id) }}"
                                 wire:navigate>ویرایش پروفایل

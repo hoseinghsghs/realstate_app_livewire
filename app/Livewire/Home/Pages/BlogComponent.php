@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class BlogComponent extends Component
 {
     use  WithPagination;
+    public $numberOfPaginatorsRendered = [];
 
     protected $paginationTheme = 'bootstrap';
 

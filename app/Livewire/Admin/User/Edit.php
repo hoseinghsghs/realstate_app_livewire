@@ -14,6 +14,7 @@ class Edit extends Component
 {
 
     use WithFileUploads;
+    public $numberOfPaginatorsRendered = [];
 
     public User $user;
     public $name, $phone, $email, $isactive = false, $image;

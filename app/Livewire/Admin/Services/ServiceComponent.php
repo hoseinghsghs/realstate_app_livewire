@@ -11,6 +11,8 @@ class ServiceComponent extends Component
 
 
     use WithPagination;
+    public $numberOfPaginatorsRendered = [];
+
     protected $paginationTheme = 'bootstrap';
     public $title;
     public $description;

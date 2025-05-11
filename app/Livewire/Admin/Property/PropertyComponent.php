@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 class PropertyComponent extends Component
 {
     use  WithPagination;
-
+    public $numberOfPaginatorsRendered = [];
     protected $paginationTheme = 'bootstrap';
 
     public $tr_type;
@@ -36,6 +36,7 @@ class PropertyComponent extends Component
 
     private function getMinMaxOfColumn($column, $defaultMax): array
     {
+
         $values = Property::whereNotNull($column)->pluck($column)->map(fn($value) => (int)$value);
 
         if ($values->isEmpty()) {
@@ -102,7 +103,8 @@ class PropertyComponent extends Component
             })->when(count($this->meter_range) === 2, function ($query, $meter_range) {
                 return $query->whereBetween(
                     DB::raw('CAST(meter AS SIGNED)'),
-                    $this->meter_range);
+                    $this->meter_range
+                );
             })->when($this->bedroom, function ($query, $bedroom) {
                 return $query->where('bedroom', $bedroom);
             })->when($this->code, function ($query, $code) {
@@ -116,7 +118,7 @@ class PropertyComponent extends Component
                     });
                 }
                 return $query;
-            })->withCount('images')->latest()->paginate(10)->withQueryString();
+            })->withCount('images')->latest()->paginate(10)->withQueryString();;
 
         return view('livewire.admin.pages.property.property-component', compact('properties'))
             ->extends('livewire.admin.layout.MasterAdmin')->section('Content');

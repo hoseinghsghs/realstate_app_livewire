@@ -15,6 +15,7 @@ use Livewire\WithPagination;
 class AgreementList extends Component
 {
     use WithPagination;
+    public $numberOfPaginatorsRendered = [];
 
     public $agreement;
     #[Validate("nullable|string|in:sale,rental,''")]

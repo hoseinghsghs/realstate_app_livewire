@@ -1,16 +1,16 @@
 <div>
-    @section('title', 'لیست پست ها')
+    @section('title', 'لیست اخبار')
     <section class="content">
         <div class="body_scroll">
             <div class="block-header">
                 <div class="row">
                     <div class="col-lg-7 col-md-6 col-sm-12">
-                        <h2>مدیریت پست ها</h2>
+                        <h2>مدیریت اخبار</h2>
                         </br>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href={{ route('admin.home') }}><i class="zmdi zmdi-home"></i>
                                     خانه</a></li>
-                            <li class="breadcrumb-item active">مدیریت پست ها</li>
+                            <li class="breadcrumb-item active">مدیریت اخبار</li>
                         </ul>
                         <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
                                 class="zmdi zmdi-sort-amount-desc"></i></button>
@@ -29,7 +29,7 @@
                             <div class="body">
                                 <div class="row clearfix">
                                     <div class="form-group col-12 @error('title') is-invalid @enderror">
-                                        <label>سر تیتر <abbr class="required" title="ضروری"
+                                        <label>عنوان <abbr class="required" title="ضروری"
                                                 style="color:red;">*</abbr></label>
                                         <input type="text" name="title" wire:model.defer="title"
                                             class="form-control">
@@ -40,7 +40,7 @@
 
 
                                     <div class="form-group col-12 @error('description') is-invalid @enderror">
-                                        <label> تیتر دوم <abbr class="required" title="ضروری"
+                                        <label> خلاصه خبر <abbr class="required" title="ضروری"
                                                 style="color:red;">*</abbr></label>
                                         <textarea class="form-control" rows="9" wire:model.defer="description">{!! $description !!}</textarea>
                                         @error('description')
@@ -80,8 +80,11 @@
                                     </div>
 
                                     @if ($this->image)
-                                        <img src="{{ $this->image->temporaryUrl() }}"
-                                            style="border: #00ff40 2px solid ; border-radius: 0.5rem" height="300rem">
+                                        <div class="col-lg-12">
+                                            <img src="{{ $this->image->temporaryUrl() }}"
+                                                style="border: #00ff40 2px solid ; border-radius: 0.5rem"
+                                                height="300rem">
+                                        </div>
                                     @else
                                         @isset($post->image)
                                             </hr>
@@ -151,7 +154,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div>
-                            <h5 style="display: inline; float: right; color:#e47297"><strong>لیست پست ها </strong>
+                            <h5 style="display: inline; float: right; color:#e47297"><strong>لیست اخبار </strong>
                                 ({{ $posts->total() }})
                             </h5>
                         </div>

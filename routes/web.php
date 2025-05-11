@@ -132,7 +132,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/settings', SettingComponent::class)->name('settings');
 
-        Route::get('/user/cearte', Create::class)->name('cearte-user');
+        Route::get('/user/create', Create::class)->name('create-user');
         Route::get('/user/edit/{user}', Edit::class)->name('edit-user');
         Route::get('/user/user-list', UserList::class)->name('list-user');
 

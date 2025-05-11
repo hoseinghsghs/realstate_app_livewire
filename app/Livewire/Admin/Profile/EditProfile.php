@@ -16,6 +16,7 @@ class EditProfile extends Component
 {
 
     use WithFileUploads;
+    public $numberOfPaginatorsRendered = [];
 
     public User $user;
     public $name, $phone, $about, $email, $isactive = false, $image;
