@@ -120,7 +120,7 @@ class PropertyComponent extends Component
                     });
                 }
                 return $query;
-            })->withCount('images')->latest()->paginate(10)->withQueryString();;
+            })->withCount('images')->latest()->paginate(10)->withQueryString();
 
         return view('livewire.admin.pages.property.property-component', compact('properties'))
             ->extends('livewire.admin.layout.MasterAdmin')->section('Content');

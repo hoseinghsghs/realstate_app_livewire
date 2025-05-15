@@ -1,4 +1,3 @@
-<div>
     @section('title', 'لیست اخبار')
     <section class="content">
         <div class="body_scroll">
@@ -34,7 +33,7 @@
                                         <input type="text" name="title" wire:model.defer="title"
                                             class="form-control">
                                         @error('title')
-                                            <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
@@ -44,7 +43,7 @@
                                                 style="color:red;">*</abbr></label>
                                         <textarea class="form-control" rows="9" wire:model.defer="description">{!! $description !!}</textarea>
                                         @error('description')
-                                            <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
@@ -56,7 +55,7 @@
                                             <textarea id="summernote" wire:key="summernote"></textarea>
                                         </div>
                                         @error('body')
-                                            <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
@@ -75,7 +74,7 @@
                                             </label>
                                         </div>
                                         @error('image')
-                                            <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
@@ -86,19 +85,19 @@
                                                 height="300rem">
                                         </div>
                                     @else
-                                        @isset($post->image)
-                                            </hr>
-                                            <div class="col-lg-12">
-                                                <a href="{{ asset('storage/' . $post->image->url) }}" class="file"
-                                                    target="_blank">
-                                                    <div class="image">
-                                                        <img src="{{ asset('storage/' . $post->image->url) }}"
-                                                            style="border: #00c3ff 2px solid ; border-radius: 0.5rem ; width: 25%"
-                                                            alt="img" class="img-fluid">
-                                                    </div>
-                                                </a>
+                                    @isset($post->image)
+                                    </hr>
+                                    <div class="col-lg-12">
+                                        <a href="{{ asset('storage/' . $post->image->url) }}" class="file"
+                                            target="_blank">
+                                            <div class="image">
+                                                <img src="{{ asset('storage/' . $post->image->url) }}"
+                                                    style="border: #00c3ff 2px solid ; border-radius: 0.5rem ; width: 25%"
+                                                    alt="img" class="img-fluid">
                                             </div>
-                                        @endisset
+                                        </a>
+                                    </div>
+                                    @endisset
                                     @endif
                                 </div>
 
@@ -109,7 +108,7 @@
                                             <input id="status" class="form-group" type="checkbox"
                                                 wire:model.defer='status'>
                                             @error('status')
-                                                <small class="text-danger">{{ $message }}</small>
+                                            <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                             <label for="status">انتشار
                                             </label>
@@ -119,27 +118,27 @@
 
                                 <div class=" col-12">
                                     @if ($is_edit)
-                                        <button wire:click="add_post" wire:loading.attr="disabled"
-                                            class="btn btn-raised btn-warning waves-effect">
-                                            ویرایش
-                                            <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="add_post"></span>
-                                        </button>
+                                    <button wire:click="add_post" wire:loading.attr="disabled"
+                                        class="btn btn-raised btn-warning waves-effect">
+                                        ویرایش
+                                        <span class="spinner-border spinner-border-sm text-light" wire:loading
+                                            wire:target="add_post"></span>
+                                    </button>
                                     @elseif(!$is_edit)
-                                        <button wire:click="add_post" wire:loading.attr="disabled"
-                                            class="btn btn-raised btn-primary waves-effect">
-                                            افزودن
-                                            <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="add_post"></span>
-                                        </button>
+                                    <button wire:click="add_post" wire:loading.attr="disabled"
+                                        class="btn btn-raised btn-primary waves-effect">
+                                        افزودن
+                                        <span class="spinner-border spinner-border-sm text-light" wire:loading
+                                            wire:target="add_post"></span>
+                                    </button>
                                     @endif
 
                                     @if ($is_edit)
-                                        <button class="btn btn-raised btn-info waves-effect"
-                                            wire:loading.attr="disabled" wire:click="ref">صرف نظر
-                                            <span class="spinner-border spinner-border-sm text-light" wire:loading
-                                                wire:target="ref"></span>
-                                        </button>
+                                    <button class="btn btn-raised btn-info waves-effect"
+                                        wire:loading.attr="disabled" wire:click="ref">صرف نظر
+                                        <span class="spinner-border spinner-border-sm text-light" wire:loading
+                                            wire:target="ref"></span>
+                                    </button>
                                     @endif
                                 </div>
                             </div>
@@ -160,77 +159,77 @@
                         </div>
                         <div class="body">
                             @if (count($posts) === 0)
-                                <p>هیچ رکوردی وجود ندارد</p>
+                            <p>هیچ رکوردی وجود ندارد</p>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table table-hover c_table theme-color">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>تصویر</th>
-                                                <th>عنوان</th>
-                                                <th>خلاصه تیتر</th>
-                                                <th>وضعیت</th>
-                                                <th>ثبت کننده</th>
-                                                <th>تاریخ ثبت درخواست</th>
-                                                <th>تاریخ بروز رسانی</th>
-                                                <th class="text-center js-sweetalert">عملیات</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($posts as $post)
-                                                <tr wire:key="{{ $post->id }}" wire:loading.attr="disabled">
-                                                    <td scope="row">{{ $loop->index + 1 }}</td>
-                                                    <td>
-                                                        @if ($post->image)
-                                                            <a href="{{ asset('storage/' . $post->image->url) }}"
-                                                                data-lightbox="post-{{ $post->id }}"
-                                                                data-title={{ $post->title }}><img
-                                                                    class="rounded avatar"
-                                                                    src="{{ asset('storage/' . $post->image->url) }}"
-                                                                    width="55" alt={{ $post->title }}></a>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $post->title }}</td>
-                                                    <td>{{ $post->description }}</td>
-                                                    <td>
-                                                        @if ($post->status)
-                                                            <span class='badge badge-success'> فعال </span>
-                                                        @else
-                                                            <span class='badge badge-danger'>غیر فعال </span>
-                                                        @endif
-                                                    </td>
-                                                    </td>
-                                                    <td>{{ $post->user->name }}</td>
-                                                    <td>{{ verta($post->created_at)->format('Y-n-j H:i') }}
-                                                    </td>
-                                                    <td>{{ verta($post->updated_at)->format('Y-n-j H:i') }}
-                                                    </td>
-                                                    <td class="text-center js-sweetalert">
-                                                        <button wire:click="edit_post({{ $post->id }})"
-                                                            wire:loading.attr="disabled" {{ $display }}
-                                                            class="btn btn-raised btn-info waves-effect scroll">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                            <span class="spinner-border spinner-border-sm text-light"
-                                                                wire:loading
-                                                                wire:target="edit_post({{ $post->id }}) "></span>
-                                                        </button>
-                                                        <button class="btn btn-raised btn-danger waves-effect"
-                                                            wire:loading.attr="disabled"
-                                                            wire:click="destroy({{ $post->id }})"
-                                                            wire:confirm="از حذف رکورد مورد نظر اطمینان دارید؟"
-                                                            {{ $display }}>
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                            <span class="spinner-border spinner-border-sm text-light"
-                                                                wire:loading
-                                                                wire:target="destroy({{ $post->id }})"></span>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover c_table theme-color">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>تصویر</th>
+                                            <th>عنوان</th>
+                                            <th>خلاصه تیتر</th>
+                                            <th>وضعیت</th>
+                                            <th>ثبت کننده</th>
+                                            <th>تاریخ ثبت درخواست</th>
+                                            <th>تاریخ بروز رسانی</th>
+                                            <th class="text-center js-sweetalert">عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($posts as $post)
+                                        <tr wire:key="{{ $post->id }}" wire:loading.attr="disabled">
+                                            <td scope="row">{{ $loop->index + 1 }}</td>
+                                            <td>
+                                                @if ($post->image)
+                                                <a href="{{ asset('storage/' . $post->image->url) }}"
+                                                    data-lightbox="post-{{ $post->id }}"
+                                                    data-title={{ $post->title }}><img
+                                                        class="rounded avatar"
+                                                        src="{{ asset('storage/' . $post->image->url) }}"
+                                                        width="55" alt={{ $post->title }}></a>
+                                                @endif
+                                            </td>
+                                            <td>{{ $post->title }}</td>
+                                            <td>{{ $post->description }}</td>
+                                            <td>
+                                                @if ($post->status)
+                                                <span class='badge badge-success'> فعال </span>
+                                                @else
+                                                <span class='badge badge-danger'>غیر فعال </span>
+                                                @endif
+                                            </td>
+                                            </td>
+                                            <td>{{ $post->user->name }}</td>
+                                            <td>{{ verta($post->created_at)->format('Y-n-j H:i') }}
+                                            </td>
+                                            <td>{{ verta($post->updated_at)->format('Y-n-j H:i') }}
+                                            </td>
+                                            <td class="text-center js-sweetalert">
+                                                <button wire:click="edit_post({{ $post->id }})"
+                                                    wire:loading.attr="disabled" {{ $display }}
+                                                    class="btn btn-raised btn-info waves-effect scroll">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                    <span class="spinner-border spinner-border-sm text-light"
+                                                        wire:loading
+                                                        wire:target="edit_post({{ $post->id }}) "></span>
+                                                </button>
+                                                <button class="btn btn-raised btn-danger waves-effect"
+                                                    wire:loading.attr="disabled"
+                                                    wire:click="destroy({{ $post->id }})"
+                                                    wire:confirm="از حذف رکورد مورد نظر اطمینان دارید؟"
+                                                    {{ $display }}>
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                    <span class="spinner-border spinner-border-sm text-light"
+                                                        wire:loading
+                                                        wire:target="destroy({{ $post->id }})"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -246,60 +245,58 @@
                 </div>
             </div>
         </div>
+    </section>
 
-</div>
-</section>
+    <head>
+        <script data-navigate-track>
+            document.addEventListener('livewire:navigated', function() {
+                initSummernote();
+            });
+            document.addEventListener('init-summernote', function() {
+                initSummernote();
+            });
 
-<head>
-    <script data-navigate-track>
-        document.addEventListener('livewire:navigated', function() {
-            initSummernote();
-        });
-        document.addEventListener('init-summernote', function() {
-            initSummernote();
-        });
-
-        function initSummernote() {
-            if (window.jQuery && $('#summernote').length) {
-                // Destroy نمونه های موجود Summernote
-                $(document).ready(function() {
-                    let secondSummernote = $('.note-editor').eq(1); // گرفتن دومین نمونه‌ی Summernote
-                    if (secondSummernote.length > 0) {
-                        secondSummernote.remove(); // حذف دومین نمونه از صفحه
+            function initSummernote() {
+                if (window.jQuery && $('#summernote').length) {
+                    // Destroy نمونه های موجود Summernote
+                    $(document).ready(function() {
+                        let secondSummernote = $('.note-editor').eq(1); // گرفتن دومین نمونه‌ی Summernote
+                        if (secondSummernote.length > 0) {
+                            secondSummernote.remove(); // حذف دومین نمونه از صفحه
+                        }
+                    });
+                    // مقداردهی اولیه Summernote
+                    $('#summernote').summernote({
+                        height: 200,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['fontname', ['fontname']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                    });
+                    // نمایش محتوای قبلی در حالت ویرایش
+                    if (@this.is_edit) {
+                        $('#summernote').summernote('code', @this.body);
+                    } else {
+                        $('#summernote').summernote('code', ''); // پاک کردن محتوا در حالت افزودن/صرف نظر
                     }
-                });
-                // مقداردهی اولیه Summernote
-                $('#summernote').summernote({
-                    height: 200,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['fontname', ['fontname']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['link']],
-                        ['view', ['fullscreen', 'codeview', 'help']]
-                    ]
-                });
-                // نمایش محتوای قبلی در حالت ویرایش
-                if (@this.is_edit) {
-                    $('#summernote').summernote('code', @this.body);
-                } else {
-                    $('#summernote').summernote('code', ''); // پاک کردن محتوا در حالت افزودن/صرف نظر
+
+                    $('#summernote').on('summernote.change', function(we, contents, $editable) {
+                        console.log(contents);
+                        @this.set('body', contents);
+                    });
+                    $('#summernote').addClass('summernote-loaded');
                 }
-
-                $('#summernote').on('summernote.change', function(we, contents, $editable) {
-                    console.log(contents);
-                    @this.set('body', contents);
-                });
-                $('#summernote').addClass('summernote-loaded');
             }
-        }
-    </script>
-</head>
+        </script>
+    </head>
 
-@push('scripts')
+    @push('scripts')
     <script>
         $('.scroll').click(function() {
             $("html, body").animate({
@@ -313,5 +310,4 @@
             });
         });
     </script>
-@endpush
-</div>
+    @endpush
