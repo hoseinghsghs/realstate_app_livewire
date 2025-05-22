@@ -43,12 +43,6 @@ class User extends Authenticatable
     public function properties(){
        return $this->hasMany(Property::class);    
     }
-    public function users_role_3()
-    {
-        // where("role_id",3)->
-        return User::all()->properties();
-        
-    }
     
     public function role()
     {

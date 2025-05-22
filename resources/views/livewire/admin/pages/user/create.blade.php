@@ -39,46 +39,52 @@
                                 @endif
 
                                 <div class="row clearfix">
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-4 col-md-6">
                                         <label>نام و نام خانوادگی</label>
                                         <div class="form-group">
                                             <input wire:model="name" type="text" class="form-control"
                                                 placeholder="نام و نام خانوادگی">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-4 col-md-6">
                                         <label>شماره همراه</label>
                                         <div class="form-group">
                                             <input wire:model="phone" type="text" maxlength="11" class="form-control"
                                                 placeholder="شماره همراه">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-4 col-md-6">
                                         <label>ایمیل</label>
                                         <div class="form-group">
                                             <input wire:model="email" type="email" class="form-control"
                                                 placeholder="ایمیل">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
-                                        <label>پسورد</label>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label>رمزعبور</label>
                                         <div class="form-group">
                                             <input wire:model="password" type="password" class="form-control"
                                                 autocomplete="new-password">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-4 col-md-6">
                                         <label>تکرار رمز عبور</label>
                                         <div class="form-group">
                                             <input wire:model="password_confirmation" type="password"
                                                 class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="d-flex align-items-center col-lg-4 col-md-6">
+                                        <div class="checkbox">
+                                            <input wire:model="isactive" type="checkbox" id="isactive" />
+                                            <label for="isactive">وضعیت</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label class="form-label" for="exampleFormControlFile1">آپلود
-                                                    تصویر آواتار<span wire:loading wire:target="image"
+                                                    تصویر پروفایل<span wire:loading wire:target="image"
                                                         class="spinner-border spinner-border-sm" role="status"
                                                         aria-hidden="true"></span></label>
                                                 <div class="custom-file d-flex flex-row-reverse">
@@ -95,16 +101,7 @@
                                                 style="border: #00ff4c 2px solid ; border-radius: 0.5rem ;width: 25%;"
                                                 class="mb-3">
                                         @endif
-
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="checkbox">
-                                            <input wire:model="isactive" type="checkbox" id="isactive" />
-                                            <label for="isactive">فعال</label>
-                                        </div>
-                                    </div>
-
-
                                 </div>
                                 <button type="submit" class="btn btn-raised btn-primary waves-effect">
                                     ایجاد حساب

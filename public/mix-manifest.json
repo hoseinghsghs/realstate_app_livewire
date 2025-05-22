@@ -3,5 +3,10 @@
     "/js/home.js": "/js/home.js",
     "/css/admin.css": "/css/admin.css",
     "/css/home.css": "/css/home.css",
-    "/pictures/icons8-home-address-48.png": "/pictures/icons8-home-address-48.png"
+    "/pictures/home-logo.jpg": "/pictures/home-logo.jpg",
+    "/pictures/home-logo.png": "/pictures/home-logo.png",
+    "/pictures/icons8-home-address-48.png": "/pictures/icons8-home-address-48.png",
+    "/pictures/user-2.png": "/pictures/user-2.png",
+    "/pictures/user-3.png": "/pictures/user-3.png",
+    "/pictures/user-default.png": "/pictures/user-default.png"
 }

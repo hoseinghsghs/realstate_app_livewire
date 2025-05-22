@@ -17,55 +17,47 @@ class Create extends Component
 
     use WithFileUploads;
 
-    public $name, $phone, $email, $password, $password_confirmation, $isactive = false, $image;
+    public $name, $phone, $email, $password, $password_confirmation, $isactive = true, $image;
 
     protected $rules = [
-        'name' => 'required|string|max:255',
-        'phone' => 'required|string|max:11',
-        'email' => 'required|email|unique:users,email',
+        'name'     => 'required|string|max:255',
+        'phone'    => 'required|string|max:11',
+        'email'    => 'required|email|unique:users,email',
         'password' => 'required|string|min:8|confirmed',
-        'image' => 'nullable|image|mimes:jpg,png|max:1024', // اندازه 1 مگابایت
+        'image'    => 'nullable|image|mimes:jpg,png|max:1024', // اندازه 1 مگابایت
     ];
 
     public function submit()
     {
         $this->validate();
-        $slug  = Str::slug($this->name);
-        if (isset($this->image)) {
+        $slug = Str::slug($this->name);
+        $image_url = null;
 
-            // گرفتن تاریخ
+        if (isset($this->image)) {
             $currentDate = Carbon::now()->toDateString();
-            $filesystem = config('filesystems.default');
             $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $this->image->extension();
 
             $filesystem = config('filesystems.default');
             $pach = config('filesystems.disks.' . $filesystem)['root'];
-            // نام عکس
-            // آیا این پوشه وجود دارد
             if (!Storage::exists('profile')) {
-                // این پوشه را بساز
                 Storage::makeDirectory('profile');
             }
-            // Image::make($this->image)->resize(2000, 1228)->save($pach . '/' . 'profile/' . $imagename);
 
             $img = Image::make($this->image)->resize(800, 533);
             $img->save($pach . '/profile/' . $imagename);
-        } else {
-            $imagename = 'default.png';
+            $image_url = "/profile/" . $imagename;
         }
 
-
         User::create([
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'email' => $this->email,
+            'name'     => $this->name,
+            'phone'    => $this->phone,
+            'email'    => $this->email,
             'password' => Hash::make($this->password),
-            'role_id' => 2,
+            'role_id'  => 2,
             'isactive' => $this->isactive,
-            'image' => $imagename,
+            'image'    => $image_url,
         ]);
 
-        session()->flash('message', 'کاربر با موفقیت ایجاد شد!');
         $this->reset();
         flash()->success('مشاور جدید ایجاد شد');
         return $this->redirect(route('admin.cearte-user'), navigate: true);
@@ -73,6 +65,7 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.admin.pages.user.create')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.user.create')->extends('livewire.admin.layout.MasterAdmin')
+            ->section('Content');
     }
 }

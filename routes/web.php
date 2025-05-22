@@ -156,55 +156,55 @@ Route::get('/logout', function () {
     return redirect()->route('home');
 })->name('logout');
 
-Route::delete('/test/{imageid}', function ($imageid) {
-    $image = PropertyImage::find($imageid);
-    $image->delete();
-    Storage::delete('otherpreview/' . $image->name);
-    return [
-        'initialPreviewConfig' => [
-            [    // check previewTypes (set it to 'other' if you want no content preview)
-                'fileId' => $image->id,    // file identifier
-            ]
-        ],
-        'append' => true
-    ];
-})->name('del')->middleware('cors');
+//Route::delete('/test/{imageid}', function ($imageid) {
+//    $image = PropertyImage::find($imageid);
+//    $image->delete();
+//    Storage::delete('otherpreview/' . $image->name);
+//    return [
+//        'initialPreviewConfig' => [
+//            [    // check previewTypes (set it to 'other' if you want no content preview)
+//                'fileId' => $image->id,    // file identifier
+//            ]
+//        ],
+//        'append' => true
+//    ];
+//})->name('del')->middleware('cors');
 
-Route::get('/test1', function () {
-    ini_set("soap.wsdl_cache_enabled", "0");
-    try {
-        $user = "9131254642";
-        $pass = "1270236581";
-
-
-        $client = new SoapClient("http://panelis.ir/post/send.php?wsdl");
-
-
-        $encoding = "UTF-8"; //CP1256, CP1252
-        $textMessage = iconv($encoding, 'UTF-8//TRANSLIT', "ugiuguig");
-
-        $sendsms_parameters = array(
-            'username' => $user,
-            'password' => $pass,
-            'from' => "5000125475",
-            'to' => array("9162418808"),
-            'text' => "textMessage",
-            'isflash' => false,
-            'udh' => "",
-            'recId' => array(0),
-            'status' => 0
-        );
-
-        $status = $client->SendSms($sendsms_parameters)->SendSmsResult;
-        echo "Status: " . $status . "<br />";
-
-        $getnewmessage_parameters = array(
-            "username" => $user,
-            "password" => $pass,
-            "from" => "5000125475"
-        );
-    } catch (SoapFault $ex) {
-        echo $ex->faultstring;
-    }
-});
-Route::get('/sms', [AuthController::class, 'sms']);
+//Route::get('/test1', function () {
+//    ini_set("soap.wsdl_cache_enabled", "0");
+//    try {
+//        $user = "9131254642";
+//        $pass = "1270236581";
+//
+//
+//        $client = new SoapClient("http://panelis.ir/post/send.php?wsdl");
+//
+//
+//        $encoding = "UTF-8"; //CP1256, CP1252
+//        $textMessage = iconv($encoding, 'UTF-8//TRANSLIT', "ugiuguig");
+//
+//        $sendsms_parameters = array(
+//            'username' => $user,
+//            'password' => $pass,
+//            'from' => "5000125475",
+//            'to' => array("9162418808"),
+//            'text' => "textMessage",
+//            'isflash' => false,
+//            'udh' => "",
+//            'recId' => array(0),
+//            'status' => 0
+//        );
+//
+//        $status = $client->SendSms($sendsms_parameters)->SendSmsResult;
+//        echo "Status: " . $status . "<br />";
+//
+//        $getnewmessage_parameters = array(
+//            "username" => $user,
+//            "password" => $pass,
+//            "from" => "5000125475"
+//        );
+//    } catch (SoapFault $ex) {
+//        echo $ex->faultstring;
+//    }
+//});
+//Route::get('/sms', [AuthController::class, 'sms']);
