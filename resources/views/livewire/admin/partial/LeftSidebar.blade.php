@@ -3,7 +3,7 @@
         <div class="navbar-brand">
             <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
             <a href="{{ route('home') }}" target="_blank">
-                <img src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/pictures/home-logo.jpg' }}"
+                <img src="{{ $setting->logo ? asset('storage/' . $setting->logo) : '/pictures/home-logo.jpg' }}"
                      height="45"
                      class="mr-1">
             </a>
