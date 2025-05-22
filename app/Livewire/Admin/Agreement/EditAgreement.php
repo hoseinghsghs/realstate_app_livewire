@@ -25,6 +25,17 @@ class EditAgreement extends Component
         $this->form->setAgreement($agreement->getAttributes());
     }
 
+    public function updated(string $property, mixed $value): void
+    {
+        // Extract property name from "form.field"
+        $propertyName = str_contains($property, '.') ? explode('.', $property)[1] : $property;
+
+        // Format only price-related fields
+        if (in_array($propertyName, ['rent_price', 'sell_price', 'mortgage_price'], true)) {
+            $this->form->$propertyName = number_format((int) filter_var($value, FILTER_SANITIZE_NUMBER_INT));
+        }
+    }
+
     public function update()
     {
         $this->form->format_prices();
@@ -92,6 +103,7 @@ class EditAgreement extends Component
     public function render()
     {
         $photos = $this->agreement->images;
-        return view('livewire.admin.pages.agreement.edit-agreement', compact('photos'))->extends('livewire.admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.agreement.edit-agreement', compact('photos'))
+            ->extends('livewire.admin.layout.MasterAdmin')->section('Content');
     }
 }

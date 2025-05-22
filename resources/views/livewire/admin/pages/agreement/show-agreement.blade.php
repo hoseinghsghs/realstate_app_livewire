@@ -43,12 +43,6 @@
                                 </div>
                                 <div class="list-group-item list-group-item-action">
                                     <div class="row clearfix">
-                                        <div class="col-6"><strong>نام مشاور:</strong></div>
-                                        <div class="col-6">{{$agreement->adviser}}</div>
-                                    </div>
-                                </div>
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="row clearfix">
                                         <div class="col-6"><strong>تاریخ عقد قرارداد:</strong></div>
                                         <div class="col-6">{{verta($agreement->agreement_date)->format('Y/m/d')}}</div>
                                     </div>

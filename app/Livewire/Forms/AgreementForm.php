@@ -44,9 +44,17 @@ class AgreementForm extends Form
                 'images.*' => 'image|mimes:jpeg,jpg,png|max:2044'], attribute: ['images.*' => 'فایل انتخابی'])]
     public $images = [];
 
-    public function format_prices($value)
+    public function format_prices()
     {
-        return (int)str_replace(',', '', $value);
+        if ($this->sell_price) {
+            $this->sell_price = (int)str_replace(',', '', $this->sell_price);
+        }
+        if ($this->rent_price) {
+            $this->rent_price = (int)str_replace(',', '', $this->rent_price);
+        }
+        if ($this->mortgage_price) {
+            $this->mortgage_price = (int)str_replace(',', '', $this->mortgage_price);
+        }
     }
 
 
