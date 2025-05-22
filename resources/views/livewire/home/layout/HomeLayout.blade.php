@@ -34,7 +34,7 @@
     <meta property="place:location:longitude" content={{ $setting->longitude }}>
     <meta property="business:contact_data:street_address" content={{ $setting->address }}>
     <meta property="business:contact_data:country_name" content="ایران">
-    <meta property="business:contact_data:phone_number" content={{ $setting->phones[0] }}>
+    <meta property="business:contact_data:phone_number" content={{ $setting->phones[0] ?? '' }}>
     <meta property="business:contact_data:website" content={{ env('APP_URL') }}>
     <!-- -----------------  twitter ----------------- -->
     <meta name="twitter:title" content={{ $setting->title }}>
