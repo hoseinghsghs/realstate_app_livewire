@@ -21,7 +21,7 @@ class Create extends Component
 
     protected $rules = [
         'name'     => 'required|string|max:255',
-        'phone'    => 'required|string|max:11',
+        'phone'    => 'nullable|string|max:11',
         'email'    => 'required|email|unique:users,email',
         'password' => 'required|string|min:8|confirmed',
         'image'    => 'nullable|image|mimes:jpg,png|max:1024', // اندازه 1 مگابایت
@@ -43,7 +43,7 @@ class Create extends Component
                 Storage::makeDirectory('profile');
             }
 
-            $img = Image::make($this->image)->resize(800, 533);
+            $img = Image::make($this->image)->resize(512, 512);
             $img->save($pach . '/profile/' . $imagename);
             $image_url = "/profile/" . $imagename;
         }
@@ -60,7 +60,7 @@ class Create extends Component
 
         $this->reset();
         flash()->success('مشاور جدید ایجاد شد');
-        return $this->redirect(route('admin.cearte-user'), navigate: true);
+        return $this->redirect(route('admin.list-user'), navigate: true);
     }
 
     public function render()

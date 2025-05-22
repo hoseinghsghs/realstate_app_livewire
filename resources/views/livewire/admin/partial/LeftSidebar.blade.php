@@ -107,22 +107,17 @@
                     <i class="zmdi zmdi-hc-fw"></i><span>نظرات</span></a>
             </li> --}}
                 <li @class([
-                    'active open' => request()->routeIs('admin.settings'),
-                ])><a href="{{route('admin.settings')}}" wire:navigate><i
-                                class="zmdi zmdi-hc-fw"></i><span>
-                            درباره ما </span></a></li>
-                <!-- تنظیمات -->
-                <li @class([
                     'active open' => request()->routeIs(
                         'admin.create-user',
                         'admin.edit-user',
                         'admin.list-user',
                         'admin.edit-profile'),
                 ])><a href="javascript:void(0);" class="menu-toggle"><i
-                                class="zmdi zmdi-settings zmdi-hc-spin"></i><span>تنظیمات</span></a>
+                                class="zmdi zmdi-account-box"></i><span>مدیریت کاربری</span></a>
                     <ul class="ml-menu">
-                        <li @class(['active' => request()->routeIs('admin.list-user')])><a href="{{ route('admin.list-user') }}"
-                                                                                           wire:navigate>لیست
+                        <li @class(['active' => request()->routeIs('admin.list-user')])><a
+                                    href="{{ route('admin.list-user') }}"
+                                    wire:navigate>لیست
                                 کاربران</a>
                         </li>
                         <li @class(['active' => request()->routeIs('admin.create-user')])><a
@@ -138,6 +133,12 @@
                             </a></li>
                     </ul>
                 </li>
+                <li @class([
+                    'active open' => request()->routeIs('admin.settings'),
+                ])><a href="{{route('admin.settings')}}" wire:navigate><i
+                                class="zmdi zmdi-settings zmdi-hc-spin"></i><span>
+                            تنظیمات سایت </span></a></li>
+
                 <!-- خروج -->
                 <li><a href=" {{ route('logout') }}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i>
                         خروج

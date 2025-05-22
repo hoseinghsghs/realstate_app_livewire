@@ -52,7 +52,7 @@ class Edit extends Component
             if ($this->user->image && Storage::exists($this->user->image)) {
                 Storage::delete($this->user->image);
             }
-            $img = Image::make($this->image)->resize(800, 533);
+            $img = Image::make($this->image)->resize( 512,512);
 
             $img->save($pach . '/profile/' . $imagename);
             $image_url = "/profile/" . $imagename;
