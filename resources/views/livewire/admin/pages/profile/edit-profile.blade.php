@@ -71,13 +71,15 @@
                                                        minlength="50" class="form-control" placeholder="درباره من">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row clearfix">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="form-group @error('image') is-invalid @enderror">
                                                 <label class="form-label" for="exampleFormControlFile1">آپلود
                                                     تصویر پروفایل <span wire:loading wire:target="image"
-                                                                       class="spinner-border spinner-border-sm"
-                                                                       role="status"
-                                                                       aria-hidden="true"></span></label>
+                                                                        class="spinner-border spinner-border-sm"
+                                                                        role="status"
+                                                                        aria-hidden="true"></span></label>
                                                 <div class="custom-file d-flex flex-row-reverse">
                                                     <input onchange="validateImage(this)" wire:model.defer.live="image"
                                                            type="file" class="custom-file-input" id="customFile"
@@ -89,38 +91,40 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
-                                            @if ($this->image)
+                                        </div>
+                                        @if ($this->image)
+                                            <div class="col-lg-12">
                                                 <img src="{{ $this->image->temporaryUrl() }}"
                                                      style="border: #00ff40 2px solid ; border-radius: 0.5rem"
                                                      height="300rem">
-                                            @elseif ($user->image)
-                                                <div class="col-lg-12">
-                                                    <a href="{{ asset('storage/' . $user->image) }}"
-                                                       class="file" target="_blank">
-                                                        <div class="image">
-                                                            <img src="{{ asset('storage/' . $user->image) }}"
-                                                                 alt="img"
-                                                                 style="border: #0077ff 2px solid ; border-radius: 0.5rem"
-                                                                 height="300rem" class="mb-3">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            @else
-                                                <div class="col-lg-12">
-                                                    <a href="{{ asset('/pictures/user-default.png') }}" class="file"
-                                                       target="_blank">
-                                                        <div class="image">
-                                                            <img src="{{ asset('/pictures/user-default.png') }}"
-                                                                 alt="img"
-                                                                 style="border: #0077ff 2px solid ; border-radius: 0.5rem"
-                                                                 height="200rem" class="mb-3">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            @endif
-                                        </div>
+                                            </div>
+                                        @elseif ($user->image)
+                                            <div class="col-lg-12">
+                                                <a href="{{ asset('storage/' . $user->image) }}"
+                                                   class="file" target="_blank">
+                                                    <div class="image">
+                                                        <img src="{{ asset('storage/' . $user->image) }}"
+                                                             alt="img"
+                                                             style="border: #0077ff 2px solid ; border-radius: 0.5rem"
+                                                             height="300rem" class="mb-3">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="col-lg-12">
+                                                <a href="{{ asset('/pictures/user-default.png') }}" class="file"
+                                                   target="_blank">
+                                                    <div class="image">
+                                                        <img src="{{ asset('/pictures/user-default.png') }}"
+                                                             alt="img"
+                                                             style="border: #0077ff 2px solid ; border-radius: 0.5rem"
+                                                             height="200rem" class="mb-3">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
-                                    <button type="submit" class="btn btn-raised btn-primary waves-effect">
+                                    <button type="submit" class="btn mt-3 btn-raised btn-primary waves-effect">
                                         بروزرسانی
                                     </button>
                                 </div>

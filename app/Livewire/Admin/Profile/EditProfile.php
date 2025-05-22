@@ -16,92 +16,75 @@ class EditProfile extends Component
 {
 
     use WithFileUploads;
+
     public $numberOfPaginatorsRendered = [];
 
     public User $user;
-    public $name, $phone, $about, $email, $isactive = false, $image;
+    public $name, $phone, $about, $email, $image;
 
     protected $rules = [
-        'name' => 'required|string|max:255',
-        'phone' => 'required|string|max:11',
+        'name'  => 'required|string|max:255',
+        'phone' => 'nullable|string|max:11',
         'email' => 'required|email',
-        'image' => 'nullable|image|mimes:jpg,png|max:1024', // اندازه 1 مگابایت
-        'about' => 'nullable|string|max:120',
-
-
+        'image' => 'nullable|image|mimes:jpg,png|max:1024',
+        'about' => 'nullable|string|max:255',
     ];
 
     public function mount($user)
     {
-
         if (Gate::allows('is_agent')) {
             if (Auth::user()->id !== $user->id) {
                 flash()->error('شما اجازه دسترسی به این صفحه را ندارید.');
                 return $this->redirect('/admin/properties', navigate: true);
             }
         }
-
-        $user = Auth::user();
-        $this->name = $user->name;
-        $this->phone = $user->phone;
-        $this->email = $user->email;
-        $this->about = $user->about;
-        $this->isactive = $user->isactive;
+        $this->user = $user;
+        $this->fill($user->only(['name', 'email', 'phone', 'about']));
     }
 
 
     public function updateProfile()
     {
         $this->validate();
+        $slug = Str::slug($this->name);
+        $image_url = $this->user->image;
 
-        $image = $this->image;
-
-        $slug  = Str::slug($this->name);
-        if (isset($image)) {
+        if ($this->image) {
             $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $image->extension();
+            $imagename = $slug . '-' . $currentDate . '-' . uniqid() . '.' . $this->image->extension();
             $filesystem = config('filesystems.default');
 
             $pach = config('filesystems.disks.' . $filesystem)['root'];
             if (!Storage::exists('profile')) {
                 Storage::makeDirectory('profile');
             }
-            if (Storage::exists('profile/' . $this->image)) {
-                Storage::delete('profile/' . $this->image);
+            if ($this->user->image && Storage::exists($this->user->image)) {
+                Storage::delete($this->user->image);
             }
-            $img = Image::make($image)->resize(800, 800);
+            $img = Image::make($this->image)->resize(512, 512);
 
-            $img->save($pach  . '/profile/' . $imagename);
-        } else {
-            $imagename = $this->user->image;
+            $img->save($pach . '/profile/' . $imagename);
+            $image_url = "/profile/" . $imagename;
         }
 
-        if ($this->isactive) {
-            $this->isactive = true;
-        } else {
-            $this->isactive = false;
-        }
         $this->user->update([
-            'name' => $this->name,
+            'name'  => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
             'about' => $this->about,
-            'image' => $imagename,
+            'image' => $image_url,
         ]);
         flash()->success('اطلاعات پروفایل ویرایش شد');
         if (Gate::allows('is_user')) {
             return $this->redirect(route('user.home'), navigate: true);
+        } else {
+            return $this->redirect(route('admin.edit-profile', $this->user), navigate: true);
         }
-        if (Gate::allows('is_admin')) {
-            return $this->redirect(route('admin.home'), navigate: true);
-        } else if (Gate::allows('is_agent')) {
-            return $this->redirect(route('agent.home'), navigate: true);
-        }
-        // return $this->redirect(route('admin.edit-user', $this->user), navigate: true);
     }
 
     public function render()
     {
-        return view('livewire.admin.pages.profile.edit-profile')->extends('livewire.admin.layout.MasterAdmin')->section('Content');
+        return view('livewire.admin.pages.profile.edit-profile')->extends('livewire.admin.layout.MasterAdmin')
+            ->section('Content');
     }
 }
