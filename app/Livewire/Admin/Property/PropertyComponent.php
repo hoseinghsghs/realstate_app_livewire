@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 class PropertyComponent extends Component
 {
     use  WithPagination;
+
     public $numberOfPaginatorsRendered = [];
     protected $paginationTheme = 'bootstrap';
 
@@ -77,13 +78,13 @@ class PropertyComponent extends Component
 
     public function render()
     {
-        $properties = Property::with('user')->whereBetween(DB::raw('CAST(floor AS SIGNED)'), $this->floor_range)
+        $properties = Property::with('user')->when(Auth::user()->role->id == 2, function ($query) {
+            return $query->where('user_id', Auth::user()->id);
+        })->whereBetween(DB::raw('CAST(floor AS SIGNED)'), $this->floor_range)
             ->when(count($this->deal_floor_range) === 2, function ($query) {
                 return $query->whereHas('floors_sell', function ($query) {
                     $query->whereBetween(DB::raw('CAST(floor AS SIGNED)'), $this->deal_floor_range);
                 });
-            })->when(Auth::user()->role->id == 2, function ($query) {
-                return $query->where('user_id', Auth::user()->id);
             })->when(request()->query('type_property') === 'advertise', function ($query) {
                 return $query->whereHas('user', function ($query) {
                     $query->where('role_id', 3);

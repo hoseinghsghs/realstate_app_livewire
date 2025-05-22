@@ -1,27 +1,27 @@
-@can('is_admin')
-    <aside id="leftsidebar" class="sidebar">
-        <div class="navbar-brand">
-            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-            <a href="{{ route('home') }}" target="_blank">
-                <img src="{{ $setting->logo ? asset('storage/' . $setting->logo) : '/pictures/home-logo.jpg' }}"
-                     height="45"
-                     class="mr-1">
-            </a>
-        </div>
-        <div class="menu">
-            <ul class="list">
-                <li>
-                    <div class="user-info">
-                        <a class="image">
-                            <img alt="user-profile"
-                                 src={{ Auth::user()->image ? asset('storage/profile/' . Auth::user()->image): asset('/pictures/user-default.png') }}></a>
-
-                        <div class="detail">
-                            <h6><strong>{{ Auth::user()->name }}</strong></h6>
-                            <small>مدیر سایت</small>
-                        </div>
+<aside id="leftsidebar" class="sidebar">
+    <div class="navbar-brand">
+        <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+        <a href="{{ route('home') }}" target="_blank">
+            <img src="{{ $setting->logo ? asset('storage/' . $setting->logo) : '/pictures/home-logo.jpg' }}"
+                 height="45"
+                 class="mr-1">
+        </a>
+    </div>
+    <div class="menu">
+        <ul class="list">
+            <li>
+                <div class="user-info">
+                    <a class="image">
+                        <img alt="user-profile"
+                             src={{ Auth::user()->image ? asset('storage/' . Auth::user()->image): asset('/pictures/user-default.png') }}>
+                    </a>
+                    <div class="detail">
+                        <h6><strong>{{ Auth::user()->name }}</strong></h6>
+                        <small>{{auth()->user()->id===1 ? "مدیر سایت" : "مشاور"}}</small>
                     </div>
-                </li>
+                </div>
+            </li>
+            @can('is_admin')
                 <li @class([
                     'active open' => request()->routeIs('admin.home'),
                 ])><a href="{{route('admin.home')}}" wire:navigate><i
@@ -139,41 +139,12 @@
                                 class="zmdi zmdi-settings zmdi-hc-spin"></i><span>
                             تنظیمات سایت </span></a></li>
 
-                <!-- خروج -->
                 <li><a href=" {{ route('logout') }}" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i>
                         خروج
                     </a>
                 </li>
-                <!-- خروج -->
-            </ul>
-        </div>
-    </aside>
-@endcan
-
-@can('is_agent')
-    <aside id="leftsidebar" class="sidebar">
-        <div class="navbar-brand">
-            <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-            <a href="{{ route('home') }}" wire:navigate><img
-                        src="{{ $setting->logo ? asset('storage/logo/' . $setting->logo) : '/images/logo.png' }}"
-                        width="45" style="margin-right:20px"><span class="m-l-10"></span></a>
-
-        </div>
-        <div class="menu">
-            <ul class="list">
-                <li>
-                    <div class="user-info">
-                        <a class="image" href="{{ route('home') }}" wire:navigate>
-                            <img alt="user-profile"
-                                 src={{ Auth::user()->image ? asset('storage/profile/' . Auth::user()->image): asset('/pictures/user-default.png')}}>
-                        </a>
-
-                        <div class="detail">
-                            <h6><strong>{{ Auth::user()->name }}</strong></h6>
-                            <small>مشاور</small>
-                        </div>
-                    </div>
-                </li>
+            @endcan
+            @can('is_agent')
                 <li @class([
                     'active open' => request()->routeIs('agent.home'),
                 ])><a href="/agent/dashboard" wire:navigate><i
@@ -216,8 +187,7 @@
                         خروج
                     </a>
                 </li>
-                <!-- خروج -->
-            </ul>
-        </div>
-    </aside>
-@endcan
+            @endcan
+        </ul>
+    </div>
+</aside>
