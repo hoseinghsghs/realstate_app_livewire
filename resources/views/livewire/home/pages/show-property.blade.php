@@ -9,7 +9,7 @@
                     <div class="main-image shadow-sm rounded">
                         <a href="{{ asset('storage/preview/' . $property->img) }}" data-fancybox="gallery">
                             <img src="{{ asset('storage/preview/' . $property->img) }}" class="d-block w-100 rounded"
-                                alt="Main Image" style="max-height: 500px; object-fit: cover;">
+                                 alt="Main Image" style="max-height: 500px; object-fit: cover;">
                         </a>
                     </div>
                 </div>
@@ -19,10 +19,10 @@
                             @foreach ($property->images->take(2) as $image)
                                 <div class="small-image mb-2">
                                     <a href="{{ asset('storage/otherpreview/' . $image->name) }}"
-                                        data-fancybox="gallery">
+                                       data-fancybox="gallery">
                                         <img src="{{ asset('storage/otherpreview/' . $image->name) }}"
-                                            class="d-block w-100 rounded" alt="Property Image"
-                                            style="max-height: 150px; object-fit: cover;">
+                                             class="d-block w-100 rounded" alt="Property Image"
+                                             style="max-height: 150px; object-fit: cover;">
                                     </a>
                                 </div>
                             @endforeach
@@ -30,7 +30,7 @@
                                 <div class="small-image mb-2">
                                     <a href="javascript:void(0);" class="view-more-images" onclick="showAllImages()">
                                         <div class="d-flex justify-content-center align-items-center bg-light rounded"
-                                            style="height: 150px; border: 1px solid #ddd;">
+                                             style="height: 150px; border: 1px solid #ddd;">
                                             <span class="text-muted">+{{ $property->images->count() - 3 }} تصاویر
                                                 بیشتر</span>
                                         </div>
@@ -39,17 +39,17 @@
                                 <div id="hidden-images" style="display: none;">
                                     @foreach ($property->images->skip(3) as $image)
                                         <a href="{{ asset('storage/otherpreview/' . $image->name) }}"
-                                            data-fancybox="gallery">
+                                           data-fancybox="gallery">
                                             <img src="{{ asset('storage/otherpreview/' . $image->name) }}"
-                                                class="d-block w-100 rounded" alt="Property Image"
-                                                style="max-height: 150px; object-fit: cover;">
+                                                 class="d-block w-100 rounded" alt="Property Image"
+                                                 style="max-height: 150px; object-fit: cover;">
                                         </a>
                                     @endforeach
                                     <div class="small-image mt-2">
                                         <a href="javascript:void(0);" class="view-less-images"
-                                            onclick="hideAllImages()">
+                                           onclick="hideAllImages()">
                                             <div class="d-flex justify-content-center align-items-center bg-light rounded"
-                                                style="height: 50px; border: 1px solid #ddd;">
+                                                 style="height: 50px; border: 1px solid #ddd;">
                                                 <span class="text-muted">- نمایش کمتر</span>
                                             </div>
                                         </a>
@@ -99,7 +99,7 @@
                                 <div class="_card_list_flex mb-2">
                                     <div class="_card_flex_01">
                                         <span
-                                            class="_list_blickes types">{{ verta($property->created_at)->format('%d %B، %Y') }}</span>
+                                                class="_list_blickes types">{{ verta($property->created_at)->format('%d %B، %Y') }}</span>
                                         @if (isset($property->lable))
                                             <span class="_list_blickes _netork">{{ $property->lable }}</span>
                                         @endif
@@ -111,8 +111,8 @@
                                             @can('is_user')
                                                 <li>
                                                     <a> <i id='wished' onclick="sender('{{ $property->id }}')"
-                                                            class=" fa fa-bookmark"
-                                                            style="{{ $wishlist ? 'font-size:30px;color:green' : 'font-size:20px;color:gray' }}">
+                                                           class=" fa fa-bookmark"
+                                                           style="{{ $wishlist ? 'font-size:30px;color:green' : 'font-size:20px;color:gray' }}">
                                                         </i>
                                                     </a>
                                                 </li>
@@ -147,7 +147,7 @@
                         <div class="_prtis_list_header">
                             <ul>
                                 <li>
-                                    <div class="content_thumb"><img src="/assets/home/img/bed.svg" alt="" />
+                                    <div class="content_thumb"><img src="/assets/home/img/bed.svg" alt=""/>
                                     </div>
                                     <div class="content">
                                         <span class="dark">{{ $property->bedroom }}</span>
@@ -169,7 +169,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="content_thumb"><img src="/assets/home/img/area.svg" alt="" />
+                                    <div class="content_thumb"><img src="/assets/home/img/area.svg" alt=""/>
                                     </div>
                                     <div class="content">
                                         <span class="dark">{{ $property->meter }} مترمربع</span>
@@ -265,301 +265,301 @@
                                         مجموعه
                                     </li>
                                 @endisset
-                        </ul>
-                    </div>
-                </div>
-                @isset($property->description)
-                    <!-- Single Block Wrap -->
-                    <div class="_prtis_list mb-4">
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0">درباره <span class="theme-cl">ملک</span></h4>
-                        </div>
-                        <div class="_prtis_list_body">
-                            <p>{{ $property->description }}</p>
-                        </div>
-                    </div>
-                @endisset
-
-                @if (count($property->features) > 0)
-                    <!-- Single Block Wrap -->
-                    <div class="_prtis_list mb-4">
-
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0">همه <span class="theme-cl">امکانات رفاهی</span></h4>
-                        </div>
-
-                        <div class="_prtis_list_body">
-                            <ul class="avl-features third">
-                                @foreach ($property->features as $feature)
-                                    <li class="active">{{ $feature->name }}</li>
-                                @endforeach
                             </ul>
                         </div>
                     </div>
-                @endif
-
-                @if ($property->ambed)
-                    <!-- Single Block Wrap -->
-                    <div class="_prtis_list mb-4">
-
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0"><span class="theme-cl">ویدیو</span></h4>
-                        </div>
-
-                        <div class="_prtis_list_body">
-                            @php
-                                echo $property->ambed;
-                            @endphp:
-
-                        </div>
-                    </div>
-                @endif
-
-                @isset($property->lon)
-                    <div class="_prtis_list mb-4">
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0">موقعیت <span class="theme-cl">ملک</span></h4>
-                        </div>
-                        <div class="_prtis_list_body">
-                            <div class="map-container">
-                                <div id="smap" class="full-width"
-                                    style="height: 450px; background: #eee; border: 2px solid #aaa;"></div>
+                    @isset($property->description)
+                        <!-- Single Block Wrap -->
+                        <div class="_prtis_list mb-4">
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0">درباره <span class="theme-cl">ملک</span></h4>
+                            </div>
+                            <div class="_prtis_list_body">
+                                <p>{{ $property->description }}</p>
                             </div>
                         </div>
-                    </div>
-                @endisset
-                <!-- Single Reviews Block -->
-                {{-- <div class="_prtis_list mb-4">
+                    @endisset
 
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0">{{ $property->comments_count }} نظر <span class="theme-cl">ارسال
-                                    شده</span></h4>
-                        </div>
-                        @if ($property->comments_count > 0)
+                    @if (count($property->features) > 0)
+                        <!-- Single Block Wrap -->
+                        <div class="_prtis_list mb-4">
+
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0">همه <span class="theme-cl">امکانات رفاهی</span></h4>
+                            </div>
+
                             <div class="_prtis_list_body">
-                                <div class="author-review">
-                                    <div class="comment-list">
-                                        <ul>
-                                            @foreach ($property->comments as $comment)
-                                                <li class="article_comments_wrap">
-                                                    <article>
-                                                        <div class="article_comments_thumb">
-                                                            <img src="{{ asset('storage/profile/' . $comment->user->image) }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="comment-details">
-                                                            <div class="comment-meta">
-                                                                <div class="comment-left-meta">
-                                                                    <h4 class="author-name">{{ $comment->user->name }}
-                                                                    </h4>
-                                                                    <div class="comment-date">
-                                                                        {{ Hekmatinasser\Verta\Verta::instance($comment->created_at)->format('%d %B، %Y') }}
+                                <ul class="avl-features third">
+                                    @foreach ($property->features as $feature)
+                                        <li class="active">{{ $feature->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($property->ambed)
+                        <!-- Single Block Wrap -->
+                        <div class="_prtis_list mb-4">
+
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0"><span class="theme-cl">ویدیو</span></h4>
+                            </div>
+
+                            <div class="_prtis_list_body">
+                                @php
+                                    echo $property->ambed;
+                                @endphp:
+
+                            </div>
+                        </div>
+                    @endif
+
+                    @isset($property->lon)
+                        <div class="_prtis_list mb-4">
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0">موقعیت <span class="theme-cl">ملک</span></h4>
+                            </div>
+                            <div class="_prtis_list_body">
+                                <div class="map-container">
+                                    <div id="smap" class="full-width"
+                                         style="height: 450px; background: #eee; border: 2px solid #aaa;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    @endisset
+                    <!-- Single Reviews Block -->
+                    {{-- <div class="_prtis_list mb-4">
+
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0">{{ $property->comments_count }} نظر <span class="theme-cl">ارسال
+                                        شده</span></h4>
+                            </div>
+                            @if ($property->comments_count > 0)
+                                <div class="_prtis_list_body">
+                                    <div class="author-review">
+                                        <div class="comment-list">
+                                            <ul>
+                                                @foreach ($property->comments as $comment)
+                                                    <li class="article_comments_wrap">
+                                                        <article>
+                                                            <div class="article_comments_thumb">
+                                                                <img src="{{ asset('storage/profile/' . $comment->user->image) }}"
+                                                                    alt="">
+                                                            </div>
+                                                            <div class="comment-details">
+                                                                <div class="comment-meta">
+                                                                    <div class="comment-left-meta">
+                                                                        <h4 class="author-name">{{ $comment->user->name }}
+                                                                        </h4>
+                                                                        <div class="comment-date">
+                                                                            {{ Hekmatinasser\Verta\Verta::instance($comment->created_at)->format('%d %B، %Y') }}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="comment-text">
+                                                                    <p>{{ $comment->body }}</p>
+                                                                </div>
                                                             </div>
-                                                            <div class="comment-text">
-                                                                <p>{{ $comment->body }}</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                                <a href="#" class="reviews-checked">نظرات بیشتر</a>
-                            </div>
-                        @endif
-                    </div> --}}
-
-                <!-- Single Write a Review -->
-                {{-- <div class="_prtis_list mb-4">
-
-                        <div class="_prtis_list_header min">
-                            <h4 class="m-0">ارسال <span class="theme-cl">نظرات</span></h4>
-                        </div>
-
-                        <div class="_prtis_list_body">
-                            @guest
-                                <p>برای ثبت نظر ابتدا وارد حساب کاربری خود شوید</p>
-                            @endguest
-                            @auth
-                                <div class="row">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
+                                                        </article>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    @endif
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <form id="comment" action="{{ route('comments.register', $property->id) }}"
-                                            class="add-comment custom-form" method="POST">
-                                            @csrf
-
-                                            <div class="form-group">
-                                                <label>پیام</label>
-                                                <textarea class="form-control ht-80" name="body"
-                                                    oninvalid="this.setCustomValidity('لطفا متن نظر خود را وارد کنید')" oninput="setCustomValidity('')" required></textarea>
-                                            </div>
                                     </div>
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="form-group">
-                                            <button class="btn theme-bg-2 rounded" type="submit">ارسال نظر</button>
-                                        </div>
-                                    </div>
-                                    </form>
+                                    <a href="#" class="reviews-checked">نظرات بیشتر</a>
                                 </div>
-                            @endauth
-                        </div>
+                            @endif
+                        </div> --}}
 
-                    </div> --}}
+                    <!-- Single Write a Review -->
+                    {{-- <div class="_prtis_list mb-4">
 
-            </div>
-
-            <!-- property Sidebar -->
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="property-sidebar">
-
-                    <!-- Agent Detail -->
-                    <div class="sider_blocks_wrap">
-                        <div class="side-booking-body">
-                            <div class="agent-_blocks_title">
-
-                                <div class="agent-_blocks_thumb"><img
-                                        src="{{ asset('storage/profile/' . $user->image) }}"
-                                        alt="{{ $user->name }}"></div>
-                                <div class="agent-_blocks_caption">
-                                    <h4><a
-                                            href="{{ route('properties.list', ['user_id' => $user->id]) }}">{{ $user->name }}</a>
-                                    </h4>
-                                    <span class="approved-agent"><i class="ti-check"></i>تعداد ملک ثبت شده:
-                                        {{ $user->properties_count }}</span>
-                                </div>
-                                <div class="clearfix"></div>
+                            <div class="_prtis_list_header min">
+                                <h4 class="m-0">ارسال <span class="theme-cl">نظرات</span></h4>
                             </div>
 
-                            <a href="tel:{{ $user->phone }}" class="agent-btn-contact"><i
-                                    class="ti-mobile"></i>تماس</a>
+                            <div class="_prtis_list_body">
+                                @guest
+                                    <p>برای ثبت نظر ابتدا وارد حساب کاربری خود شوید</p>
+                                @endguest
+                                @auth
+                                    <div class="row">
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <form id="comment" action="{{ route('comments.register', $property->id) }}"
+                                                class="add-comment custom-form" method="POST">
+                                                @csrf
 
-                            <span id="number" data-last="{{ $user->phone }}">
+                                                <div class="form-group">
+                                                    <label>پیام</label>
+                                                    <textarea class="form-control ht-80" name="body"
+                                                        oninvalid="this.setCustomValidity('لطفا متن نظر خود را وارد کنید')" oninput="setCustomValidity('')" required></textarea>
+                                                </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <button class="btn theme-bg-2 rounded" type="submit">ارسال نظر</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+                                @endauth
+                            </div>
+
+                        </div> --}}
+
+                </div>
+
+                <!-- property Sidebar -->
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="property-sidebar">
+
+                        <!-- Agent Detail -->
+                        <div class="sider_blocks_wrap">
+                            <div class="side-booking-body">
+                                <div class="agent-_blocks_title">
+
+                                    <div class="agent-_blocks_thumb"><img
+                                                src="{{ $user->image ? asset('storage/profile/' . $user->image) : asset('/pictures/user-default.png') }}"
+                                                alt="{{ $user->name }}"></div>
+                                    <div class="agent-_blocks_caption">
+                                        <h4><a
+                                                    href="{{ route('properties.list', ['user_id' => $user->id]) }}">{{ $user->name }}</a>
+                                        </h4>
+                                        <span class="approved-agent"><i class="ti-check"></i>تعداد ملک ثبت شده:
+                                        {{ $user->properties_count }}</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <a href="tel:{{ $user->phone }}" class="agent-btn-contact"><i
+                                            class="ti-mobile"></i>تماس</a>
+
+                                <span id="number" data-last="{{ $user->phone }}">
                                 <span><i class="ti-headphone-alt"></i><a class="see">نمایش شماره...</a></span>
                             </span>
+                            </div>
                         </div>
-                    </div>
-                    @if (count($similar_properties) > 0)
-                        <!-- Featured Property -->
-                        <div class="sidebar-widgets">
-                            <h4>املاک مشابه</h4>
-                            <div class="sidebar_featured_property">
-                                <!-- List Sibar Property -->
-                                @foreach ($similar_properties as $sProperty)
-                                    <div class="sides_list_property">
-                                        <div class="sides_list_property_thumb">
-                                            <img src="{{ asset('storage/preview/' . $sProperty->img) }}"
-                                                class="img-fluid" alt="{{ $sProperty->title }}" />
-                                        </div>
-                                        <div class="sides_list_property_detail">
-                                            <h4><a
-                                                    href="{{ route('properties.show', $sProperty->id) }}">{{ $sProperty->title }}</a>
-                                            </h4>
-                                            <span><i class="ti-location-pin"></i> {{ $sProperty->province }} ،
+                        @if (count($similar_properties) > 0)
+                            <!-- Featured Property -->
+                            <div class="sidebar-widgets">
+                                <h4>املاک مشابه</h4>
+                                <div class="sidebar_featured_property">
+                                    <!-- List Sibar Property -->
+                                    @foreach ($similar_properties as $sProperty)
+                                        <div class="sides_list_property">
+                                            <div class="sides_list_property_thumb">
+                                                <img src="{{ asset('storage/preview/' . $sProperty->img) }}"
+                                                     class="img-fluid" alt="{{ $sProperty->title }}"/>
+                                            </div>
+                                            <div class="sides_list_property_detail">
+                                                <h4><a
+                                                            href="{{ route('properties.show', $sProperty->id) }}">{{ $sProperty->title }}</a>
+                                                </h4>
+                                                <span><i class="ti-location-pin"></i> {{ $sProperty->province }} ،
                                                 {{ $sProperty->city }} ، {{ $sProperty->district }} </span>
-                                            <div class="lists_property_price">
-                                                @if ($sProperty->tr_type === 'رهن و اجاره')
-                                                    <div class="lists_property_types">
-                                                        <div class="property_types_vlix">برای اجاره</div>
-                                                    </div>
-                                                    <div class="lists_property_price_value">
-                                                        <strong>رهن:</strong>
-                                                        <h4>
-                                                            {{ $sProperty->rahn == null ? '' : number_format($sProperty->rahn) }}
+                                                <div class="lists_property_price">
+                                                    @if ($sProperty->tr_type === 'رهن و اجاره')
+                                                        <div class="lists_property_types">
+                                                            <div class="property_types_vlix">برای اجاره</div>
+                                                        </div>
+                                                        <div class="lists_property_price_value">
+                                                            <strong>رهن:</strong>
+                                                            <h4>
+                                                                {{ $sProperty->rahn == null ? '' : number_format($sProperty->rahn) }}
 
-                                                            تومان</h4>
-                                                        <strong>اجاره:</strong>
-                                                        <h4>
-                                                            {{ $sProperty->rent == null ? '' : number_format($sProperty->rent) }}
+                                                                تومان</h4>
+                                                            <strong>اجاره:</strong>
+                                                            <h4>
+                                                                {{ $sProperty->rent == null ? '' : number_format($sProperty->rent) }}
 
-                                                            تومان</h4>
-                                                    </div>
-                                                @else
-                                                    <div class="lists_property_types">
-                                                        <div class="property_types_vlix sale">برای فروش</div>
-                                                    </div>
-                                                    <div class="lists_property_price_value">
-                                                        <h4>
-                                                            {{ $sProperty->bidprice == null ? '' : number_format($sProperty->bidprice) }}
-                                                            تومان</h4>
-                                                    </div>
-                                                @endif
+                                                                تومان</h4>
+                                                        </div>
+                                                    @else
+                                                        <div class="lists_property_types">
+                                                            <div class="property_types_vlix sale">برای فروش</div>
+                                                        </div>
+                                                        <div class="lists_property_price_value">
+                                                            <h4>
+                                                                {{ $sProperty->bidprice == null ? '' : number_format($sProperty->bidprice) }}
+                                                                تومان</h4>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
+
                             </div>
-
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-</section>
-<!-- ============================ Property Detail End ================================== -->
+    </section>
+    <!-- ============================ Property Detail End ================================== -->
 </div>
 
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-<link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"/>
+    <link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
 @endpush
 @push('scripts')
-<!-- neshan map -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <!-- neshan map -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL">
-</script>
-<script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
-<script>
-    var iconFeature = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.transform([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>],
-            'EPSG:4326', 'EPSG:3857')),
-        name: 'Null Island',
-        population: 4000,
-        rainfall: 500
-    });
-    var iconStyle = new ol.style.Style({
-        image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
-            anchor: [0.5, 46],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            opacity: 0.75,
-            src: '/images/icons8-home-address-48.png'
-        }))
-    });
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL">
+    </script>
+    <script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
+    <script>
+        var iconFeature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.transform([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>],
+                'EPSG:4326', 'EPSG:3857')),
+            name: 'Null Island',
+            population: 4000,
+            rainfall: 500
+        });
+        var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon( /** @type {olx.style.IconOptions} */ ({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                opacity: 0.75,
+                src: '/images/icons8-home-address-48.png'
+            }))
+        });
 
-    iconFeature.setStyle(iconStyle);
+        iconFeature.setStyle(iconStyle);
 
-    var vectorSource = new ol.source.Vector({
-        features: [iconFeature]
-    });
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource
-    });
-    var myMap = new ol.Map({
-        layers: [new ol.layer.Tile({
-            source: new ol.source.OSM()
-        }), vectorLayer],
-        target: 'smap',
-        key: <?php echo "'" . $setting->apiKey . "'"; ?>,
-        maptype: 'dreamy',
-        poi: true,
-        traffic: false,
-        view: new ol.View({
-            center: ol.proj.fromLonLat([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>]),
+        var vectorSource = new ol.source.Vector({
+            features: [iconFeature]
+        });
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        var myMap = new ol.Map({
+            layers: [new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }), vectorLayer],
+            target: 'smap',
+            key: <?php echo "'" . $setting->apiKey . "'"; ?>,
+            maptype: 'dreamy',
+            poi: true,
+            traffic: false,
+            view: new ol.View({
+                center: ol.proj.fromLonLat([<?php echo $property->lon; ?>, <?php echo $property->lat; ?>]),
             zoom: 16,
         })
     });
