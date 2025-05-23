@@ -125,7 +125,7 @@
                                                         <td>
                                                             {{ $user->name }}
                                                         </td>
-                                                        <td><span class="text-muted">{{ $user->role->slug }}</span></td>
+                                                        <td><span class="text-muted">{{ $user->role->display_name }}</span></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

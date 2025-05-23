@@ -6,6 +6,7 @@ use App\Models\Feature;
 use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Livewire\Forms\CreatPropertyForm;
 use Livewire\WithPagination;
@@ -16,7 +17,8 @@ class PropertyComponent extends Component
 
     public $numberOfPaginatorsRendered = [];
     protected $paginationTheme = 'bootstrap';
-
+    #[Url]
+    public $type_property='';
     public $tr_type;
     public $type;
     public $district;
@@ -85,7 +87,7 @@ class PropertyComponent extends Component
                 return $query->whereHas('floors_sell', function ($query) {
                     $query->whereBetween(DB::raw('CAST(floor AS SIGNED)'), $this->deal_floor_range);
                 });
-            })->when(request()->query('type_property') === 'advertise', function ($query) {
+            })->when($this->type_property === 'advertise', function ($query) {
                 return $query->whereHas('user', function ($query) {
                     $query->where('role_id', 3);
                 });
