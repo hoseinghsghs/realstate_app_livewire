@@ -409,5 +409,8 @@
         $wire.$set('filter.bedroom', $(this).val());
     });
 
+    window.addEventListener("popstate", function (event) {
+        window.location.reload();
+    });
 </script>
 @endscript

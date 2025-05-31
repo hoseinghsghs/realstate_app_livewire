@@ -738,60 +738,64 @@
     @include('livewire.home.partials.send-message')
 </div>
 @script
-    <script>
-        $body = $("body");
-        $(document).on({
-            ajaxStart: function() {
-                $body.addClass("loading");
-            },
-            ajaxStop: function() {
-                $body.removeClass("loading");
-            }
-        });
-        $(document).ready(function() {
-            $("#price,#rahn,#rent").hide();
-            $(document).on('change', '#tr_type', function(e) {
-                if (this.value === 'فروش') {
-                    $('#price').show();
-                    $('#rahn,#rent').hide();
-                } else if (this.value === 'رهن و اجاره') {
-                    $('#price').hide();
-                    $('#rahn,#rent').show();
-                } else {
-                    $("#price,#rahn,#rent").hide();
-                }
-            })
-        });
-
-        $.fn.digits = function() {
-            return this.each(function() {
-                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-            })
+<script>
+    $body = $("body");
+    $(document).on({
+        ajaxStart: function () {
+            $body.addClass("loading");
+        },
+        ajaxStop: function () {
+            $body.removeClass("loading");
         }
-        $("h6.numbers").digits();
+    });
+    $(document).ready(function () {
+        $("#price,#rahn,#rent").hide();
+        $(document).on('change', '#tr_type', function (e) {
+            if (this.value === 'فروش') {
+                $('#price').show();
+                $('#rahn,#rent').hide();
+            } else if (this.value === 'رهن و اجاره') {
+                $('#price').hide();
+                $('#rahn,#rent').show();
+            } else {
+                $("#price,#rahn,#rent").hide();
+            }
+        })
+    });
 
-        $('#deal_type').select2({
-            dir: "rtl",
-            placeholder: "انتخاب",
-            allowClear: true,
-        }).on('change', function() {
-            $wire.$set('deal_type', $(this).val());
-        });
+    $.fn.digits = function () {
+        return this.each(function () {
+            $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+        })
+    }
+    $("h6.numbers").digits();
 
-        $('#type').select2({
-            dir: "rtl",
-            placeholder: "انتخاب",
-            allowClear: true,
-        }).on('change', function() {
-            $wire.$set('property_type', $(this).val());
-        });
+    $('#deal_type').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('deal_type', $(this).val());
+    });
 
-        $('#district').select2({
-            dir: "rtl",
-            placeholder: "انتخاب",
-            allowClear: true,
-        }).on('change', function() {
-            $wire.$set('district', $(this).val());
-        });
-    </script>
+    $('#type').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('property_type', $(this).val());
+    });
+
+    $('#district').select2({
+        dir: "rtl",
+        placeholder: "انتخاب",
+        allowClear: true,
+    }).on('change', function () {
+        $wire.$set('district', $(this).val());
+    });
+
+    window.addEventListener("popstate", function (event) {
+        window.location.reload();
+    });
+</script>
 @endscript
