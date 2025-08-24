@@ -1,6 +1,7 @@
 @section('title', 'لیست املاک')
 
 <section class="gray pt-4">
+
     <div class="container">
         <!-- <div class="row m-0">
             <div class="short_wraping">
@@ -269,14 +270,19 @@
             </div>
         </div>
     </div>
+
 </section>
 
-@script
+@push('scripts')
     <script>
         window.addEventListener("popstate", function(event) {
             history.replaceState(null, null, window.location.href);
             window.location.reload(true); // true برای بارگذاری مجدد بدون کش
         });
+    </script>
+@endpush
+@script
+    <script>
         // range sliders
         $(".price-range-slider").ionRangeSlider({
             rtl: true,

@@ -730,13 +730,16 @@
     <!-- ============================ Call To Action End ================================== -->
     @include('livewire.home.partials.send-message')
 </div>
-@script
+
+@push('scripts')
     <script>
         window.addEventListener("popstate", function(event) {
-            history.replaceState(null, null, window.location.href);
+            // history.replaceState(null, null, window.location.href);
             window.location.reload(true); // true برای بارگذاری مجدد بدون کش
         });
     </script>
+@endpush
+@script
     <script>
         $body = $("body");
         $(document).on({
